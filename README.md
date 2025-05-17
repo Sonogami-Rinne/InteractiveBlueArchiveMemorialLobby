@@ -1,6 +1,6 @@
 # BlueArchiveLobby
 
-This template should help get you started developing with Vue 3 in Vite.
+使用vite框架的基于spine-pixi-v8的离线碧蓝档案可互动记忆大厅
 
 ## Recommended IDE Setup
 
