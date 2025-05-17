@@ -2,27 +2,21 @@
 
 使用vite框架的基于spine-pixi-v8的离线碧蓝档案可互动记忆大厅
 
-## Recommended IDE Setup
+## 特点
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+可互动，目前支持摸头，眼部跟随
 
-## Customize configuration
+## 启动
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
+和大多数vite项目一样，使用以下指令启动
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## 打包
+
+执行以下指令即可打包。打包之后的项目无需构建服务器，直接打开index.html即可运行。(可能要更改部分)
 
 ```sh
 npm run build
