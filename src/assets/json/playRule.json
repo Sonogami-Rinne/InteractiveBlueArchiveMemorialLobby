@@ -1,0 +1,56 @@
+{
+    "default": {
+        "home": {
+            "before":{
+                "name": "Start_Idle_01"
+            },
+            "main":{
+                "name": "Idle_01"
+            }
+        },
+        "pat":{
+            "main":{
+                "name": "Pat_01_A",
+                "modify": "Pat_01_M"
+            },
+            "after":{
+                "name": "PatEnd_01_A",
+                "modify":"PatEnd_01_M"
+            }
+        },
+        "look":{
+            "main":{
+                "name":"Look_01_M"
+            },
+            "after":{
+                "name":"LookEnd_01_A",
+                "modify":"LookEnd_01_M"
+            }
+        }
+    },
+    "Wakamo": {
+        "bg": [
+            {
+                "name": "Start_Idle_01",
+                "duration": 12,
+                "effect":[
+                    {
+                        "name":"wakamo_flame"
+                    },
+                    {
+                        "name":"transition",
+                        "delay":-1
+                    }
+                ]
+            }
+        ],
+        "home": [
+            {
+                "name": "Start_Idle_01"
+            },
+            {
+                "name": "Idle_01"
+            }
+        ]
+    }
+}
