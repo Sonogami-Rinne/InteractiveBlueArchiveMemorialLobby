@@ -8,8 +8,9 @@ fun = async (str) => {
   return raw.default
 }
 
-const ifSpineDebug = true;
+const ifSpineDebug = false;
 const spineDebugger = new spine.SpineDebugRenderer();
+let lastDebugTimeStamp = 0;
 
 const language = 'chs'
 const spineScale = 1
@@ -34,9 +35,21 @@ let setBonePosition = (ev) => { }
 let isDragging = false
 let touchBoneList = []
 let currentTouchBoneInfo = []
-let spineAnimationListener = null;
 let currentTalkSentence = 0;
-
+const backgroundAudio = new Audio();
+let voiceAudioMap = {};
+let resourceMap = null;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+let currentVoiceName = null;//在切换角色前一定要先暂停当前voiceAudio的播放！！！
 
 //<---base
 
@@ -61,16 +74,19 @@ const fetchData = async () => {
   studentList.value = data.default.map(item => ({
     id: item['id'],
     sid: item['id'],
-    name: item['name'][language].substring(item['name'][language].indexOf(' ')+1),
+    name: item['name'][language].substring(item['name'][language].indexOf(' ') + 1),
     academy: item['academy'],
     club: item['club'],
-    resource: item['resource']
+    resourceId: item['resource']
   }));
 
   filteredStudentList.value = studentList.value
 
   data = await import('@json/playRule.json')
   playRule = data.default
+
+  data = await import('@json/resource.json')
+  resourceMap = data.default
 
   data = localStorage.getItem('currentPlay')
   currentPlay.value = JSON.parse(data || '{}')
@@ -131,7 +147,7 @@ const clubSelected = () => {
   refreshStudentFilter()
 }
 const cloneItem = (obj) => {
-  return { ...obj, id: Date.now(), name: obj.name, resource: obj.resource, multiLobby: obj.multiLobby }
+  return { ...obj, id: Date.now(), name: obj.name, resourceId: obj.resourceId, multiLobby: obj.multiLobby }
 }
 const playListOnStart = (eve) => {
   if (deleteArea == null) deleteArea = document.getElementById("deleteArea")
@@ -215,9 +231,14 @@ const spineInit = async (name) => {
   spineStudent.state.data.defaultMix = 0.2;
   app.stage.addChild(spineStudent);
 
-  if(ifSpineDebug) spineDebug();
+  if (ifSpineDebug) spineDebug();
 
   //animationListener
+  spineStudent.state.addListener({
+    event: (entry, event) => {
+      audioControl(event.stringValue)
+    }
+  });
 
   spineResize();
 
@@ -250,11 +271,17 @@ const spineInit = async (name) => {
       currentTouchBoneInfo[0].y -= clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / window.innerWidth, -100, 100)
       currentTouchBoneInfo[0].x -= clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / window.innerHeight, -100, 100)
     }
+    if (ifSpineDebug && Date.now() - lastDebugTimeStamp > 100) {
+      spineDebugger.renderDebug(spineStudent);
+      lastDebugTimeStamp = Date.now();
+    }
   }
 
   currentTalkSentence = 0;
 
-  spineAnimationControl('None','start')
+  await audioInit();
+
+  spineAnimationControl('None', 'start')
 }
 const spineResize = () => {
   if (spineStudent == null) return;
@@ -281,11 +308,10 @@ const spinePlayAnimation = (data) => {
   let isFirst = true;
   //0:slot,1:loop,2:delay
   Object.entries(data).forEach(([name, value]) => {
-    console.log(name, value)
     if (isFirst && name != 'None') {
       isFirst = false;
       spineStudent.state.setAnimation(value[0], name, value[1]);
-      console.log("a")
+      if (value[3] != null) audioControl()
     }
     else if (name == 'None') {
       spineStudent.state.addEmptyAnimation(value[0], 0.1, value[1])
@@ -304,6 +330,7 @@ const spineAnimationControl = (name, status) => {
     const before = currentRule[type]['before'] || {};
     Object.entries(before).forEach(([key, value]) => {
       target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
+      if (value['audio']) target[key].push(0)
     });
   }
   const main = currentRule[type]['main'];
@@ -316,9 +343,50 @@ const spineAnimationControl = (name, status) => {
       target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
     });
   }
-  console.log(target)
   spinePlayAnimation(target);
 }
+
+const audioControl = (name) => {
+  if (name && voiceAudioMap[name]) {
+    voiceAudioMap[name].play();
+  }
+  else {
+    backgroundAudio.play();
+  }
+}
+
+const audioInit = async () => {
+  const events = spineStudent.skeleton.data.events;
+  let count = 1;
+
+  backgroundAudio.pause();
+  backgroundAudio.src="";
+  backgroundAudio.load();
+
+  backgroundAudio.src = `./bgm/${resourceMap[currentPlay.value.resourceId]['bgm']}`;
+  backgroundAudio.addEventListener('canplaythrough', () => { count-- }, { once: true });
+  backgroundAudio.addEventListener('error', () => count--);
+
+  voiceAudioMap = {};
+  events.forEach(event => {
+    if (event.audioPath && event.audioPath.length > 0) {
+      count++;
+
+      const path = `./voice/${event.audioPath.replace(".wav", ".ogg").toLowerCase()}`;
+      const audio = new Audio();
+      audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
+      audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}`) }, { once: true });
+      audio.src = path;
+      voiceAudioMap[event.name] = audio;
+    }
+  });
+  const timeout = 10000;
+  const start = Date.now();
+  while (count > 0 && Date.now() - start < timeout) {
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+};
+
 
 //--->
 
@@ -332,12 +400,14 @@ const spineAnimationControl = (name, status) => {
 
 const test = async () => {
   currentPlay.value = cloneItem(studentList.value[0])
-  await spineInit(currentPlay.value['resource'])
+  await spineInit(currentPlay.value['resourceId'])
+
+  // console.log(spineStudent.skeleton.data.events)
   //spineResize()
   //spinePlayAnimation({ "Idle_01": [0] });
 }
 
-const spineDebug = () =>{
+const spineDebug = () => {
   spineDebugger.drawClipping = false;
   spineDebugger.drawBoundingBoxes = false;
   spineDebugger.drawRegionAttachments = false;
@@ -348,11 +418,14 @@ const spineDebug = () =>{
 }
 
 
-const initialize = async() => {
+const initialize = async () => {
   await fetchData();
   deleteArea = document.getElementById('deleteArea')
+  backgroundAudio.loop = true;
+
   await PIXIInitialize()
   test()
+
   window.addEventListener('resize', () => {
     spineResize()
   })
@@ -376,6 +449,7 @@ onMounted(() => {
     </path>
   </svg>
   <el-drawer v-model="drawer" :with-header="false" size="70%">
+
     <el-container style="height: 100%">
       <el-aside class="drawer-asides">
         <el-row>
@@ -393,7 +467,7 @@ onMounted(() => {
             :onChoose="playListOnChoose" :onEnd="playListOnEnd" :onMove="playListOnMove" class="grid-draggable"
             style="grid-template-columns: repeat(4, 90px);overflow-x: hidden;">
             <div v-for="item in playList" :key="item.id" class="grid-draggable-item" :value="item.id">
-              <img :src="'/portrait/' + item.resource + '.png'" style="width:100%;object-fit: cover;">
+              <img :src="'./portrait/' + item.resource + '.png'" style="width:100%;object-fit: cover;">
               <p style="text-align: center;padding: 0px;margin:0px;font-size: small;">{{ item.name }}</p>
             </div>
           </VueDraggable>
@@ -434,7 +508,7 @@ onMounted(() => {
                 :clone="cloneItem" :sort="false" :onEnd="(ev) => { asideVisible = playList.length != 0 }"
                 class="grid-draggable">
                 <div v-for="item in filteredStudentList" :key="item.id" class="grid-draggable-item" :value="item.id">
-                  <img :src="'/portrait/' + item.resource + '.png'" style="width:100%;object-fit: cover;">
+                  <img :src="'./portrait/' + item.resourceId + '.png'" style="width:100%;object-fit: cover;">
                   <p style="text-align: center;padding: 0px;margin:0px;font-size: small;">{{ item.name }}</p>
                 </div>
               </VueDraggable>

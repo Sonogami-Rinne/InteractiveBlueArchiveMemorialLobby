@@ -3,7 +3,8 @@
         "home": {
             "before": {
                 "Start_Idle_01": {
-                    "slot": 0
+                    "slot": 0,
+                    "audio":1
                 }
             },
             "main": {
