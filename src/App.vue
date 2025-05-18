@@ -8,6 +8,9 @@ fun = async (str) => {
   return raw.default
 }
 
+const ifSpineDebug = true;
+const spineDebugger = new spine.SpineDebugRenderer();
+
 const language = 'chs'
 const spineScale = 1
 const drawer = ref(false)//菜单显示与否
@@ -212,6 +215,8 @@ const spineInit = async (name) => {
   spineStudent.state.data.defaultMix = 0.2;
   app.stage.addChild(spineStudent);
 
+  if(ifSpineDebug) spineDebug();
+
   //animationListener
 
   spineResize();
@@ -332,6 +337,15 @@ const test = async () => {
   //spinePlayAnimation({ "Idle_01": [0] });
 }
 
+const spineDebug = () =>{
+  spineDebugger.drawClipping = false;
+  spineDebugger.drawBoundingBoxes = false;
+  spineDebugger.drawRegionAttachments = false;
+  spineDebugger.drawMeshHull = false;
+  spineDebugger.drawMeshTriangles = false;
+  spineDebugger.drawPaths = false;
+  spineDebugger.registerSpine(spineStudent)
+}
 
 
 const initialize = async() => {
