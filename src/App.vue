@@ -42,7 +42,7 @@ const clamp = (value,min,max) =>{
 const checkInBounds = (x, y, px, py, halfWidth, halfHeight) => {
   return Math.abs(x - px) < halfWidth && Math.abs(y - py) < halfHeight;
 }
-const fetchJson = async () => {
+const fetchData = async () => {
   let data = await import('@json/academy.json')
   data.default.forEach((item) => {
     academyNameList[item['name'][language]] = item['id']
@@ -65,12 +65,29 @@ const fetchJson = async () => {
 
   filteredStudentList.value = studentList.value
 
-  data = await import('@json/restored.json')
-  currentPlay.value = data.default ? data.default.currentPlay : null
-  playList.value = data.default ? data.default.playList : []
-
   data = await import('@json/playRule.json')
   playRule = data.default
+
+  data = localStorage.getItem('currentPlay')
+  currentPlay.value = JSON.parse(data || '{}')
+
+  data = localStorage.getItem('playList')
+  playList.value = JSON.parse(data || '[]')
+
+  data = localStorage.getItem('ifRandom')
+  ifRandom.value = data == 'true'
+
+  data = localStorage.getItem('duration')
+  duration.value = parseInt(data || '0')
+}
+
+const saveData = (key, value)=>{
+  if (typeof value == 'object'){
+  localStorage.setItem(key, JSON.stringify(value))
+  }
+  else{
+    localStorage.setItem(key, value.toString())
+  }
 }
 
 //--->
@@ -284,9 +301,11 @@ const spineAnimationControl = (name,status)=>{
   const currentRule = (currentPlay.value == null || playRule[currentPlay.value['sid']] == null) ? playRule['-1'] : playRule[currentPlay.value['sid'].toString()];
   const target = []
   if (status == 'start'){
-    const before = currentRule[type];
+    const before = currentRule[type]['before'];
     if (before){
-      target.push
+      if(before['name']){
+        target[before['name']] = []
+      }
     }
   }
 }
@@ -312,7 +331,7 @@ const test = async () => {
 
 
 onMounted(() => {
-  fetchJson();
+  fetchData();
   deleteArea = document.getElementById('deleteArea')
   PIXIInitialize()
   test()
