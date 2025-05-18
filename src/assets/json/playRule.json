@@ -1,34 +1,51 @@
 {
-    "default": {
+    "-1": {
         "home": {
-            "before":{
-                "0": "Start_Idle_01"
+            "before": {
+                "Start_Idle_01": {
+                    "slot": 0
+                }
             },
-            "main":{
-                "0": "Idle_01"
+            "main": {
+                "Idle_01": {
+                    "slot": 0,
+                    "loop": "true"
+                }
             }
         },
-        "pat":{
-            "main":{
-                "1": "Pat_01_A",
-                "2": "Pat_01_M"
+        "pat": {
+            "main": {
+                "Pat_01_A": {
+                    "slot": 1
+                },
+                "Pat_01_M": {
+                    "slot": 2
+                }
             },
-            "after":{
-                "1": "PatEnd_01_A",
-                "2":"PatEnd_01_M"
+            "after": {
+                "PatEnd_01_A": {
+                    "slot": 1
+                },
+                "PatEnd_01_M": {
+                    "slot": 2
+                }
             }
         },
-        "look":{
-            "main":{
-                "2":"Look_01_M"
+        "look": {
+            "main": {
+                "Look_01_M": {
+                    "slot": 2
+                }
             },
-            "after":{
-                "1":"LookEnd_01_A",
-                "2":"LookEnd_01_M"
+            "after": {
+                "LookEnd_01_A": {
+                    "slot": 1
+                },
+                "LookEnd_01_M": {
+                    "slot": 2
+                }
             }
         }
     },
-    "Wakamo": {
-
-    }
+    "Wakamo": {}
 }

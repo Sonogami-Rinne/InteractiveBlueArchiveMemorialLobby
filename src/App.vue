@@ -32,11 +32,12 @@ let isDragging = false
 let touchBoneList = []
 let currentTouchBoneInfo = []
 let spineAnimationListener = null;
+let currentTalkSentence = 0;
 
 
 //<---base
 
-const clamp = (value,min,max) =>{
+const clamp = (value, min, max) => {
   return value < min ? min : (value > max ? max : value);
 }
 const checkInBounds = (x, y, px, py, halfWidth, halfHeight) => {
@@ -56,8 +57,8 @@ const fetchData = async () => {
   data = await import('@json/student.json')
   studentList.value = data.default.map(item => ({
     id: item['id'],
-    sid:item['id'],
-    name: item['name'][language].substring(item['name'][language].indexOf(' ')),
+    sid: item['id'],
+    name: item['name'][language].substring(item['name'][language].indexOf(' ')+1),
     academy: item['academy'],
     club: item['club'],
     resource: item['resource']
@@ -81,11 +82,11 @@ const fetchData = async () => {
   duration.value = parseInt(data || '0')
 }
 
-const saveData = (key, value)=>{
-  if (typeof value == 'object'){
-  localStorage.setItem(key, JSON.stringify(value))
+const saveData = (key, value) => {
+  if (typeof value == 'object') {
+    localStorage.setItem(key, JSON.stringify(value))
   }
-  else{
+  else {
     localStorage.setItem(key, value.toString())
   }
 }
@@ -127,7 +128,7 @@ const clubSelected = () => {
   refreshStudentFilter()
 }
 const cloneItem = (obj) => {
-  return { ...obj, id: Date.now() }
+  return { ...obj, id: Date.now(), name: obj.name, resource: obj.resource, multiLobby: obj.multiLobby }
 }
 const playListOnStart = (eve) => {
   if (deleteArea == null) deleteArea = document.getElementById("deleteArea")
@@ -190,7 +191,7 @@ const PIXIInitialize = async () => {
     if (currentTouchBoneInfo.length > 0) {
       currentTouchBoneInfo[0].x = 0;
       currentTouchBoneInfo[0].y = 0;
-      spineAnimationControl(currentTouchBoneInfo[0].data.name,'end');
+      spineAnimationControl(currentTouchBoneInfo[0].data.name, 'end');
       currentTouchBoneInfo = [];
     }
   });
@@ -224,7 +225,7 @@ const spineInit = async (name) => {
   setBonePosition = (ev) => {
     const pointx = ev.data.global.x;
     const pointy = ev.data.global.y;
-    if (currentTouchBoneInfo.length > 0){
+    if (currentTouchBoneInfo.length > 0) {
       currentTouchBoneInfo[2] = pointx;
       currentTouchBoneInfo[3] = pointy;
       return;
@@ -233,7 +234,7 @@ const spineInit = async (name) => {
     for (let { bone, point } of touchBoneList) {
       if (checkInBounds(pointx, pointy, point.x, point.y, 50, 20)) {
         currentTouchBoneInfo = [bone, point, pointx, pointy]
-        spineAnimationControl(bone.data.name,'start')
+        spineAnimationControl(bone.data.name, 'start')
         return;
       }
       isFirst = false;
@@ -241,11 +242,14 @@ const spineInit = async (name) => {
   }
   spineStudent.beforeUpdateWorldTransforms = () => {
     if (currentTouchBoneInfo.length > 0) {
-      currentTouchBoneInfo[0].y -= clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / window.innerWidth,-20,100)
-      currentTouchBoneInfo[0].x -= clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / window.innerHeight,-100,100)
+      currentTouchBoneInfo[0].y -= clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / window.innerWidth, -100, 100)
+      currentTouchBoneInfo[0].x -= clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / window.innerHeight, -100, 100)
     }
   }
 
+  currentTalkSentence = 0;
+
+  spineAnimationControl('None','start')
 }
 const spineResize = () => {
   if (spineStudent == null) return;
@@ -268,46 +272,47 @@ const spineResize = () => {
   spineStudent.y = centerY - localCenterY * scale;
 }
 //idle和startIdle在0，A在1,M在2
-const spinePlayAnimation = (data, status) => {
+const spinePlayAnimation = (data) => {
   let isFirst = true;
+  //0:slot,1:loop,2:delay
   Object.entries(data).forEach(([name, value]) => {
-    if (isFirst && name != 'None'){
+    console.log(name, value)
+    if (isFirst && name != 'None') {
       isFirst = false;
-      spineStudent.state.setAnimation(value[0], name, true);
+      spineStudent.state.setAnimation(value[0], name, value[1]);
+      console.log("a")
     }
-    else if (name == 'None'){
-      spineStudent.state.addEmptyAnimation(value[0],0.1,value[2])
+    else if (name == 'None') {
+      spineStudent.state.addEmptyAnimation(value[0], 0.1, value[1])
     }
-    else{
-      spineStudent.state.addAnimation(value[0], name, value[1], true);
+    else {
+      spineStudent.state.addAnimation(value[0], name, value[1], value[2]);
     }
-    // if (isFirst) {
-    //   isFirst = false;
-    //   if (name != 'None') {
-    //     spineStudent.state.setAnimation(value[0], name, true);
-    //   }
-    //   else{
-    //     spineStudent.state.addEmptyAnimation(value[0],0.1,value[2])
-    //   }
-    // }
-    // else {
-    //   spineStudent.state.addAnimation(value[0], name, value[1], true);
-    // }
   });
 }
 
-const spineAnimationControl = (name,status)=>{
+const spineAnimationControl = (name, status) => {
   const type = name == 'Touch_Point_Key' ? 'pat' : name == 'Touch_Eye_Key' ? 'look' : name == 'None' ? 'home' : 'chin';
   const currentRule = (currentPlay.value == null || playRule[currentPlay.value['sid']] == null) ? playRule['-1'] : playRule[currentPlay.value['sid'].toString()];
-  const target = []
-  if (status == 'start'){
-    const before = currentRule[type]['before'];
-    if (before){
-      if(before['name']){
-        target[before['name']] = []
-      }
-    }
+  const target = {}
+  if (status == 'start') {
+    const before = currentRule[type]['before'] || {};
+    Object.entries(before).forEach(([key, value]) => {
+      target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
+    });
   }
+  const main = currentRule[type]['main'];
+  Object.entries(main).forEach(([key, value]) => {
+    target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
+  });
+  if (status == 'end') {
+    const after = currentRule[type]['after'] || {};
+    Object.entries(after).forEach(([key, value]) => {
+      target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
+    });
+  }
+  console.log(target)
+  spinePlayAnimation(target);
 }
 
 //--->
@@ -321,23 +326,26 @@ const spineAnimationControl = (name,status)=>{
 //<---other
 
 const test = async () => {
-  await spineInit('Airi')
+  currentPlay.value = cloneItem(studentList.value[0])
+  await spineInit(currentPlay.value['resource'])
   //spineResize()
-  spinePlayAnimation({ "Idle_01": [0] });
+  //spinePlayAnimation({ "Idle_01": [0] });
 }
 
 
 
-
-
-onMounted(() => {
-  fetchData();
+const initialize = async() => {
+  await fetchData();
   deleteArea = document.getElementById('deleteArea')
-  PIXIInitialize()
+  await PIXIInitialize()
   test()
   window.addEventListener('resize', () => {
     spineResize()
   })
+}
+
+onMounted(() => {
+  initialize();
 })
 
 //--->
