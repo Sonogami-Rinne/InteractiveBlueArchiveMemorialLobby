@@ -31,38 +31,17 @@ const deleteAreaWasted = ref([])
 let app = new PIXI.Application()
 let spineStudent = null
 let setBonePosition = (ev) => { }
+let spineOriginalBounds = null;
 let isDragging = false
 let touchBoneList = []
 let currentTouchBoneInfo = []
-let currentTalkSentence = 0;
 const backgroundAudio = new Audio();
 let voiceAudioMap = {};
 let infoMap = null;
-//
-//
-//
-//
-
-
-
-
-
-
-//记得重置
 let disableTouchEvent = true;
 let talkSentenceList = [];
 let currentSentenceIndex = 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-let currentVoiceName = null;//在切换角色前一定要先暂停当前voiceAudio的播放！！！
+
 
 //<---base
 
@@ -264,6 +243,7 @@ const spineInit = async (name) => {
     },
   });
 
+  spineOriginalBounds = spineStudent.getBounds();
   spineResize();
 
   await spineAnimationInit();
@@ -337,9 +317,8 @@ const spineAnimationInit = async () => {
 }
 const spineResize = () => {
   if (spineStudent == null) return;
-  const originalBounds = spineStudent.getBounds();
-  const visibleWidth = originalBounds.width * spineScale;
-  const visibleHeight = originalBounds.height * spineScale;
+  const visibleWidth = spineOriginalBounds.width * spineScale;
+  const visibleHeight = spineOriginalBounds.height * spineScale;
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
   const scaleX = screenWidth / visibleWidth;
@@ -349,8 +328,8 @@ const spineResize = () => {
 
   const centerX = screenWidth / 2;
   const centerY = screenHeight / 2;
-  const localCenterX = originalBounds.x + originalBounds.width / 2;
-  const localCenterY = originalBounds.y + originalBounds.height / 2;
+  const localCenterX = spineOriginalBounds.x + spineOriginalBounds.width / 2;
+  const localCenterY = spineOriginalBounds.y + spineOriginalBounds.height / 2;
 
   spineStudent.x = centerX - localCenterX * scale;
   spineStudent.y = centerY - localCenterY * scale;
@@ -486,7 +465,11 @@ const initialize = async () => {
   test()
 
   window.addEventListener('resize', () => {
-    spineResize()
+    spineResize();
+    // if(ifRequestResize[0]){
+    //   ifRequestResize[1] = true;
+    // }
+    // else ifRequestResize[0] = true;
   })
 }
 
