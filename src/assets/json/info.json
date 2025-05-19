@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Airi",
+        "bgm": "Theme_36.ogg",
+        "patBounds": [140,60,0,-50],
+        "lookBounds": [140,50,0,10],
+        "TalkBounds": [300,500,0,-300]
+    }
+]
