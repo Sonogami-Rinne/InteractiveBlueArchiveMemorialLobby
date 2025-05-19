@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import base64Loader from '@js/resource.js'
 
@@ -23,6 +23,7 @@ const ifRandom = ref(true)//v-model
 const duration = ref(5)//v-model
 const playList = ref([])//播放列表
 const studentList = ref([])//全部学生
+let saveObjectLastModifyTime = [0,0,0,0]//避免短时间内反复保存数据。
 const filteredStudentList = ref([])//经过学校和社团过滤后的结果
 const currentPlay = ref(null)//当前播放
 let playRule = null//播放规则
@@ -93,6 +94,10 @@ const fetchData = async () => {
   duration.value = parseInt(data || '0')
 }
 
+const cloneItem = (obj) => {
+  return { ...obj, id: Date.now(), name: obj.name, resourceId: obj.resourceId, multiLobby: obj.multiLobby }
+}
+
 const saveData = (key, value) => {
   if (typeof value == 'object') {
     localStorage.setItem(key, JSON.stringify(value))
@@ -138,9 +143,7 @@ const clubSelected = () => {
   }
   refreshStudentFilter()
 }
-const cloneItem = (obj) => {
-  return { ...obj, id: Date.now(), name: obj.name, resourceId: obj.resourceId, multiLobby: obj.multiLobby }
-}
+
 const playListOnStart = (eve) => {
   if (deleteArea == null) deleteArea = document.getElementById("deleteArea")
   deleteArea.classList.remove("deleteArea-hidden")
@@ -460,6 +463,33 @@ const initialize = async () => {
   await fetchData();
   deleteArea = document.getElementById('deleteArea')
   backgroundAudio.loop = true;
+
+  watch(currentPlay, async (value) => { 
+    if(Date.now() - saveObjectLastModifyTime[0] > 1000){
+      saveData('currentPlay',value)
+    }
+    saveObjectLastModifyTime[0] = Date.now();
+  })
+  watch(ifRandom, async (value) => { 
+    
+    if(Date.now() - saveObjectLastModifyTime[1] > 1000){
+      saveData('ifRandom',value)
+    }
+    saveObjectLastModifyTime[1] = Date.now();
+  })
+  watch(duration, async (value) => { 
+    
+    if(Date.now() - saveObjectLastModifyTime[2] > 1000){
+      saveData('duration',value)
+    }
+    saveObjectLastModifyTime[2] = Date.now();
+  })
+  watch(playList, async (value) => { 
+    if(Date.now() - saveObjectLastModifyTime[3] > 5000){
+      saveData('playList',value)
+    }
+    saveObjectLastModifyTime[3] = Date.now();
+  })
 
   await PIXIInitialize()
   test()
