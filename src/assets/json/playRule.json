@@ -4,13 +4,13 @@
             "before": {
                 "Start_Idle_01": {
                     "slot": 0,
-                    "audio":{
-                        "delay":0
+                    "audio": {
+                        "delay": null
                     },
-                    "effect":{
-                        "fadeIn":{
+                    "effect": {
+                        "fadeIn": {
                             "duration": 0.2,
-                            "delay": 0
+                            "delay": null
                         }
                     }
                 }
@@ -43,7 +43,8 @@
         "look": {
             "main": {
                 "Look_01_M": {
-                    "slot": 2
+                    "slot": 2,
+                    "mix": 0.1
                 }
             },
             "after": {

@@ -10,10 +10,10 @@ fun = async (str) => {
 
 const ifSpineDebug = false;
 const spineDebugger = new spine.SpineDebugRenderer();
-let lastDebugTimeStamp = 0;
 
 const language = 'chs'
 const spineScale = 1
+const spineAnimationDefaultMix = 0.2;
 const drawer = ref(false)//菜单显示与否
 const academyValue = ref(null)//v-model
 const clubValue = ref(null)//v-model
@@ -23,7 +23,7 @@ const ifRandom = ref(true)//v-model
 const duration = ref(5)//v-model
 const playList = ref([])//播放列表
 const studentList = ref([])//全部学生
-let saveObjectLastModifyTime = [0,0,0,0]//避免短时间内反复保存数据。
+let objectLastModifyTime = [0, 0, 0, 0, 0]//debug,
 const filteredStudentList = ref([])//经过学校和社团过滤后的结果
 const currentPlay = ref(null)//当前播放
 let playRule = null//播放规则
@@ -42,6 +42,7 @@ let infoMap = null;
 let disableTouchEvent = true;
 let talkSentenceList = [];
 let currentSentenceIndex = 0;
+let currentPlayRule = null;
 
 
 //<---base
@@ -223,7 +224,6 @@ const spineInit = async (name) => {
     atlas: `${name}atlas`,
     scale: 1,
   });
-  spineStudent.state.data.defaultMix = 0.2;
   app.stage.addChild(spineStudent);
 
   if (ifSpineDebug) spineDebug();
@@ -254,8 +254,31 @@ const spineInit = async (name) => {
 
   spineAnimationControl('None', 'start')
 }
+const spineResize = () => {
+  if (spineStudent == null) return;
+  const visibleWidth = spineOriginalBounds.width * spineScale;
+  const visibleHeight = spineOriginalBounds.height * spineScale;
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const scaleX = screenWidth / visibleWidth;
+  const scaleY = screenHeight / visibleHeight;
+  const scale = Math.max(scaleX, scaleY);
+  spineStudent.scale.set(scale);
+
+  const centerX = screenWidth / 2;
+  const centerY = screenHeight / 2;
+  const localCenterX = spineOriginalBounds.x + spineOriginalBounds.width / 2;
+  const localCenterY = spineOriginalBounds.y + spineOriginalBounds.height / 2;
+
+  spineStudent.x = centerX - localCenterX * scale;
+  spineStudent.y = centerY - localCenterY * scale;
+}
+
+
 
 const spineAnimationInit = async () => {
+  currentPlayRule = (currentPlay.value == null || playRule[currentPlay.value['sid']] == null) ? playRule['-1'] : playRule[currentPlay.value['sid'].toString()];
+  spineStudent.state.data.defaultMix = spineAnimationDefaultMix;
   touchBoneList = [];
   ["Hip", "Touch_Point_Key", "Touch_Eye_Key", "Right_Chin"].forEach(name => {
     const bone = spineStudent.skeleton.findBone(name);
@@ -312,84 +335,132 @@ const spineAnimationInit = async () => {
       currentTouchBoneInfo[0].y -= clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / window.innerWidth, -100, 100)
       currentTouchBoneInfo[0].x -= clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / window.innerHeight, -100, 100)
     }
-    if (ifSpineDebug && Date.now() - lastDebugTimeStamp > 100) {
+    if (ifSpineDebug && Date.now() - objectLastModifyTime[0] > 100) {
       spineDebugger.renderDebug(spineStudent);
-      lastDebugTimeStamp = Date.now();
+      objectLastModifyTime[0] = Date.now();
     }
   }
 }
-const spineResize = () => {
-  if (spineStudent == null) return;
-  const visibleWidth = spineOriginalBounds.width * spineScale;
-  const visibleHeight = spineOriginalBounds.height * spineScale;
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-  const scaleX = screenWidth / visibleWidth;
-  const scaleY = screenHeight / visibleHeight;
-  const scale = Math.max(scaleX, scaleY);
-  spineStudent.scale.set(scale);
 
-  const centerX = screenWidth / 2;
-  const centerY = screenHeight / 2;
-  const localCenterX = spineOriginalBounds.x + spineOriginalBounds.width / 2;
-  const localCenterY = spineOriginalBounds.y + spineOriginalBounds.height / 2;
-
-  spineStudent.x = centerX - localCenterX * scale;
-  spineStudent.y = centerY - localCenterY * scale;
-}
 //idle和startIdle在0，A在1,M在2
-const spinePlayAnimation = (data) => {
-  let isFirst = true;
-  //0:slot,1:loop,2:delay
-  Object.entries(data).forEach(([name, value]) => {
-    if (isFirst && name != 'None') {
-      isFirst = false;
-      spineStudent.state.setAnimation(value[0], name, value[1]);
-      if (value[3] != null) audioControl(null, value[3])
-    }
-    else if (name == 'None') {
-      spineStudent.state.addEmptyAnimation(value[0], 0.1, value[1])
-    }
-    else {
-      spineStudent.state.addAnimation(value[0], name, value[1], value[2]);
-    }
-  });
-}
+
 //互动动画+入场
-const spineAnimationControl = (name, status) => {
+const spineAnimationControl = (name) => {
   const type = name == 'Touch_Point_Key' ? 'pat' : name == 'Touch_Eye_Key' ? 'look' : name == 'None' ? 'home' : name == 'Chin' ? 'chin' : name;
-  const currentRule = (currentPlay.value == null || playRule[currentPlay.value['sid']] == null) ? playRule['-1'] : playRule[currentPlay.value['sid'].toString()];
+  //const currentRule = (currentPlay.value == null || playRule[currentPlay.value['sid']] == null) ? playRule['-1'] : playRule[currentPlay.value['sid'].toString()];
   const target = {}
-  if (status == 'start') {
-    const before = currentRule[type]['before'] || {};
-    Object.entries(before).forEach(([key, value]) => {
-      target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
-      if (value['audio']) target[key].push(value['audio'])
-    });
-  }
-  const main = currentRule[type]['main'];
-  Object.entries(main).forEach(([key, value]) => {
-    target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
-  });
-  if (status == 'end') {
-    const after = currentRule[type]['after'] || {};
-    Object.entries(after).forEach(([key, value]) => {
-      target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
-    });
-  }
+
+  // Object.entries(currentPlayRule[type])(_,item)=>{
+  //   Object.entries(item).forEach(([key,value])=>{
+  //     target[key] = value;
+  //   })
+  // })
+  Object.entries(currentPlayRule[type]).forEach(([_, item]) => {
+    Object.entries(item).forEach(([key, value]) => {
+      target[key] = value;
+    })
+  })
+  // let tmp = currentPlayRule[type]['before'];
+  // if (tmp) {
+  //   Object.entries(tmp).forEach(([key, value]) => {
+  //     target[key] = value;
+  //   });
+  // }
+
+  // tmp = currentPlayRule[type]['main']
+  // if (tmp) {
+  //   Object.entries(tmp).forEach(([key, value]) => {
+  //     target[key] = value;
+  //   })
+  // }
+
+  // tmp = currentPlayRule[type]['after']
+  // if()
+
+  // if (status == 'start') {
+  //   const before = currentRule[type]['before'] || {};
+  //   // Object.entries(before).forEach(([key, value]) => {
+  //   //   target[key]
+  //   //   // target[key] = { slot: value['slot'], loop: value['loop'] || false, delay: value['delay'] || 0., mix: value['delay'] || 0., audio: value['audio'], effect: value['effect'], duration:value['duration'] }
+  //   // });
+  // }
+  // const main = currentRule[type]['main'];
+  // Object.entries(main).forEach(([key, value]) => {
+  //   //target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
+  //   target[key] = { slot: value['slot'], loop: value['loop'] || false, delay: value['delay'] || 0., mix: value['delay'] || 0., audio: value['audio'], effect: value['effect'],duration:value['duration'] }
+  // });
+  // if (status == 'end') {
+  //   const after = currentRule[type]['after'] || {};
+  //   Object.entries(after).forEach(([key, value]) => {
+  //     target[key] = { slot: value['slot'], loop: value['loop'] || false, delay: value['delay'] || 0., mix: value['delay'] || 0., audio: value['audio'], effect: value['effect'],duration }
+  //     // target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
+  //   });
+  // }
   spinePlayAnimation(target);
 }
 const spineTalkAnimationControl = (name) => {
   const target = {
-    [name + '_A']: [1, false],
-    [name + '_M']: [2, false]
+    [name + '_A']: { slot: 1 },
+    [name + '_M']: { slot: 2 }
   }
   spinePlayAnimation(target);
 }
+const spinePlayAnimation = (data) => {
+  let lastDuration = null;
+  //let lastTImeStamp = Date.now();
+  // let ifLastLoop = false;
+  Object.entries(data).forEach(([name, value]) => {
+    if (name != 'None') {
+      //const delay = lastDuration ? lastDuration: value.delay;
+      let delay = value.delay;
+      if (lastDuration) {
+        delay = lastDuration;
+        lastDuration = null;
+      }
+      if (value.duration) lastDuration = value.duration;
+      value.mix ? spineStudent.state.addAnimation(value.slot, name, value.loop || false, delay || 0.).mixDuration = value.mix : spineStudent.state.addAnimation(value.slot, name, value.loop || false, value.delay || 0.);
+      //lastDuration = Date().now()
+      //spineStudent.state.addAnimation(value.slot, name, value.loop || false, value.delay || 0.);
+    }
+    else {
+      spineStudent.state.addEmptyAnimation(value.slot, value.mix || spineAnimationDefaultMix, value[1])
+    }
+    if (value.audio) {
+      audioControl(value.audio.name, value.audio)
+    }
+    if (value.effect) {
+      animationEffectControl(value.effect)
+    }
+    //ifLastLoop = value.loop || false;
+  });
+}
 
-const audioControl = (name,info) => {
+const animationEffectControl = (effects) => {
+  Object.entries(effects).forEach(([name, value]) => {
+    setInterval(() => {
+      switch (name) {
+        case 'fadeIn':
+          effectArea.style.transition = ''
+          effectArea.style.opacity = '1'
+          effectArea.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
+          effectArea.style.opacity = '0'
+          break;
+        case 'fadeOut':
+          effectArea.style.transition = ''
+          effectArea.style.opacity = '0'
+          effectArea.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
+          effectArea.style.opacity = '1'
+          break;
+      }
+    }, value.delay || 0)
+  })
+}
+
+
+
+const audioControl = (name, info) => {
   const tmp = name ? voiceAudioMap[name] : backgroundAudio;
-  if(info){
+  if (info) {
     setTimeout(() => {
       tmp.play();
     }, info.delay);
@@ -465,31 +536,31 @@ const initialize = async () => {
   deleteArea = document.getElementById('deleteArea')
   backgroundAudio.loop = true;
 
-  watch(currentPlay, async (value) => { 
-    if(Date.now() - saveObjectLastModifyTime[0] > 1000){
-      saveData('currentPlay',value)
+  watch(currentPlay, async (value) => {
+    if (Date.now() - objectLastModifyTime[0] > 1000) {
+      saveData('currentPlay', value)
     }
-    saveObjectLastModifyTime[0] = Date.now();
+    objectLastModifyTime[0] = Date.now();
   })
-  watch(ifRandom, async (value) => { 
-    
-    if(Date.now() - saveObjectLastModifyTime[1] > 1000){
-      saveData('ifRandom',value)
+  watch(ifRandom, async (value) => {
+
+    if (Date.now() - objectLastModifyTime[1] > 1000) {
+      saveData('ifRandom', value)
     }
-    saveObjectLastModifyTime[1] = Date.now();
+    objectLastModifyTime[1] = Date.now();
   })
-  watch(duration, async (value) => { 
-    
-    if(Date.now() - saveObjectLastModifyTime[2] > 1000){
-      saveData('duration',value)
+  watch(duration, async (value) => {
+
+    if (Date.now() - objectLastModifyTime[2] > 1000) {
+      saveData('duration', value)
     }
-    saveObjectLastModifyTime[2] = Date.now();
+    objectLastModifyTime[2] = Date.now();
   })
-  watch(playList, async (value) => { 
-    if(Date.now() - saveObjectLastModifyTime[3] > 5000){
-      saveData('playList',value)
+  watch(playList, async (value) => {
+    if (Date.now() - objectLastModifyTime[3] > 5000) {
+      saveData('playList', value)
     }
-    saveObjectLastModifyTime[3] = Date.now();
+    objectLastModifyTime[3] = Date.now();
   })
 
   await PIXIInitialize()
@@ -515,7 +586,7 @@ onMounted(() => {
 <template>
   <el-container class="main-container" id="canvas">
   </el-container>
-  <div class="main-container main-container-effect" id = "effectArea"></div>
+  <div class="main-container main-container-effect" id="effectArea"></div>
   <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1024 1024">
     <path fill="currentColor"
@@ -611,8 +682,9 @@ onMounted(() => {
   overflow: hidden;
   z-index: -1;
 }
-.main-container.main-container-effect{
-  z-index:3;
+
+.main-container.main-container-effect {
+  z-index: 3;
   background-color: white;
   opacity: 0.5;
 }
