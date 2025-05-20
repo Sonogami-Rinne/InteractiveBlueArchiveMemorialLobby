@@ -1,7 +1,7 @@
 {
     "-1": {
         "home": {
-            "before": {
+            "main": {
                 "Start_Idle_01": {
                     "slot": 0,
                     "audio": {
@@ -13,9 +13,7 @@
                             "delay": null
                         }
                     }
-                }
-            },
-            "main": {
+                },
                 "Idle_01": {
                     "slot": 0,
                     "loop": "true"

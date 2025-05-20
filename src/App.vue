@@ -206,7 +206,7 @@ const PIXIInitialize = async () => {
     if (currentTouchBoneInfo.length > 0) {
       currentTouchBoneInfo[0].x = 0;
       currentTouchBoneInfo[0].y = 0;
-      spineAnimationControl(currentTouchBoneInfo[0].data.name, 'end');
+      spineAnimationControl(currentTouchBoneInfo[0].data.name, 'after');
       currentTouchBoneInfo = [];
     }
   });
@@ -252,7 +252,7 @@ const spineInit = async (name) => {
   await spineAnimationInit();
   await audioInit();
 
-  spineAnimationControl('None', 'start')
+  spineAnimationControl('None', 'main')
 }
 const spineResize = () => {
   if (spineStudent == null) return;
@@ -314,7 +314,7 @@ const spineAnimationInit = async () => {
         const point = touchBoneList[i].point;
         if (checkInBounds(pointx, pointy, point.x, point.y, bounds[i][0], bounds[i][1], bounds[i][2], bounds[i][3])) {
           currentTouchBoneInfo = [touchBoneList[i].bone, touchBoneList[i].point, pointx, pointy]
-          spineAnimationControl(touchBoneList[i].bone.data.name, 'start')
+          spineAnimationControl(touchBoneList[i].bone.data.name, 'main')
           flag = false;
           return;
         }
@@ -345,57 +345,13 @@ const spineAnimationInit = async () => {
 //idle和startIdle在0，A在1,M在2
 
 //互动动画+入场
-const spineAnimationControl = (name) => {
+const spineAnimationControl = (name, status) => {
   const type = name == 'Touch_Point_Key' ? 'pat' : name == 'Touch_Eye_Key' ? 'look' : name == 'None' ? 'home' : name == 'Chin' ? 'chin' : name;
   //const currentRule = (currentPlay.value == null || playRule[currentPlay.value['sid']] == null) ? playRule['-1'] : playRule[currentPlay.value['sid'].toString()];
   const target = {}
-
-  // Object.entries(currentPlayRule[type])(_,item)=>{
-  //   Object.entries(item).forEach(([key,value])=>{
-  //     target[key] = value;
-  //   })
-  // })
-  Object.entries(currentPlayRule[type]).forEach(([_, item]) => {
-    Object.entries(item).forEach(([key, value]) => {
-      target[key] = value;
-    })
+  Object.entries(currentPlayRule[type][status]).forEach(([key, value]) => {
+    target[key] = value;
   })
-  // let tmp = currentPlayRule[type]['before'];
-  // if (tmp) {
-  //   Object.entries(tmp).forEach(([key, value]) => {
-  //     target[key] = value;
-  //   });
-  // }
-
-  // tmp = currentPlayRule[type]['main']
-  // if (tmp) {
-  //   Object.entries(tmp).forEach(([key, value]) => {
-  //     target[key] = value;
-  //   })
-  // }
-
-  // tmp = currentPlayRule[type]['after']
-  // if()
-
-  // if (status == 'start') {
-  //   const before = currentRule[type]['before'] || {};
-  //   // Object.entries(before).forEach(([key, value]) => {
-  //   //   target[key]
-  //   //   // target[key] = { slot: value['slot'], loop: value['loop'] || false, delay: value['delay'] || 0., mix: value['delay'] || 0., audio: value['audio'], effect: value['effect'], duration:value['duration'] }
-  //   // });
-  // }
-  // const main = currentRule[type]['main'];
-  // Object.entries(main).forEach(([key, value]) => {
-  //   //target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
-  //   target[key] = { slot: value['slot'], loop: value['loop'] || false, delay: value['delay'] || 0., mix: value['delay'] || 0., audio: value['audio'], effect: value['effect'],duration:value['duration'] }
-  // });
-  // if (status == 'end') {
-  //   const after = currentRule[type]['after'] || {};
-  //   Object.entries(after).forEach(([key, value]) => {
-  //     target[key] = { slot: value['slot'], loop: value['loop'] || false, delay: value['delay'] || 0., mix: value['delay'] || 0., audio: value['audio'], effect: value['effect'],duration }
-  //     // target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
-  //   });
-  // }
   spinePlayAnimation(target);
 }
 const spineTalkAnimationControl = (name) => {
@@ -431,13 +387,12 @@ const spinePlayAnimation = (data) => {
     if (value.effect) {
       animationEffectControl(value.effect)
     }
-    //ifLastLoop = value.loop || false;
   });
 }
 
 const animationEffectControl = (effects) => {
   Object.entries(effects).forEach(([name, value]) => {
-    setTimeOut(() => {
+    setTimeout(() => {
       switch (name) {
         case 'fadeIn':
           effectArea.style.transition = ''
@@ -686,7 +641,11 @@ onMounted(() => {
 .main-container.main-container-effect {
   z-index: 3;
   background-color: white;
-  opacity: 0.5;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }
 
 .expand-icon {
