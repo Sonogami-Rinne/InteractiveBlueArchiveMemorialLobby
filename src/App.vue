@@ -345,7 +345,7 @@ const spinePlayAnimation = (data) => {
     if (isFirst && name != 'None') {
       isFirst = false;
       spineStudent.state.setAnimation(value[0], name, value[1]);
-      if (value[3] != null) audioControl()
+      if (value[3] != null) audioControl(null, value[3])
     }
     else if (name == 'None') {
       spineStudent.state.addEmptyAnimation(value[0], 0.1, value[1])
@@ -364,7 +364,7 @@ const spineAnimationControl = (name, status) => {
     const before = currentRule[type]['before'] || {};
     Object.entries(before).forEach(([key, value]) => {
       target[key] = [value['slot'], value['loop'] == 'true', value['delay']]
-      if (value['audio']) target[key].push(0)
+      if (value['audio']) target[key].push(value['audio'])
     });
   }
   const main = currentRule[type]['main'];
@@ -387,13 +387,14 @@ const spineTalkAnimationControl = (name) => {
   spinePlayAnimation(target);
 }
 
-const audioControl = (name) => {
-  if (name && voiceAudioMap[name]) {
-    voiceAudioMap[name].play();
+const audioControl = (name,info) => {
+  const tmp = name ? voiceAudioMap[name] : backgroundAudio;
+  if(info){
+    setTimeout(() => {
+      tmp.play();
+    }, info.delay);
   }
-  else {
-    backgroundAudio.play();
-  }
+  else tmp.play();
 }
 
 const audioInit = async () => {
@@ -514,6 +515,7 @@ onMounted(() => {
 <template>
   <el-container class="main-container" id="canvas">
   </el-container>
+  <div class="main-container main-container-effect" id = "effectArea"></div>
   <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1024 1024">
     <path fill="currentColor"
@@ -608,6 +610,11 @@ onMounted(() => {
   height: 100%;
   overflow: hidden;
   z-index: -1;
+}
+.main-container.main-container-effect{
+  z-index:3;
+  background-color: white;
+  opacity: 0.5;
 }
 
 .expand-icon {

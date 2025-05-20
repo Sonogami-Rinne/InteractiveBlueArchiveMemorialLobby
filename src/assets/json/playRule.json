@@ -4,7 +4,15 @@
             "before": {
                 "Start_Idle_01": {
                     "slot": 0,
-                    "audio":1
+                    "audio":{
+                        "delay":0
+                    },
+                    "effect":{
+                        "fadeIn":{
+                            "duration": 0.2,
+                            "delay": 0
+                        }
+                    }
                 }
             },
             "main": {
