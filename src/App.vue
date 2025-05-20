@@ -437,7 +437,7 @@ const spinePlayAnimation = (data) => {
 
 const animationEffectControl = (effects) => {
   Object.entries(effects).forEach(([name, value]) => {
-    setInterval(() => {
+    setTimeOut(() => {
       switch (name) {
         case 'fadeIn':
           effectArea.style.transition = ''
