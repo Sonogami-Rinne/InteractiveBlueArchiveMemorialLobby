@@ -12,6 +12,7 @@ fun = async (str) => {
 let language = null;
 
 //<---vue+html
+let localization = null;
 const drawer = ref(false)//菜单显示与否
 const academyValue = ref(null)//v-model
 const clubValue = ref(null)//v-model
@@ -63,7 +64,9 @@ const checkInBounds = (x, y, px, py, halfWidth, halfHeight, offsetX, offsetY) =>
   return Math.abs(x - px - offsetX) < halfWidth && Math.abs(y - py - offsetY) < halfHeight;
 }
 const fetchData = async () => {
-  let data = await import('@json/academy.json')
+  let data = await import('@json/localization.json')
+  localization = data.default[language]
+  data = await import('@json/academy.json')
   data.default.forEach((item) => {
     academyNameList[item['name'][language]] = item['id']
   })
@@ -369,12 +372,10 @@ const spineTalkAnimationControl = (name) => {
   spinePlayAnimation(target);
 }
 const spinePlayAnimation = (data) => {
-  //let lastTImeStamp = Date.now();
-  // let ifLastLoop = false;
   Object.entries(data).forEach(([name, value]) => {
     let trackEntry = null;
     if (name != 'None') {
-      trackEntry = spineStudent.state.addAnimation(value.slot, name, value.loop || false, delay || 0.)
+      trackEntry = spineStudent.state.addAnimation(value.slot, name, value.loop || false, value.delay || 0.)
       if (value.mix) trackEntry.mixDuration = value.mix;
       if (value.duration) trackEntry.animationEnd = value.duration;
     }
@@ -414,12 +415,12 @@ const animationEffectControl = (effects, trackEntry) => {
 //--->
 
 //<---音频控制
-const audioControl = (name, info) => {
+const audioControl = (name, info, trackEntry) => {
   const tmp = name ? voiceAudioMap[name] : backgroundAudio;
-  if (info) {
+  if (info && info.delay && trackEntry) {
     setTimeout(() => {
       tmp.play();
-    }, info.delay);
+    }, Math.max(info.delay - trackEntry.trackTime, 0));
   }
   else tmp.play();
 }
@@ -488,17 +489,13 @@ const spineDebug = () => {
 
 
 const initialize = async () => {
+
   const preferLanguage = navigator.language.toLowerCase();
   if(preferLanguage.includes('tw') || preferLanguage.includes('hk')) language = 'cht';
   else if(preferLanguage.includes('zh')) language = 'chs';
   else if(preferLanguage.includes('ko')) language = 'kr';
   else if(preferLanguage.includes('ja')) language = 'jp';
   else  language = 'en'
-  // switch(preferLanguage){
-  //   case 'zh-cn':language = 'chs';break;
-  //   case 'zh-tw':language = 'cht';break;
-  //   case 'kr':language = 'kr'
-  // }
 
   await fetchData();
   deleteArea = document.getElementById('deleteArea')
@@ -564,7 +561,7 @@ onMounted(() => {
         <el-row>
           <el-col :span="2"></el-col>
           <el-col :span="6">
-            <el-switch v-model="ifRandom" inline-prompt active-text="随机" size="large" inactive-text="顺序"></el-switch>
+            <el-switch v-model="ifRandom" inline-prompt :active-text="localization['text-random']" size="large" :inactive-text="localization['text-sequence']"></el-switch>
           </el-col>
           <el-col :span="6"></el-col>
           <el-col :span="6">
