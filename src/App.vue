@@ -3,17 +3,15 @@ import { onMounted, ref, watch } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import base64Loader from '@js/resource.js'
 
+//modify.js中获取数据的函数入口
 fun = async (str) => {
   const raw = await base64Loader[str]()
   return raw.default
 }
 
-const ifSpineDebug = false;
-const spineDebugger = new spine.SpineDebugRenderer();
+let language = null;
 
-const language = 'chs'
-const spineScale = 1
-const spineAnimationDefaultMix = 0.2;
+//<---vue+html
 const drawer = ref(false)//菜单显示与否
 const academyValue = ref(null)//v-model
 const clubValue = ref(null)//v-model
@@ -29,6 +27,16 @@ const currentPlay = ref(null)//当前播放
 let playRule = null//播放规则
 let deleteArea = null
 const deleteAreaWasted = ref([])
+//--->
+
+//--->spineDebug
+const ifSpineDebug = false;
+const spineDebugger = new spine.SpineDebugRenderer();
+//--->
+
+//--->pixi + spine
+const spineScale = 1
+const spineAnimationDefaultMix = 0.2;
 let app = new PIXI.Application()
 let spineStudent = null
 let setBonePosition = (ev) => { }
@@ -44,6 +52,7 @@ let talkSentenceList = [];
 let currentSentenceIndex = 0;
 let currentPlayRule = null;
 
+//--->
 
 //<---base
 
@@ -110,7 +119,7 @@ const saveData = (key, value) => {
 
 //--->
 
-//<---vue相关的
+//<---vue
 
 const getAcademySuggestion = (query, cb) => {
   const result = Object.keys(academyNameList)
@@ -342,8 +351,6 @@ const spineAnimationInit = async () => {
   }
 }
 
-//idle和startIdle在0，A在1,M在2
-
 //互动动画+入场
 const spineAnimationControl = (name, status) => {
   const type = name == 'Touch_Point_Key' ? 'pat' : name == 'Touch_Eye_Key' ? 'look' : name == 'None' ? 'home' : name == 'Chin' ? 'chin' : name;
@@ -362,35 +369,28 @@ const spineTalkAnimationControl = (name) => {
   spinePlayAnimation(target);
 }
 const spinePlayAnimation = (data) => {
-  let lastDuration = null;
   //let lastTImeStamp = Date.now();
   // let ifLastLoop = false;
   Object.entries(data).forEach(([name, value]) => {
+    let trackEntry = null;
     if (name != 'None') {
-      //const delay = lastDuration ? lastDuration: value.delay;
-      let delay = value.delay;
-      if (lastDuration) {
-        delay = lastDuration;
-        lastDuration = null;
-      }
-      if (value.duration) lastDuration = value.duration;
-      value.mix ? spineStudent.state.addAnimation(value.slot, name, value.loop || false, delay || 0.).mixDuration = value.mix : spineStudent.state.addAnimation(value.slot, name, value.loop || false, value.delay || 0.);
-      //lastDuration = Date().now()
-      //spineStudent.state.addAnimation(value.slot, name, value.loop || false, value.delay || 0.);
+      trackEntry = spineStudent.state.addAnimation(value.slot, name, value.loop || false, delay || 0.)
+      if (value.mix) trackEntry.mixDuration = value.mix;
+      if (value.duration) trackEntry.animationEnd = value.duration;
     }
     else {
-      spineStudent.state.addEmptyAnimation(value.slot, value.mix || spineAnimationDefaultMix, value[1])
+      trackEntry = spineStudent.state.addEmptyAnimation(value.slot, value.mix || spineAnimationDefaultMix, value[1])
     }
     if (value.audio) {
-      audioControl(value.audio.name, value.audio)
+      audioControl(value.audio.name, value.audio, trackEntry)
     }
     if (value.effect) {
-      animationEffectControl(value.effect)
+      animationEffectControl(value.effect, trackEntry)
     }
   });
 }
 
-const animationEffectControl = (effects) => {
+const animationEffectControl = (effects, trackEntry) => {
   Object.entries(effects).forEach(([name, value]) => {
     setTimeout(() => {
       switch (name) {
@@ -407,12 +407,13 @@ const animationEffectControl = (effects) => {
           effectArea.style.opacity = '1'
           break;
       }
-    }, value.delay || 0)
+    }, Math.max(value.delay || 0 - trackEntry.trackTime, 0) * 1000)
   })
 }
 
+//--->
 
-
+//<---音频控制
 const audioControl = (name, info) => {
   const tmp = name ? voiceAudioMap[name] : backgroundAudio;
   if (info) {
@@ -487,6 +488,18 @@ const spineDebug = () => {
 
 
 const initialize = async () => {
+  const preferLanguage = navigator.language.toLowerCase();
+  if(preferLanguage.includes('tw') || preferLanguage.includes('hk')) language = 'cht';
+  else if(preferLanguage.includes('zh')) language = 'chs';
+  else if(preferLanguage.includes('ko')) language = 'kr';
+  else if(preferLanguage.includes('ja')) language = 'jp';
+  else  language = 'en'
+  // switch(preferLanguage){
+  //   case 'zh-cn':language = 'chs';break;
+  //   case 'zh-tw':language = 'cht';break;
+  //   case 'kr':language = 'kr'
+  // }
+
   await fetchData();
   deleteArea = document.getElementById('deleteArea')
   backgroundAudio.loop = true;
@@ -523,10 +536,6 @@ const initialize = async () => {
 
   window.addEventListener('resize', () => {
     spineResize();
-    // if(ifRequestResize[0]){
-    //   ifRequestResize[1] = true;
-    // }
-    // else ifRequestResize[0] = true;
   })
 }
 
@@ -609,7 +618,7 @@ onMounted(() => {
                 class="grid-draggable">
                 <div v-for="item in filteredStudentList" :key="item.id" class="grid-draggable-item" :value="item.id">
                   <img :src="'./portrait/' + item.resourceId + '.png'" style="width:100%;object-fit: cover;">
-                  <p style="text-align: center;padding: 0px;margin:0px;font-size: small;">{{ item.name }}</p>
+                  <p class="grid-draggable-item-text">{{ item.name }}</p>
                 </div>
               </VueDraggable>
             </div>
@@ -707,5 +716,12 @@ onMounted(() => {
   height: 120px;
   display: flex;
   flex-direction: column;
+}
+
+.grid-draggable-item-text {
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  font-size: small;
 }
 </style>
