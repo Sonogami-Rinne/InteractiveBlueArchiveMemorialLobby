@@ -491,11 +491,11 @@ const spineDebug = () => {
 const initialize = async () => {
 
   const preferLanguage = navigator.language.toLowerCase();
-  if(preferLanguage.includes('tw') || preferLanguage.includes('hk')) language = 'cht';
-  else if(preferLanguage.includes('zh')) language = 'chs';
-  else if(preferLanguage.includes('ko')) language = 'kr';
-  else if(preferLanguage.includes('ja')) language = 'jp';
-  else  language = 'en'
+  if (preferLanguage.includes('tw') || preferLanguage.includes('hk')) language = 'cht';
+  else if (preferLanguage.includes('zh')) language = 'chs';
+  else if (preferLanguage.includes('ko')) language = 'kr';
+  else if (preferLanguage.includes('ja')) language = 'jp';
+  else language = 'en'
 
   await fetchData();
   deleteArea = document.getElementById('deleteArea')
@@ -561,7 +561,8 @@ onMounted(() => {
         <el-row>
           <el-col :span="2"></el-col>
           <el-col :span="6">
-            <el-switch v-model="ifRandom" inline-prompt :active-text="localization['text-random']" size="large" :inactive-text="localization['text-sequence']"></el-switch>
+            <el-switch v-model="ifRandom" inline-prompt :active-text="localization['text-random']" size="large"
+              :inactive-text="localization['text-sequence']"></el-switch>
           </el-col>
           <el-col :span="6"></el-col>
           <el-col :span="6">
@@ -582,11 +583,11 @@ onMounted(() => {
           <el-col :span="11"></el-col>
           <el-col :span="6">
             <el-button
-              @click="() => { filteredStudentList.forEach((item) => { playList.push(cloneItem(item)) }) }">添加全部</el-button>
+              @click="() => { filteredStudentList.forEach((item) => { playList.push(cloneItem(item)) }) }">{{ localization['text-addAll'] }}</el-button>
           </el-col>
           <el-col :span="1"></el-col>
           <el-col :span="6">
-            <el-button @click="playList = []">移除全部</el-button>
+            <el-button @click="playList = []">{{ localization['text-removeAll'] }}</el-button>
           </el-col>
         </el-row>
 
@@ -597,13 +598,13 @@ onMounted(() => {
             <el-row>
               <el-col :span="11">
                 <el-autocomplete v-model="academyValue" :fetch-suggestions="getAcademySuggestion" clearable
-                  class="inline-input w-50" placeholder="输入学院名称" @clear="refreshStudentFilter"
+                  class="inline-input w-50" :placeholder="localization['text-autoComplete1-placeholder']" @clear="refreshStudentFilter"
                   @select="() => { clubValue = null; refreshStudentFilter() }" value-key="value" />
               </el-col>
               <div style="width: 10px;"></div>
               <el-col :span="11">
                 <el-autocomplete v-model="clubValue" :fetch-suggestions="getClubSuggestion" clearable
-                  class="inline-input w-50" placeholder="输入社团姓名" @clear="refreshStudentFilter" @select="clubSelected" />
+                  class="inline-input w-50" :placeholder="localization['text-autoComplete2-placeholder']" @clear="refreshStudentFilter" @select="clubSelected" />
               </el-col>
             </el-row>
           </el-header>
@@ -622,8 +623,7 @@ onMounted(() => {
           </el-main>
         </el-container>
       </el-main>
-      <el-main class="drawer-main deleteArea-hidden" id="deleteArea"
-        style="z-index:3000;position: absolute;right: 0;top: 0;">
+      <el-main class="drawer-main deleteArea-hidden" id="deleteArea">
         <VueDraggable v-model="deleteAreaWasted" :group="{ name: 'student', pull: false }"
           :onAdd="(ev) => { deleteAreaWasted = [] }" onmouseover="(ev) => {console.log('a')}" style="height:100%">
 
@@ -694,6 +694,13 @@ onMounted(() => {
 .deleteArea-hidden {
   display: none;
   z-index: -1;
+}
+
+.deleteArea-show {
+  z-index: 3000;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .deleteArea-alert {
