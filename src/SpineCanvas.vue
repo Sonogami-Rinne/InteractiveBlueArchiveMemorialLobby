@@ -1,4 +1,6 @@
 <script setup>
+import { onMounted } from 'vue';
+
 const props = defineProps(['currentPlay', 'playList'])
 const emit = defineEmits(['updateCurrentPlay'])
 
@@ -18,6 +20,7 @@ let disableTouchEvent = true;
 let talkSentenceList = [];
 let currentSentenceIndex = 0;
 let currentPlayRule = null;
+let playRule = null;
 
 const ifSpineDebug = false;
 const spineDebugger = new spine.SpineDebugRenderer();
@@ -319,11 +322,13 @@ const spineDebug = () => {
 onMounted(async () => {
   await fetchData();
   await PIXIInitialize();
-  await spineInit(props.currentPlay.resource);
+  await spineInit(props.currentPlay.resourceId);
   window.addEventListener('resize', () => {
     spineResize();
   })
 })
+
+
 
 
 

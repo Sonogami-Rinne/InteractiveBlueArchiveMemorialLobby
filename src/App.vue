@@ -1,5 +1,5 @@
 <script setup>
-import { inject, onMounted, ref, watch } from 'vue'
+import { inject, onBeforeMount, onMounted, ref, watch } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import base64Loader from '@js/resource.js'
 import SpineCanvas from '@/SpineCanvas.vue'
@@ -115,11 +115,6 @@ const saveData = (key, value) => {
     localStorage.setItem(key, value.toString())
   }
 }
-
-//--->
-
-//<---vue
-
 const getAcademySuggestion = (query, cb) => {
   const result = Object.keys(academyNameList)
     .filter(item => item.toLowerCase().includes(query.toLowerCase())).map(item => ({
@@ -179,38 +174,8 @@ const playListOnChoose = (ev) => {
     }
   })
 }
-
-//--->
-
-//<---pixi/spine
-
-
-
-
-//--->
-
-
-
-
-
-
-
-//<---other
-
-//
-//
-//
-//
-//
-//
-//
 const test = async () => {
-  //currentPlay.value = cloneItem(studentList.value[0])
-  //await spineInit(currentPlay.value['resourceId'])
-
-  // console.log(spineStudent.skeleton.data.events)
-  //spineResize()
-  //spinePlayAnimation({ "Idle_01": [0] });
+  currentPlay.value = cloneItem(studentList.value[0])
 }
 
 
@@ -218,9 +183,6 @@ const test = async () => {
 
 const initialize = async () => {
   await fetchData();
-  deleteArea = document.getElementById('deleteArea')
-  backgroundAudio.loop = true;
-
   watch(currentPlay, async (value) => {
     if (Date.now() - objectLastModifyTime[0] > 1000) {
       saveData('currentPlay', value)
@@ -247,24 +209,15 @@ const initialize = async () => {
     }
     objectLastModifyTime[3] = Date.now();
   })
-
-  //await PIXIInitialize()
-  //test()
-
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  // window.addEventListener('resize', () => {
-  //   spineResize();
-  // })
+  test()
 }
 
-onMounted(() => {
+
+onBeforeMount(() => {
   initialize();
+})
+onMounted(() => {
+  deleteArea = document.getElementById('deleteArea')
 })
 
 //--->
@@ -272,7 +225,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <SpineCanvas ref="spineCanvas" :current-play="currentPlay" :playList =  "playList" />
+  <SpineCanvas ref="spineCanvas" :currentPlay="currentPlay" :playList =  "playList" v-if="currentPlay && playList"/>
   <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1024 1024">
     <path fill="currentColor"
