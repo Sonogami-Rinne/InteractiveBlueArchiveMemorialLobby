@@ -7,23 +7,43 @@ const emit = defineEmits(['updateCurrentPlay'])
 const app = new PIXI.Application()
 const spineScale = 1
 const spineAnimationDefaultMix = 0.2;
-let spineStudent = null
-let setBonePosition = (ev) => { }
-let spineOriginalBounds = null;
+//let spineStudent = null
+//let setBonePosition = (ev) => { }
+//let spineOriginalBounds = null;
 let isDragging = false
-let touchBoneList = []
+//let touchBoneList = []
 let currentTouchBoneInfo = []
-const backgroundAudio = new Audio();
-let voiceAudioMap = {};
+//const backgroundAudio = new Audio();
+//let voiceAudioMap = {};
 let infoMap = null;
-let disableTouchEvent = true;
-let talkSentenceList = [];
-let currentSentenceIndex = 0;
+let disableTouchEvent = true;// remember to reset 
+//let talkSentenceList = [];
+//let currentSentenceIndex = 0;
 let currentPlayRule = null;
+let animationReady = 0;
+let audioReady = 0;
+let activeCharacter = null;
 let playRule = null;
 
 const ifSpineDebug = false;
 const spineDebugger = new spine.SpineDebugRenderer();
+
+
+class CharacterObject {
+  constructor(data) {
+    this.resourceId = data.resourceId
+    this.sid = data.sid
+    this.spineStudent = null;
+    this.spineScene = null;
+    this.touchBoneList = [];
+    this.talkSentences = [];
+    this.currentSentenceIndex = 0;
+    //this.originalBounds = [];
+    this.backgroundAudio = new Audio();
+    this.voiceAudioMap = {};
+  }
+
+}
 
 
 const clamp = (value, min, max) => {
@@ -40,9 +60,39 @@ const fetchData = async () => {
   infoMap = data.default
 
 }
-
-
-
+const setBonePosition = (ev) => {
+  if (disableTouchEvent) return;
+  const pointx = ev.data.global.x;
+  const pointy = ev.data.global.y;
+  if (currentTouchBoneInfo.length > 0) {
+    currentTouchBoneInfo[2] = pointx;
+    currentTouchBoneInfo[3] = pointy;
+    return;
+  }
+  let flag = true;
+  const bounds = [infoMap[props.currentPlay.sid].talkBounds || [300, 500, 0, -300], infoMap[props.currentPlay.sid].patBounds || [140, 60, 0, -50], infoMap[props.currentPlay.sid].lookBounds || [140, 50, 0, 10], infoMap[props.currentPlay.sid].chinBounds || [70, 70, 0, 0]]
+  const touchBoneList = activeCharacter.touchBoneList;
+  for (let i = 1; i < 4; i++) {
+    if (touchBoneList[i]) {
+      const point = touchBoneList[i].point;
+      if (checkInBounds(pointx, pointy, point.x, point.y, bounds[i][0], bounds[i][1], bounds[i][2], bounds[i][3])) {
+        currentTouchBoneInfo = [touchBoneList[i].bone, touchBoneList[i].point, pointx, pointy]
+        spineAnimationControl(touchBoneList[i].bone.data.name, 'main')
+        flag = false;
+        return;
+      }
+    }
+  }
+  if (flag) {
+    const point = touchBoneList[0].point;
+    if (checkInBounds(pointx, pointy, point.x, point.y, bounds[0][0], bounds[0][1], bounds[0][2], bounds[0][3])) {
+      disableTouchEvent = true;
+      spineTalkAnimationControl();
+      //currentSentenceIndex = (activeCharacter.currentSentenceIndex + 1) % activeCharacter.talkSentenceList.length;
+      return;
+    }
+  }
+}
 const PIXIInitialize = async () => {
   await app.init({
     width: window.innerWidth,
@@ -78,26 +128,46 @@ const PIXIInitialize = async () => {
     }
   });
 }
-const spineInit = async (name) => {
-  if (spineStudent) {
-    app.stage.removeChild(spineStudent);
-    spineStudent.destroy({ children: true, texture: true, baseTexture: true });
-  }
-  PIXI.Assets.add({ alias: `${name}skel`, src: `${name}_home.base641` });
-  PIXI.Assets.add({ alias: `${name}atlas`, src: `${name}_home.atlas1` });
-  await PIXI.Assets.load([`${name}skel`, `${name}atlas`]);
-  spineStudent = spine.Spine.from({
-    skeleton: `${name}skel`,
-    atlas: `${name}atlas`,
+const spineCreate = async (resourceName) => {
+  PIXI.Assets.add({ alias: `${resourceName}skel`, src: `${resourceName}_home.base641` });
+  PIXI.Assets.add({ alias: `${resourceName}atlas`, src: `${resourceName}_home.atlas1` });
+  await PIXI.Assets.load([`${resourceName}skel`, `${resourceName}atlas`]);
+  const spineStudent = spine.Spine.from({
+    skeleton: `${resourceName}skel`,
+    atlas: `${resourceName}atlas`,
     scale: 1,
   });
   app.stage.addChild(spineStudent);
+  spineStudent.modifyOriginalBounds = spineStudent.getBounds();
+  spineResize(spineStudent);
+  return spineStudent;
+}
+const spineResize = (object) => {
+  const spineObject = object || activeCharacter.spineStudent;
+  const spineOriginalBounds = spineObject.modifyOriginalBounds;
+  const visibleWidth = spineOriginalBounds.width * spineScale;
+  const visibleHeight = spineOriginalBounds.height * spineScale;
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const scaleX = screenWidth / visibleWidth;
+  const scaleY = screenHeight / visibleHeight;
+  const scale = Math.max(scaleX, scaleY);
+  spineObject.scale.set(scale);
 
-  if (ifSpineDebug) spineDebug();
+  const centerX = screenWidth / 2;
+  const centerY = screenHeight / 2;
+  const localCenterX = spineOriginalBounds.x + spineOriginalBounds.width / 2;
+  const localCenterY = spineOriginalBounds.y + spineOriginalBounds.height / 2;
 
-  //animationListener
+  spineObject.x = centerX - localCenterX * scale;
+  spineObject.y = centerY - localCenterY * scale;
+}
+
+const spineAnimationInit = (character) => {
+  //currentPlayRule = (props.currentPlay == null || playRule[props.currentPlay['sid']] == null) ? playRule['-1'] : playRule[props.currentPlay['sid'].toString()];
+  const spineStudent = character.spineStudent;
   spineStudent.state.addListener({
-    event: (entry, event) => {
+    event: (_, event) => {
       audioControl(event.stringValue)
     },
     end: (entry) => {
@@ -107,94 +177,28 @@ const spineInit = async (name) => {
     },
     complete: (entry) => {
       const name = entry.animation.name;
-      if (!name.includes('Idle') && talkSentenceList.includes(name.substring(0, name.lastIndexOf('_')))) {
+      if (!name.includes('Idle') && character.talkSentences.includes(name.substring(0, name.lastIndexOf('_')))) {
         disableTouchEvent = false;
       }
     },
   });
-
-  spineOriginalBounds = spineStudent.getBounds();
-  spineResize();
-
-  await spineAnimationInit();
-  await audioInit();
-
-  spineAnimationControl('None', 'main')
-}
-const spineResize = () => {
-  if (spineStudent == null) return;
-  const visibleWidth = spineOriginalBounds.width * spineScale;
-  const visibleHeight = spineOriginalBounds.height * spineScale;
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-  const scaleX = screenWidth / visibleWidth;
-  const scaleY = screenHeight / visibleHeight;
-  const scale = Math.max(scaleX, scaleY);
-  spineStudent.scale.set(scale);
-
-  const centerX = screenWidth / 2;
-  const centerY = screenHeight / 2;
-  const localCenterX = spineOriginalBounds.x + spineOriginalBounds.width / 2;
-  const localCenterY = spineOriginalBounds.y + spineOriginalBounds.height / 2;
-
-  spineStudent.x = centerX - localCenterX * scale;
-  spineStudent.y = centerY - localCenterY * scale;
-}
-
-const spineAnimationInit = async () => {
-  currentPlayRule = (props.currentPlay == null || playRule[props.currentPlay['sid']] == null) ? playRule['-1'] : playRule[props.currentPlay['sid'].toString()];
   spineStudent.state.data.defaultMix = spineAnimationDefaultMix;
-  touchBoneList = [];
   ["Hip", "Touch_Point_Key", "Touch_Eye_Key", "Right_Chin"].forEach(name => {
     const bone = spineStudent.skeleton.findBone(name);
     if (!bone) return;
     const point = { x: spineStudent.x + bone.worldX * spineStudent.scale.x, y: spineStudent.y + bone.worldY * spineStudent.scale.y }
-    touchBoneList.push({ bone, point });
+    character.touchBoneList.push({ bone, point });
   });
 
-  currentSentenceIndex = 0;
-  talkSentenceList = [];
-  disableTouchEvent = true;
+  character.currentSentenceIndex = 0;
+  //disableTouchEvent = true;
   spineStudent.skeleton.data.animations.forEach(animation => {
     const name = animation.name;
-    if (name.startsWith('Talk_') && talkSentenceList.includes(name.substring(0, name.lastIndexOf('_'))) == false) {
-      talkSentenceList.push(name.substring(0, name.lastIndexOf('_')));
+    if (name.startsWith('Talk_') && character.talkSentences.includes(name.substring(0, name.lastIndexOf('_'))) == false) {
+      character.talkSentences.push(name.substring(0, name.lastIndexOf('_')));
     }
   });
 
-
-  setBonePosition = (ev) => {
-    if (disableTouchEvent) return;
-    const pointx = ev.data.global.x;
-    const pointy = ev.data.global.y;
-    if (currentTouchBoneInfo.length > 0) {
-      currentTouchBoneInfo[2] = pointx;
-      currentTouchBoneInfo[3] = pointy;
-      return;
-    }
-    let flag = true;
-    const bounds = [infoMap[props.currentPlay.sid].TalkBounds || [300, 500, 0, -300], infoMap[props.currentPlay.sid].patBounds || [140, 60, 0, -50], infoMap[props.currentPlay.sid].lookBounds || [140, 50, 0, 10], infoMap[props.currentPlay.sid].chinBounds || [70, 70, 0, 0]]
-    for (let i = 1; i < 4; i++) {
-      if (touchBoneList[i]) {
-        const point = touchBoneList[i].point;
-        if (checkInBounds(pointx, pointy, point.x, point.y, bounds[i][0], bounds[i][1], bounds[i][2], bounds[i][3])) {
-          currentTouchBoneInfo = [touchBoneList[i].bone, touchBoneList[i].point, pointx, pointy]
-          spineAnimationControl(touchBoneList[i].bone.data.name, 'main')
-          flag = false;
-          return;
-        }
-      }
-    }
-    if (flag) {
-      const point = touchBoneList[0].point;
-      if (checkInBounds(pointx, pointy, point.x, point.y, bounds[0][0], bounds[0][1], bounds[0][2], bounds[0][3])) {
-        disableTouchEvent = true;
-        spineTalkAnimationControl(talkSentenceList[currentSentenceIndex]);
-        currentSentenceIndex = (currentSentenceIndex + 1) % talkSentenceList.length;
-        return;
-      }
-    }
-  }
   spineStudent.beforeUpdateWorldTransforms = () => {
     if (currentTouchBoneInfo.length > 0) {
       currentTouchBoneInfo[0].y -= clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / window.innerWidth, -100, 100)
@@ -216,16 +220,18 @@ const spineAnimationControl = (name, status) => {
   })
   spinePlayAnimation(target);
 }
-const spineTalkAnimationControl = (name) => {
+const spineTalkAnimationControl = () => {
   const target = {
-    [name + '_A']: { slot: 1 },
-    [name + '_M']: { slot: 2 }
+    [activeCharacter.resourceId + '_A']: { slot: 1 },
+    [activeCharacter.resourceId + '_M']: { slot: 2 }
   }
+  activeCharacter.currentSentenceIndex = (activeCharacter.currentSentenceIndex + 1) % activeCharacter.sentences.length;
   spinePlayAnimation(target);
 }
 const spinePlayAnimation = (data) => {
   Object.entries(data).forEach(([name, value]) => {
     let trackEntry = null;
+    const spineStudent = activeCharacter.spineStudent;
     if (name != 'None') {
       trackEntry = spineStudent.state.addAnimation(value.slot, name, value.loop || false, value.delay || 0.)
       if (value.mix) trackEntry.mixDuration = value.mix;
@@ -268,7 +274,7 @@ const animationEffectControl = (effects, trackEntry) => {
 
 //<---音频控制
 const audioControl = (name, info, trackEntry) => {
-  const tmp = name ? voiceAudioMap[name] : backgroundAudio;
+  const tmp = name ? activeCharacter.voiceAudioMap[name] : activeCharacter.backgroundAudio;
   if (info && info.delay && trackEntry) {
     setTimeout(() => {
       tmp.play();
@@ -277,19 +283,19 @@ const audioControl = (name, info, trackEntry) => {
   else tmp.play();
 }
 
-const audioInit = async () => {
-  const events = spineStudent.skeleton.data.events;
+const audioInit = async (character) => {
+  const events = character.spineStudent.skeleton.data.events;
   let count = 1;
 
-  backgroundAudio.pause();
-  backgroundAudio.src = "";
-  backgroundAudio.load();
+  // backgroundAudio.pause();
+  // backgroundAudio.src = "";
+  // backgroundAudio.load();
 
-  backgroundAudio.src = `./bgm/${infoMap[props.currentPlay.sid]['bgm']}`;
-  backgroundAudio.addEventListener('canplaythrough', () => { count-- }, { once: true });
-  backgroundAudio.addEventListener('error', () => count--);
+  character.backgroundAudio.src = `./bgm/${infoMap[character.sid]['bgm']}`;
+  character.backgroundAudio.addEventListener('canplaythrough', () => { count-- }, { once: true });
+  character.backgroundAudio.addEventListener('error', () => { console.log('error'); count-- });
 
-  voiceAudioMap = {};
+  //voiceAudioMap = {};
   events.forEach(event => {
     if (event.audioPath && event.audioPath.length > 0) {
       count++;
@@ -299,7 +305,7 @@ const audioInit = async () => {
       audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
       audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}`) }, { once: true });
       audio.src = path;
-      voiceAudioMap[event.name] = audio;
+      character.voiceAudioMap[event.name] = audio;
     }
   });
   const timeout = 5000;
@@ -319,10 +325,44 @@ const spineDebug = () => {
   spineDebugger.registerSpine(spineStudent)
 }
 
+const spineInit = async (object) => {
+  const character = new CharacterObject(object);
+  await spineCreate(object.resourceId).then(async (tmp) => {
+    if (tmp == null) {
+      console.warn(`Failed to load spine for ${object.resourceId}`);
+      return;
+    }
+    character.spineStudent = tmp;
+    //character.originalBounds.push(character.spineStudent.getBounds());
+    await Promise.all([spineAnimationInit(character), audioInit(character)])
+  })
+  isDragging = false;
+  disableTouchEvent = true;
+  currentTouchBoneInfo = [];
+  return character;
+}
+
+const updatePlayRule = () => {
+  currentPlayRule = (props.currentPlay == null || playRule[props.currentPlay['sid']] == null) ? playRule['-1'] : playRule[props.currentPlay['sid'].toString()];
+}
+
+
+
 onMounted(async () => {
   await fetchData();
   await PIXIInitialize();
-  await spineInit(props.currentPlay.resourceId);
+
+  if (props.currentPlay) {
+    await spineInit(props.currentPlay).then((character) => {
+      activeCharacter = character;
+      app.stage.addChild(activeCharacter.spineStudent);
+      updatePlayRule();
+      spineAnimationControl('None', 'main')
+    })
+  }
+
+  // test();
+  //await spineInit(props.currentPlay.resourceId);
   window.addEventListener('resize', () => {
     spineResize();
   })
