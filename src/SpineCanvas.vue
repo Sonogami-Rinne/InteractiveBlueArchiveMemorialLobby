@@ -179,6 +179,7 @@ const spineAnimationInit = (character) => {
       const name = entry.animation.name;
       if (!name.includes('Idle') && character.talkSentences.includes(name.substring(0, name.lastIndexOf('_')))) {
         disableTouchEvent = false;
+        
       }
     },
   });
@@ -221,11 +222,12 @@ const spineAnimationControl = (name, status) => {
   spinePlayAnimation(target);
 }
 const spineTalkAnimationControl = () => {
+  const sentences = activeCharacter.talkSentences;
   const target = {
-    [activeCharacter.resourceId + '_A']: { slot: 1 },
-    [activeCharacter.resourceId + '_M']: { slot: 2 }
+    [sentences[activeCharacter.currentSentenceIndex] + '_A']: { slot: 1 },
+    [sentences[activeCharacter.currentSentenceIndex] + '_M']: { slot: 2 }
   }
-  activeCharacter.currentSentenceIndex = (activeCharacter.currentSentenceIndex + 1) % activeCharacter.sentences.length;
+  activeCharacter.currentSentenceIndex = (activeCharacter.currentSentenceIndex + 1) % activeCharacter.talkSentences.length;
   spinePlayAnimation(target);
 }
 const spinePlayAnimation = (data) => {
@@ -294,6 +296,7 @@ const audioInit = async (character) => {
   character.backgroundAudio.src = `./bgm/${infoMap[character.sid]['bgm']}`;
   character.backgroundAudio.addEventListener('canplaythrough', () => { count-- }, { once: true });
   character.backgroundAudio.addEventListener('error', () => { console.log('error'); count-- });
+  character.backgroundAudio.loop = true;
 
   //voiceAudioMap = {};
   events.forEach(event => {
