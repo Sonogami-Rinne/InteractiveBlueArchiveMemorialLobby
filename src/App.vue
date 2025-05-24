@@ -28,35 +28,8 @@ const currentPlay = ref(null)//当前播放
 // let playRule = null//播放规则
 let deleteArea = null
 const deleteAreaWasted = ref([])
-const spineCanvas = ref(null)
-//--->
-
-//--->spineDebug
-// const ifSpineDebug = false;
-// const spineDebugger = new spine.SpineDebugRenderer();
-//--->
-
-//--->pixi + spine
-// const spineScale = 1
-// const spineAnimationDefaultMix = 0.2;
-// let app = new PIXI.Application()
-// let spineStudent = null
-// let setBonePosition = (ev) => { }
-// let spineOriginalBounds = null;
-// let isDragging = false
-// let touchBoneList = []
-// let currentTouchBoneInfo = []
-// const backgroundAudio = new Audio();
-// let voiceAudioMap = {};
-// let infoMap = null;
-// let disableTouchEvent = true;
-// let talkSentenceList = [];
-// let currentSentenceIndex = 0;
-// let currentPlayRule = null;
-
-//--->
-
-//<---base
+const preLoadPlay = ref(null)
+// const spineCanvas = ref(null)
 
 
 const fetchData = async () => {
@@ -83,12 +56,6 @@ const fetchData = async () => {
   }));
 
   filteredStudentList.value = studentList.value
-
-  // data = await import('@json/playRule.json')
-  // playRule = data.default
-
-  // data = await import('@json/info.json')
-  // infoMap = data.default
 
   data = localStorage.getItem('currentPlay')
   currentPlay.value = JSON.parse(data || '{}')
@@ -148,6 +115,9 @@ const clubSelected = () => {
   refreshStudentFilter()
 }
 
+const getNextPlay = ()=>{
+
+}
 const playListOnStart = (eve) => {
   if (deleteArea == null) deleteArea = document.getElementById("deleteArea")
   deleteArea.classList.remove("deleteArea-hidden")
@@ -174,6 +144,8 @@ const playListOnChoose = (ev) => {
     }
   })
 }
+
+
 const test = async () => {
   currentPlay.value = cloneItem(studentList.value[0])
 }
@@ -225,7 +197,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <SpineCanvas ref="spineCanvas" :currentPlay="currentPlay" :playList =  "playList" v-if="currentPlay && playList"/>
+  <SpineCanvas :currentPlay="currentPlay" :preLoadPlay =  "preLoadPlay" v-if="currentPlay" @update-current-play="()=>{console.warn('Unimplemented')}"/>
   <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1024 1024">
     <path fill="currentColor"
@@ -339,6 +311,7 @@ onMounted(() => {
   width: 50px;
   height: 50px;
   cursor: pointer;
+  z-index:3001;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }

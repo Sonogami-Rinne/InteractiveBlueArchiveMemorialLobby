@@ -152,14 +152,14 @@ async function loadImageBitmap(nurl, asset) {
     let _a;
     const tmp = url.substring(0, url.indexOf("."))
     const rawdata = await fun(`${tmp}.png`)
-    const byteString = atob(rawdata);
-    //const byteString = atob(resource[tmp[0]][tmp[1]]);
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
+    let binary = atob(rawdata);
+    let len = binary.length;
+    let bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binary.charCodeAt(i);
     }
-    const imageBlob = new Blob([ab], { type: "image/png" });
+    const buffer = new Uint8Array(bytes);
+    const imageBlob = new Blob([buffer], { type: "image/png" });
     return ((_a = asset == null ? void 0 : asset.data) == null ? void 0 : _a.alphaMode) === "premultiplied-alpha" ? createImageBitmap(imageBlob, { premultiplyAlpha: "none" }) : createImageBitmap(imageBlob);
 }
 
