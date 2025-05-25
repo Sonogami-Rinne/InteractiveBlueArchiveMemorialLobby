@@ -1,8 +1,8 @@
 <script setup>
-import { onMounted } from 'vue';
+import { effect, onMounted } from 'vue';
 
-const props = defineProps(['currentPlay', 'preloadPlay'])
-const emit = defineEmits(['updateCurrentPlay'])
+const props = defineProps(['currentPlay', 'preloadPlay', 'duration'])
+const emit = defineEmits(['updateCurrentPlay', 'askForPreload'])
 
 const app = new PIXI.Application()
 const spineScale = 1
@@ -15,6 +15,7 @@ let activeCharacter = null;
 let playRule = null;
 const windowOriginalWidth = window.innerWidth;
 const windowOriginalHeight = window.innerHeight;
+const schedule = new Schedule();
 
 
 class CharacterObject {
@@ -34,9 +35,9 @@ class CharacterObject {
   destroy() {
     app.stage.removeChild(this.spineStudent);
     this.spineStudent.destroy({ children: true, texture: true, baseTexture: true });
-    if (this.spineScene) {
+    if (this.spineScenes) {
       app.stage.removeChild(this.spineScene);
-      this.spineScene.destroy({ children: true, texture: true, baseTexture: true });
+      this.spineScenes.destroy({ children: true, texture: true, baseTexture: true });
     }
     this.backgroundAudio.pause();
     this.voiceAudioMap[this.talkSentences[this.currentSentenceIndex]].pause();
@@ -96,7 +97,7 @@ class CharacterObject {
         if (!name.includes('Idle') && this.talkSentences.includes(name.substring(0, name.lastIndexOf('_')))) {
           disableTouchEvent = false;
         }
-        else if(entry.modifySceneName && entry.modifyDisposable){
+        else if (entry.modifySceneName && entry.modifyDisposable) {
           this.spineScenes[entry.modifySceneName].scale.set(0);
         }
       },
@@ -105,7 +106,7 @@ class CharacterObject {
     ["Hip", "Touch_Point_Key", "Touch_Eye_Key", "Right_Chin"].forEach(name => {
       const bone = this.spineStudent.skeleton.findBone(name);
       if (!bone) return;
-      const point = { x: this.spineStudent.x + bone.worldX * this.spineStudent.scale.x, y: this.spineStudent.y +  bone.worldY *  this.spineStudent.scale.y }
+      const point = { x: this.spineStudent.x + bone.worldX * this.spineStudent.scale.x, y: this.spineStudent.y + bone.worldY * this.spineStudent.scale.y }
       this.touchBoneList.push({ bone, point });
     });
 
@@ -131,8 +132,8 @@ class CharacterObject {
   }
   spineTalkAnimationControl() {
     const target = [
-      {  name: this.talkSentences[this.currentSentenceIndex] + '_A', slot: 1 },
-      {  name: this.talkSentences[this.currentSentenceIndex] + '_M', slot: 2 }
+      { name: this.talkSentences[this.currentSentenceIndex] + '_A', slot: 1 },
+      { name: this.talkSentences[this.currentSentenceIndex] + '_M', slot: 2 }
     ]
     this.currentSentenceIndex = (this.currentSentenceIndex + 1) % this.talkSentences.length;
     this.__spinePlayAnimation__(target);
@@ -142,7 +143,7 @@ class CharacterObject {
       let trackEntry = null;
       if (item.name != 'None') {
         trackEntry = (this.spineScenes[item.scene] || this.spineStudent).state.addAnimation(item.slot, item.name, item.loop || false, item.delay || 0.)
-        if(item.scene) {
+        if (item.scene) {
           this.__spineResize__(this.spineScenes[item.scene])
           trackEntry.modifySceneName = item.scene
           trackEntry.modifyDisposable = item.disposable || false
@@ -157,11 +158,11 @@ class CharacterObject {
         this.__audioControl__(item.audio.name, item.audio, trackEntry)
       }
       if (item.effect) {
-        this.__animationEffectControl__(item.effect, trackEntry)
+        this.animationEffectControl(item.effect, trackEntry)
       }
     });
   }
-  __animationEffectControl__(effects, trackEntry) {
+  animationEffectControl(effects, trackEntry) {
     Object.entries(effects).forEach(([name, value]) => {
       setTimeout(() => {
         switch (name) {
@@ -178,7 +179,7 @@ class CharacterObject {
             effectArea.style.opacity = '1'
             break;
         }
-      }, Math.max(value.delay || 0 - trackEntry.trackTime, 0) * 1000)
+      }, Math.max(value.delay || 0. - trackEntry.trackTime || 0., 0) * 1000)
     })
   }
   __audioControl__(name, info, trackEntry) {
@@ -221,21 +222,27 @@ class CharacterObject {
       this.spineStudent = spineObject;
       await Promise.all([this.__spineAnimationInit__(), this.__audioInit__()])
     })
+    const scenes = infoMap[this.sid].extraScenes || [];
+    scenes.forEach(async (scene) => {
+      await this.__spineObjectCreate__(scene).then(async (spineObject) => {
+        this.spineScenes[scene] = spineObject;
+      })
+    })
     // isDragging = false;
     // disableTouchEvent = true;
     // currentTouchBoneInfo = [];
 
     //return character;
   }
-  addToStage(){
+  addToStage() {
     app.stage.addChild(item)
-    Object.entries(this.spineScenes).forEach(([_,value])=>{
+    Object.entries(this.spineScenes).forEach(([_, value]) => {
       this.spineStage.addChild(value);
       value.scale.set(0)
     })
-    
+
   }
-  begin(){
+  begin() {
     this.spineAnimationControl('None', 'main')
   }
 }
@@ -325,23 +332,73 @@ const setBonePosition = (ev) => {
   }
 }
 
-    // isDragging = false;
-    // disableTouchEvent = true;
-    // currentTouchBoneInfo = [];
+class Schedule {
+  constructor() {
+    this.characterObjects = new Array(2);
+    this.timerId = null;
+    this.duration = props.duration || 5;
+    this.beginTImeStamp = 0;
+  }
+  async currentPlayChange() {
+    this.endCurrentPlay();
+    if (props.currentPlay) {
+      activeCharacter = new CharacterObject(props.currentPlay);
+      await activeCharacter.spineInit().then(() => {
+        activeCharacter.addToStage();
+        this.characterObjects[0] = activeCharacter;
+        //activeCharacter.begin();
+      });
+    }
+  }
+  notifyDurationChange() {
+    clearTimeout(this.durationTimeout);
+    this.begin();
+  }
+  async preLoadChange() {
+    if (props.preload) {
+      this.characterObjects[1] = new CharacterObject(props.preload);
+      await this.characterObjects[1].spineInit();
+    }
+  }
+  endCurrentPlay() {
+    if (this.characterObjects[0]) {
+      this.characterObjects[0].animationEffectControl({ "fadeOut": { duration: 0 } }, {})
+      this.characterObjects[0].destroy()
+    }
+  }
+  changePlay() {
+    if (this.characterObjects[1]) {
+      this.characterObjects[0].animationEffectControl({ "fadeOut": { duration: 0.2 } }, {})
+      this.characterObjects[0].destroy()
+      this.characterObjects[1].addToStage()
+      this.characterObjects.splice(0, 1)
+      this.begin();
+    }
+  }
+  begin() {
+    activeCharacter = this.characterObjects[0]
+    this.characterObjects[0].play()
+    this.beginTImeStamp = Date.now()
+    this.timerId = setTimeout(() => {
+      emit('askForPreload')
+      this.timerId = setTimeout(() => {
+        this.changePlay();
+      }, duration - Date.now() + this.beginTImeStamp)
+    }, duration - 10000)
+  }
+}
+
+// isDragging = false;
+// disableTouchEvent = true;
+// currentTouchBoneInfo = [];
 
 
 
 onMounted(async () => {
   await fetchData();
   await PIXIInitialize();
+  await schedule.currentPlayChange();
 
-  if (props.currentPlay) {
-    activeCharacter = new CharacterObject(props.currentPlay);
-    await activeCharacter.spineInit().then(() => { 
-      app.stage.addChild(activeCharacter.spineStudent);
-      activeCharacter.begin();
-    });
-  }
   window.addEventListener('resize', () => {
     window.location.reload();
   })

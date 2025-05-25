@@ -115,8 +115,16 @@ const clubSelected = () => {
   refreshStudentFilter()
 }
 
-const getNextPlay = ()=>{
-
+const getPreloadPlay = () => {
+  if (playList.value.length > 1) {
+    if (ifRandom.value) {
+      let tmp = playList.value[Math.floor(Math.random() * playList.value.length - 1) + 1];
+      preLoadPlay.value = tmp == currentPlay.value ? playList.value[0] : tmp;
+    }
+    else {
+      preLoadPlay.value = playList.value[(playList.value.indexOf(currentPlay.value) + 1) % playList.value.length];
+    }
+  }
 }
 const playListOnStart = (eve) => {
   if (deleteArea == null) deleteArea = document.getElementById("deleteArea")
@@ -144,7 +152,6 @@ const playListOnChoose = (ev) => {
     }
   })
 }
-
 
 const test = async () => {
   currentPlay.value = cloneItem(studentList.value[0])
@@ -197,7 +204,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <SpineCanvas :currentPlay="currentPlay" :preLoadPlay =  "preLoadPlay" v-if="currentPlay" @update-current-play="()=>{console.warn('Unimplemented')}"/>
+  <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" v-if="currentPlay"
+    @updateCurrentPlay="() => { console.warn('Unimplemented') }" @askForPreload="getPreloadPlay" />
   <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1024 1024">
     <path fill="currentColor"
@@ -232,8 +240,8 @@ onMounted(() => {
         <el-row>
           <el-col :span="11"></el-col>
           <el-col :span="6">
-            <el-button
-              @click="() => { filteredStudentList.forEach((item) => { playList.push(cloneItem(item)) }) }">{{ localization['text-addAll'] }}</el-button>
+            <el-button @click="() => { filteredStudentList.forEach((item) => { playList.push(cloneItem(item)) }) }">{{
+              localization['text-addAll'] }}</el-button>
           </el-col>
           <el-col :span="1"></el-col>
           <el-col :span="6">
@@ -248,13 +256,15 @@ onMounted(() => {
             <el-row>
               <el-col :span="11">
                 <el-autocomplete v-model="academyValue" :fetch-suggestions="getAcademySuggestion" clearable
-                  class="inline-input w-50" :placeholder="localization['text-autoComplete1-placeholder']" @clear="refreshStudentFilter"
-                  @select="() => { clubValue = null; refreshStudentFilter() }" value-key="value" />
+                  class="inline-input w-50" :placeholder="localization['text-autoComplete1-placeholder']"
+                  @clear="refreshStudentFilter" @select="() => { clubValue = null; refreshStudentFilter() }"
+                  value-key="value" />
               </el-col>
               <div style="width: 10px;"></div>
               <el-col :span="11">
                 <el-autocomplete v-model="clubValue" :fetch-suggestions="getClubSuggestion" clearable
-                  class="inline-input w-50" :placeholder="localization['text-autoComplete2-placeholder']" @clear="refreshStudentFilter" @select="clubSelected" />
+                  class="inline-input w-50" :placeholder="localization['text-autoComplete2-placeholder']"
+                  @clear="refreshStudentFilter" @select="clubSelected" />
               </el-col>
             </el-row>
           </el-header>
@@ -311,7 +321,7 @@ onMounted(() => {
   width: 50px;
   height: 50px;
   cursor: pointer;
-  z-index:3001;
+  z-index: 3001;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
