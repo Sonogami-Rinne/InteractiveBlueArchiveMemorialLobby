@@ -1,9 +1,9 @@
 var fun = null
-var SpineTexture = spine.SpineTexture;
-var import_pixi2 = PIXI;
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
+let SpineTexture = spine.SpineTexture;
+let import_pixi2 = PIXI;
+const __defProp = Object.defineProperty;
+const __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+const __publicField = (obj, key, value) => {
     __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
     return value;
 };
@@ -11,7 +11,7 @@ var __publicField = (obj, key, value) => {
 __publicField(SpineTexture, "textureMap", /* @__PURE__ */ new Map());
 
 // spine-pixi-v8/src/assets/atlasLoader.ts
-var spineTextureAtlasLoader1 = {
+const spineTextureAtlasLoader1 = {
     extension: import_pixi2.ExtensionType.Asset,
     resolver: {
         test: (value) => (0, import_pixi2.checkExtension)(value, ".atlas1"),
@@ -34,7 +34,7 @@ var spineTextureAtlasLoader1 = {
             return (0, import_pixi2.checkExtension)(url, ".atlas1");
         },
         async load(nurl) {
-            var url = nurl.substring(nurl.lastIndexOf("/") + 1)
+            let url = nurl.substring(nurl.lastIndexOf("/") + 1)
             // const txt = resource[url.substring(0, url.indexOf("."))]["atlas"]
             //const raw = await import(`@atlas/${url.substring(0, url.indexOf("."))}.atlas?raw`)
             //const txt = raw;
@@ -88,14 +88,14 @@ var spineTextureAtlasLoader1 = {
 import_pixi2.extensions.add(spineTextureAtlasLoader1);
 
 // spine-pixi-v8/src/assets/skeletonLoader.ts
-var import_pixi3 = PIXI;
-function isJson(resource) {
+let import_pixi3 = PIXI;
+const isJson = (resource)=> {
     return Object.prototype.hasOwnProperty.call(resource, "bones");
 }
-function isBuffer(resource) {
+const isBuffer = (resource)=> {
     return resource instanceof Uint8Array;
 }
-var spineLoaderExtension = {
+const spineLoaderExtension = {
     extension: import_pixi3.ExtensionType.Asset,
     loader: {
         extension: {
@@ -130,12 +130,12 @@ var spineLoaderExtension = {
 import_pixi3.extensions.add(spineLoaderExtension);
 
 
-var __defProp$D = Object.defineProperty;
-var __getOwnPropSymbols$D = Object.getOwnPropertySymbols;
-var __hasOwnProp$D = Object.prototype.hasOwnProperty;
-var __propIsEnum$D = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$D = (obj, key, value) => key in obj ? __defProp$D(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$D = (a, b) => {
+const __defProp$D = Object.defineProperty;
+const __getOwnPropSymbols$D = Object.getOwnPropertySymbols;
+const __hasOwnProp$D = Object.prototype.hasOwnProperty;
+const __propIsEnum$D = Object.prototype.propertyIsEnumerable;
+const __defNormalProp$D = (obj, key, value) => key in obj ? __defProp$D(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+const __spreadValues$D = (a, b) => {
     for (var prop in b || (b = {}))
         if (__hasOwnProp$D.call(b, prop))
             __defNormalProp$D(a, prop, b[prop]);
@@ -147,7 +147,7 @@ var __spreadValues$D = (a, b) => {
     return a;
 };
 
-async function loadImageBitmap(nurl, asset) {
+const loadImageBitmap = async(nurl, asset)=> {
     let url = nurl.substring(nurl.lastIndexOf("/") + 1)
     let _a;
     const tmp = url.substring(0, url.indexOf("."))

@@ -1,8 +1,9 @@
 {
     "-1": {
         "home": {
-            "main": {
-                "Start_Idle_01": {
+            "main": [
+                {
+                    "name": "Start_Idle_01",
                     "slot": 0,
                     "audio": {
                         "delay": null
@@ -14,21 +15,24 @@
                         }
                     }
                 },
-                "Idle_01": {
+                {
+                    "name": "Idle_01",
                     "slot": 0,
                     "loop": "true"
                 }
-            }
+            ]
         },
         "pat": {
-            "main": {
-                "Pat_01_A": {
+            "main": [
+                {
+                    "name": "Pat_01_A",
                     "slot": 1
                 },
-                "Pat_01_M": {
+                {
+                    "name": "Pat_01_M",
                     "slot": 2
                 }
-            },
+            ],
             "after": {
                 "PatEnd_01_A": {
                     "slot": 1
@@ -39,21 +43,59 @@
             }
         },
         "look": {
-            "main": {
-                "Look_01_M": {
+            "main": [
+                {
+                    "name": "Look_01_M",
                     "slot": 2,
                     "mix": 0.1
                 }
-            },
-            "after": {
-                "LookEnd_01_A": {
+            ],
+            "after": [
+                {
+                    "name": "LookEnd_01_A",
                     "slot": 1
                 },
-                "LookEnd_01_M": {
+                {
+                    "name": "LookEnd_01_M",
                     "slot": 2
                 }
-            }
+            ]
         }
     },
-    "Wakamo": {}
+    "Wakamo": {
+        "home": {
+            "main": [
+                {
+                    "name": "Start_Idle_01",
+                    "scene": "Wakamo_Scene_0",
+                    "disposable": true,
+                    "slot": 0,
+                    "audio": {
+                        "delay": null
+                    },
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.2,
+                            "delay": null
+                        },
+                        "fadeOut": {
+                            "duration": 0.2,
+                            "delay": 12.8
+                        }
+                    },
+                    "duration":13
+                },
+                {
+                    "name": "Start_Idle_01",
+                    "slot":0,
+                    "effect":{
+                        "fadeIn":{
+                            "duration":0.2,
+                            "delay":null
+                        }
+                    }
+                }
+            ]
+        }
+    }
 }
