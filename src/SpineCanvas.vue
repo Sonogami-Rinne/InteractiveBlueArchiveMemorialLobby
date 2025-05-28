@@ -1,7 +1,7 @@
 <script setup>
-import { effect, onMounted } from 'vue';
+import { effect, onMounted, watch } from 'vue';
 
-const props = defineProps(['currentPlay', 'preloadPlay', 'duration'])
+const props = defineProps(['currentPlay', 'preLoadPlay', 'duration'])
 const emit = defineEmits(['updateCurrentPlay', 'askForPreload'])
 
 const app = new PIXI.Application()
@@ -15,7 +15,7 @@ let activeCharacter = null;
 let playRule = null;
 const windowOriginalWidth = window.innerWidth;
 const windowOriginalHeight = window.innerHeight;
-const schedule = new Schedule();
+let schedule = null;
 
 
 class CharacterObject {
@@ -235,7 +235,7 @@ class CharacterObject {
     //return character;
   }
   addToStage() {
-    app.stage.addChild(item)
+    app.stage.addChild(this.spineStudent)
     Object.entries(this.spineScenes).forEach(([_, value]) => {
       this.spineStage.addChild(value);
       value.scale.set(0)
@@ -244,6 +244,65 @@ class CharacterObject {
   }
   begin() {
     this.spineAnimationControl('None', 'main')
+  }
+}
+class Schedule {
+  constructor() {
+    this.characterObjects = new Array(2);
+    this.timerId = null;
+    this.duration = props.duration || 5;
+    this.beginTImeStamp = 0;
+  }
+  async notifyCurrentPlayChange() {
+    this.endCurrentPlay();
+    if (props.currentPlay) {
+      activeCharacter = new CharacterObject(props.currentPlay);
+      await activeCharacter.spineInit().then(() => {
+        activeCharacter.addToStage();
+        this.characterObjects[0] = activeCharacter;
+        //activeCharacter.begin();
+      });
+    }
+  }
+  notifyDurationChange(duration) {
+    clearTimeout(this.timerId);
+    this.duration = duration;
+    this.begin();
+  }
+  async notifyPreLoadChange() {
+    if (props.preload) {
+      this.characterObjects[1] = new CharacterObject(props.preload);
+      await this.characterObjects[1].spineInit();
+    }
+  }
+  endCurrentPlay() {
+    if (this.characterObjects[0]) {
+      this.characterObjects[0].animationEffectControl({ "fadeOut": { duration: 0 } }, {})
+      this.characterObjects[0].destroy()
+    }
+  }
+  changePlay() {
+    if (this.characterObjects[1]) {
+      this.characterObjects[0].animationEffectControl({ "fadeOut": { duration: 0.2 } }, {})
+      this.characterObjects[0].destroy()
+      this.characterObjects[1].addToStage()
+      this.characterObjects.splice(0, 1)
+      this.begin();
+    }
+  }
+  begin() {
+    //activeCharacter = this.characterObjects[0]
+    isDragging = false;
+    disableTouchEvent = true;
+    currentTouchBoneInfo = [];
+    this.characterObjects[0].begin()
+    this.beginTImeStamp = Date.now()
+    this.timerId = setTimeout(() => {
+      emit('askForPreload')
+      this.timerId = setTimeout(() => {
+        this.changePlay();
+      }, this.duration - Date.now() + this.beginTImeStamp)
+    }, this.duration - 10000)
   }
 }
 
@@ -332,61 +391,7 @@ const setBonePosition = (ev) => {
   }
 }
 
-class Schedule {
-  constructor() {
-    this.characterObjects = new Array(2);
-    this.timerId = null;
-    this.duration = props.duration || 5;
-    this.beginTImeStamp = 0;
-  }
-  async currentPlayChange() {
-    this.endCurrentPlay();
-    if (props.currentPlay) {
-      activeCharacter = new CharacterObject(props.currentPlay);
-      await activeCharacter.spineInit().then(() => {
-        activeCharacter.addToStage();
-        this.characterObjects[0] = activeCharacter;
-        //activeCharacter.begin();
-      });
-    }
-  }
-  notifyDurationChange() {
-    clearTimeout(this.durationTimeout);
-    this.begin();
-  }
-  async preLoadChange() {
-    if (props.preload) {
-      this.characterObjects[1] = new CharacterObject(props.preload);
-      await this.characterObjects[1].spineInit();
-    }
-  }
-  endCurrentPlay() {
-    if (this.characterObjects[0]) {
-      this.characterObjects[0].animationEffectControl({ "fadeOut": { duration: 0 } }, {})
-      this.characterObjects[0].destroy()
-    }
-  }
-  changePlay() {
-    if (this.characterObjects[1]) {
-      this.characterObjects[0].animationEffectControl({ "fadeOut": { duration: 0.2 } }, {})
-      this.characterObjects[0].destroy()
-      this.characterObjects[1].addToStage()
-      this.characterObjects.splice(0, 1)
-      this.begin();
-    }
-  }
-  begin() {
-    activeCharacter = this.characterObjects[0]
-    this.characterObjects[0].play()
-    this.beginTImeStamp = Date.now()
-    this.timerId = setTimeout(() => {
-      emit('askForPreload')
-      this.timerId = setTimeout(() => {
-        this.changePlay();
-      }, duration - Date.now() + this.beginTImeStamp)
-    }, duration - 10000)
-  }
-}
+
 
 // isDragging = false;
 // disableTouchEvent = true;
@@ -397,10 +402,20 @@ class Schedule {
 onMounted(async () => {
   await fetchData();
   await PIXIInitialize();
-  await schedule.currentPlayChange();
-
+  schedule = new Schedule();
+  await schedule.notifyCurrentPlayChange();
+  schedule.begin();
   window.addEventListener('resize', () => {
     window.location.reload();
+  })
+  watch(props.duration, async (value) => {
+    schedule.notifyDurationChange(value)
+  })
+  watch(props.currentPlay, async () => {
+    schedule.notifyCurrentPlayChange();
+  })
+  watch(props.preLoadPlay, async () => {
+    schedule.notifyPreLoadChange();
   })
 })
 
