@@ -1,19 +1,15 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
-const props = defineProps({
-    imgURL: String,
-    name: String,
-})
+const props = defineProps(['imgURL', 'name', 'index'])
+const emit = defineEmits(['itemDragStart'])
 
 const shortName = computed(() => props.name.substring(props.name.indexOf(' ') + 1))
 
-// 用于在 CSS 中判断模式（这里不做逻辑判断，只暴露样式）
-const isCardMode = computed(() => false) // 占位，用于说明逻辑层无切换
 </script>
 
 <template>
-    <div class="unified-item">
+    <div @dragstart="(ev) => { emit('itemDragStart', props.index) }" >
         <div class="img-container" :style="{ backgroundImage: 'url(' + imgURL + ')' }"></div>
         <img :src="imgURL" class="card-img">
         <div class="divide-line"></div>
@@ -110,6 +106,7 @@ const isCardMode = computed(() => false) // 占位，用于说明逻辑层无切
 .playList-item .short-name {
     display: none;
 }
+
 .ghost-item {
     height: 60px;
     display: flex;
@@ -144,15 +141,11 @@ const isCardMode = computed(() => false) // 占位，用于说明逻辑层无切
 .ghost-item .name {
     margin-left: 20px;
     font-size: auto;
-    display:show;
+    display: show;
 }
 
 .ghost-item .short-name {
     display: none;
 }
-.delete-item {
-    opacity: 0.6;
-    background-color: rgba(200,0,0,0.3);
-    transition: all 0.3s ease-in-out;
-}
+
 </style>

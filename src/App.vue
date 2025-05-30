@@ -27,11 +27,9 @@ let objectLastModifyTime = [0, 0, 0, 0]//debug,
 const filteredStudentList = ref([])//经过学校和社团过滤后的结果
 const currentPlay = ref(null)//当前播放
 // let playRule = null//播放规则
-let deleteAreaContainer = null
-const deleteAreaWasted = ref([])
+const deleteAreaContainer = ref(null)
 const preLoadPlay = ref({})
-
-
+let dragItemIndex = null;
 
 const fetchData = async () => {
   let data = await import('@json/localization.json')
@@ -128,23 +126,44 @@ const getPreloadPlay = () => {
     }
   }
 }
-const playListOnStart = (ev) => {
-  if (deleteAreaContainer == null) deleteAreaContainer = document.getElementById('deleteAreaContainer')
-  deleteAreaContainer.classList.remove("deleteAreaContainer-hidden")
-  deleteAreaContainer.classList.add("deleteAreaContainer-show")
+const playListOnStart = (index) => {
+  //if (deleteAreaContainer == null) deleteAreaContainer = document.getElementById('deleteAreaContainer')
+  dragItemIndex = index
+  deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-hidden")
+  deleteAreaContainer.value.$el.classList.add("deleteAreaContainer-show")
 }
 const playListOnEnd = (ev) => {
-  deleteAreaContainer.classList.add("deleteAreaContainer-hidden")
-  deleteAreaContainer.classList.remove("deleteAreaContainer-show")
+  //dragItem = null;
+  deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-delete-effect")
+  deleteAreaContainer.value.$el.classList.add("deleteAreaContainer-hidden")
+  deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-show")
 }
-const playListOnMove = (ev) => {
-  if (ev.to.id === "deleteArea") {
-    //console.log(document.querySelectorAll('.delete-item'))
-  }
+const deleteAreaDragEnter = (ev) => {
+  ev.preventDefault();
+  deleteAreaContainer.value.$el.classList.add("deleteAreaContainer-delete-effect")
+}
+
+const deleteAreaDragLeave = (ev) => {
+  ev.preventDefault();
+  deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-delete-effect")
+}
+const deleteAreaDrop = async (ev) => {
+  ev.preventDefault()
+  setTimeout(() => {
+    playList.value.splice(dragItemIndex, 1)
+    dragItemIndex = null;
+  }, 10)
+
+
 }
 
 const test = async () => {
   currentPlay.value = cloneItem(studentList.value[0])
+  const ascii = await import('@base64/Airi_home.skel?binary');
+  const data = ascii.default;
+  const binary = Uint8Array.from(data, c => c.charCodeAt(0))
+  
+  console.log(binary)
 }
 
 const initialize = async () => {
@@ -182,17 +201,21 @@ const initialize = async () => {
 onBeforeMount(() => {
   initialize();
 })
-onMounted(() => {
-  deleteAreaContainer = document.getElementById('deleteAreaContainer')
+
+watch(() => playList.value.length, (len) => {
+  if (len === 0) {
+    console.log('PlayList is empty, ensure DOM is synced')
+  }
 })
+
 
 //--->
 
 </script>
 
 <template>
-  <!-- <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" :duration="duration" v-if="currentPlay"
-    @updateCurrentPlay="() => { console.warn('Unimplemented') }" @askForPreload="getPreloadPlay" /> -->
+  <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" :duration="duration" v-if="currentPlay"
+    @updateCurrentPlay="() => { console.warn('Unimplemented') }" @askForPreload="getPreloadPlay" />
   <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg" v-show="!drawer"
     viewBox="0 0 1024 1024">
     <path fill="currentColor"
@@ -219,11 +242,12 @@ onMounted(() => {
           </el-header>
           <el-main class="grid-container-container">
             <div class="grid-container">
-              <VueDraggable v-model="playList" :animation="150" group="student" :onStart="playListOnStart"
-                :onEnd="playListOnEnd" ghostClass="ghost-item" class="list-draggable" :onMove="playListOnMove">
-                <DraggableItem v-for="item in playList" :key="item.id"
-                  :imgURL="'./portrait/' + item.resourceId + '.png'" :parent="'playList'" :name="item.name"
-                  @dbclick="(ev) => { console.log(ev) }" class="playList-item" ghost-class="playList-item">
+              <VueDraggable v-model="playList" :animation="150" group="student" :onEnd="playListOnEnd"
+                ghostClass="ghost-item" class="list-draggable">
+                <DraggableItem v-for="(item, index) in playList" :key="playList.length + item.id"
+                  :imgURL="'./portrait/' + item.resourceId + '.png'" :name="item.name"
+                  @dblclick="(ev) => { console.log(ev) }" class="playList-item" ghost-class="ghost-item" :index="index"
+                  @itemDragStart="playListOnStart">
                 </DraggableItem>
               </VueDraggable>
             </div>
@@ -266,19 +290,20 @@ onMounted(() => {
           </el-header>
           <el-main class="grid-container-container">
             <div class="grid-container">
-              <VueDraggable v-model="filteredStudentList" :animation="150" scroll :onChoose="studentListOnChoose"
-                :group="{ name: 'student', pull: 'clone', put: false }" :onStart="(ev) => { console.log(ev) }"
-                :clone="cloneItem" :sort="false" :onEnd="(ev) => { asideVisible = playList.length != 0 }"
-                class="grid-draggable">
+              <VueDraggable v-model="filteredStudentList" :animation="150" scroll
+                :group="{ name: 'student', pull: 'clone', put: false }" :clone="cloneItem" :sort="false"
+                :onEnd="(ev) => { asideVisible = playList.length != 0 }" class="grid-draggable">
                 <DraggableItem v-for="item in filteredStudentList" :key="item.id" class="studentList-item"
                   :imgURL="'./portrait/' + item.resourceId + '.png'" :name="item.name" :parent="'filteredStudentList'"
-                  @dbclick="(ev) => { console.log(ev) }"></DraggableItem>
+                  @dblclick="(ev) => { console.log(ev) }"></DraggableItem>
               </VueDraggable>
             </div>
           </el-main>
         </el-container>
       </el-main>
-      <el-main class="drawer-main deleteAreaContainer-hidden" id="deleteAreaContainer">
+      <el-main class="drawer-main deleteAreaContainer-hidden" id="deleteAreaContainer" ref="deleteAreaContainer"
+        @drop="deleteAreaDrop" @dragenter="deleteAreaDragEnter" @dragleave="deleteAreaDragLeave"
+        @dragover="(ev) => { ev.preventDefault() }">
         <!-- <VueDraggable v-model="deleteAreaWasted" :group="{ name: 'student', pull: false }" :animation="150"
           :onAdd="(ev) => { deleteAreaWasted = [] }" style="height:100%" ghostClass="delete-item" id="deleteArea">
 
@@ -369,10 +394,7 @@ onMounted(() => {
   position: absolute;
   right: 0;
   top: 0;
-}
-
-.deleteArea-alert {
-  color: red;
+  transition: background-color 0.5s ease-in-out;
 }
 
 .grid-draggable {
@@ -416,5 +438,10 @@ onMounted(() => {
   overflow-x: hidden;
   overflow-y: auto;
   margin-right: 20px;
+}
+
+.deleteAreaContainer-delete-effect {
+  background-color: red;
+  transition: all 0.3s ease-in-out;
 }
 </style>

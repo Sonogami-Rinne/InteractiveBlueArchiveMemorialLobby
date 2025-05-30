@@ -33,14 +33,16 @@
                     "slot": 2
                 }
             ],
-            "after": {
-                "PatEnd_01_A": {
+            "after": [
+                {
+                    "name": "PatEnd_01_A",
                     "slot": 1
                 },
-                "PatEnd_01_M": {
+                {
+                    "name": "PatEnd_01_M",
                     "slot": 2
                 }
-            }
+            ]
         },
         "look": {
             "main": [
@@ -83,15 +85,15 @@
                             "delay": 12.8
                         }
                     },
-                    "duration":13
+                    "duration": 13
                 },
                 {
                     "name": "Start_Idle_01",
-                    "slot":0,
-                    "effect":{
-                        "fadeIn":{
-                            "duration":0.2,
-                            "delay":null
+                    "slot": 0,
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.2,
+                            "delay": null
                         }
                     }
                 }
