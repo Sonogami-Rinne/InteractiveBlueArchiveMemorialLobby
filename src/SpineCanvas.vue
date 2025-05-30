@@ -43,7 +43,7 @@ class CharacterObject {
     this.voiceAudioMap[this.talkSentences[this.currentSentenceIndex]].pause();
   }
   async __spineObjectCreate__(resourceName) {
-    PIXI.Assets.add({ alias: `${resourceName}skel`, src: `${resourceName}.base641` });
+    PIXI.Assets.add({ alias: `${resourceName}skel`, src: `${resourceName}.skel1` });
     PIXI.Assets.add({ alias: `${resourceName}atlas`, src: `${resourceName}.atlas1` });
     await PIXI.Assets.load([`${resourceName}skel`, `${resourceName}atlas`]);
     const spineStudent = spine.Spine.from({

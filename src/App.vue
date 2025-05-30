@@ -159,11 +159,11 @@ const deleteAreaDrop = async (ev) => {
 
 const test = async () => {
   currentPlay.value = cloneItem(studentList.value[0])
-  const ascii = await import('@base64/Airi_home.skel?binary');
-  const data = ascii.default;
-  const binary = Uint8Array.from(data, c => c.charCodeAt(0))
+  // const ascii = await import('@base64/Airi_home.skel?binary');
+  // const data = ascii.default;
+  // const binary = Uint8Array.from(data, c => c.charCodeAt(0))
   
-  console.log(binary)
+  // console.log(binary)
 }
 
 const initialize = async () => {

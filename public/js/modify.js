@@ -89,10 +89,10 @@ import_pixi2.extensions.add(spineTextureAtlasLoader1);
 
 // spine-pixi-v8/src/assets/skeletonLoader.ts
 let import_pixi3 = PIXI;
-const isJson = (resource)=> {
+const isJson = (resource) => {
     return Object.prototype.hasOwnProperty.call(resource, "bones");
 }
-const isBuffer = (resource)=> {
+const isBuffer = (resource) => {
     return resource instanceof Uint8Array;
 }
 const spineLoaderExtension = {
@@ -104,26 +104,19 @@ const spineLoaderExtension = {
             name: "spineSkeletonLoader1"
         },
         test(url) {
-            return (0, import_pixi3.checkExtension)(url, ".base641");
+            return (0, import_pixi3.checkExtension)(url, ".skel1");
         },
         async load(nurl) {
             let url = nurl.substring(nurl.lastIndexOf("/") + 1)
             // const base64 = resource[url.substring(0, url.indexOf("."))]["skel"]
             //const rawdata = await import(`@base64/${url.substring(0, url.indexOf("."))}.base64?raw`)
-            const base64 = await fun(`${url.substring(0, url.indexOf("."))}.base64`)
-            let binary = atob(base64);
-            let len = binary.length;
-            let bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binary.charCodeAt(i);
-            }
-            const buffer = new Uint8Array(bytes);
+            const data = await fun(`${url.substring(0, url.indexOf("."))}.skel`)
+            const buffer = Uint8Array.from(data, c => c.charCodeAt(0))
             return buffer;
         },
         testParse(asset, options) {
-            const isJsonSpineModel = (0, import_pixi3.checkExtension)(options.src, ".json1") && isJson(asset);
-            const isBinarySpineModel = (0, import_pixi3.checkExtension)(options.src, ".base641") && isBuffer(asset);
-            return Promise.resolve(isJsonSpineModel || isBinarySpineModel);
+            const isBinarySpineModel = (0, import_pixi3.checkExtension)(options.src, ".skel1") && isBuffer(asset);
+            return Promise.resolve(isBinarySpineModel);
         }
     }
 };
@@ -147,18 +140,12 @@ const __spreadValues$D = (a, b) => {
     return a;
 };
 
-const loadImageBitmap = async(nurl, asset)=> {
+const loadImageBitmap = async (nurl, asset) => {
     let url = nurl.substring(nurl.lastIndexOf("/") + 1)
     let _a;
     const tmp = url.substring(0, url.indexOf("."))
-    const rawdata = await fun(`${tmp}.png`)
-    let binary = atob(rawdata);
-    let len = binary.length;
-    let bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i++) {
-        bytes[i] = binary.charCodeAt(i);
-    }
-    const buffer = new Uint8Array(bytes);
+    const data = await fun(`${tmp}.png`)
+    const buffer = Uint8Array.from(data, c => c.charCodeAt(0))
     const imageBlob = new Blob([buffer], { type: "image/png" });
     return ((_a = asset == null ? void 0 : asset.data) == null ? void 0 : _a.alphaMode) === "premultiplied-alpha" ? createImageBitmap(imageBlob, { premultiplyAlpha: "none" }) : createImageBitmap(imageBlob);
 }

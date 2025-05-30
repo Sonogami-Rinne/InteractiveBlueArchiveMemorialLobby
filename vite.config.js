@@ -33,7 +33,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@assets':fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@json':fileURLToPath(new URL('./src/assets/json', import.meta.url)),
-      '@base64':fileURLToPath(new URL('./src/assets/base64', import.meta.url)),
+      '@skel':fileURLToPath(new URL('./src/assets/skel', import.meta.url)),
       '@atlas':fileURLToPath(new URL('./src/assets/atlas', import.meta.url)),
       '@png':fileURLToPath(new URL('./src/assets/png', import.meta.url)),
       '@js':fileURLToPath(new URL('./src/js', import.meta.url)),
