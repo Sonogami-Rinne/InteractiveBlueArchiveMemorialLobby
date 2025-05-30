@@ -168,29 +168,29 @@ const test = async () => {
 
 const initialize = async () => {
   await fetchData();
-  watch(currentPlay, async (value) => {
+  watch(currentPlay, async () => {
     if (Date.now() - objectLastModifyTime[0] > 1000) {
-      saveData('currentPlay', value)
+      saveData('currentPlay', currentPlay.value)
     }
     objectLastModifyTime[0] = Date.now();
   })
-  watch(ifRandom, async (value) => {
+  watch(ifRandom, async () => {
 
     if (Date.now() - objectLastModifyTime[1] > 1000) {
-      saveData('ifRandom', value)
+      saveData('ifRandom', ifRandom.value)
     }
     objectLastModifyTime[1] = Date.now();
   })
-  watch(duration, async (value) => {
+  watch(duration, async () => {
 
     if (Date.now() - objectLastModifyTime[2] > 1000) {
-      saveData('duration', value)
+      saveData('duration', duration.value)
     }
     objectLastModifyTime[2] = Date.now();
   })
-  watch(playList, async (value) => {
+  watch(playList, async () => {
     if (Date.now() - objectLastModifyTime[3] > 5000) {
-      saveData('playList', value)
+      saveData('playList', playList.value)
     }
     objectLastModifyTime[3] = Date.now();
   })
@@ -200,12 +200,6 @@ const initialize = async () => {
 
 onBeforeMount(() => {
   initialize();
-})
-
-watch(() => playList.value.length, (len) => {
-  if (len === 0) {
-    console.log('PlayList is empty, ensure DOM is synced')
-  }
 })
 
 
