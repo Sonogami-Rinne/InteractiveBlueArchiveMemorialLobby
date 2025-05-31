@@ -111,7 +111,9 @@ const spineLoaderExtension = {
             // const base64 = resource[url.substring(0, url.indexOf("."))]["skel"]
             //const rawdata = await import(`@base64/${url.substring(0, url.indexOf("."))}.base64?raw`)
             const data = await fun(`${url.substring(0, url.indexOf("."))}.skel`)
-            const buffer = Uint8Array.from(data, c => c.charCodeAt(0))
+            const byteString = atob(data);
+
+            const buffer = Uint8Array.from(byteString, c => c.charCodeAt(0));
             return buffer;
         },
         testParse(asset, options) {
@@ -141,13 +143,13 @@ const __spreadValues$D = (a, b) => {
 };
 
 const loadImageBitmap = async (nurl, asset) => {
-    let url = nurl.substring(nurl.lastIndexOf("/") + 1)
-    let _a;
-    const tmp = url.substring(0, url.indexOf("."))
+    const tmp = nurl.substring(nurl.lastIndexOf("/") + 1, nurl.indexOf("."))
     const data = await fun(`${tmp}.png`)
-    const buffer = Uint8Array.from(data, c => c.charCodeAt(0))
+    const byteString = atob(data);
+    const buffer = Uint8Array.from(byteString, c => c.charCodeAt(0));
     const imageBlob = new Blob([buffer], { type: "image/png" });
-    return ((_a = asset == null ? void 0 : asset.data) == null ? void 0 : _a.alphaMode) === "premultiplied-alpha" ? createImageBitmap(imageBlob, { premultiplyAlpha: "none" }) : createImageBitmap(imageBlob);
+    const premultiplied = asset?.data?.alphaMode === "premultiplied-alpha";
+    return createImageBitmap(imageBlob, premultiplied ? { premultiplyAlpha: "none" } : undefined);
 }
 
 const loadTextures1 = {

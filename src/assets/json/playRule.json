@@ -49,7 +49,7 @@
                 {
                     "name": "Look_01_M",
                     "slot": 2,
-                    "mix": 0.1
+                    "mix": 0
                 }
             ],
             "after": [

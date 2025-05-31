@@ -18,10 +18,10 @@ export default function binaryAsAsciiPlugin() {
       if (id.endsWith('?binary')) {
         const filePath = id.split('?')[0];
         const absPath = path.resolve(filePath);
-        const content = fs.readFileSync(absPath, 'latin1'); // latin1 = 1字节=1字符
+        const content = fs.readFileSync(absPath, 'base64'); 
 
         // 输出为 JS 模块
-        return `export default ${JSON.stringify(content)};`;
+        return `export default "${content}";`;
       }
     }
   };

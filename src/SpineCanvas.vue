@@ -17,7 +17,7 @@ const windowOriginalWidth = window.innerWidth;
 const windowOriginalHeight = window.innerHeight;
 let schedule = null;
 const effectArea = ref(null)
-const showDragArea = true;
+const showDragArea = false;
 
 const boundsTransform = (bounds) => {
   if (bounds == null) return null;
@@ -139,7 +139,6 @@ class CharacterObject {
 
     this.spineStudent.beforeUpdateWorldTransforms = () => {
       if (currentTouchBoneInfo.length > 0) {
-        console.log(currentTouchBoneInfo)
         currentTouchBoneInfo[0].y = -clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / windowOriginalWidth, -100, 100)
         currentTouchBoneInfo[0].x = -clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / windowOriginalHeight, -100, 100)
       }
@@ -187,7 +186,7 @@ class CharacterObject {
           trackEntry.modifySceneName = item.scene
           trackEntry.modifyDisposable = item.disposable || false
         }
-        if (item.mix) trackEntry.mixDuration = item.mix;
+        if (item.mix) trackEntry._mixDuration = item.mix;
         if (item.duration) trackEntry.animationEnd = item.duration;
       }
       else {
@@ -202,7 +201,7 @@ class CharacterObject {
     });
   }
   animationEffectControl(effects, trackEntry) {
-    if(showDragArea) return;
+    if (showDragArea) return;
     Object.entries(effects).forEach(([name, value]) => {
       setTimeout(() => {
         switch (name) {
