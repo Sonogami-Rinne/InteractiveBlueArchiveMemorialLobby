@@ -1,5 +1,5 @@
 <script setup>
-import { effect, onMounted, watch } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
 const props = defineProps(['currentPlay', 'preLoadPlay', 'duration'])
 const emit = defineEmits(['updateCurrentPlay', 'askForPreload'])
@@ -16,18 +16,27 @@ let playRule = null;
 const windowOriginalWidth = window.innerWidth;
 const windowOriginalHeight = window.innerHeight;
 let schedule = null;
+const effectArea = ref(null)
+const showDragArea = true;
 
-
+const boundsTransform = (bounds) => {
+  if (bounds == null) return null;
+  bounds[0] = bounds[0] * windowOriginalWidth;
+  bounds[1] = bounds[1] * windowOriginalHeight;
+  bounds[2] = bounds[2] * windowOriginalWidth;
+  bounds[3] = bounds[3] * windowOriginalHeight;
+  return bounds;
+}
 class CharacterObject {
   constructor(data) {
     this.resourceId = data.resourceId
     this.sid = data.sid
     this.spineStudent = null;
     this.spineScenes = {};
-    this.touchBoneList = [];
+    this.touchBoneMap = { hip: null, touch_point_key: null, touch_eye_key: null, right_chin: null };
     this.talkSentences = [];
     this.currentSentenceIndex = 0;
-    //this.originalBounds = [];
+    this.touchBounds = {};
     this.backgroundAudio = new Audio();
     this.voiceAudioMap = {};
     this.playRule = null
@@ -82,6 +91,12 @@ class CharacterObject {
       chin: playRule[sid] ? playRule[sid]['chin'] || playRule['-1']['chin'] : playRule['-1']['chin']
     }
 
+    this.touchBounds = {
+      hip: infoMap[this.sid]['talkBounds'] = boundsTransform(infoMap[this.sid]['talkBounds']),
+      touch_point_key: infoMap[this.sid]['patBounds'] = boundsTransform(infoMap[this.sid]['patBounds']),
+      touch_eye_key: infoMap[this.sid]['lookBounds'] = boundsTransform(infoMap[this.sid]['lookBounds']),
+      right_chin: infoMap[this.sid]['chinBounds'] = boundsTransform(infoMap[this.sid]['chinBounds'])
+    }
     //currentPlayRule = (props.currentPlay == null || playRule[props.currentPlay['sid']] == null) ? playRule['-1'] : playRule[props.currentPlay['sid'].toString()];
     this.spineStudent.state.addListener({
       event: (_, event) => {
@@ -103,13 +118,16 @@ class CharacterObject {
       },
     });
     this.spineStudent.state.data.defaultMix = spineAnimationDefaultMix;
-    ["Hip", "Touch_Point_Key", "Touch_Eye_Key", "Right_Chin"].forEach(name => {
-      const bone = this.spineStudent.skeleton.findBone(name);
-      if (!bone) return;
-      const point = { x: this.spineStudent.x + bone.worldX * this.spineStudent.scale.x, y: this.spineStudent.y + bone.worldY * this.spineStudent.scale.y }
-      this.touchBoneList.push({ bone, point });
-    });
-
+    this.spineStudent.skeleton.data.bones.forEach((bone) => {
+      const name = bone.name.toLowerCase();
+      if (this.touchBoneMap[name] !== undefined) {
+        const tmp = this.spineStudent.skeleton.findBone(bone.name);
+        this.touchBoneMap[name] = {
+          bone: tmp,
+          point: { x: this.spineStudent.x + tmp.worldX * this.spineStudent.scale.x, y: this.spineStudent.y + tmp.worldY * this.spineStudent.scale.y }
+        }
+      }
+    })
     this.currentSentenceIndex = 0;
     //disableTouchEvent = true;
     this.spineStudent.skeleton.data.animations.forEach(animation => {
@@ -121,13 +139,34 @@ class CharacterObject {
 
     this.spineStudent.beforeUpdateWorldTransforms = () => {
       if (currentTouchBoneInfo.length > 0) {
-        currentTouchBoneInfo[0].y -= clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / windowOriginalWidth, -100, 100)
-        currentTouchBoneInfo[0].x -= clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / windowOriginalHeight, -100, 100)
+        console.log(currentTouchBoneInfo)
+        currentTouchBoneInfo[0].y = -clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / windowOriginalWidth, -100, 100)
+        currentTouchBoneInfo[0].x = -clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / windowOriginalHeight, -100, 100)
       }
+    }
+
+    if (showDragArea) {
+      effectArea.value.style.opacity = 1;
+      effectArea.value.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+      Object.entries(this.touchBoneMap).forEach(([key, value]) => {
+        if (value == null) return;
+        let newDiv = document.createElement('div');
+        newDiv.className = 'bone-drag-display'
+        newDiv.style.width = this.touchBounds[key][0] * 2 + 'px'
+        newDiv.style.height = this.touchBounds[key][1] * 2 + 'px';
+        newDiv.style.left = value.point.x - this.touchBounds[key][0] + this.touchBounds[key][2] + 'px'
+        newDiv.style.top = value.point.y - this.touchBounds[key][1] + this.touchBounds[key][3] + 'px'
+        newDiv.style.backgroundColor = 'rgba(255, 0, 0, 0.5)'
+        newDiv.style.position = 'absolute'
+        newDiv.style.zIndex = 4
+        effectArea.value.appendChild(newDiv)
+
+      })
     }
   }
   spineAnimationControl(name, status) {
-    const type = name == 'Touch_Point_Key' ? 'pat' : name == 'Touch_Eye_Key' ? 'look' : name == 'None' ? 'home' : name == 'Chin' ? 'chin' : name;
+    const lowerName = name.toLowerCase();
+    const type = lowerName == 'touch_point_key' ? 'pat' : lowerName == 'touch_eye_key' ? 'look' : lowerName == 'none' ? 'home' : lowerName == 'right_chin' ? 'chin' : lowerName;
     this.__spinePlayAnimation__(this.playRule[type][status]);
   }
   spineTalkAnimationControl() {
@@ -163,20 +202,21 @@ class CharacterObject {
     });
   }
   animationEffectControl(effects, trackEntry) {
+    if(showDragArea) return;
     Object.entries(effects).forEach(([name, value]) => {
       setTimeout(() => {
         switch (name) {
           case 'fadeIn':
-            effectArea.style.transition = ''
-            effectArea.style.opacity = '1'
-            effectArea.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
-            effectArea.style.opacity = '0'
+            effectArea.value.style.transition = ''
+            effectArea.value.style.opacity = '1'
+            effectArea.value.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
+            effectArea.value.style.opacity = '0'
             break;
           case 'fadeOut':
-            effectArea.style.transition = ''
-            effectArea.style.opacity = '0'
-            effectArea.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
-            effectArea.style.opacity = '1'
+            effectArea.value.style.transition = ''
+            effectArea.value.style.opacity = '0'
+            effectArea.value.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
+            effectArea.value.style.opacity = '1'
             break;
         }
       }, Math.max(value.delay || 0. - trackEntry.trackTime || 0., 0) * 1000)
@@ -208,7 +248,9 @@ class CharacterObject {
         audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
         audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}`) }, { once: true });
         audio.src = path;
-        this.voiceAudioMap[event.name] = audio;
+        const index = event.name.indexOf('/')
+        const name = index > 0 ? event.name.substring(index + 1) : event.name;
+        this.voiceAudioMap[name] = audio;
       }
     });
     const timeout = 5000;
@@ -228,11 +270,6 @@ class CharacterObject {
         this.spineScenes[scene] = spineObject;
       })
     })
-    // isDragging = false;
-    // disableTouchEvent = true;
-    // currentTouchBoneInfo = [];
-
-    //return character;
   }
   addToStage() {
     app.stage.addChild(this.spineStudent)
@@ -243,7 +280,7 @@ class CharacterObject {
 
   }
   begin() {
-    this.spineAnimationControl('None', 'main')
+    this.spineAnimationControl('none', 'main')
   }
 }
 class Schedule {
@@ -366,36 +403,26 @@ const setBonePosition = (ev) => {
     currentTouchBoneInfo[3] = pointy;
     return;
   }
-  let flag = true;
-  const bounds = [infoMap[props.currentPlay.sid].talkBounds || [300, 500, 0, -300], infoMap[props.currentPlay.sid].patBounds || [140, 60, 0, -50], infoMap[props.currentPlay.sid].lookBounds || [140, 50, 0, 10], infoMap[props.currentPlay.sid].chinBounds || [70, 70, 0, 0]]
-  const touchBoneList = activeCharacter.touchBoneList;
-  for (let i = 1; i < 4; i++) {
-    if (touchBoneList[i]) {
-      const point = touchBoneList[i].point;
-      if (checkInBounds(pointx, pointy, point.x, point.y, bounds[i][0], bounds[i][1], bounds[i][2], bounds[i][3])) {
-        currentTouchBoneInfo = [touchBoneList[i].bone, touchBoneList[i].point, pointx, pointy]
-        activeCharacter.spineAnimationControl(touchBoneList[i].bone.data.name, 'main')
-        flag = false;
-        return;
+
+  const bounds = activeCharacter.touchBounds;
+  let flag = false;
+  Object.entries(activeCharacter.touchBoneMap).forEach(([boneName, value]) => {
+    if (value == null || flag) return;
+
+    if (checkInBounds(pointx, pointy, value.point.x, value.point.y, bounds[boneName][0], bounds[boneName][1], bounds[boneName][2], bounds[boneName][3])) {
+      if (boneName == 'hip') {
+        disableTouchEvent = true;
+        activeCharacter.spineTalkAnimationControl();
       }
+      else {
+        currentTouchBoneInfo = [value.bone, value.point, pointx, pointy];
+        activeCharacter.spineAnimationControl(boneName, 'main')
+      }
+      flag = true;
     }
-  }
-  if (flag) {
-    const point = touchBoneList[0].point;
-    if (checkInBounds(pointx, pointy, point.x, point.y, bounds[0][0], bounds[0][1], bounds[0][2], bounds[0][3])) {
-      disableTouchEvent = true;
-      activeCharacter.spineTalkAnimationControl();
-      //currentSentenceIndex = (activeCharacter.currentSentenceIndex + 1) % activeCharacter.talkSentenceList.length;
-      return;
-    }
-  }
+  });
 }
 
-
-
-// isDragging = false;
-// disableTouchEvent = true;
-// currentTouchBoneInfo = [];
 
 
 
@@ -428,7 +455,7 @@ onMounted(async () => {
 <template>
   <el-container class="main-container" id="canvas">
   </el-container>
-  <div class="main-container main-container-effect" id="effectArea"></div>
+  <div class="main-container main-container-effect" ref="effectArea"></div>
 </template>
 
 <style scoped>
@@ -447,5 +474,11 @@ onMounted(async () => {
   top: 0;
   left: 0;
   pointer-events: none;
+}
+
+.bone-drag-display{
+  position: absolute;
+  z-index: 4;
+  background-color: rgba(200, 200, 200, 0.5);
 }
 </style>

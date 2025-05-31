@@ -127,7 +127,6 @@ const getPreloadPlay = () => {
   }
 }
 const playListOnStart = (index) => {
-  //if (deleteAreaContainer == null) deleteAreaContainer = document.getElementById('deleteAreaContainer')
   dragItemIndex = index
   deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-hidden")
   deleteAreaContainer.value.$el.classList.add("deleteAreaContainer-show")
@@ -158,7 +157,7 @@ const deleteAreaDrop = async (ev) => {
 }
 
 const test = async () => {
-  currentPlay.value = cloneItem(studentList.value[0])
+  currentPlay.value = cloneItem(studentList.value[1])
   // const ascii = await import('@base64/Airi_home.skel?binary');
   // const data = ascii.default;
   // const binary = Uint8Array.from(data, c => c.charCodeAt(0))
