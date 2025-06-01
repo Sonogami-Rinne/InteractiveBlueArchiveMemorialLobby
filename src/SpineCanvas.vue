@@ -40,6 +40,7 @@ class CharacterObject {
     this.backgroundAudio = new Audio();
     this.voiceAudioMap = {};
     this.playRule = null
+    this.boneRedirectMap = {}
   }
   destroy() {
     app.stage.removeChild(this.spineStudent);
@@ -96,6 +97,9 @@ class CharacterObject {
       touch_eye_key: infoMap[this.sid]['lookBounds'] = boundsTransform(infoMap[this.sid]['lookBounds']),
       right_chin: infoMap[this.sid]['chinBounds'] = boundsTransform(infoMap[this.sid]['chinBounds'])
     }
+
+    this.boneRedirectMap = infoMap[this.sid].boneRedirect;
+
     //currentPlayRule = (props.currentPlay == null || playRule[props.currentPlay['sid']] == null) ? playRule['-1'] : playRule[props.currentPlay['sid'].toString()];
     this.spineStudent.state.addListener({
       event: (_, event) => {
@@ -118,7 +122,8 @@ class CharacterObject {
     });
     this.spineStudent.state.data.defaultMix = spineAnimationDefaultMix;
     this.spineStudent.skeleton.data.bones.forEach((bone) => {
-      const name = bone.name.toLowerCase();
+      const foo = bone.name.toLowerCase();
+      const name = this.boneRedirectMap[foo] || foo;
       if (this.touchBoneMap[name] !== undefined) {
         const tmp = this.spineStudent.skeleton.findBone(bone.name);
         this.touchBoneMap[name] = {
@@ -147,8 +152,7 @@ class CharacterObject {
       effectArea.value.style.backgroundColor = 'rgba(0, 0, 0, 0)';
       Object.entries(this.touchBoneMap).forEach(([key, value]) => {
         if (value == null) return;
-        let newDiv = document.createElement('div');
-        newDiv.className = 'bone-drag-display'
+        let newDiv = document.createElement('div')
         newDiv.style.width = this.touchBounds[key][0] * 2 + 'px'
         newDiv.style.height = this.touchBounds[key][1] * 2 + 'px';
         newDiv.style.left = value.point.x - this.touchBounds[key][0] + this.touchBounds[key][2] + 'px'
@@ -163,7 +167,8 @@ class CharacterObject {
   }
   spineAnimationControl(name, status) {
     const lowerName = name.toLowerCase();
-    const type = lowerName == 'touch_point_key' ? 'pat' : lowerName == 'touch_eye_key' ? 'look' : lowerName == 'none' ? 'home' : lowerName == 'right_chin' ? 'chin' : lowerName;
+    const tmp = this.boneRedirectMap[lowerName] || lowerName
+    const type = tmp == 'touch_point_key' ? 'pat' : tmp == 'touch_eye_key' ? 'look' : tmp == 'none' ? 'home' : tmp == 'right_chin' ? 'chin' : tmp;
     this.__spinePlayAnimation__(this.playRule[type][status], name);
   }
   spineTalkAnimationControl() {
@@ -269,7 +274,8 @@ class CharacterObject {
     events.forEach(event => {
       if (event.audioPath && event.audioPath.length > 0) {
         count++;
-        const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.replace(".wav", ".ogg").toLowerCase().replace('sound/','')}`;
+        //const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.replace(".wav", ".ogg").toLowerCase().replace('sound/', '')}`;
+        const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.substring(event.audioPath.indexOf('/') + 1).replace(".wav", ".ogg").toLowerCase()}`;
         const audio = new Audio();
         audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
         audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}`) }, { once: true });
@@ -288,6 +294,7 @@ class CharacterObject {
   async spineInit() {
     await this.__spineObjectCreate__(this.resourceId + '_home').then(async (spineObject) => {
       this.spineStudent = spineObject;
+      if(infoMap[this.sid].scale) this.__spineResize__(this.spineStudent, infoMap[this.sid].scale)
       await Promise.all([this.__spineAnimationInit__(), this.__audioInit__()])
     })
     const scenes = infoMap[this.sid].extraScenes || {};

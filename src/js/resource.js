@@ -23,5 +23,9 @@ const resourceLoader = {
     'Aru_home.png': () => import('@png/Aru_home.png?binary'),
     'Aru_home2.png': () => import('@png/Aru_home2.png?binary'),
     'Aru_home3.png': () => import('@png/Aru_home3.png?binary'),
+    'Asuna_home.skel': () => import('@skel/Asuna_home.skel?binary'),
+    'Asuna_home.atlas': () => import('@atlas/Asuna_home.atlas?raw'),
+    'Asuna_home.png': () => import('@png/Asuna_home.png?binary'),
+    'Asuna_home2.png': () => import('@png/Asuna_home2.png?binary'),
 }
 export default resourceLoader;

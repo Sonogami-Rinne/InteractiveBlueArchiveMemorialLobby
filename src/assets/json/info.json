@@ -28,7 +28,6 @@
         }
     },
     {
-        "name": "Aru",
         "bgm": "Theme_38.ogg",
         "patBounds": [0.05,0.05,0,-0.01],
         "lookBounds": [0.05,0.07,0,0.007],
@@ -38,5 +37,17 @@
                 "zIndex": -1
             }
         }
+    },
+    {
+        "name": "Asuna",
+        "bgm": "Theme_38.ogg",
+        "patBounds": [0.07,0.07,0,-0.04],
+        "lookBounds": [0.07,0.04,0,0],
+        "talkBounds": [0.2,0.4,0.1,-0.2],
+        "boneRedirect":{
+            "touch_point_kye":"touch_point_key",
+            "touch_eye_kye": "touch_eye_key"
+        },
+        "scale":0.9
     }
 ]
