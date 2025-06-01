@@ -16,7 +16,7 @@ const windowOriginalWidth = window.innerWidth;
 const windowOriginalHeight = window.innerHeight;
 let schedule = null;
 const effectArea = ref(null)
-const showDragArea = false;
+const showDragArea = true;
 const voiceRegion = 'jp'
 
 const boundsTransform = (bounds) => {
@@ -270,7 +270,6 @@ class CharacterObject {
       if (event.audioPath && event.audioPath.length > 0) {
         count++;
         const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.replace(".wav", ".ogg").toLowerCase().replace('sound/','')}`;
-        console.log(path)
         const audio = new Audio();
         audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
         audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}`) }, { once: true });

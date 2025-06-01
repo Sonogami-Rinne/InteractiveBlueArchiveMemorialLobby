@@ -15,6 +15,13 @@ const resourceLoader = {
     'akari_bg.png': () => import('@png/akari_bg.png?binary'),
     'akari_home.png': () => import('@png/akari_home.png?binary'),
     'akari_scene.png': () => import('@png/akari_scene.png?binary'),
-
+    'Aru_home.skel': () => import('@skel/Aru_home.skel?binary'),
+    'Aru_scene.skel': () => import('@skel/Aru_scene.skel?binary'),
+    'Aru_home.atlas': () => import('@atlas/Aru_home.atlas?raw'),
+    'Aru_scene.atlas': () => import('@atlas/Aru_scene.atlas?raw'),
+    'Aru_scene.png': () => import('@png/Aru_scene.png?binary'),
+    'Aru_home.png': () => import('@png/Aru_home.png?binary'),
+    'Aru_home2.png': () => import('@png/Aru_home2.png?binary'),
+    'Aru_home3.png': () => import('@png/Aru_home3.png?binary'),
 }
 export default resourceLoader;
