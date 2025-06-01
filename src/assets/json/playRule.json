@@ -64,6 +64,66 @@
             ]
         }
     },
+    "2": {
+        "home": {
+            "main": [
+                {
+                    "name": "Start_Idle_01",
+                    "scene": "akari_scene",
+                    "slot": 0,
+                    "audio": {},
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.2
+                        },
+                        "objectHide":{
+                            "target":["akari_bg","main"]
+                        },
+                        "fadeOut":{
+                            "duration":0.1,
+                            "delay":2.9
+                        }
+                    },
+                    "duration": 3,
+                    "nextStatus": "mainAfter"
+                }
+            ],
+            "mainAfter": [
+                {
+                    "name": "Start_Idle_01",
+                    "scene": "akari_bg",
+                    "slot": 0,
+                    "effect": {
+                        "objectShow":{
+                            "target":["akari_bg", "main"]
+                        },
+                        "objectHide":{
+                            "target":["akari_scene"]
+                        },
+                        "fadeIn":{
+                            "duration":0.1
+                        }
+                        
+                    }
+                },
+                {
+                    "name": "Start_Idle_01",
+                    "slot": 0
+                },
+                {
+                    "name": "Idle_01",
+                    "scene": "akari_bg",
+                    "slot": 0,
+                    "loop": true
+                },
+                {
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": true
+                }
+            ]
+        }
+    },
     "Wakamo": {
         "home": {
             "main": [
@@ -72,9 +132,7 @@
                     "scene": "Wakamo_Scene_0",
                     "disposable": true,
                     "slot": 0,
-                    "audio": {
-                        "delay": null
-                    },
+                    "audio": {},
                     "effect": {
                         "fadeIn": {
                             "duration": 0.2,

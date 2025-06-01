@@ -5,7 +5,6 @@ const props = defineProps(['currentPlay', 'preLoadPlay', 'duration'])
 const emit = defineEmits(['updateCurrentPlay', 'askForPreload'])
 
 const app = new PIXI.Application()
-const spineScale = 1
 const spineAnimationDefaultMix = 0.2;
 let isDragging = false
 let currentTouchBoneInfo = []
@@ -18,6 +17,7 @@ const windowOriginalHeight = window.innerHeight;
 let schedule = null;
 const effectArea = ref(null)
 const showDragArea = false;
+const voiceRegion = 'jp'
 
 const boundsTransform = (bounds) => {
   if (bounds == null) return null;
@@ -55,17 +55,17 @@ class CharacterObject {
     PIXI.Assets.add({ alias: `${resourceName}skel`, src: `${resourceName}.skel1` });
     PIXI.Assets.add({ alias: `${resourceName}atlas`, src: `${resourceName}.atlas1` });
     await PIXI.Assets.load([`${resourceName}skel`, `${resourceName}atlas`]);
-    const spineStudent = spine.Spine.from({
+    const spineObject = await spine.Spine.from({
       skeleton: `${resourceName}skel`,
       atlas: `${resourceName}atlas`,
       scale: 1,
     });
     //app.stage.addChild(spineStudent);
-    spineStudent.modifyOriginalBounds = spineStudent.getBounds();
-    this.__spineResize__(spineStudent);
-    return spineStudent;
+    spineObject.modifyOriginalBounds = spineObject.getBounds();
+    this.__spineResize__(spineObject);
+    return spineObject;
   }
-  __spineResize__(spineObject) {
+  __spineResize__(spineObject, spineScale = 1) {
     const spineOriginalBounds = spineObject.modifyOriginalBounds;
     const visibleWidth = spineOriginalBounds.width * spineScale;
     const visibleHeight = spineOriginalBounds.height * spineScale;
@@ -112,8 +112,8 @@ class CharacterObject {
         if (!name.includes('Idle') && this.talkSentences.includes(name.substring(0, name.lastIndexOf('_')))) {
           disableTouchEvent = false;
         }
-        else if (entry.modifySceneName && entry.modifyDisposable) {
-          this.spineScenes[entry.modifySceneName].scale.set(0);
+        if (entry.modifyNextStatus) {
+          this.spineAnimationControl(entry.modifyName, entry.modifyNextStatus)
         }
       },
     });
@@ -166,7 +166,7 @@ class CharacterObject {
   spineAnimationControl(name, status) {
     const lowerName = name.toLowerCase();
     const type = lowerName == 'touch_point_key' ? 'pat' : lowerName == 'touch_eye_key' ? 'look' : lowerName == 'none' ? 'home' : lowerName == 'right_chin' ? 'chin' : lowerName;
-    this.__spinePlayAnimation__(this.playRule[type][status]);
+    this.__spinePlayAnimation__(this.playRule[type][status], name);
   }
   spineTalkAnimationControl() {
     const target = [
@@ -176,18 +176,18 @@ class CharacterObject {
     this.currentSentenceIndex = (this.currentSentenceIndex + 1) % this.talkSentences.length;
     this.__spinePlayAnimation__(target);
   }
-  __spinePlayAnimation__(data) {
+  __spinePlayAnimation__(data, name) {
     data.forEach((item) => {
       let trackEntry = null;
+      const tmp = this.spineScenes;
       if (item.name != 'None') {
         trackEntry = (this.spineScenes[item.scene] || this.spineStudent).state.addAnimation(item.slot, item.name, item.loop || false, item.delay || 0.)
         if (item.scene) {
-          this.__spineResize__(this.spineScenes[item.scene])
+          //this.__spineResize__(this.spineScenes[item.scene])
           trackEntry.modifySceneName = item.scene
-          trackEntry.modifyDisposable = item.disposable || false
         }
         if (item.mix) trackEntry._mixDuration = item.mix;
-        if (item.duration) trackEntry.animationEnd = item.duration;
+        if (item.duration) trackEntry.trackEnd = item.duration;
       }
       else {
         trackEntry = this.spineStudent.state.addEmptyAnimation(item.slot, item.mix || spineAnimationDefaultMix, item.delay || 0.)
@@ -198,20 +198,51 @@ class CharacterObject {
       if (item.effect) {
         this.animationEffectControl(item.effect, trackEntry)
       }
+      if (item.nextStatus) {
+        this.spineScenes[item.scene].state.addListener({
+          end: (entry) => {
+            this.spineAnimationControl(entry.modifyName, entry.modifyNextStatus)
+          },
+        })
+        trackEntry.modifyNextStatus = item.nextStatus
+      }
+      trackEntry.modifyName = name;
     });
   }
   animationEffectControl(effects, trackEntry) {
-    if (showDragArea) return;
+
     Object.entries(effects).forEach(([name, value]) => {
       setTimeout(() => {
         switch (name) {
+          case 'objectShow':
+            value.target.forEach(scene => {
+              if (this.spineScenes[scene] === undefined) {
+                this.spineStudent.visible = true
+              }
+              else {
+                this.spineScenes[scene].visible = true
+              }
+            })
+            break;
+          case 'objectHide':
+            value.target.forEach(scene => {
+              if (this.spineScenes[scene] === undefined) {
+                this.spineStudent.visible = false
+              }
+              else {
+                this.spineScenes[scene].visible = false
+              }
+            })
+            break;
           case 'fadeIn':
+            if (showDragArea) return;
             effectArea.value.style.transition = ''
             effectArea.value.style.opacity = '1'
             effectArea.value.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
             effectArea.value.style.opacity = '0'
             break;
           case 'fadeOut':
+            if (showDragArea) return;
             effectArea.value.style.transition = ''
             effectArea.value.style.opacity = '0'
             effectArea.value.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
@@ -242,7 +273,8 @@ class CharacterObject {
     events.forEach(event => {
       if (event.audioPath && event.audioPath.length > 0) {
         count++;
-        const path = `./voice/${event.audioPath.replace(".wav", ".ogg").toLowerCase()}`;
+        const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.replace(".wav", ".ogg").toLowerCase().replace('sound/','')}`;
+        console.log(path)
         const audio = new Audio();
         audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
         audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}`) }, { once: true });
@@ -263,20 +295,21 @@ class CharacterObject {
       this.spineStudent = spineObject;
       await Promise.all([this.__spineAnimationInit__(), this.__audioInit__()])
     })
-    const scenes = infoMap[this.sid].extraScenes || [];
-    scenes.forEach(async (scene) => {
-      await this.__spineObjectCreate__(scene).then(async (spineObject) => {
-        this.spineScenes[scene] = spineObject;
+    const scenes = infoMap[this.sid].extraScenes || {};
+    await Promise.all(
+      Object.entries(scenes).map(async ([key, value]) => {
+        const spineObject = await this.__spineObjectCreate__(key);
+        spineObject.zIndex = value.zIndex;
+        if (value.scale) this.__spineResize__(spineObject, value.scale)
+        this.spineScenes[key] = spineObject;
       })
-    })
+    );
   }
   addToStage() {
+    Object.entries(this.spineScenes).forEach(([key, value]) => {
+      app.stage.addChild(value);
+    });
     app.stage.addChild(this.spineStudent)
-    Object.entries(this.spineScenes).forEach(([_, value]) => {
-      this.spineStage.addChild(value);
-      value.scale.set(0)
-    })
-
   }
   begin() {
     this.spineAnimationControl('none', 'main')
@@ -475,7 +508,7 @@ onMounted(async () => {
   pointer-events: none;
 }
 
-.bone-drag-display{
+.bone-drag-display {
   position: absolute;
   z-index: 4;
   background-color: rgba(200, 200, 200, 0.5);
