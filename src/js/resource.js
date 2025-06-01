@@ -32,5 +32,9 @@ const resourceLoader = {
     'Ayane_home.png': () => import('@png/Ayane_home.png?binary'),
     'Ayane_home2.png': () => import('@png/Ayane_home2.png?binary'),
     'Ayane_home3.png': () => import('@png/Ayane_home3.png?binary'),
+    'Chinatsu_home.skel': ()=> import('@skel/Chinatsu_home.skel?binary'),
+    'Chinatsu_home.atlas': ()=> import('@atlas/Chinatsu_home.atlas?raw'),
+    'Chinatsu_home.png': () => import('@png/Chinatsu_home.png?binary'),
+    'Chinatsu_home_2.png': () => import('@png/Chinatsu_home_2.png?binary'),
 }
 export default resourceLoader;

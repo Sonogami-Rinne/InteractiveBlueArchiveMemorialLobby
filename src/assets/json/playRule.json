@@ -196,7 +196,8 @@
                             "delay": null
                         }
                     },
-                    "start": 1.9
+                    "start": 1.9,
+                    "duration": 5
                 },
                 {
                     "name": "Idle_01",
