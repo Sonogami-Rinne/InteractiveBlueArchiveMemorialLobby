@@ -1,13 +1,13 @@
 <script setup>
 import { inject, onBeforeMount, onMounted, ref, watch } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
-import base64Loader from '@js/resource.js'
+import resourceLoader from '@js/resource.js'
 import SpineCanvas from '@/SpineCanvas.vue'
 import DraggableItem from '@/DraggableItem.vue'
 
 //modify.js中获取数据的函数入口
 fun = async (str) => {
-  const raw = await base64Loader[str]()
+  const raw = await resourceLoader[str]()
   return raw.default
 }
 

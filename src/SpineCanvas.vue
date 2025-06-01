@@ -60,7 +60,6 @@ class CharacterObject {
       atlas: `${resourceName}atlas`,
       scale: 1,
     });
-    //app.stage.addChild(spineStudent);
     spineObject.modifyOriginalBounds = spineObject.getBounds();
     this.__spineResize__(spineObject);
     return spineObject;
@@ -129,7 +128,6 @@ class CharacterObject {
       }
     })
     this.currentSentenceIndex = 0;
-    //disableTouchEvent = true;
     this.spineStudent.skeleton.data.animations.forEach(animation => {
       const name = animation.name;
       if (name.startsWith('Talk_') && this.talkSentences.includes(name.substring(0, name.lastIndexOf('_'))) == false) {
@@ -179,11 +177,9 @@ class CharacterObject {
   __spinePlayAnimation__(data, name) {
     data.forEach((item) => {
       let trackEntry = null;
-      const tmp = this.spineScenes;
       if (item.name != 'None') {
         trackEntry = (this.spineScenes[item.scene] || this.spineStudent).state.addAnimation(item.slot, item.name, item.loop || false, item.delay || 0.)
         if (item.scene) {
-          //this.__spineResize__(this.spineScenes[item.scene])
           trackEntry.modifySceneName = item.scene
         }
         if (item.mix) trackEntry._mixDuration = item.mix;

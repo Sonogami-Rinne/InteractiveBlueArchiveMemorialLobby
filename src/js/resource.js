@@ -1,4 +1,4 @@
-const base64Loader = {
+const resourceLoader = {
     "Airi_home.skel": () => import('@skel/Airi_home.skel?binary'),
     'Airi_home.atlas': () => import('@atlas/Airi_home.atlas?raw'),
     'Airi_home.png': () => import('@png/Airi_home.png?binary'),
@@ -17,4 +17,4 @@ const base64Loader = {
     'akari_scene.png': () => import('@png/akari_scene.png?binary'),
 
 }
-export default base64Loader;
+export default resourceLoader;
