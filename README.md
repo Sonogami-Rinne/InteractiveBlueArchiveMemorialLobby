@@ -27,3 +27,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+# To-Do
+
+目前还处于测试阶段，还在逐个配置各个学生，还未实现播放列表
