@@ -19,14 +19,7 @@ const effectArea = ref(null)
 const showDragArea = true;
 const voiceRegion = 'jp'
 
-const boundsTransform = (bounds) => {
-  if (bounds == null) return null;
-  bounds[0] = bounds[0] * windowOriginalWidth;
-  bounds[1] = bounds[1] * windowOriginalHeight;
-  bounds[2] = bounds[2] * windowOriginalWidth;
-  bounds[3] = bounds[3] * windowOriginalHeight;
-  return bounds;
-}
+
 class CharacterObject {
   constructor(data) {
     this.resourceId = data.resourceId
@@ -65,10 +58,12 @@ class CharacterObject {
     this.__spineResize__(spineObject);
     return spineObject;
   }
-  __spineResize__(spineObject, spineScale = 1) {
+  __spineResize__(spineObject, spineScale = 1, viewBounds = null) {
     const spineOriginalBounds = spineObject.modifyOriginalBounds;
-    const visibleWidth = spineOriginalBounds.width * spineScale;
-    const visibleHeight = spineOriginalBounds.height * spineScale;
+    const visibleBounds = viewBounds || [0, 0, spineOriginalBounds.width, spineOriginalBounds.height]
+
+    const visibleWidth = visibleBounds[2] * spineScale;
+    const visibleHeight = visibleBounds[3] * spineScale;
     const scaleX = windowOriginalWidth / visibleWidth;
     const scaleY = windowOriginalHeight / visibleHeight;
     const scale = Math.max(scaleX, scaleY);
@@ -76,8 +71,9 @@ class CharacterObject {
 
     const centerX = windowOriginalWidth / 2;
     const centerY = windowOriginalHeight / 2;
-    const localCenterX = spineOriginalBounds.x + spineOriginalBounds.width / 2;
-    const localCenterY = spineOriginalBounds.y + spineOriginalBounds.height / 2;
+
+    const localCenterX = spineOriginalBounds.x + visibleBounds[0] + visibleBounds[2] / 2;
+    const localCenterY = spineOriginalBounds.y + visibleBounds[1] + visibleBounds[3] / 2;
 
     spineObject.x = centerX - localCenterX * scale;
     spineObject.y = centerY - localCenterY * scale;
@@ -98,7 +94,7 @@ class CharacterObject {
       right_chin: infoMap[this.sid]['chinBounds'] = boundsTransform(infoMap[this.sid]['chinBounds'])
     }
 
-    this.boneRedirectMap = infoMap[this.sid].boneRedirect;
+    this.boneRedirectMap = infoMap[this.sid].boneRedirect || {};
 
     //currentPlayRule = (props.currentPlay == null || playRule[props.currentPlay['sid']] == null) ? playRule['-1'] : playRule[props.currentPlay['sid'].toString()];
     this.spineStudent.state.addListener({
@@ -155,8 +151,9 @@ class CharacterObject {
         let newDiv = document.createElement('div')
         newDiv.style.width = this.touchBounds[key][0] * 2 + 'px'
         newDiv.style.height = this.touchBounds[key][1] * 2 + 'px';
-        newDiv.style.left = value.point.x - this.touchBounds[key][0] + this.touchBounds[key][2] + 'px'
-        newDiv.style.top = value.point.y - this.touchBounds[key][1] + this.touchBounds[key][3] + 'px'
+        newDiv.style.left = value.point.x - this.touchBounds[key][0] + 'px'
+        newDiv.style.top = value.point.y - this.touchBounds[key][1] + 'px'
+        newDiv.style.transform = `translate(${this.touchBounds[key][2] || 0}px,${this.touchBounds[key][3] || 0}px) rotate(${this.touchBounds[key][4] || 0}rad)`
         newDiv.style.backgroundColor = 'rgba(255, 0, 0, 0.5)'
         newDiv.style.position = 'absolute'
         newDiv.style.zIndex = 4
@@ -189,6 +186,7 @@ class CharacterObject {
         }
         if (item.mix) trackEntry._mixDuration = item.mix;
         if (item.duration) trackEntry.trackEnd = item.duration;
+        if (item.start) trackEntry.animationStart = item.start
       }
       else {
         trackEntry = this.spineStudent.state.addEmptyAnimation(item.slot, item.mix || spineAnimationDefaultMix, item.delay || 0.)
@@ -275,12 +273,12 @@ class CharacterObject {
       if (event.audioPath && event.audioPath.length > 0) {
         count++;
         //const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.replace(".wav", ".ogg").toLowerCase().replace('sound/', '')}`;
-        const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.substring(event.audioPath.indexOf('/') + 1).replace(".wav", ".ogg").toLowerCase()}`;
+        const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.substring(event.audioPath.lastIndexOf('/') + 1).replace(".wav", ".ogg").toLowerCase()}`;
         const audio = new Audio();
         audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
         audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}`) }, { once: true });
         audio.src = path;
-        const index = event.name.indexOf('/')
+        const index = event.name.lastIndexOf('/')
         const name = index > 0 ? event.name.substring(index + 1) : event.name;
         this.voiceAudioMap[name] = audio;
       }
@@ -294,7 +292,7 @@ class CharacterObject {
   async spineInit() {
     await this.__spineObjectCreate__(this.resourceId + '_home').then(async (spineObject) => {
       this.spineStudent = spineObject;
-      if(infoMap[this.sid].scale) this.__spineResize__(this.spineStudent, infoMap[this.sid].scale)
+      if (infoMap[this.sid].scale || infoMap[this.sid].viewBounds) this.__spineResize__(this.spineStudent, infoMap[this.sid].scale, infoMap[this.sid].viewBounds)
       await Promise.all([this.__spineAnimationInit__(), this.__audioInit__()])
     })
     const scenes = infoMap[this.sid].extraScenes || {};
@@ -362,7 +360,6 @@ class Schedule {
     }
   }
   begin() {
-    //activeCharacter = this.characterObjects[0]
     isDragging = false;
     disableTouchEvent = true;
     currentTouchBoneInfo = [];
@@ -377,12 +374,29 @@ class Schedule {
   }
 }
 
+const boundsTransform = (bounds) => {
+  if (bounds == null) return null;
+  bounds[0] = bounds[0] * windowOriginalWidth;
+  bounds[1] = bounds[1] * windowOriginalHeight;
+  bounds[2] = bounds[2] * windowOriginalWidth;
+  bounds[3] = bounds[3] * windowOriginalHeight;
+  return bounds;
+}
 
 const clamp = (value, min, max) => {
   return value < min ? min : (value > max ? max : value);
 }
-const checkInBounds = (x, y, px, py, halfWidth, halfHeight, offsetX, offsetY) => {
-  return Math.abs(x - px - offsetX) < halfWidth && Math.abs(y - py - offsetY) < halfHeight;
+const checkInBounds = (x, y, px, py, halfWidth, halfHeight, offsetX, offsetY, angle = 0) => {
+  const translatedX = x - px - offsetX;
+  const translatedY = y - py - offsetY;
+  if (angle !== 0) {
+    const cos = Math.cos(-angle);
+    const sin = Math.sin(-angle);
+    const rotatedX = translatedX * cos - translatedY * sin;
+    const rotatedY = translatedX * sin + translatedY * cos;
+    return Math.abs(rotatedX) < halfWidth && Math.abs(rotatedY) < halfHeight;
+  }
+  return Math.abs(translatedX) < halfWidth && Math.abs(translatedY) < halfHeight;
 }
 const fetchData = async () => {
   let data = await import('@json/playRule.json')
@@ -443,7 +457,7 @@ const setBonePosition = (ev) => {
   Object.entries(activeCharacter.touchBoneMap).forEach(([boneName, value]) => {
     if (value == null || flag) return;
 
-    if (checkInBounds(pointx, pointy, value.point.x, value.point.y, bounds[boneName][0], bounds[boneName][1], bounds[boneName][2], bounds[boneName][3])) {
+    if (checkInBounds(pointx, pointy, value.point.x, value.point.y, bounds[boneName][0], bounds[boneName][1], bounds[boneName][2] || 0, bounds[boneName][3] || 0, bounds[boneName][4] || 0)) {
       if (boneName == 'hip') {
         disableTouchEvent = true;
         activeCharacter.spineTalkAnimationControl();

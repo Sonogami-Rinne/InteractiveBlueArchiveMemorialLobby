@@ -27,5 +27,10 @@ const resourceLoader = {
     'Asuna_home.atlas': () => import('@atlas/Asuna_home.atlas?raw'),
     'Asuna_home.png': () => import('@png/Asuna_home.png?binary'),
     'Asuna_home2.png': () => import('@png/Asuna_home2.png?binary'),
+    'Ayane_home.skel': ()=> import('@skel/Ayane_home.skel?binary'),
+    'Ayane_home.atlas': ()=> import('@atlas/Ayane_home.atlas?raw'),
+    'Ayane_home.png': () => import('@png/Ayane_home.png?binary'),
+    'Ayane_home2.png': () => import('@png/Ayane_home2.png?binary'),
+    'Ayane_home3.png': () => import('@png/Ayane_home3.png?binary'),
 }
 export default resourceLoader;
