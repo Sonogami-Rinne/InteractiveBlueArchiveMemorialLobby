@@ -3,7 +3,6 @@ import { inject, onBeforeMount, onMounted, ref, watch } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import resourceLoader from '@js/resource.js'
 import SpineCanvas from '@/SpineCanvas.vue'
-import DraggableItem from '@/DraggableItem.vue'
 
 //modify.js中获取数据的函数入口
 fun = async (str) => {
@@ -12,39 +11,11 @@ fun = async (str) => {
 }
 
 const language = inject('language')
-//<---vue+html
-let localization = null;
-const drawer = ref(false)//菜单显示与否
-const academyValue = ref(null)//v-model
-const clubValue = ref(null)//v-model
-let academyNameList = {}//auto-complete的suggestion
-let clubNameList = {}//auto-complete的suggestion
-const ifRandom = ref(true)//v-model
-const duration = ref(5)//v-model
-const playList = ref([])//播放列表
 const studentList = ref([])//全部学生
-let objectLastModifyTime = [0, 0, 0, 0]//debug,
-const filteredStudentList = ref([])//经过学校和社团过滤后的结果
 const currentPlay = ref(null)//当前播放
-// let playRule = null//播放规则
-const deleteAreaContainer = ref(null)
-const preLoadPlay = ref({})
-let dragItemIndex = null;
 
 const fetchData = async () => {
-  let data = await import('@json/localization.json')
-  localization = data.default[language]
-  data = await import('@json/academy.json')
-  data.default.forEach((item) => {
-    academyNameList[item['name'][language]] = item['id']
-  })
-
-  data = await import('@json/club.json')
-  data.default.forEach((item) => {
-    clubNameList[item['name'][language]] = { id: item['id'], academy: item['academy'] }
-  })
-
-  data = await import('@json/student.json')
+  const data = await import('@json/student.json')
   studentList.value = data.default.map(item => ({
     id: item['id'],
     sid: item['id'],
@@ -53,146 +24,18 @@ const fetchData = async () => {
     club: item['club'],
     resourceId: item['resource']
   }));
+}
 
-  filteredStudentList.value = studentList.value
-
-  data = localStorage.getItem('currentPlay')
-
-  currentPlay.value = JSON.parse(data || '{}')
-
-  data = localStorage.getItem('playList')
-  playList.value = JSON.parse(data || '[]')
-
-  data = localStorage.getItem('ifRandom')
-  ifRandom.value = data == 'true'
-
-  data = localStorage.getItem('duration')
-  duration.value = parseInt(data || '0')
+const test = async () => {
+  currentPlay.value = cloneItem(studentList.value[0])
 }
 
 const cloneItem = (obj) => {
   return { ...obj, id: Date.now(), name: obj.name, resourceId: obj.resourceId, parent: 'playList' }
 }
 
-const saveData = (key, value) => {
-  if (typeof value == 'object') {
-    localStorage.setItem(key, JSON.stringify(value))
-  }
-  else {
-    localStorage.setItem(key, value.toString())
-  }
-}
-const getAcademySuggestion = (query, cb) => {
-  const result = Object.keys(academyNameList)
-    .filter(item => item.toLowerCase().includes(query.toLowerCase())).map(item => ({
-      value: item,
-    }))
-  cb(result);
-}
-const getClubSuggestion = (query, cb) => {
-  const result = Object.keys(clubNameList)
-    .filter(item => ((academyValue.value && academyValue.value != "") ? clubNameList[item]['academy'] === academyNameList[academyValue.value] : true) && item.toLowerCase().includes(query.toLowerCase())).map(item => ({
-      value: item,
-    }))
-  cb(result);
-}
-const refreshStudentFilter = () => {
-  filteredStudentList.value = studentList.value.filter(item => {
-    return (academyValue.value && academyValue.value != "") ? (item.academy == academyNameList[academyValue.value] && ((clubValue.value && clubValue.value != "") ? item.club == clubNameList[clubValue.value].id : true)) : ((clubValue.value && clubValue.value != "") ? item.club == clubNameList[clubValue.value].id : true)
-  })
-}
-const clubSelected = () => {
-
-  if ((academyValue.value == null || academyValue.value == "") && clubValue.value) {
-    //真的服了
-    Object.entries(academyNameList).forEach(([key, value]) => {
-      if (value === clubNameList[clubValue.value].academy) {
-        academyValue.value = key
-        return
-      }
-    })
-  }
-  refreshStudentFilter()
-}
-
-const getPreloadPlay = () => {
-  if (playList.value.length > 1) {
-    if (ifRandom.value) {
-      let tmp = playList.value[Math.floor(Math.random() * playList.value.length - 1) + 1];
-      preLoadPlay.value = tmp == currentPlay.value ? playList.value[0] : tmp;
-    }
-    else {
-      preLoadPlay.value = playList.value[(playList.value.indexOf(currentPlay.value) + 1) % playList.value.length];
-    }
-  }
-}
-const playListOnStart = (index) => {
-  dragItemIndex = index
-  deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-hidden")
-  deleteAreaContainer.value.$el.classList.add("deleteAreaContainer-show")
-}
-const playListOnEnd = (ev) => {
-  //dragItem = null;
-  deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-delete-effect")
-  deleteAreaContainer.value.$el.classList.add("deleteAreaContainer-hidden")
-  deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-show")
-}
-const deleteAreaDragEnter = (ev) => {
-  ev.preventDefault();
-  deleteAreaContainer.value.$el.classList.add("deleteAreaContainer-delete-effect")
-}
-
-const deleteAreaDragLeave = (ev) => {
-  ev.preventDefault();
-  deleteAreaContainer.value.$el.classList.remove("deleteAreaContainer-delete-effect")
-}
-const deleteAreaDrop = async (ev) => {
-  ev.preventDefault()
-  setTimeout(() => {
-    playList.value.splice(dragItemIndex, 1)
-    dragItemIndex = null;
-  }, 10)
-
-
-}
-
-const test = async () => {
-  currentPlay.value = cloneItem(studentList.value[20])
-  // const ascii = await import('@base64/Airi_home.skel?binary');
-  // const data = ascii.default;
-  // const binary = Uint8Array.from(data, c => c.charCodeAt(0))
-  
-  // console.log(binary)
-}
-
 const initialize = async () => {
-  await fetchData();
-  watch(currentPlay, async () => {
-    if (Date.now() - objectLastModifyTime[0] > 1000) {
-      saveData('currentPlay', currentPlay.value)
-    }
-    objectLastModifyTime[0] = Date.now();
-  })
-  watch(ifRandom, async () => {
-
-    if (Date.now() - objectLastModifyTime[1] > 1000) {
-      saveData('ifRandom', ifRandom.value)
-    }
-    objectLastModifyTime[1] = Date.now();
-  })
-  watch(duration, async () => {
-
-    if (Date.now() - objectLastModifyTime[2] > 1000) {
-      saveData('duration', duration.value)
-    }
-    objectLastModifyTime[2] = Date.now();
-  })
-  watch(playList, async () => {
-    if (Date.now() - objectLastModifyTime[3] > 5000) {
-      saveData('playList', playList.value)
-    }
-    objectLastModifyTime[3] = Date.now();
-  })
+  await fetchData()
   test()
 }
 
@@ -209,104 +52,6 @@ onBeforeMount(() => {
 <template>
   <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" :duration="duration" v-if="currentPlay"
     @updateCurrentPlay="() => { console.warn('Unimplemented') }" @askForPreload="getPreloadPlay" />
-  <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg" v-show="!drawer"
-    viewBox="0 0 1024 1024">
-    <path fill="currentColor"
-      d="M389.44 768a96.064 96.064 0 0 1 181.12 0H896v64H570.56a96.064 96.064 0 0 1-181.12 0H128v-64zm192-288a96.064 96.064 0 0 1 181.12 0H896v64H762.56a96.064 96.064 0 0 1-181.12 0H128v-64zm-320-288a96.064 96.064 0 0 1 181.12 0H896v64H442.56a96.064 96.064 0 0 1-181.12 0H128v-64z">
-    </path>
-  </svg>
-  <el-drawer v-model="drawer" :with-header="false" size="60%" class="drawer">
-
-    <el-container style="height: 100%">
-      <el-aside class="drawer-asides">
-        <el-container style="height: 100%;flex-direction: column;">
-          <el-header style="align-items: center;flex-direction: row;display: flex;">
-            <el-row style="width:100%">
-              <el-col :span="2"></el-col>
-              <el-col :span="6">
-                <el-switch v-model="ifRandom" inline-prompt :active-text="localization['text-random']" size="large"
-                  :inactive-text="localization['text-sequence']"></el-switch>
-              </el-col>
-              <el-col :span="6"></el-col>
-              <el-col :span="6">
-                <el-input-number v-model="duration"></el-input-number>
-              </el-col>
-            </el-row>
-          </el-header>
-          <el-main class="grid-container-container">
-            <div class="grid-container">
-              <VueDraggable v-model="playList" :animation="150" group="student" :onEnd="playListOnEnd"
-                ghostClass="ghost-item" class="list-draggable">
-                <DraggableItem v-for="(item, index) in playList" :key="playList.length + item.id"
-                  :imgURL="'./portrait/' + item.resourceId + '.png'" :name="item.name"
-                  @dblclick="(ev) => { console.log(ev) }" class="playList-item" ghost-class="ghost-item" :index="index"
-                  @itemDragStart="playListOnStart">
-                </DraggableItem>
-              </VueDraggable>
-            </div>
-          </el-main>
-          <el-footer>
-            <el-row>
-              <el-col :span="11"></el-col>
-              <el-col :span="6">
-                <el-button
-                  @click="() => { filteredStudentList.forEach((item) => { playList.push(cloneItem(item)) }) }">{{
-                    localization['text-addAll'] }}</el-button>
-              </el-col>
-              <el-col :span="1"></el-col>
-              <el-col :span="6">
-                <el-button @click="playList = []">{{ localization['text-removeAll'] }}</el-button>
-              </el-col>
-            </el-row>
-          </el-footer>
-        </el-container>
-
-      </el-aside>
-      <el-main class="drawer-main">
-        <el-container style="height: 100%;">
-          <el-header
-            style="padding-right: 0px;padding-bottom: 0px;align-items: center;flex-direction: row;display: flex;">
-            <el-row style="width:100%">
-              <el-col :span="11">
-                <el-autocomplete v-model="academyValue" :fetch-suggestions="getAcademySuggestion" clearable
-                  class="inline-input w-50" :placeholder="localization['text-autoComplete1-placeholder']"
-                  @clear="refreshStudentFilter" @select="() => { clubValue = null; refreshStudentFilter() }"
-                  value-key="value" />
-              </el-col>
-              <div style="width: 10px;"></div>
-              <el-col :span="11">
-                <el-autocomplete v-model="clubValue" :fetch-suggestions="getClubSuggestion" clearable
-                  class="inline-input w-50" :placeholder="localization['text-autoComplete2-placeholder']"
-                  @clear="refreshStudentFilter" @select="clubSelected" />
-              </el-col>
-            </el-row>
-          </el-header>
-          <el-main class="grid-container-container">
-            <div class="grid-container">
-              <VueDraggable v-model="filteredStudentList" :animation="150" scroll
-                :group="{ name: 'student', pull: 'clone', put: false }" :clone="cloneItem" :sort="false"
-                :onEnd="(ev) => { asideVisible = playList.length != 0 }" class="grid-draggable">
-                <DraggableItem v-for="item in filteredStudentList" :key="item.id" class="studentList-item"
-                  :imgURL="'./portrait/' + item.resourceId + '.png'" :name="item.name" :parent="'filteredStudentList'"
-                  @dblclick="(ev) => { console.log(ev) }"></DraggableItem>
-              </VueDraggable>
-            </div>
-          </el-main>
-        </el-container>
-      </el-main>
-      <el-main class="drawer-main deleteAreaContainer-hidden" id="deleteAreaContainer" ref="deleteAreaContainer"
-        @drop="deleteAreaDrop" @dragenter="deleteAreaDragEnter" @dragleave="deleteAreaDragLeave"
-        @dragover="(ev) => { ev.preventDefault() }">
-        <!-- <VueDraggable v-model="deleteAreaWasted" :group="{ name: 'student', pull: false }" :animation="150"
-          :onAdd="(ev) => { deleteAreaWasted = [] }" style="height:100%" ghostClass="delete-item" id="deleteArea">
-
-        </VueDraggable> -->
-      </el-main>
-    </el-container>
-
-
-
-  </el-drawer>
 </template>
 
 <style scoped>
