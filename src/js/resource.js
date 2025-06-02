@@ -90,5 +90,34 @@ const resourceLoader = {
     'Hibiki_home.atlas': ()=> import('@atlas/Hibiki_home.atlas?raw'),
     'Hibiki_home.png': () => import('@png/Hibiki_home.png?binary'),
     'Hibiki_home2.png': () => import('@png/Hibiki_home2.png?binary'),
+
+    'Hihumi_home.skel': ()=> import('@skel/Hihumi_home.skel?binary'),
+    'Hihumi_home.atlas': ()=> import('@atlas/Hihumi_home.atlas?raw'),
+    'Hihumi_home.png': () => import('@png/Hihumi_home.png?binary'),
+    'Hihumi_home_2.png': () => import('@png/Hihumi_home_2.png?binary'),
+    
+    'Hina_home.skel': ()=> import('@skel/Hina_home.skel?binary'),
+    'Hina_home.atlas': ()=> import('@atlas/Hina_home.atlas?raw'),
+    'Hina_home.png': () => import('@png/Hina_home.png?binary'),
+    'Hina_home2.png': () => import('@png/Hina_home2.png?binary'),
+    'Hina_home3.png': () => import('@png/Hina_home3.png?binary'),
+
+    'Hoshino_home.skel': ()=> import('@skel/Hoshino_home.skel?binary'),
+    'Hoshino_home_background.skel': ()=> import('@skel/Hoshino_home_background.skel?binary'),
+    'Hoshino_home.atlas': ()=> import('@atlas/Hoshino_home.atlas?raw'),
+    'Hoshino_home_background.atlas': ()=> import('@atlas/Hoshino_home_background.atlas?raw'),
+    'Hoshino_home.png': () => import('@png/Hoshino_home.png?binary'),
+    'Hoshino_home_background.png': () => import('@png/Hoshino_home_background.png?binary'),
+    'Hoshino_home_background2.png': () => import('@png/Hoshino_home_background2.png?binary'),
+
+    'Iori_home.skel': ()=> import('@skel/Iori_home.skel?binary'),
+    'Iori_home.atlas': ()=> import('@atlas/Iori_home.atlas?raw'),
+    'Iori_home.png': () => import('@png/Iori_home.png?binary'),
+    'Iori_home2.png': () => import('@png/Iori_home2.png?binary'),
+
+    'Izumi_home.skel': ()=> import('@skel/Izumi_home.skel?binary'),
+    'Izumi_home.atlas': ()=> import('@atlas/Izumi_home.atlas?raw'),
+    'Izumi_home.png': () => import('@png/Izumi_home.png?binary'),
+    'Izumi_home2.png': () => import('@png/Izumi_home2.png?binary'),
 }
 export default resourceLoader;

@@ -300,7 +300,7 @@ class CharacterObject {
       Object.entries(scenes).map(async ([key, value]) => {
         const spineObject = await this.__spineObjectCreate__(key);
         spineObject.zIndex = value.zIndex;
-        if (value.scale) this.__spineResize__(spineObject, value.scale)
+        if (value.scale || value.viewBounds) this.__spineResize__(spineObject, value.scale, value.viewBounds)
         this.spineScenes[key] = spineObject;
       })
     );

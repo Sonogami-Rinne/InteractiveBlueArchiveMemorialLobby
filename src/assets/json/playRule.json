@@ -264,5 +264,43 @@
                 }
             ]
         }
+    },
+    "18": {
+        "home": {
+            "main": [
+                {
+                    "name": "Idle_01",
+                    "scene": "Hoshino_home_background",
+                    "slot": 0,
+                    "loop": true,
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.2
+                        }
+                    },
+                    "audio": {}
+                },
+                {
+                    "name": "Start_WhaleMove_01_R",
+                    "scene": "Hoshino_home_background",
+                    "slot": 1
+                },
+                {
+                    "name": "Start_Idle_01",
+                    "slot": 0
+                },
+                {
+                    "name": "WhaleMove_01_R",
+                    "scene": "Hoshino_home_background",
+                    "slot": 1,
+                    "loop":true
+                },
+                {
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": "true"
+                }
+            ]
+        }
     }
 }
