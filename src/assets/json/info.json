@@ -40,31 +40,96 @@
     },
     {
         "bgm": "Theme_38.ogg",
-        "patBounds": [0.07,0.07,0,-0.062,0.2618],
-        "lookBounds": [0.065,0.05,0,-0.02,0.2618],
+        "patBounds": [0.075,0.07,0,-0.065,0.2618],
+        "lookBounds": [0.065,0.04,0,-0.02,0.2618],
         "talkBounds": [0.2,0.4,0.1,-0.2],
         "boneRedirect":{
             "touch_point_kye":"touch_point_key",
             "touch_eye_kye": "touch_eye_key"
         },
-        "scale":0.9
+        "viewBounds":[160,165,3160,2256]
     },
     {
         "bgm": "Theme_39.ogg",
         "patBounds": [0.07,0.09,0,-0.04,-1.2217],
         "lookBounds": [0.07,0.07,0,-0.05,-1.2217],
-        "talkBounds": [0.2,0.4,-0.13,-0.4],
-        "viewBounds": [50,-950,3200,4400],
+        "talkBounds": [0.2,0.4,-0.13,-0.3],
+        "viewBounds": [50,150,3190,2250],
         "boneRedirect":{
             "body2": "hip"
         }
     },
     {
-        "name": "Ayane",
         "bgm": "Theme_37.ogg",
         "patBounds": [0.05,0.06,0,-0.035,-0.7854],
-        "lookBounds": [0.04,0.04,-0.01,-0.01,-0.7854],
+        "lookBounds": [0.04,0.03,-0.01,0,-0.7854],
         "talkBounds": [0.18,0.3,-0.1,0],
-        "viewBounds": [50,-950,3200,4400]
+        "viewBounds":[110,70,3250,2400]
+    },
+    {
+        "bgm": "Theme_63.ogg",
+        "patBounds": [0.05,0.04,0,0,-0.6109],
+        "lookBounds": [0.04,0.03,0.01,0,-0.6109],
+        "talkBounds": [0.2,0.3,0,-0.1]
+    },
+    {
+        "bgm": "Theme_36.ogg",
+        "patBounds": [0.06,0.05,0,-0.01,0.2618],
+        "lookBounds": [0.05,0.04,0.01,0,0.2618],
+        "talkBounds": [0.2,0.27,0,-0.1]
+    },
+    {
+        "bgm": "Theme_36.ogg",
+        "patBounds": [0.06,0.05,0,-0.01,0.2618],
+        "lookBounds": [0.05,0.04,0.01,0,0.2618],
+        "talkBounds": [0.2,0.27,0,-0.1],
+        "extraScenes":{
+            "Fuuka_Scene":{
+                "zIndex":-1
+            }
+        },
+        "viewBounds":[0,1260,3170,2057]
+    },
+    {
+        "bgm": "Theme_38.ogg",
+        "patBounds": [0.06,0.052,0,0,0.2618],
+        "lookBounds": [0.05,0.04,0,0,0.2618],
+        "talkBounds": [0.15,0.27,0,-0.1]
+    },
+    {
+        "bgm": "Theme_36.ogg",
+        "patBounds": [0.07,0.07,0,0,0.1745],
+        "lookBounds": [0.07,0.04,0.015,0,0.1745],
+        "talkBounds": [0.2,0.2,0.2,-0.2],
+        "viewBounds":[250,320,3080,1860]
+    },
+    {
+        "bgm": "Theme_43.ogg",
+        "patBounds": [0.04,0.04,0,-0.01],
+        "lookBounds": [0.045,0.025,0,0],
+        "talkBounds": [0.07,0.3,0,-0.2],
+        "viewBounds":[17,2050,3450,2560]
+    },
+    {
+        "bgm": "Theme_36.ogg",
+        "patBounds": [0.05,0.05,0,0,0.1745],
+        "lookBounds": [0.05,0.025,0,0,0.1745],
+        "talkBounds": [0.1,0.28,0.03,-0.2],
+        "viewBounds":[585,540,3166,2210]
+    },
+    {
+        "bgm": "Theme_02.ogg",
+        "patBounds": [0.05,0.05,0.02,0,-0.5236],
+        "lookBounds": [0.05,0.025,0.02,-0.03,-0.5236],
+        "talkBounds": [0.15,0.28,-0.1,-0.2],
+        "viewBounds":[850,900,3150,2220],
+        "scale":0.95
+    },
+    {
+        "bgm": "Theme_21.ogg",
+        "patBounds": [0.07,0.05,0,-0.01,0.1745],
+        "lookBounds": [0.05,0.025,0,0,0.1745],
+        "talkBounds": [0.2,0.28,0,-0.2],
+         "viewBounds":[5,100,3106,2220]
     }
 ]

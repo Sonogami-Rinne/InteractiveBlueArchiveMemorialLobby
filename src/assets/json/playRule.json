@@ -153,35 +153,39 @@
                             "delay": 5.4
                         }
                     },
-                    "audio":{},
-                    "nextStatus":"mainAfter"
+                    "audio": {},
+                    "nextStatus": "mainAfter"
                 }
             ],
-            "mainAfter":[
+            "mainAfter": [
                 {
-                    "name":"Start_Idle_01",
-                    "slot":0,
-                    "effect":{
+                    "name": "Start_Idle_01",
+                    "slot": 0,
+                    "effect": {
                         "fadeIn": {
                             "duration": 0.1
                         },
-                        "objectShow":{
-                            "target":["main"]
+                        "objectShow": {
+                            "target": [
+                                "main"
+                            ]
                         },
-                        "objectHide":{
-                            "target":["Aru_scene"]
+                        "objectHide": {
+                            "target": [
+                                "Aru_scene"
+                            ]
                         }
                     }
                 },
                 {
-                    "name":"Idle_01",
-                    "slot":0,
-                    "loop":true
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": true
                 }
             ]
         }
     },
-    "5":{
+    "5": {
         "home": {
             "main": [
                 {
@@ -203,6 +207,60 @@
                     "name": "Idle_01",
                     "slot": 0,
                     "loop": "true"
+                }
+            ]
+        }
+    },
+    "9": {
+        "home": {
+            "main": [
+                {
+                    "name": "Start_Idle_1",
+                    "scene": "Fuuka_Scene",
+                    "slot": 0,
+                    "duration": 2,
+                    "effect": {
+                        "objectHide": {
+                            "target": [
+                                "main"
+                            ]
+                        },
+                        "fadeIn": {
+                            "duration": 0.2
+                        },
+                        "fadeOut": {
+                            "duration": 0.1,
+                            "delay": 1.9
+                        }
+                    },
+                    "audio": {},
+                    "nextStatus": "mainAfter"
+                }
+            ],
+            "mainAfter": [
+                {
+                    "name": "Start_Idle_01",
+                    "slot": 0,
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.1
+                        },
+                        "objectShow": {
+                            "target": [
+                                "main"
+                            ]
+                        },
+                        "objectHide": {
+                            "target": [
+                                "Fuuka_Scene"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": true
                 }
             ]
         }
