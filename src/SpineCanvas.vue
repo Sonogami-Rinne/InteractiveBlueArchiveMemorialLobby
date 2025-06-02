@@ -46,8 +46,8 @@ class CharacterObject {
     this.voiceAudioMap[this.talkSentences[this.currentSentenceIndex]].pause();
   }
   async __spineObjectCreate__(resourceName) {
-    PIXI.Assets.add({ alias: `${resourceName}skel`, src: `${resourceName}.skel1` });
-    PIXI.Assets.add({ alias: `${resourceName}atlas`, src: `${resourceName}.atlas1` });
+    PIXI.Assets.add({ alias: `${resourceName}skel`, src: `./skel/${resourceName}.skel` });
+    PIXI.Assets.add({ alias: `${resourceName}atlas`, src: `./atlas/${resourceName}.atlas` });
     await PIXI.Assets.load([`${resourceName}skel`, `${resourceName}atlas`]);
     const spineObject = await spine.Spine.from({
       skeleton: `${resourceName}skel`,
@@ -399,11 +399,17 @@ const checkInBounds = (x, y, px, py, halfWidth, halfHeight, offsetX, offsetY, an
   return Math.abs(translatedX) < halfWidth && Math.abs(translatedY) < halfHeight;
 }
 const fetchData = async () => {
-  let data = await import('@json/playRule.json')
-  playRule = data.default
+  fetch('./json/playRule.json').then(res => res.json()).then(data => {
+    playRule = data;
+  });
+  // let data = await import('@json/playRule.json')
+  // playRule = data.default
 
-  data = await import('@json/info.json')
-  infoMap = data.default
+  fetch('./json/info.json').then(res => res.json()).then(data => {
+    infoMap = data;
+  });
+  // data = await import('@json/info.json')
+  // infoMap = data.default
 
 }
 const PIXIInitialize = async () => {
@@ -483,15 +489,15 @@ onMounted(async () => {
   window.addEventListener('resize', () => {
     window.location.reload();
   })
-  watch(props.duration, async (value) => {
-    schedule.notifyDurationChange(value)
-  })
-  watch(props.currentPlay, async () => {
-    schedule.notifyCurrentPlayChange();
-  })
-  watch(props.preLoadPlay, async () => {
-    schedule.notifyPreLoadChange();
-  })
+  // watch(props.duration, async (value) => {
+  //   schedule.notifyDurationChange(value)
+  // })
+  // watch(props.currentPlay, async () => {
+  //   schedule.notifyCurrentPlayChange();
+  // })
+  // watch(props.preLoadPlay, async () => {
+  //   schedule.notifyPreLoadChange();
+  // })
 })
 
 

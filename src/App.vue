@@ -1,51 +1,20 @@
 <script setup>
-import { inject, onBeforeMount, onMounted, ref, watch } from 'vue'
-import { VueDraggable } from 'vue-draggable-plus'
-import resourceLoader from '@js/resource.js'
+import { onBeforeMount, ref } from 'vue'
 import SpineCanvas from '@/SpineCanvas.vue'
 
-//modify.js中获取数据的函数入口
-fun = async (str) => {
-  const raw = await resourceLoader[str]()
-  return raw.default
-}
 
-const language = inject('language')
-const studentList = ref([])//全部学生
 const currentPlay = ref(null)//当前播放
+const studentId = 0
 
 const fetchData = async () => {
-  const data = await import('@json/student.json')
-  studentList.value = data.default.map(item => ({
-    id: item['id'],
-    sid: item['id'],
-    name: item['name'][language],
-    academy: item['academy'],
-    club: item['club'],
-    resourceId: item['resource']
-  }));
+  fetch('./json/student.json').then((res) => res.json()).then((data) => {
+    currentPlay.value={sid:data[studentId].id, resourceId: data[studentId].resource}
+  });
 }
 
-const test = async () => {
-  currentPlay.value = cloneItem(studentList.value[0])
-}
-
-const cloneItem = (obj) => {
-  return { ...obj, id: Date.now(), name: obj.name, resourceId: obj.resourceId, parent: 'playList' }
-}
-
-const initialize = async () => {
+onBeforeMount(async () => {
   await fetchData()
-  test()
-}
-
-
-onBeforeMount(() => {
-  initialize();
 })
-
-
-//--->
 
 </script>
 
