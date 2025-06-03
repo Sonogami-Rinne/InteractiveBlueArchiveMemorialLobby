@@ -293,7 +293,7 @@
                     "name": "WhaleMove_01_R",
                     "scene": "Hoshino_home_background",
                     "slot": 1,
-                    "loop":true
+                    "loop": true
                 },
                 {
                     "name": "Idle_01",
@@ -319,7 +319,31 @@
                 {
                     "name": "Cloud_00_R",
                     "slot": 3,
-                    "loop":true
+                    "loop": true
+                },
+                {
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": "true"
+                }
+            ]
+        }
+    },
+    "23": {
+        "home": {
+            "main": [
+                {
+                    "name": "Start_Idle_1",
+                    "slot": 0,
+                    "audio": {
+                        "delay": null
+                    },
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.2,
+                            "delay": null
+                        }
+                    }
                 },
                 {
                     "name": "Idle_01",
