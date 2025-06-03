@@ -39,8 +39,9 @@ class CharacterObject {
     app.stage.removeChild(this.spineStudent);
     this.spineStudent.destroy({ children: true, texture: true, baseTexture: true });
     if (this.spineScenes) {
-      app.stage.removeChild(this.spineScene);
-      this.spineScenes.destroy({ children: true, texture: true, baseTexture: true });
+      Object.entries(this.spineScenes).forEach(([key, spineObject]) => {
+        spineObject.destroy({ children: true, texture: true, baseTexture: true });
+      });
     }
     this.backgroundAudio.pause();
     this.voiceAudioMap[this.talkSentences[this.currentSentenceIndex]].pause();

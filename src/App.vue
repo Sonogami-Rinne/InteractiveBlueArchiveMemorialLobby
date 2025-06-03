@@ -1,5 +1,5 @@
 <script setup>
-import { inject, onBeforeMount, onMounted, ref, watch } from 'vue'
+import { inject, onBeforeMount, onMounted, ref, watch, toRaw } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import resourceLoader from '@js/resource.js'
 import SpineCanvas from '@/SpineCanvas.vue'
@@ -23,7 +23,7 @@ const ifRandom = ref(true)//v-model
 const duration = ref(5)//v-model
 const playList = ref([])//播放列表
 const studentList = ref([])//全部学生
-let objectLastModifyTime = [0, 0, 0, 0]//debug,
+let objectLastStablevalue = [null, null, null, null];
 const filteredStudentList = ref([])//经过学校和社团过滤后的结果
 const currentPlay = ref(null)//当前播放
 // let playRule = null//播放规则
@@ -74,14 +74,6 @@ const cloneItem = (obj) => {
   return { ...obj, id: Date.now(), name: obj.name, resourceId: obj.resourceId, parent: 'playList' }
 }
 
-const saveData = (key, value) => {
-  if (typeof value == 'object') {
-    localStorage.setItem(key, JSON.stringify(value))
-  }
-  else {
-    localStorage.setItem(key, value.toString())
-  }
-}
 const getAcademySuggestion = (query, cb) => {
   const result = Object.keys(academyNameList)
     .filter(item => item.toLowerCase().includes(query.toLowerCase())).map(item => ({
@@ -161,37 +153,48 @@ const test = async () => {
   // const ascii = await import('@base64/Airi_home.skel?binary');
   // const data = ascii.default;
   // const binary = Uint8Array.from(data, c => c.charCodeAt(0))
-  
+
   // console.log(binary)
+}
+
+const checkSave = async (index, valueObject, target, compare = (a, b) => { return a == b }, copy = (a) => { return a }) => {
+  const inner = () => {
+    if (compare(objectLastStablevalue[index], valueObject.value)) {
+      saveData(target, valueObject.value)
+      objectLastStablevalue[index] = null
+    }
+    else {
+      objectLastStablevalue[index] = copy(valueObject.value);
+      setTimeout(inner, 1000)
+    }
+  }
+  if (objectLastStablevalue[index] == null) {
+    objectLastStablevalue[index] = copy(valueObject.value);
+    setTimeout(inner, 1000)
+  }
+}
+const saveData = (key, value) => {
+  if (typeof value == 'object') {
+    localStorage.setItem(key, JSON.stringify(value))
+  }
+  else {
+    localStorage.setItem(key, value.toString())
+  }
 }
 
 const initialize = async () => {
   await fetchData();
-  watch(currentPlay, async () => {
-    if (Date.now() - objectLastModifyTime[0] > 1000) {
-      saveData('currentPlay', currentPlay.value)
-    }
-    objectLastModifyTime[0] = Date.now();
+  watch(currentPlay, () => {
+    checkSave(0, currentPlay, 'currentPlay', (a, b) => { return a.id == b.id }, (a) => { return toRaw(a) })
   })
-  watch(ifRandom, async () => {
-
-    if (Date.now() - objectLastModifyTime[1] > 1000) {
-      saveData('ifRandom', ifRandom.value)
-    }
-    objectLastModifyTime[1] = Date.now();
+  watch(ifRandom, () => {
+    checkSave(1, ifRandom, 'ifRandom')
   })
-  watch(duration, async () => {
-
-    if (Date.now() - objectLastModifyTime[2] > 1000) {
-      saveData('duration', duration.value)
-    }
-    objectLastModifyTime[2] = Date.now();
+  watch(duration, () => {
+    checkSave(2, duration, 'duration')
   })
-  watch(playList, async () => {
-    if (Date.now() - objectLastModifyTime[3] > 5000) {
-      saveData('playList', playList.value)
-    }
-    objectLastModifyTime[3] = Date.now();
+  watch(playList, () => {
+    checkSave(3, playList, 'playList', (a, b) => { return a == toRaw(b) }, (a) => { return toRaw(a) })
   })
   test()
 }
