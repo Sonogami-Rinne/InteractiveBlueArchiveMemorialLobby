@@ -119,5 +119,16 @@ const resourceLoader = {
     'Izumi_home.atlas': ()=> import('@atlas/Izumi_home.atlas?raw'),
     'Izumi_home.png': () => import('@png/Izumi_home.png?binary'),
     'Izumi_home2.png': () => import('@png/Izumi_home2.png?binary'),
+
+    'Zunko_home.skel': ()=> import('@skel/Zunko_home.skel?binary'),
+    'Zunko_home.atlas': ()=> import('@atlas/Zunko_home.atlas?raw'),
+    'Zunko_home.png': () => import('@png/Zunko_home.png?binary'),
+    'Zunko_home2.png': () => import('@png/Zunko_home2.png?binary'),
+
+    'Juri_home.skel': ()=> import('@skel/Juri_home.skel?binary'),
+    'Juri_home.atlas': ()=> import('@atlas/juri_home.atlas?raw'),//emm,是的,并没有写错
+    'Juri_home.png': () => import('@png/Juri_home.png?binary'),
+    'Juri_home2.png': () => import('@png/Juri_home2.png?binary'),
+    'Juri_home3.png': () => import('@png/Juri_home3.png?binary'),
 }
 export default resourceLoader;

@@ -302,5 +302,31 @@
                 }
             ]
         }
+    },
+    "22": {
+        "home": {
+            "main": [
+                {
+                    "name": "Start_Idle_01",
+                    "slot": 0,
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.2
+                        }
+                    },
+                    "audio": {}
+                },
+                {
+                    "name": "Cloud_00_R",
+                    "slot": 3,
+                    "loop":true
+                },
+                {
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": "true"
+                }
+            ]
+        }
     }
 }
