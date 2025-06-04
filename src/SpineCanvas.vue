@@ -16,7 +16,7 @@ const windowOriginalWidth = window.innerWidth;
 const windowOriginalHeight = window.innerHeight;
 let schedule = null;
 const effectArea = ref(null)
-const showDragArea = true;
+const showDragArea = false;
 const voiceRegion = 'jp'
 
 
@@ -95,7 +95,7 @@ class CharacterObject {
       right_chin: infoMap[this.sid]['chinBounds'] = boundsTransform(infoMap[this.sid]['chinBounds'])
     }
 
-    this.boneRedirectMap = infoMap[this.sid].boneRedirect || {};
+    this.boneRedirectMap = infoMap[this.sid].redirect && infoMap[this.sid].redirect.bone ? infoMap[this.sid].redirect.bone : {};
 
     //currentPlayRule = (props.currentPlay == null || playRule[props.currentPlay['sid']] == null) ? playRule['-1'] : playRule[props.currentPlay['sid'].toString()];
     this.spineStudent.state.addListener({
@@ -269,19 +269,22 @@ class CharacterObject {
     this.backgroundAudio.addEventListener('canplaythrough', () => { count-- }, { once: true });
     this.backgroundAudio.addEventListener('error', () => { console.log('error'); count-- });
     this.backgroundAudio.loop = true;
+    const audioPathRedirect = infoMap[this.sid].redirect && infoMap[this.sid].redirect.audioPath ? infoMap[this.sid].redirect.audioPath : {};
+    const audioNameRedrect = infoMap[this.sid].redirect && infoMap[this.sid].redirect.audioName ? infoMap[this.sid].redirect.audioName : {};
 
     events.forEach(event => {
       if (event.audioPath && event.audioPath.length > 0) {
         count++;
         //const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.replace(".wav", ".ogg").toLowerCase().replace('sound/', '')}`;
-        const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.substring(event.audioPath.lastIndexOf('/') + 1).replace(".wav", ".ogg").toLowerCase()}`;
+        const tmpName = event.audioPath.substring(event.audioPath.lastIndexOf('/') + 1).replace(".wav", ".ogg").toLowerCase();
+        const path = `./voice/${voiceRegion}/${this.resourceId}/${audioPathRedirect[tmpName] || tmpName}`;
         const audio = new Audio();
         audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
-        audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}`) }, { once: true });
+        audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}, path${path}`) }, { once: true });
         audio.src = path;
         const index = event.name.lastIndexOf('/')
         const name = index > 0 ? event.name.substring(index + 1) : event.name;
-        this.voiceAudioMap[name] = audio;
+        this.voiceAudioMap[audioNameRedrect[name] || name] = audio;
       }
     });
     const timeout = 5000;
@@ -361,6 +364,7 @@ class Schedule {
     }
   }
   begin() {
+    if(showDragArea) return;
     isDragging = false;
     disableTouchEvent = true;
     currentTouchBoneInfo = [];
