@@ -139,5 +139,15 @@ const resourceLoader = {
     'Kayoko_home.atlas': () => import('@atlas/Kayoko_home.atlas?raw'),
     'Kayoko_home.png': () => import('@png/Kayoko_home.png?binary'),
     'Kayoko_home2.png': () => import('@png/Kayoko_home2.png?binary'),
+
+    'Kotama_home.skel': () => import('@skel/Kotama_home.skel?binary'),
+    'Kotama_home.atlas': () => import('@atlas/Kotama_home.atlas?raw'),
+    'Kotama_home.png': () => import('@png/Kotama_home.png?binary'),
+    'Kotama_home2.png': () => import('@png/Kotama_home2.png?binary'),
+
+    'Kotori_home.skel': () => import('@skel/Kotori_home.skel?binary'),
+    'Kotori_home.atlas': () => import('@atlas/Kotori_home.atlas?raw'),
+    'Kotori_home.png': () => import('@png/Kotori_home.png?binary'),
+    'Kotori_home2.png': () => import('@png/Kotori_home2.png?binary'),
 }
 export default resourceLoader;
