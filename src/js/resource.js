@@ -188,6 +188,10 @@ const resourceLoader = {
     'Serika_home_2.png': () => import('@png/Serika_home_2.png?binary'),
     'Serika_home.png': () => import('@png/Serika_home.png?binary'),
 
+    'serina_home.skel': () => import('@skel/serina_home.skel?binary'),
+    'serina_home.atlas': () => import('@atlas/serina_home.atlas?raw'),
+    'serina_home2.png': () => import('@png/serina_home2.png?binary'),
+    'serina_home.png': () => import('@png/serina_home.png?binary'),
 
     'Shimiko_home.skel': () => import('@skel/Shimiko_home.skel?binary'),
     'Shimiko_home.atlas': () => import('@atlas/Shimiko_home.atlas?raw'),

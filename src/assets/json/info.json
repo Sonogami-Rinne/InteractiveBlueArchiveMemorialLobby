@@ -284,5 +284,100 @@
                 "Nonomi_MemorialLobby_06_3":"Nonomi_MemorialLobby_6_2"
             }
         }
+    },
+    {
+        "bgm": "Theme_57.ogg",
+        "patBounds": [0.06,0.05,0,0.02,0.1745],
+        "lookBounds": [0.06,0.03,0.02,-0.04,0.1745],
+        "talkBounds": [0.17,0.27,0.1,-0.3],
+        "viewBounds": [527,445,3448,2561]
+    },
+    {
+        "bgm": "Theme_38.ogg",
+        "patBounds": [0.07,0.06,0,0,-0.1745],
+        "lookBounds": [0.08,0.05,0.02,0,-0.1745],
+        "talkBounds": [0.2,0.25,0,0.3, -0.5236]
+    },
+    {
+        "bgm": "Theme_46.ogg",
+        "patBounds": [0.04,0.04,-0.01,0.01,-0.2618],
+        "lookBounds": [0.03,0.02,-0.01,0,-0.2618],
+        "talkBounds": [0.13,0.25,0,-0.1],
+        "viewBounds": [775,400,3200,2600],
+        "redirect":{
+            "audioPath":{
+                "serika_memoriallobby_1.ogg":"serika_memoriallobby_1_1.ogg",
+                "serika_memoriallobby_2.ogg":"serika_memoriallobby_1_2.ogg",
+                "serika_memoriallobby_3.ogg":"serika_memoriallobby_2_1.ogg",
+                "serika_memoriallobby_4.ogg":"serika_memoriallobby_2_2.ogg",
+                "serika_memoriallobby_5.ogg":"serika_memoriallobby_3_1.ogg",
+                "serika_memoriallobby_6.ogg":"serika_memoriallobby_3_2.ogg",
+                "serika_memoriallobby_7.ogg":"serika_memoriallobby_4_1.ogg",
+                "serika_memoriallobby_8.ogg":"serika_memoriallobby_4_1.ogg",
+                "serika_memoriallobby_9.ogg":"serika_memoriallobby_4_3.ogg",
+                "serika_memoriallobby_10.ogg":"serika_memoriallobby_4_4.ogg",
+                "serika_memoriallobby_11.ogg":"serika_memoriallobby_5_1.ogg",
+                "serika_memoriallobby_12.ogg":"serika_memoriallobby_5_2.ogg",
+                "serika_memoriallobby_13.ogg":"serika_memoriallobby_6_1.ogg",
+                "serika_memoriallobby_14.ogg":"serika_memoriallobby_6_2.ogg",
+                "serika_memoriallobby_15.ogg":"serika_memoriallobby_6_3.ogg",
+                "serika_memoriallobby_16.ogg":"serika_memoriallobby_6_4.ogg"
+            },
+            "audioName":{
+                "Serika_MemorialLobby_1":"Serika_MemorialLobby_1_1",
+                "Serika_MemorialLobby_2":"Serika_MemorialLobby_1_2",
+                "Serika_MemorialLobby_3":"Serika_MemorialLobby_2_1",
+                "Serika_MemorialLobby_4":"Serika_MemorialLobby_2_2",
+                "Serika_MemorialLobby_5":"Serika_MemorialLobby_3_1",
+                "Serika_MemorialLobby_6":"Serika_MemorialLobby_3_2",
+                "Serika_MemorialLobby_7":"Serika_MemorialLobby_4_1",
+                "Serika_MemorialLobby_8":"Serika_MemorialLobby_4_1",
+                "Serika_MemorialLobby_9":"Serika_MemorialLobby_4_3",
+                "Serika_MemorialLobby_10":"Serika_MemorialLobby_4_4",
+                "Serika_MemorialLobby_11":"Serika_MemorialLobby_5_1",
+                "Serika_MemorialLobby_12":"Serika_MemorialLobby_5_2",
+                "Serika_MemorialLobby_13":"Serika_MemorialLobby_6_1",
+                "Serika_MemorialLobby_14":"Serika_MemorialLobby_6_2",
+                "Serika_MemorialLobby_15":"Serika_MemorialLobby_6_3",
+                "Serika_MemorialLobby_16":"Serika_MemorialLobby_6_4"
+            }
+        }
+    },
+    {
+        "bgm": "Theme_43.ogg",
+        "patBounds": [0.06,0.06,0,0,-0.6981],
+        "lookBounds": [0.06,0.05,0.01,-0.01,-0.6981],
+        "talkBounds": [0.15,0.25,-0.1,-0.23],
+        "viewBounds": [1120,597,3456,2560]
+    },
+    {
+        "bgm": "Theme_109.ogg",
+        "patBounds": [0.06,0.06,-0.01,-0.04,0.5236],
+        "lookBounds": [0.06,0.05,-0.01,0,0.5236],
+        "talkBounds": [0.15,0.25,0.08,-0.28],
+        "viewBounds": [5931,5,3300,2675]
+    },
+    {
+        "bgm": "Theme_09.ogg",
+        "patBounds": [0.04,0.045,0,-0.04,-0.2618],
+        "lookBounds": [0.04,0.03,0.015,-0.05,-0.2618],
+        "talkBounds": [0.1,0.25,0,-0.04]
+    },
+    {
+        "bgm": "Theme_09.ogg",
+        "patBounds": [0.05,0.045,0.01,0.02,-0.2618],
+        "lookBounds": [0.04,0.03,0,0,-0.2618],
+        "talkBounds": [0.18,0.23,-0.1,0.27,-0.2618],
+        "redirect":{
+            "bone":{
+                "hip_back": "hip"
+            }
+        }
+    },
+    {
+        "bgm": "Theme_39.ogg",
+        "patBounds": [0.07,0.05,0,-0.04,0.1745],
+        "lookBounds": [0.07,0.04,0,-0.05,0.1745],
+        "talkBounds": [0.2,0.25,0.04,0.09]
     }
 ]

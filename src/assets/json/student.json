@@ -451,7 +451,7 @@
             "kr": "스미 세리나"
         },
         "academy": 9 ,
-        "resource": "Serina",
+        "resource": "serina",
         "club": 20
     },
     {
@@ -932,7 +932,7 @@
             "kr": "이오치 마리"
         },
         "academy": 9 ,
-        "resource": "Mari",
+        "resource": "mari",
         "club": 22
     },
     {
@@ -1049,7 +1049,7 @@
             "kr": "아사기 무츠키(새해)"
         },
         "academy": 3 ,
-        "resource": "Mutsuki_Newyear",
+        "resource": "mutsuki_newyear",
         "club": 1
     },
     {
@@ -1998,7 +1998,7 @@
             "kr": "아키이즈미 모미지"
         },
         "academy": 6 ,
-        "resource": "Momiji",
+        "resource": "momiji",
         "club": 37
     },
     {
@@ -2556,7 +2556,7 @@
             "kr": "카야마 레이죠"
         },
         "academy": 7 ,
-        "resource": "Reizyo",
+        "resource": "reizyo",
         "club": 33
     },
     {

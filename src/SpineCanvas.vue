@@ -254,6 +254,11 @@ class CharacterObject {
   }
   __audioControl__(name, info, trackEntry) {
     const tmp = name ? this.voiceAudioMap[name] : this.backgroundAudio;
+    if(tmp == null) {
+      console.error(`unKnown audio ${name}, current audioMap is`)
+      console.log(this.voiceAudioMap)
+      return
+    }
     if (info && info.delay && trackEntry) {
       setTimeout(() => {
         tmp.play();
