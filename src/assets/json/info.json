@@ -59,7 +59,7 @@
         "viewBounds": [50,150,3190,2250],
         "redirect":{
             "bone":{
-                "body_02":"hip"
+                "body2":"hip"
             }
 
         }

@@ -201,7 +201,7 @@
                         }
                     },
                     "start": 1.9,
-                    "duration": 5
+                    "end": 9
                 },
                 {
                     "name": "Idle_01",

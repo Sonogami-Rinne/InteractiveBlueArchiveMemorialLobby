@@ -186,8 +186,9 @@ class CharacterObject {
           trackEntry.modifySceneName = item.scene
         }
         if (item.mix) trackEntry._mixDuration = item.mix;
-        if (item.duration) trackEntry.trackEnd = item.duration;
+        if (item.duration) trackEntry.animationLast = item.duration;
         if (item.start) trackEntry.animationStart = item.start
+        if (item.end) trackEntry.animationEnd = item.end
       }
       else {
         trackEntry = this.spineStudent.state.addEmptyAnimation(item.slot, item.mix || spineAnimationDefaultMix, item.delay || 0.)

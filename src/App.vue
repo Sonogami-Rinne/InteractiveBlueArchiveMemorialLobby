@@ -149,12 +149,7 @@ const deleteAreaDrop = async (ev) => {
 }
 
 const test = async () => {
-  currentPlay.value = cloneItem(studentList.value[42])
-  // const ascii = await import('@base64/Airi_home.skel?binary');
-  // const data = ascii.default;
-  // const binary = Uint8Array.from(data, c => c.charCodeAt(0))
-
-  // console.log(binary)
+  currentPlay.value = cloneItem(studentList.value[5])
 }
 
 const checkSave = async (index, valueObject, target, compare = (a, b) => { return a == b }, copy = (a) => { return a }) => {
