@@ -149,7 +149,7 @@ const deleteAreaDrop = async (ev) => {
 }
 
 const test = async () => {
-  currentPlay.value = cloneItem(studentList.value[5])
+  currentPlay.value = cloneItem(studentList.value[50])
 }
 
 const checkSave = async (index, valueObject, target, compare = (a, b) => { return a == b }, copy = (a) => { return a }) => {

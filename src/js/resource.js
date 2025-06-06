@@ -282,6 +282,10 @@ const resourceLoader = {
     'Cherino_home2.png': () => import('@png/Cherino_home2.png?binary'),
     'Cherino_home.png': () => import('@png/Cherino_home.png?binary'),
 
+    'Nodoka_home.skel': () => import('@skel/Nodoka_home.skel?binary'),
+    'Nodoka_home.atlas': () => import('@atlas/Nodoka_home.atlas?raw'),
+    'Nodoka_home2.png': () => import('@png/Nodoka_home2.png?binary'),
+    'Nodoka_home.png': () => import('@png/Nodoka_home.png?binary'),
 
     'Yuzu_home.skel': () => import('@skel/Yuzu_home.skel?binary'),
     'Yuzu_home.atlas': () => import('@atlas/Yuzu_home.atlas?raw'),
@@ -399,10 +403,10 @@ const resourceLoader = {
     'Tomoe_home2.png': () => import('@png/Tomoe_home2.png?binary'),
     'Tomoe_home.png': () => import('@png/Tomoe_home.png?binary'),
 
-    'Nodoka_home.skel': () => import('@skel/Nodoka_home.skel?binary'),
-    'Nodoka_home.atlas': () => import('@atlas/Nodoka_home.atlas?raw'),
-    'Nodoka_home2.png': () => import('@png/Nodoka_home2.png?binary'),
-    'Nodoka_home.png': () => import('@png/Nodoka_home.png?binary'),
+    'CH0165_home.skel': () => import('@skel/CH0165_home.skel?binary'),
+    'CH0165_home.atlas': () => import('@atlas/CH0165_home.atlas?raw'),
+    'CH0165_home2.png': () => import('@png/CH0165_home2.png?binary'),
+    'CH0165_home.png': () => import('@png/CH0165_home.png?binary'),
 
     'Aru_newyear_home.skel': () => import('@skel/Aru_newyear_home.skel?binary'),
     'Aru_newyear_home.atlas': () => import('@atlas/Aru_newyear_home.atlas?raw'),
@@ -410,6 +414,11 @@ const resourceLoader = {
     'Aru_newyear_home2.png': () => import('@png/Aru_newyear_home2.png?binary'),
     'Aru_newyear_home.png': () => import('@png/Aru_newyear_home.png?binary'),
 
+    'mutsuki_newyear_home.skel': () => import('@skel/mutsuki_newyear_home.skel?binary'),
+    'mutsuki_newyear_home.atlas': () => import('@atlas/mutsuki_newyear_home.atlas?raw'),
+    'mutsuki_newyear_home3.png': () => import('@png/mutsuki_newyear_home3.png?binary'),
+    'mutsuki_newyear_home2.png': () => import('@png/mutsuki_newyear_home2.png?binary'),
+    'mutsuki_newyear_home.png': () => import('@png/mutsuki_newyear_home.png?binary'),
 
     'Serika_Newyear_home.skel': () => import('@skel/Serika_Newyear_home.skel?binary'),
     'Serika_Newyear_home.atlas': () => import('@atlas/Serika_Newyear_home.atlas?raw'),

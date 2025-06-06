@@ -180,6 +180,9 @@ class CharacterObject {
   __spinePlayAnimation__(data, name) {
     data.forEach((item) => {
       let trackEntry = null;
+      if(item.nextStatus){
+        
+      }
       if (item.name != 'None') {
         trackEntry = (this.spineScenes[item.scene] || this.spineStudent).state.addAnimation(item.slot, item.name, item.loop || false, item.delay || 0.)
         if (item.scene) {
@@ -202,6 +205,9 @@ class CharacterObject {
       if (item.nextStatus) {
         this.spineScenes[item.scene].state.addListener({
           end: (entry) => {
+            this.spineAnimationControl(entry.modifyName, entry.modifyNextStatus)
+          },
+          complete: (entry) => {
             this.spineAnimationControl(entry.modifyName, entry.modifyNextStatus)
           },
         })

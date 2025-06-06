@@ -352,5 +352,59 @@
                 }
             ]
         }
+    },
+    "50": {
+        "home": {
+            "main": [
+                {
+                    "name": "Start_Idle_01",
+                    "scene": "Momoi_Scene",
+                    "slot": 0,
+                    "duration": 2,
+                    "effect": {
+                        "objectHide": {
+                            "target": [
+                                "main"
+                            ]
+                        },
+                        "fadeIn": {
+                            "duration": 0.2
+                        },
+                        "fadeOut": {
+                            "duration": 0.1,
+                            "delay": 1.9
+                        }
+                    },
+                    "audio": {},
+                    "nextStatus": "mainAfter"
+                }
+            ],
+            "mainAfter": [
+                {
+                    "name": "Start_Idle_01",
+                    "slot": 0,
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.1
+                        },
+                        "objectShow": {
+                            "target": [
+                                "main"
+                            ]
+                        },
+                        "objectHide": {
+                            "target": [
+                                "Momoi_Scene"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": true
+                }
+            ]
+        }
     }
 }
