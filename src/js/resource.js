@@ -320,8 +320,11 @@ const resourceLoader = {
     'Mashiro_swimsuit_home.png': () => import('@png/Mashiro_swimsuit_home.png?binary'),
 
     'CH0060_home.skel': () => import('@skel/CH0060_home.skel?binary'),
+    'CH0060BG_home.skel': () => import('@skel/CH0060BG_home.skel?binary'),
     'CH0060_home.atlas': () => import('@atlas/CH0060_home.atlas?raw'),
+    'CH0060BG_home.atlas': () => import('@atlas/CH0060BG_home.atlas?raw'),
     'CH0060_home.png': () => import('@png/CH0060_home.png?binary'),
+    'CH0060BG_home.png': () => import('@png/CH0060BG_home.png?binary'),
 
     'CH0058_home.skel': () => import('@skel/CH0058_home.skel?binary'),
     'CH0058_home.atlas': () => import('@atlas/CH0058_home.atlas?raw'),

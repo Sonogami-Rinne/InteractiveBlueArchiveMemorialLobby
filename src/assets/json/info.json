@@ -542,5 +542,50 @@
                 "Mashiro_swimsuit_MemorialLobby_5": "CH0061_MemorialLobby_5"
             }
         }
+    },
+    {
+        "bgm": "Theme_80.ogg",
+        "patBounds": [0.06,0.05,0,0.03,-1.0472],
+        "lookBounds": [0.06,0.04,-0.01,0,-1.0472],
+        "talkBounds": [0.15,0.3,-0.06,-0.2,-0.9],
+        "extraScenes":{
+            "CH0060BG_home":{
+                "zIndex":-1,
+                "viewBounds": [2,166,3136,2235]
+            }
+        }
+    },
+    {
+        "bgm": "Theme_80.ogg",
+        "patBounds": [0.06,0.05,0.01,0,0.0873],
+        "lookBounds": [0.055,0.04,0.01,0,0.0873],
+        "talkBounds": [0.11,0.25,0.055,-0.28],
+        "viewBounds": [748,221,3452,2562]
+    },
+    {
+        "bgm": "Theme_21.ogg",
+        "patBounds": [0.04,0.04,0.01,0,0.0873],
+        "lookBounds": [0.04,0.03,0.01,0,0.0873],
+        "talkBounds": [0.11,0.25,0.03,-0.15],
+        "scale": 0.9
+    },
+    {
+        "bgm": "Theme_86.ogg",
+        "patBounds": [0.06,0.08,-0.017,0.01,1.0472],
+        "lookBounds": [0.05,0.03,-0.01,-0.03,1.0472],
+        "talkBounds": [0.2,0.3,0.09,-0.1]
+    },
+    {
+        "bgm": "Theme_86.ogg",
+        "patBounds": [0.045,0.06,0,-0.015,-0.7854],
+        "lookBounds": [0.045,0.03,0.01,-0.01,-0.7854],
+        "talkBounds": [0.24,0.3,-0.02,0.18]
+    },
+    {
+        "bgm": "Theme_39.ogg",
+        "patBounds": [0.045,0.05,-0.015,-0.02,-0.96],
+        "lookBounds": [0.05,0.04,-0.01,-0.01,-0.96],
+        "talkBounds": [0.1,0.4,0.06,0.06,-1.0],
+        "scale": 0.87
     }
 ]
