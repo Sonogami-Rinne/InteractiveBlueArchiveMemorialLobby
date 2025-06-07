@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 
 const props = defineProps(['currentPlay', 'preLoadPlay', 'duration'])
 const emit = defineEmits(['updateCurrentPlay', 'askForPreload'])
@@ -12,12 +12,16 @@ let infoMap = null;
 let disableTouchEvent = true;
 let activeCharacter = null;
 let playRule = null;
-const windowOriginalWidth = window.innerWidth;
-const windowOriginalHeight = window.innerHeight;
+let windowOriginalWidth = window.innerWidth;
+let windowOriginalHeight = window.innerHeight;
 let schedule = null;
 const effectArea = ref(null)
-const showDragArea = false;
+const debug = true;
 const voiceRegion = 'jp'
+const container = ref(null)
+let transformed = false;
+const ifOrientation = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) && typeof DeviceOrientationEvent !== 'undefined';
+let orientationData = [0, 0];
 
 
 class CharacterObject {
@@ -34,6 +38,7 @@ class CharacterObject {
     this.voiceAudioMap = {};
     this.playRule = null
     this.boneRedirectMap = {}
+    this.hifumiOrientationBone = null;
   }
   destroy() {
     app.stage.removeChild(this.spineStudent);
@@ -138,12 +143,16 @@ class CharacterObject {
 
     this.spineStudent.beforeUpdateWorldTransforms = () => {
       if (currentTouchBoneInfo.length > 0) {
-        currentTouchBoneInfo[0].y = -clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / windowOriginalWidth, -100, 100)
-        currentTouchBoneInfo[0].x = -clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / windowOriginalHeight, -100, 100)
+        currentTouchBoneInfo[0].y = -clamp((currentTouchBoneInfo[2] - currentTouchBoneInfo[1].x) * 150 / windowOriginalWidth, -60, 60)
+        currentTouchBoneInfo[0].x = -clamp((currentTouchBoneInfo[3] - currentTouchBoneInfo[1].y) * 150 / windowOriginalHeight, -60, 60)
+      }
+      if (this.hifumiOrientationBone && (ifOrientation || debug)) {
+        this.hifumiOrientationBone.x += orientationData[0];
+        this.hifumiOrientationBone.y += orientationData[1];
       }
     }
 
-    if (showDragArea) {
+    if (debug) {
       effectArea.value.style.opacity = 1;
       effectArea.value.style.backgroundColor = 'rgba(0, 0, 0, 0)';
       Object.entries(this.touchBoneMap).forEach(([key, value]) => {
@@ -160,6 +169,10 @@ class CharacterObject {
         effectArea.value.appendChild(newDiv)
 
       })
+    }
+    //hifumi
+    if (this.sid == 16) {
+      this.hifumiOrientationBone = this.spineStudent.skeleton.findBone('PC_Layer')
     }
   }
   spineAnimationControl(name, status) {
@@ -185,8 +198,9 @@ class CharacterObject {
           trackEntry.modifySceneName = item.scene
         }
         if (item.mix) trackEntry._mixDuration = item.mix;
-        if (item.duration) trackEntry.trackEnd = item.duration;
+        if (item.duration) trackEntry.animationLast = item.duration;
         if (item.start) trackEntry.animationStart = item.start
+        if (item.end) trackEntry.animationEnd = item.end
       }
       else {
         trackEntry = this.spineStudent.state.addEmptyAnimation(item.slot, item.mix || spineAnimationDefaultMix, item.delay || 0.)
@@ -200,6 +214,9 @@ class CharacterObject {
       if (item.nextStatus) {
         this.spineScenes[item.scene].state.addListener({
           end: (entry) => {
+            this.spineAnimationControl(entry.modifyName, entry.modifyNextStatus)
+          },
+          complete: (entry) => {
             this.spineAnimationControl(entry.modifyName, entry.modifyNextStatus)
           },
         })
@@ -234,14 +251,14 @@ class CharacterObject {
             })
             break;
           case 'fadeIn':
-            if (showDragArea) return;
+            if (debug) return;
             effectArea.value.style.transition = ''
             effectArea.value.style.opacity = '1'
             effectArea.value.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
             effectArea.value.style.opacity = '0'
             break;
           case 'fadeOut':
-            if (showDragArea) return;
+            if (debug) return;
             effectArea.value.style.transition = ''
             effectArea.value.style.opacity = '0'
             effectArea.value.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
@@ -313,6 +330,14 @@ class CharacterObject {
   }
   begin() {
     this.spineAnimationControl('none', 'main')
+    if (ifOrientation || debug) {
+      this.spineAnimationControl('look', 'main')
+    }
+  }
+  orientationChange(event) {
+    if (event.alpha === null) return;
+    orientationData[0] = clamp(event.beta - 90, -45, 45) * this.spineStudent.modifyOriginalBounds.width * 0.0002;
+    orientationData[1] = clamp(event.gamma, -45, 45) * this.spineStudent.modifyOriginalBounds.height * 0.0002;
   }
 }
 class Schedule {
@@ -402,25 +427,17 @@ const fetchData = async () => {
   fetch('./json/playRule.json').then(res => res.json()).then(data => {
     playRule = data;
   });
-  // let data = await import('@json/playRule.json')
-  // playRule = data.default
-
   fetch('./json/info.json').then(res => res.json()).then(data => {
     infoMap = data;
   });
-  // data = await import('@json/info.json')
-  // infoMap = data.default
 
 }
 const PIXIInitialize = async () => {
   await app.init({
-    width: window.innerWidth,
-    height: window.innerHeight,
     resolution: window.devicePixelRatio || 1,
     autoDensity: true,
-    resizeTo: window,
+    resizeTo: container.value,
     backgroundColor: 0x000011,
-    hello: true,
   })
   document.getElementById("canvas").appendChild(app.view);
 
@@ -450,8 +467,18 @@ const PIXIInitialize = async () => {
 
 const setBonePosition = (ev) => {
   if (disableTouchEvent) return;
-  const pointx = ev.data.global.x;
-  const pointy = ev.data.global.y;
+  let pointx = null;
+  let pointy = null;
+  if (transformed) {
+    pointx = ev.data.global.y
+    pointy = windowOriginalWidth - ev.data.global.x;
+  }
+  else {
+    pointx = ev.data.global.x;
+    pointy = ev.data.global.y;
+  }
+  // const pointx = ev.data.global.x;
+  // const pointy = ev.data.global.y;
   if (currentTouchBoneInfo.length > 0) {
     currentTouchBoneInfo[2] = pointx;
     currentTouchBoneInfo[3] = pointy;
@@ -479,8 +506,8 @@ const setBonePosition = (ev) => {
 
 
 
-
 onMounted(async () => {
+  adjustOrientation()
   await fetchData();
   await PIXIInitialize();
   schedule = new Schedule();
@@ -489,30 +516,52 @@ onMounted(async () => {
   window.addEventListener('resize', () => {
     window.location.reload();
   })
-  // watch(props.duration, async (value) => {
-  //   schedule.notifyDurationChange(value)
-  // })
-  // watch(props.currentPlay, async () => {
-  //   schedule.notifyCurrentPlayChange();
-  // })
-  // watch(props.preLoadPlay, async () => {
-  //   schedule.notifyPreLoadChange();
-  // })
+  if (ifOrientation) {
+    window.addEventListener('deviceorientation', (event) => { activeCharacter ? activeCharacter.orientationChange(event) : null });
+  }
 })
 
-
+const adjustOrientation = () => {
+  if (window.innerHeight > window.innerWidth) {
+    container.value.style.transform = "rotate(90deg)";
+    container.value.style.width = `${window.innerHeight}px`;
+    container.value.style.height = `${window.innerWidth}px`;
+    container.value.style.left = `${(window.innerWidth - window.innerHeight) / 2}px`;
+    container.value.style.top = `${(window.innerHeight - window.innerWidth) / 2}px`;
+    windowOriginalHeight = windowOriginalWidth
+    windowOriginalWidth = window.innerHeight
+    transformed = true
+  } else {
+    container.value.style.transform = "";
+    container.value.style.width = `100vw`;
+    container.value.style.height = `100vh`;
+    container.value.style.left = `0px`;
+    container.value.style.top = `0px`;
+  }
+}
 
 
 
 </script>
 
 <template>
-  <el-container class="main-container" id="canvas">
-  </el-container>
-  <div class="main-container main-container-effect" ref="effectArea"></div>
+  <div ref="container" class="canvas-container">
+    <el-container class="main-container" id="canvas">
+    </el-container>
+    <div class="main-container main-container-effect" ref="effectArea"></div>
+  </div>
 </template>
 
 <style scoped>
+.canvas-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform-origin: center center;
+}
+
 .main-container {
   width: 100%;
   height: 100%;
