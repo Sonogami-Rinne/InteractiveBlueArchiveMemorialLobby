@@ -181,9 +181,6 @@ class CharacterObject {
   __spinePlayAnimation__(data, name) {
     data.forEach((item) => {
       let trackEntry = null;
-      if(item.nextStatus){
-        
-      }
       if (item.name != 'None') {
         trackEntry = (this.spineScenes[item.scene] || this.spineStudent).state.addAnimation(item.slot, item.name, item.loop || false, item.delay || 0.)
         if (item.scene) {
@@ -262,7 +259,7 @@ class CharacterObject {
   }
   __audioControl__(name, info, trackEntry) {
     const tmp = name ? this.voiceAudioMap[name] : this.backgroundAudio;
-    if(tmp == null) {
+    if (tmp == null) {
       console.error(`unKnown audio ${name}, current audioMap is`)
       console.log(this.voiceAudioMap)
       return
@@ -377,7 +374,7 @@ class Schedule {
     }
   }
   begin() {
-    if(debugShowDragArea) return;
+    if (debugShowDragArea) return;
     isDragging = false;
     disableTouchEvent = true;
     currentTouchBoneInfo = [];

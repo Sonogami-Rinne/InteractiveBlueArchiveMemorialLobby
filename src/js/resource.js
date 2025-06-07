@@ -351,6 +351,10 @@ const resourceLoader = {
     'Shiroko_ridingsuit_home2.png': () => import('@png/Shiroko_ridingsuit_home2.png?binary'),
     'Shiroko_ridingsuit_home.png': () => import('@png/Shiroko_ridingsuit_home.png?binary'),
 
+    'kirino_home.skel': () => import('@skel/kirino_home.skel?binary'),
+    'kirino_home.atlas': () => import('@atlas/kirino_home.atlas?raw'),
+    'kirino_home2.png': () => import('@png/kirino_home2.png?binary'),
+    'kirino_home.png': () => import('@png/kirino_home.png?binary'),
 
     'CH0066_home.skel': () => import('@skel/CH0066_home.skel?binary'),
     'CH0066_home.atlas': () => import('@atlas/CH0066_home.atlas?raw'),
