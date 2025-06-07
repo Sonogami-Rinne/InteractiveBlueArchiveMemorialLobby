@@ -452,6 +452,7 @@
         },
         "academy": 9 ,
         "resource": "serina",
+        "portrait": "Serina",
         "club": 20
     },
     {
@@ -751,6 +752,7 @@
         },
         "academy": 9 ,
         "resource": "Azusa_swimsuit",
+        "portrait": "Azusa_Swimsuit",
         "club": 16
     },
     {
@@ -764,6 +766,7 @@
         },
         "academy": 9 ,
         "resource": "Mashiro_swimsuit",
+        "portrait": "Mashiro_Swimsuit",
         "club": 21
     },
     {
@@ -933,6 +936,7 @@
         },
         "academy": 9 ,
         "resource": "mari",
+        "portrait": "Mari",
         "club": 22
     },
     {
@@ -1037,6 +1041,7 @@
         },
         "academy": 3 ,
         "resource": "Aru_newyear",
+        "portrait": "Aru_Newyear",
         "club": 1
     },
     {
@@ -1050,6 +1055,7 @@
         },
         "academy": 3 ,
         "resource": "mutsuki_newyear",
+        "portrait": "Mutsuki_Newyear",
         "club": 1
     },
     {
@@ -1349,6 +1355,7 @@
         },
         "academy": 0 ,
         "resource": "Hoshino_swimsuit",
+        "portrait": "Hoshino_Swimsuit",
         "club": 0
     },
     {
@@ -1999,6 +2006,7 @@
         },
         "academy": 6 ,
         "resource": "momiji",
+        "portrait": "Momiji",
         "club": 37
     },
     {
@@ -2557,6 +2565,7 @@
         },
         "academy": 7 ,
         "resource": "reizyo",
+        "portrait": "Reizyo",
         "club": 33
     },
     {

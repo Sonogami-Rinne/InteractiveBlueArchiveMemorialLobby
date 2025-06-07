@@ -26,7 +26,7 @@ const studentList = ref([])//全部学生
 let objectLastStablevalue = [null, null, null, null];
 const filteredStudentList = ref([])//经过学校和社团过滤后的结果
 const currentPlay = ref(null)//当前播放
-// let playRule = null//播放规则
+
 const deleteAreaContainer = ref(null)
 const preLoadPlay = ref({})
 let dragItemIndex = null;
@@ -51,7 +51,8 @@ const fetchData = async () => {
     name: item['name'][language],
     academy: item['academy'],
     club: item['club'],
-    resourceId: item['resource']
+    resourceId: item['resource'],
+    portrait: item['portrait'],
   }));
 
   filteredStudentList.value = studentList.value
@@ -236,7 +237,7 @@ onBeforeMount(() => {
               <VueDraggable v-model="playList" :animation="150" group="student" :onEnd="playListOnEnd"
                 ghostClass="ghost-item" class="list-draggable">
                 <DraggableItem v-for="(item, index) in playList" :key="playList.length + item.id"
-                  :imgURL="'./portrait/' + item.resourceId + '.png'" :name="item.name"
+                  :imgURL="`./portrait/${item.portrait || item.resourceId}.png`" :name="item.name"
                   @dblclick="(ev) => { console.log(ev) }" class="playList-item" ghost-class="ghost-item" :index="index"
                   @itemDragStart="playListOnStart">
                 </DraggableItem>
@@ -285,7 +286,7 @@ onBeforeMount(() => {
                 :group="{ name: 'student', pull: 'clone', put: false }" :clone="cloneItem" :sort="false"
                 :onEnd="(ev) => { asideVisible = playList.length != 0 }" class="grid-draggable">
                 <DraggableItem v-for="item in filteredStudentList" :key="item.id" class="studentList-item"
-                  :imgURL="'./portrait/' + item.resourceId + '.png'" :name="item.name" :parent="'filteredStudentList'"
+                  :imgURL="`./portrait/${item.portrait || item.resourceId}.png`" :name="item.name" :parent="'filteredStudentList'"
                   @dblclick="(ev) => { console.log(ev) }"></DraggableItem>
               </VueDraggable>
             </div>
