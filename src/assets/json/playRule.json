@@ -406,5 +406,76 @@
                 }
             ]
         }
+    },
+    "53": {
+        "home": {
+            "main": [
+                {
+                    "name": "Start_Idle_01",
+                    "scene": "yuzu_bg",
+                    "slot": 0,
+                    "effect": {
+                        "objectHide": {
+                            "target": [
+                                "main"
+                            ]
+                        },
+                        "fadeIn": {
+                            "duration": 0.2
+                        }
+                    },
+                    "audio": {}
+                },
+                {
+                    "name": "Start_Idle_01",
+                    "slot": 0,
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.1
+                        },
+                        "objectShow": {
+                            "target": [
+                                "main"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": true
+                },
+                {
+                    "name": "Idle_01",
+                    "scene": "yuzu_bg",
+                    "slot": 0,
+                    "loop": true
+                }
+            ]
+        },
+        "look": {
+                "main": [
+                    {
+                        "name": "Look_01_A",
+                        "slot": 1,
+                        "mix": 0.01
+                    },
+                    {
+                        "name": "Look_01_M",
+                        "slot": 2,
+                        "mix": 0.01
+                    }
+                ],
+                "after": [
+                    {
+                        "name": "LookEnd_01_A",
+                        "slot": 1
+                    },
+                    {
+                        "name": "LookEnd_01_M",
+                        "slot": 2
+                    }
+                ]
+            }
     }
 }

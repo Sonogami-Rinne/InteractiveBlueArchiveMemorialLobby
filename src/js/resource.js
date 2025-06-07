@@ -288,8 +288,11 @@ const resourceLoader = {
     'Nodoka_home.png': () => import('@png/Nodoka_home.png?binary'),
 
     'Yuzu_home.skel': () => import('@skel/Yuzu_home.skel?binary'),
+    'yuzu_bg.skel': () => import('@skel/yuzu_bg.skel?binary'),
     'Yuzu_home.atlas': () => import('@atlas/Yuzu_home.atlas?raw'),
+    'yuzu_bg.atlas': () => import('@atlas/yuzu_bg.atlas?raw'),
     'Yuzu_home.png': () => import('@png/Yuzu_home.png?binary'),
+    'yuzu_bg.png': () => import('@png/yuzu_bg.png?binary'),
 
     'Azusa_home.skel': () => import('@skel/Azusa_home.skel?binary'),
     'Azusa_home.atlas': () => import('@atlas/Azusa_home.atlas?raw'),

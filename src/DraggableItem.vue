@@ -5,7 +5,6 @@ const props = defineProps(['imgURL', 'name', 'index'])
 const emit = defineEmits(['itemDragStart'])
 
 const shortName = computed(() => props.name.substring(props.name.indexOf(' ') + 1))
-console.log(props.imgURL)
 </script>
 
 <template>
