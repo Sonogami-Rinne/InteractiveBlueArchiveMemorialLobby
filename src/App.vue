@@ -53,6 +53,7 @@ const fetchData = async () => {
     club: item['club'],
     resourceId: item['resource'],
     portrait: item['portrait'],
+    voice: item['voice']
   }));
 
   filteredStudentList.value = studentList.value
@@ -150,7 +151,7 @@ const deleteAreaDrop = async (ev) => {
 }
 
 const test = async () => {
-  currentPlay.value = cloneItem(studentList.value[55])
+  currentPlay.value = cloneItem(studentList.value[58])
 }
 
 const checkSave = async (index, valueObject, target, compare = (a, b) => { return a == b }, copy = (a) => { return a }) => {

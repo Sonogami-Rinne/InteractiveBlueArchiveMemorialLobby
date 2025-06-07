@@ -767,6 +767,7 @@
         "academy": 9 ,
         "resource": "Mashiro_swimsuit",
         "portrait": "Mashiro_Swimsuit",
+        "voice": "CH0061",
         "club": 21
     },
     {
@@ -857,7 +858,8 @@
             "kr": "나카츠카사 키리노"
         },
         "academy": 10 ,
-        "resource": "Kirino",
+        "resource": "kirino",
+        "portrait": "Kirino",
         "club": 38
     },
     {

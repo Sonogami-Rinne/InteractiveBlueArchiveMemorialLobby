@@ -16,14 +16,14 @@ const windowOriginalWidth = window.innerWidth;
 const windowOriginalHeight = window.innerHeight;
 let schedule = null;
 const effectArea = ref(null)
-const showDragArea = false;
+const debugShowDragArea = false;
 const voiceRegion = 'jp'
 
 
 class CharacterObject {
   constructor(data) {
-    this.resourceId = data.resourceId
-    this.sid = data.sid
+    this.resourceId = data.resourceId;
+    this.sid = data.sid;
     this.spineStudent = null;
     this.spineScenes = {};
     this.touchBoneMap = { hip: null, touch_point_key: null, touch_eye_key: null, right_chin: null };
@@ -32,8 +32,9 @@ class CharacterObject {
     this.touchBounds = {};
     this.backgroundAudio = new Audio();
     this.voiceAudioMap = {};
-    this.playRule = null
-    this.boneRedirectMap = {}
+    this.playRule = null;
+    this.boneRedirectMap = {};
+    this.voiceRedirect = data.voice;
   }
   destroy() {
     app.stage.removeChild(this.spineStudent);
@@ -144,7 +145,7 @@ class CharacterObject {
       }
     }
 
-    if (showDragArea) {
+    if (debugShowDragArea) {
       effectArea.value.style.opacity = 1;
       effectArea.value.style.backgroundColor = 'rgba(0, 0, 0, 0)';
       Object.entries(this.touchBoneMap).forEach(([key, value]) => {
@@ -242,14 +243,14 @@ class CharacterObject {
             })
             break;
           case 'fadeIn':
-            if (showDragArea) return;
+            if (debugShowDragArea) return;
             effectArea.value.style.transition = ''
             effectArea.value.style.opacity = '1'
             effectArea.value.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
             effectArea.value.style.opacity = '0'
             break;
           case 'fadeOut':
-            if (showDragArea) return;
+            if (debugShowDragArea) return;
             effectArea.value.style.transition = ''
             effectArea.value.style.opacity = '0'
             effectArea.value.style.transition = `opacity ${value.duration || 0.2}s ${value.curve || 'ease-in-out'}`
@@ -289,7 +290,7 @@ class CharacterObject {
         count++;
         //const path = `./voice/${voiceRegion}/${this.resourceId}/${event.audioPath.replace(".wav", ".ogg").toLowerCase().replace('sound/', '')}`;
         const tmpName = event.audioPath.substring(event.audioPath.lastIndexOf('/') + 1).replace(".wav", ".ogg").toLowerCase();
-        const path = `./voice/${voiceRegion}/${this.resourceId}/${audioPathRedirect[tmpName] || tmpName}`;
+        const path = `./voice/${voiceRegion}/${this.voiceRedirect || this.resourceId}/${audioPathRedirect[tmpName] || tmpName}`;
         const audio = new Audio();
         audio.addEventListener('canplaythrough', () => { count--; }, { once: true });
         audio.addEventListener('error', () => { count--; console.warn(`Failed to load audio for event ${event.name}, path${path}`) }, { once: true });
@@ -376,7 +377,7 @@ class Schedule {
     }
   }
   begin() {
-    if(showDragArea) return;
+    if(debugShowDragArea) return;
     isDragging = false;
     disableTouchEvent = true;
     currentTouchBoneInfo = [];
