@@ -381,6 +381,10 @@ const resourceLoader = {
     'CH0098_home2.png': () => import('@png/CH0098_home2.png?binary'),
     'CH0098_home.png': () => import('@png/CH0098_home.png?binary'),
 
+    'mari_home.skel': () => import('@skel/mari_home.skel?binary'),
+    'mari_home.atlas': () => import('@atlas/mari_home.atlas?raw'),
+    'mari_home2.png': () => import('@png/mari_home2.png?binary'),
+    'mari_home.png': () => import('@png/mari_home.png?binary'),
 
     'CH0155_home.skel': () => import('@skel/CH0155_home.skel?binary'),
     'CH0155_home.atlas': () => import('@atlas/CH0155_home.atlas?raw'),
