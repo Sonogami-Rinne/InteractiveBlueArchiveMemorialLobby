@@ -16,7 +16,7 @@ const windowOriginalWidth = window.innerWidth;
 const windowOriginalHeight = window.innerHeight;
 let schedule = null;
 const effectArea = ref(null)
-const debugShowDragArea = true;
+const debugShowDragArea = false;
 const voiceRegion = 'jp'
 
 
