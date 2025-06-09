@@ -4,7 +4,7 @@ import { VueDraggable } from 'vue-draggable-plus'
 import resourceLoader from '@js/resource.js'
 import SpineCanvas from '@/SpineCanvas.vue'
 import DraggableItem from '@/DraggableItem.vue'
-
+import TestParticle from '@/Test.vue'
 //modify.js中获取数据的函数入口
 fun = async (str) => {
   const raw = await resourceLoader[str]()
@@ -151,7 +151,7 @@ const deleteAreaDrop = async (ev) => {
 }
 
 const test = async () => {
-  currentPlay.value = cloneItem(studentList.value[81])
+  currentPlay.value = cloneItem(studentList.value[83])
 }
 
 const checkSave = async (index, valueObject, target, compare = (a, b) => { return a == b }, copy = (a) => { return a }) => {

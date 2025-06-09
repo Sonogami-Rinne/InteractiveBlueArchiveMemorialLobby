@@ -524,5 +524,57 @@
                 }
             ]
         }
+    },
+    "83":{
+        "home":{
+            "main":[
+                {
+                    "name": "Start_Idle_01",
+                    "scene": "Wakamo_Scene_0",
+                    "slot": 0,
+                    "effect": {
+                        "objectHide": {
+                            "target": [
+                                "main"
+                            ]
+                        },
+                        "fadeIn": {
+                            "duration": 0.2
+                        },
+                        "fadeOut":{
+                            "delay": 11.75,
+                            "duration": 0.2
+                        }
+                    },
+                    "end": 11.95,
+                    "audio": {},
+                    "nextStatus":"mainAfter"
+                }
+            ],
+            "mainAfter":[
+                {
+                    "name": "Start_Idle_01",
+                    "slot": 0,
+                    "effect": {
+                        "fadeIn": {
+                            "duration": 0.1
+                        },
+                        "objectShow": {
+                            "target": [
+                                "main"
+                            ]
+                        },
+                        "objectHide":{
+                            "target": ["Wakamo_Scene_0"]
+                        }
+                    }
+                },
+                {
+                    "name": "Idle_01",
+                    "slot": 0,
+                    "loop": true
+                }
+            ]
+        }
     }
 }

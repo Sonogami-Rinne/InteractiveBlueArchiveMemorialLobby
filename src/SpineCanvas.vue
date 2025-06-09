@@ -433,6 +433,8 @@ const PIXIInitialize = async () => {
   })
   document.getElementById("canvas").appendChild(app.view);
 
+  // app.stage.addChild(container)
+
   app.stage.hitArea = app.screen;
   app.stage.eventMode = "dynamic";
   isDragging = false;
@@ -444,6 +446,10 @@ const PIXIInitialize = async () => {
 
   app.stage.on("globalpointermove", (e) => {
     if (isDragging) setBonePosition(e);
+    // if (emitter) {
+    //   emitter.updateOwnerPos(e.data.global.x, e.data.global.y)
+    // }
+    //emitter.updateOwnerPos(e.data.global.x, e.data.global.y)
   });
 
   app.stage.on("pointerup", (e) => {
@@ -455,6 +461,12 @@ const PIXIInitialize = async () => {
       currentTouchBoneInfo = [];
     }
   });
+
+  // app.ticker.add((delta) => {
+  //   if (emitter) {
+  //     emitter.update(delta * 0.016); // delta 时间步长
+  //   }
+  // });
 }
 
 const setBonePosition = (ev) => {
