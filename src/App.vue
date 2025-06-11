@@ -207,8 +207,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" :duration="duration" v-if="currentPlay"
-    @updateCurrentPlay="() => { console.warn('Unimplemented') }" @askForPreload="getPreloadPlay" />
+  <TestParticle></TestParticle>
+  <!-- <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" :duration="duration" v-if="currentPlay"
+    @updateCurrentPlay="() => { console.warn('Unimplemented') }" @askForPreload="getPreloadPlay" /> -->
   <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg" v-show="!drawer"
     viewBox="0 0 1024 1024">
     <path fill="currentColor"
