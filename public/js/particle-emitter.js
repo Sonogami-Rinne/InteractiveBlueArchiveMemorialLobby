@@ -1,6 +1,6 @@
 /*!
  * @pixi/particle-emitter - v6.0.0
- * Compiled Wed, 11 Jun 2025 13:08:50 UTC
+ * Compiled Thu, 12 Jun 2025 14:41:59 UTC
  *
  * @pixi/particle-emitter is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -1824,6 +1824,8 @@ this.PIXI = this.PIXI || {};
             this._autoUpdate = false;
             this._destroyWhenComplete = false;
             this._completeCallback = null;
+            this.attachedEmitters = [];
+            this.attachedEmitterConfigs = [];
             // set the initial parent
             this.parent = particleParent;
             if (config) {
@@ -2498,13 +2500,13 @@ this.PIXI = this.PIXI || {};
             let waveFirst = null;
             let waveLast = null;
             let addedCount = 0;
+            const count = Math.floor(Math.hypot(curX - prevX, curY - prevY) / interval);
             if (this._emit) {
                 // decrease spawn timer.说实话只用updateTrail的话这个spawnTimer没什么用
                 //this._spawnTimer -= delta < 0 ? 0 : delta;
                 let emitPosX = prevX + this.spawnPos.x;
                 let emitPosY = prevY + this.spawnPos.y;
                 let emitTimeAdvance = delta;
-                const count = Math.floor(Math.hypot(curX - prevX, curY - prevY) / interval);
                 let deltaX = 0;
                 let deltaY = 0;
                 let deltaTime = 0;
@@ -2627,7 +2629,7 @@ this.PIXI = this.PIXI || {};
                 }
             }
             // update all particle lifetimes before turning them over to behaviors
-            for (let particle = waveFirst.prev, prev; particle; particle = prev) {
+            for (let particle = waveFirst ? waveFirst.prev : this._activeParticlesLast, prev; particle; particle = prev) {
                 prev = particle.prev;
                 if (addedCount >= this.maxParticles) {
                     // 新添加的粒子数可能会超出最大粒子数。为了保证尾迹的连续，应减去addedCount,而不是最大粒子数
@@ -2665,6 +2667,17 @@ this.PIXI = this.PIXI || {};
                     }
                 }
             }
+            for (let i = 0; i < this.attachedEmitters.length; ++i) {
+                const emitter = this.attachedEmitters[i];
+                if (!this.attachedEmitterConfigs[i].spawnWhenDrag || count > 0) {
+                    emitter._emit = true;
+                    emitter.updateOwnerPos(curX, curY);
+                }
+                else {
+                    emitter._emit = false;
+                }
+                this.attachedEmitters[i].update(delta);
+            }
             // if the position changed before this update, then keep track of that
             if (this._posChanged) {
                 this._prevPosIsValid = true;
@@ -2683,6 +2696,11 @@ this.PIXI = this.PIXI || {};
                     this.destroy();
                 }
             }
+        }
+        addEmitter(emitter, config) {
+            this.attachedEmitters.push(emitter);
+            this.attachedEmitterConfigs.push(config);
+            emitter.updateOwnerPos(this.ownerPos.x, this.ownerPos.y);
         }
         /**
          * Kills all active particles immediately.
