@@ -128,23 +128,24 @@ onMounted(async () => {
             "spawnType": "point",
         }, [texture]))
     emitter.emit = true;
-    
+
     const emitter1 = new PIXI.particles.Emitter(container, {
         lifetime: {
-            min : 0.2,
-            max : 0.3
+            min: 0.2,
+            max: 0.3
         },
         frequency: 0.03,
         spawnChance: 0.7,
         particlesPerWave: 2,
         emitterLifeTime: -1,
         maxParticles: 50,
-        pos:{
+        pos: {
             x: 0,
             y: 0
         },
         addAtBack: false,
-        behaviors:[
+        interval: 30,
+        behaviors: [
             {
                 type: "alpha",
                 config: {
@@ -227,23 +228,268 @@ onMounted(async () => {
         ]
     })
 
+    const emitter2 = new PIXI.particles.Emitter(container,
+        {
+            lifetime: {
+                min: 0.4,
+                max: 0.4
+            },
+            frequency: 0.001,
+            spawnChance: 1,
+            particlesPerWave: 5,
+            emitterLifeTime: -1,
+            maxParticles: 400,
+            pos: {
+                x: 0,
+                y: 0
+            },
+            addAtBack: false,
+            behaviors: [
+                {
+                    type: "alpha",
+                    config: {
+                        alpha: {
+                            list: [
+                                {
+                                    value: 1,
+                                    time: 0
+                                },
+                                {
+                                    value: 0.1,
+                                    time: 1
+                                }
+                            ],
+                        },
+                    }
+                },
+                {
+                    type: 'color',
+                    config: {
+                        color: {
+                            list: [
+                                {
+                                    value: "#9dcfe3",
+                                    time: 0
+                                },
+                                {
+                                    value: "#50bce3",
+                                    time: 1
+                                }
+                            ],
+                        }
+                    }
+                },
+                {
+                    type: "scale",
+                    config: {
+                        scale: {
+                            list: [
+                                {
+                                    value: 0.07,
+                                    time: 0
+                                },
+                                {
+                                    value: 0.01,
+                                    time: 1
+                                }
+                            ],
+                        },
+                    }
+                },
+                {
+                    type: 'moveSpeed',
+                    config: {
+                        speed: {
+                            list: [
+                                {
+                                    value: 15,
+                                    time: 0
+                                },
+                                {
+                                    value: 1,
+                                    time: 1
+                                }
+                            ],
+                            isStepped: false
+                        },
+                    }
+                },
+                {
+                    type: 'spawnBurst',
+                    config: {
+                        spacing: 1,
+                        start: 0,
+                        distance: 10
+                    }
+                },
+                {
+                    type: 'textureSingle',
+                    config: {
+                        texture: texture
+                    }
+                }
+            ]
+        })
+
+    const emitter3 = new PIXI.particles.Emitter(container,
+        {
+            lifetime: {
+                min: 0.2,
+                max: 0.3
+            },
+            frequency: 0.1,
+            spawnChance: 0.8,
+            particlesPerWave: 1,
+            emitterLifeTime: -1,
+            maxParticles: 50,
+            pos: {
+                x: 0,
+                y: 0
+            },
+            addAtBack: false,
+            behaviors: [
+                {
+                    type: "alpha",
+                    config: {
+                        alpha: {
+                            list: [
+                                {
+                                    value: 0.6,
+                                    time: 0
+                                },
+                                {
+                                    value: 0.1,
+                                    time: 1
+                                }
+                            ],
+                        },
+                    }
+                },
+                {
+                    type: "scale",
+                    config: {
+                        scale: {
+                            list: [
+                                {
+                                    value: 0.1,
+                                    time: 0
+                                },
+                                {
+                                    value: 0.05,
+                                    time: 1
+                                }
+                            ],
+                        },
+                    }
+                },
+                {
+                    type: 'moveSpeed',
+                    config: {
+                        speed: {
+                            list: [
+                                {
+                                    value: 15,
+                                    time: 0
+                                },
+                                {
+                                    value: 1,
+                                    time: 1
+                                }
+                            ],
+                            isStepped: false
+                        },
+                    }
+                },
+                {
+                    type: 'rotation',
+                    config: {
+                        minStart: 0,
+                        maxStart: 360,
+                        minSpeed: 180,
+                        maxSpeed: 270,
+                        accel: 0
+                    }
+                },
+                {
+                    type: 'spawnBurst',
+                    config: {
+                        spacing: 3,
+                        start: 0,
+                        distance: 15
+                    }
+                },
+                {
+                    type: 'textureSingle',
+                    config: {
+                        texture: texture1
+                    }
+                }
+            ]
+        })
+    emitter._emit = false;
+
     emitter1.emit = true;
 
     emitter.addEmitter(emitter1, {
-        spawnWhenDrag: true
+        spawnWhenDrag: true,
+        updateTrail: true
     })
+
+    app.stage.hitArea = app.screen;
+
+    emitter2.emit = false;
+    emitter3.emit = false;
 
 
     app.ticker.add((delta) => {
         emitter.updateTrail(delta.deltaTime * 0.01, 2);
         //emitter1.update(delta * 0.016);
+        emitter2.update(delta.deltaTime * 0.016);
+        emitter3.update(delta.deltaTime * 0.016);
     })
-    app.stage.eventMode = "dynamic"
-    app.stage.on("globalpointermove", (ev) => {
+    let isDragging = false;
+    let isOutSide = false;
+
+    app.stage.eventMode = "static"
+    app.stage.on("pointermove", (ev) => {
         emitter.updateOwnerPos(ev.data.global.x, ev.data.global.y)
         //emitter1.updateOwnerPos(ev.data.global.x, ev.data.global.y)
     })
-    container.eventMode = "none";
+    app.stage.on("pointerdown", (ev) => {
+        emitter2.updateOwnerPos(ev.data.global.x, ev.data.global.y)
+        emitter3.updateOwnerPos(ev.data.global.x, ev.data.global.y)
+        emitter2._prevPosIsValid = false;
+        const rotation = Math.random() * Math.PI;
+        emitter2.emits(90, null, null, rotation)
+        emitter2.emits(90, null, null, rotation + Math.PI)
+        emitter3.emits(45, null, null, rotation)
+        emitter3.emits(45, null, null, rotation + Math.PI)
+        isDragging = true;
+        emitter.updateOwnerPos(ev.data.global.x, ev.data.global.y)
+        emitter._prevPosIsValid = false;
+        emitter._emit = true;
+    })
+    app.stage.on("pointerup", (ev) => {
+        isDragging = false;
+        emitter._emit = false;
+    })
+    app.stage.on("pointerupoutside", (ev) => {
+        isDragging = false;
+        emitter._emit = false;
+    })
+    app.stage.on("pointerout", (ev) => {
+        isOutSide = true;
+    })
+    app.stage.on("pointerover", (ev) => {
+        if (isOutSide) {
+            emitter.updateOwnerPos(ev.data.global.x, ev.data.global.y)
+            emitter._prevPosIsValid = false;
+            emitter1.updateOwnerPos(ev.data.global.x, ev.data.global.y)
+            emitter1._prevPosIsValid = false;
+            isOutSide = false;
+        }
+    })
+    container.interactive = false;
 
     //test1();
 })

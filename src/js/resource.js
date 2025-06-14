@@ -430,7 +430,6 @@ const resourceLoader = {
 
     'mutsuki_newyear_home.skel': () => import('@skel/mutsuki_newyear_home.skel?binary'),
     'mutsuki_newyear_home.atlas': () => import('@atlas/mutsuki_newyear_home.atlas?raw'),
-    'mutsuki_newyear_home3.png': () => import('@png/mutsuki_newyear_home3.png?binary'),
     'mutsuki_newyear_home2.png': () => import('@png/mutsuki_newyear_home2.png?binary'),
     'mutsuki_newyear_home.png': () => import('@png/mutsuki_newyear_home.png?binary'),
 

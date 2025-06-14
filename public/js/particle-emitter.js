@@ -1,6 +1,6 @@
 /*!
  * @pixi/particle-emitter - v6.0.0
- * Compiled Thu, 12 Jun 2025 14:41:59 UTC
+ * Compiled Sat, 14 Jun 2025 10:32:22 UTC
  *
  * @pixi/particle-emitter is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -1791,6 +1791,7 @@ this.PIXI = this.PIXI || {};
          *                          update via the PIXI shared ticker.
          */
         constructor(particleParent, config) {
+            this._waiting = null;
             this.initBehaviors = [];
             this.updateBehaviors = [];
             this.recycleBehaviors = [];
@@ -1824,8 +1825,12 @@ this.PIXI = this.PIXI || {};
             this._autoUpdate = false;
             this._destroyWhenComplete = false;
             this._completeCallback = null;
-            this.attachedEmitters = [];
-            this.attachedEmitterConfigs = [];
+            this._attachedEmitters = [];
+            this._attachedEmitterConfigs = [];
+            this._distance = 0;
+            this._interval = 2;
+            this._emitsTaskList = [];
+            this._emitsTaskTimer = [];
             // set the initial parent
             this.parent = particleParent;
             if (config) {
@@ -1945,6 +1950,9 @@ this.PIXI = this.PIXI || {};
             this.initBehaviors = behaviors.slice();
             this.updateBehaviors = behaviors.filter((b) => b !== PositionParticle && b.updateParticle);
             this.recycleBehaviors = behaviors.filter((b) => b !== PositionParticle && b.recycleParticle);
+            if (config.interval && config.interval > 0) {
+                this._interval = config.interval;
+            }
         }
         /**
          * Gets the instantiated behavior of the specified type, if it is present on this emitter.
@@ -2309,6 +2317,8 @@ this.PIXI = this.PIXI || {};
                     this._spawnTimer += this._frequency;
                 }
             }
+            //更新emitsTask
+            this._emitTask(delta);
             // if the position changed before this update, then keep track of that
             if (this._posChanged) {
                 this._prevEmitterPos.x = curX;
@@ -2472,7 +2482,7 @@ this.PIXI = this.PIXI || {};
          *
          * 注意，允许粒子超出最大粒子数，仅限于当前被新添加的粒子
          */
-        updateTrail(delta, interval) {
+        updateTrail(delta) {
             if (typeof delta !== 'number') {
                 delta = delta.deltaTime;
             }
@@ -2500,8 +2510,10 @@ this.PIXI = this.PIXI || {};
             let waveFirst = null;
             let waveLast = null;
             let addedCount = 0;
-            const count = Math.floor(Math.hypot(curX - prevX, curY - prevY) / interval);
-            if (this._emit) {
+            this._distance += Math.hypot(curX - prevX, curY - prevY);
+            const count = Math.floor(Math.max(this._distance, 0) / this._interval);
+            // this._distance -= (count + 1) * this._interval;
+            if (this._emit && count > 0) {
                 // decrease spawn timer.说实话只用updateTrail的话这个spawnTimer没什么用
                 //this._spawnTimer -= delta < 0 ? 0 : delta;
                 let emitPosX = prevX + this.spawnPos.x;
@@ -2510,14 +2522,13 @@ this.PIXI = this.PIXI || {};
                 let deltaX = 0;
                 let deltaY = 0;
                 let deltaTime = 0;
-                if (count > 0) {
-                    deltaX = (curX - prevX) / count;
-                    deltaY = (curY - prevY) / count;
-                    deltaTime = -delta / count;
-                }
+                deltaX = (curX - prevX) / count;
+                deltaY = (curY - prevY) / count;
+                deltaTime = -delta / count;
+                this._distance -= count * this._interval;
                 //那些生成的粒子。我不知道怎么取名，随便取了
                 const luckyDogs = new Array(count + 1);
-                for (let i = count + 1; i > 0; i--, emitPosX += deltaX, emitPosY += deltaY, emitTimeAdvance += deltaTime) {
+                for (let i = count; i > 0; i--, emitPosX += deltaX, emitPosY += deltaY, emitTimeAdvance += deltaTime) {
                     //see if we actually spawn one
                     if (this.spawnChance < 1 && Math.random() >= this.spawnChance) {
                         continue;
@@ -2628,6 +2639,9 @@ this.PIXI = this.PIXI || {};
                     }
                 }
             }
+            else if (!this._emit) {
+                this._distance = 0;
+            }
             // update all particle lifetimes before turning them over to behaviors
             for (let particle = waveFirst ? waveFirst.prev : this._activeParticlesLast, prev; particle; particle = prev) {
                 prev = particle.prev;
@@ -2667,16 +2681,21 @@ this.PIXI = this.PIXI || {};
                     }
                 }
             }
-            for (let i = 0; i < this.attachedEmitters.length; ++i) {
-                const emitter = this.attachedEmitters[i];
-                if (!this.attachedEmitterConfigs[i].spawnWhenDrag || count > 0) {
-                    emitter._emit = true;
+            for (let i = 0; i < this._attachedEmitters.length; ++i) {
+                const emitter = this._attachedEmitters[i];
+                if (!this._attachedEmitterConfigs[i].spawnWhenDrag || count > 0) {
+                    emitter._emit = this._emit;
                     emitter.updateOwnerPos(curX, curY);
                 }
                 else {
                     emitter._emit = false;
                 }
-                this.attachedEmitters[i].update(delta);
+                if (this._attachedEmitterConfigs[i].updateTrail) {
+                    emitter.updateTrail(delta);
+                }
+                else {
+                    emitter.update(delta);
+                }
             }
             // if the position changed before this update, then keep track of that
             if (this._posChanged) {
@@ -2698,9 +2717,189 @@ this.PIXI = this.PIXI || {};
             }
         }
         addEmitter(emitter, config) {
-            this.attachedEmitters.push(emitter);
-            this.attachedEmitterConfigs.push(config);
+            this._attachedEmitters.push(emitter);
+            this._attachedEmitterConfigs.push(config);
             emitter.updateOwnerPos(this.ownerPos.x, this.ownerPos.y);
+        }
+        /**
+         *  一次播放一些粒子,但频率为设定的频率
+         */
+        async emits(nums, x, y, rotation) {
+            const curX = x || this.ownerPos.x + this.spawnPos.x;
+            const curY = y || this.ownerPos.y + this.spawnPos.y;
+            const curRotation = rotation || this.rotation;
+            // spawn new particles
+            if (this._emitterLife >= 0) {
+                this._emitterLife -= this._frequency;
+                if (this._emitterLife <= 0) {
+                    this._spawnTimer = 0;
+                    this._emitterLife = 0;
+                    this.emit = false;
+                    return;
+                }
+            }
+            let waveFirst = null;
+            let waveLast = null;
+            for (let len = nums || this.particlesPerWave, i = 0; i < len; ++i) {
+                // see if we actually spawn one
+                if (this.spawnChance < 1 && Math.random() >= this.spawnChance) {
+                    continue;
+                }
+                // determine the particle lifetime
+                let lifetime;
+                if (this.minLifetime === this.maxLifetime) {
+                    lifetime = this.minLifetime;
+                }
+                else {
+                    lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
+                }
+                // only make the particle if it wouldn't immediately destroy itself
+                if (-this._spawnTimer >= lifetime) {
+                    continue;
+                }
+                // create particle
+                let p;
+                if (this._poolFirst) {
+                    p = this._poolFirst;
+                    this._poolFirst = this._poolFirst.next;
+                    p.next = null;
+                }
+                else {
+                    p = new Particle(this);
+                }
+                // initialize particle
+                p.init(lifetime);
+                // add particles to list of ones in this wave
+                if (waveFirst) {
+                    waveLast.next = p;
+                    p.prev = waveLast;
+                    waveLast = p;
+                }
+                else {
+                    waveLast = waveFirst = p;
+                }
+                // increase our particle count
+                // ++this.particleCount;
+            }
+            if (waveFirst) {
+                for (let i = 0; i < this.initBehaviors.length; ++i) {
+                    const behavior = this.initBehaviors[i];
+                    // if we hit our special key, interrupt behaviors to apply
+                    // emitter position/rotation
+                    if (behavior === PositionParticle) {
+                        for (let particle = waveFirst, next; particle; particle = next) {
+                            // save next particle in case we recycle this one
+                            next = particle.next;
+                            // rotate the particle's position by the emitter's rotation
+                            if (curRotation !== 0) {
+                                rotatePoint(curRotation, particle.position);
+                                particle.rotation += curRotation;
+                            }
+                            // offset by the emitter's position
+                            particle.position.x += curX;
+                            particle.position.y += curY;
+                            // also, just update the particle's age properties while we are looping through
+                            particle.age += -this._spawnTimer;
+                            // determine our interpolation value
+                            let lerp = particle.age * particle.oneOverLife; // lifetime / maxLife;
+                            // global ease affects all interpolation calculations
+                            if (this.customEase) {
+                                if (this.customEase.length === 4) {
+                                    // the t, b, c, d parameters that some tween libraries use
+                                    // (time, initial value, end value, duration)
+                                    lerp = this.customEase(lerp, 0, 1, 1);
+                                }
+                                else {
+                                    // the simplified version that we like that takes
+                                    // one parameter, time from 0-1. TweenJS eases provide this usage.
+                                    lerp = this.customEase(lerp);
+                                }
+                            }
+                            // set age percent for all interpolation calculations
+                            particle.agePercent = lerp;
+                        }
+                    }
+                    else {
+                        behavior.initParticles(waveFirst);
+                    }
+                }
+                const unlock = await this._lock();
+                this._emitsTaskList.push(waveFirst);
+                this._emitsTaskTimer.push(0);
+                unlock();
+            }
+        }
+        async _lock() {
+            const unlock = () => {
+                if (this._waiting) {
+                    const next = this._waiting;
+                    this._waiting = null;
+                    next(unlock);
+                }
+                else {
+                    this._locked = false;
+                }
+            };
+            if (this._locked) {
+                return new Promise(resolve => {
+                    this._waiting = resolve;
+                });
+            }
+            else {
+                this._locked = true;
+                return unlock;
+            }
+        }
+        async _emitTask(delta) {
+            // const time0 = Date.now();
+            const unlock = await this._lock();
+            // const correctDelta = delta + (Date.now() - time0) / 1000;
+            for (let i = 0; i < this._emitsTaskList.length;) {
+                let particle = this._emitsTaskList[i];
+                //let time = delta - this.frequency;
+                this._emitsTaskTimer[i] += delta;
+                while (this._emitsTaskTimer[i] >= 0) {
+                    ++this.particleCount;
+                    // add the particle to the display list
+                    if (this.addAtBack) {
+                        this._parent.addChildAt(particle, 0);
+                    }
+                    else {
+                        this._parent.addChild(particle);
+                    }
+                    for (let k = 0; k < this.updateBehaviors.length; ++k) {
+                        if (this.updateBehaviors[k].updateParticle(particle, this._emitsTaskTimer[i])) {
+                            this.recycle(particle);
+                            break;
+                        }
+                    }
+                    if (particle.next == null) {
+                        break;
+                    }
+                    particle = particle.next;
+                    this._emitsTaskTimer[i] -= this._frequency;
+                }
+                if (this._activeParticlesLast) {
+                    this._activeParticlesLast.next = this._emitsTaskList[i];
+                    this._emitsTaskList[i].prev = this._activeParticlesLast;
+                    this._activeParticlesLast = particle;
+                }
+                else {
+                    this._activeParticlesLast = particle;
+                    this._activeParticlesFirst = this._emitsTaskList[i];
+                }
+                if (particle.next) {
+                    this._emitsTaskList[i] = particle.next;
+                    particle.next.prev = null;
+                    particle.next = null;
+                    ++i;
+                }
+                else {
+                    this._emitsTaskList.splice(i, 1);
+                    this._emitsTaskTimer.splice(i, 1);
+                }
+            }
+            unlock();
         }
         /**
          * Kills all active particles immediately.
@@ -2773,6 +2972,7 @@ this.PIXI = this.PIXI || {};
             emit: config.emit,
             autoUpdate: config.autoUpdate,
             behaviors: [],
+            interval: 0.2
         };
         // set up the alpha
         if (config.alpha) {
