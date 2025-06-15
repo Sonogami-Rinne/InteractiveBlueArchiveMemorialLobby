@@ -79,90 +79,89 @@ onMounted(async () => {
     app.stage.addChild(container)
     app.stage.eventMode = 'static'
     const emitter = new PIXI.particles.Emitter(container, {
-            lifetime: {
-                min: 0.05,
-                max: 0.05
+        frequency: 0.001,
+        spawnChance: 1,
+        emitterLifeTime: -1,
+        maxParticles: 1500,
+        pos: {
+            x: 0,
+            y: 0
+        },
+        addAtBack: false,
+        behaviors: [
+            {
+                type: "lifetimeStatic",
+                config: {
+                    minlifetime: 0.05,
+                    maxlifetime: 0.05
+                }
             },
-            frequency: 0.001,
-            spawnChance: 1,
-            emitterLifeTime: -1,
-            maxParticles: 1500,
-            pos: {
-                x: 0,
-                y: 0
+            {
+                type: "alpha",
+                config: {
+                    alpha: {
+                        list: [
+                            {
+                                value: 1,
+                                time: 0
+                            },
+                            {
+                                value: 0,
+                                time: 1
+                            }
+                        ],
+                    },
+                }
             },
-            addAtBack: false,
-            behaviors: [
-                {
-                    type: "alpha",
-                    config: {
-                        alpha: {
-                            list: [
-                                {
-                                    value: 1,
-                                    time: 0
-                                },
-                                {
-                                    value: 0,
-                                    time: 1
-                                }
-                            ],
-                        },
-                    }
-                },
-                {
-                    type: 'color',
-                    config: {
-                        color: {
-                            list: [
-                                {
-                                    value: "#9dcfe3",
-                                    time: 0
-                                },
-                                {
-                                    value: "#50bce3",
-                                    time: 1
-                                }
-                            ],
-                        }
-                    }
-                },
-                {
-                    type: "scale",
-                    config: {
-                        scale: {
-                            list: [
-                                {
-                                    value: 0.1,
-                                    time: 0
-                                },
-                                {
-                                    value: 0.01,
-                                    time: 1
-                                }
-                            ],
-                        },
-                    }
-                },
-                {
-                    type: 'spawnPoint',
-                    config: {}
-                },
-                {
-                    type: 'textureSingle',
-                    config: {
-                        texture: texture
+            {
+                type: 'color',
+                config: {
+                    color: {
+                        list: [
+                            {
+                                value: "#9dcfe3",
+                                time: 0
+                            },
+                            {
+                                value: "#50bce3",
+                                time: 1
+                            }
+                        ],
                     }
                 }
-            ]
-        })
+            },
+            {
+                type: "scale",
+                config: {
+                    scale: {
+                        list: [
+                            {
+                                value: 0.1,
+                                time: 0
+                            },
+                            {
+                                value: 0.01,
+                                time: 1
+                            }
+                        ],
+                    },
+                }
+            },
+            {
+                type: 'spawnPoint',
+                config: {}
+            },
+            {
+                type: 'textureSingle',
+                config: {
+                    texture: texture
+                }
+            }
+        ]
+    })
     emitter.emit = true;
 
     const emitter1 = new PIXI.particles.Emitter(container, {
-        lifetime: {
-            min: 0.15,
-            max: 0.2
-        },
         frequency: 0.03,
         spawnChance: 0.6,
         particlesPerWave: 1,
@@ -175,6 +174,13 @@ onMounted(async () => {
         addAtBack: false,
         interval: 30,
         behaviors: [
+            {
+                type: "lifetimeStatic",
+                config: {
+                    minlifetime: 0.15,
+                    maxlifetime: 0.2
+                }
+            },
             {
                 type: "alpha",
                 config: {
@@ -259,21 +265,29 @@ onMounted(async () => {
 
     const emitter2 = new PIXI.particles.Emitter(container,
         {
-            lifetime: {
-                min: 0.4,
-                max: 0.4
-            },
             frequency: 0.001,
             spawnChance: 1,
-            particlesPerWave: 120,
+            particlesPerWave: 180,
             emitterLifeTime: -1,
-            maxParticles: 400,
+            maxParticles: 3600,
             pos: {
                 x: 0,
                 y: 0
             },
             addAtBack: false,
             behaviors: [
+                {
+                    type: "lifetime",
+                    config: {
+                        lifetime: {
+                            list: [
+                                { time: 0, value: 0.2 },
+                                { time: 1, value: 0.4 }
+                            ],
+                            isStepped: false
+                        }
+                    }
+                },
                 {
                     type: "alpha",
                     config: {
@@ -282,6 +296,10 @@ onMounted(async () => {
                                 {
                                     value: 1,
                                     time: 0
+                                },
+                                {
+                                    value: 0.7,
+                                    time: 0.7
                                 },
                                 {
                                     value: 0.1,
@@ -316,6 +334,10 @@ onMounted(async () => {
                                 {
                                     value: 0.07,
                                     time: 0
+                                },
+                                {
+                                    value: 0.05,
+                                    time: 0.7
                                 },
                                 {
                                     value: 0.01,
@@ -362,10 +384,6 @@ onMounted(async () => {
 
     const emitter3 = new PIXI.particles.Emitter(container,
         {
-            lifetime: {
-                min: 0.2,
-                max: 0.3
-            },
             frequency: 0.1,
             spawnChance: 0.8,
             particlesPerWave: 1,
@@ -377,6 +395,13 @@ onMounted(async () => {
             },
             addAtBack: false,
             behaviors: [
+                {
+                    type: "lifetimeStatic",
+                    config: {
+                        minlifetime: 0.2,
+                        maxlifetime: 0.3
+                    }
+                },
                 {
                     type: "alpha",
                     config: {
@@ -488,8 +513,13 @@ onMounted(async () => {
         emitter2.teleport(ev.data.global.x, ev.data.global.y)
         emitter3.teleport(ev.data.global.x, ev.data.global.y)
         const rotation = Math.random() * Math.PI;
-        emitter2.emits(90, null, null, rotation)
-        emitter2.emits(90, null, null, rotation + Math.PI)
+        emitter2.rotate(rotation);
+        emitter2.emitNow();
+        emitter2.rotate(rotation + Math.PI);
+        emitter2.emitNow();
+        // const rotation = Math.random() * Math.PI;
+        // emitter2.emits(90, null, null, rotation)
+        // emitter2.emits(90, null, null, rotation + Math.PI)
         emitter3.emits(45, null, null, rotation)
         emitter3.emits(45, null, null, rotation + Math.PI)
         isDragging = true;

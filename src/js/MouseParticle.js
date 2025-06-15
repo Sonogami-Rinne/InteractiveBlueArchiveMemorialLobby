@@ -21,10 +21,6 @@ export class MouseParticle {
         }
 
         this._trailEmitter = new PIXI.particles.Emitter(this.container, {
-            lifetime: {
-                min: 0.05,
-                max: 0.05
-            },
             frequency: 0.001,
             spawnChance: 1,
             emitterLifeTime: -1,
@@ -35,6 +31,13 @@ export class MouseParticle {
             },
             addAtBack: false,
             behaviors: [
+                {
+                    type: "lifetimeStatic",
+                    config: {
+                        minlifetime: 0.1,
+                        maxlifetime: 0.1
+                    }
+                },
                 {
                     type: "alpha",
                     config: {
@@ -99,12 +102,8 @@ export class MouseParticle {
             ]
         })
         this._trailAccessoryEmitter = new PIXI.particles.Emitter(this.container, {
-            lifetime: {
-                min: 0.15,
-                max: 0.2
-            },
             frequency: 0.03,
-            spawnChance: 0.7,
+            spawnChance: 0.6,
             particlesPerWave: 1,
             emitterLifeTime: -1,
             maxParticles: 50,
@@ -115,6 +114,13 @@ export class MouseParticle {
             addAtBack: false,
             interval: 30,
             behaviors: [
+                {
+                    type: "lifetimeStatic",
+                    config: {
+                        minlifetime: 0.15,
+                        maxlifetime: 0.2
+                    }
+                },
                 {
                     type: "alpha",
                     config: {
@@ -198,21 +204,29 @@ export class MouseParticle {
         })
         this._clickEmitter = new PIXI.particles.Emitter(this.container,
             {
-                lifetime: {
-                    min: 0.4,
-                    max: 0.4
-                },
                 frequency: 0.001,
                 spawnChance: 1,
-                particlesPerWave: 120,
+                particlesPerWave: 180,
                 emitterLifeTime: -1,
-                maxParticles: 400,
+                maxParticles: 3600,
                 pos: {
                     x: 0,
                     y: 0
                 },
                 addAtBack: false,
                 behaviors: [
+                    {
+                        type: "lifetime",
+                        config: {
+                            lifetime: {
+                                list: [
+                                    { time: 0, value: 0.2 },
+                                    { time: 1, value: 0.4 }
+                                ],
+                                isStepped: false
+                            }
+                        }
+                    },
                     {
                         type: "alpha",
                         config: {
@@ -221,6 +235,10 @@ export class MouseParticle {
                                     {
                                         value: 1,
                                         time: 0
+                                    },
+                                    {
+                                        value: 0.7,
+                                        time: 0.7
                                     },
                                     {
                                         value: 0.1,
@@ -255,6 +273,10 @@ export class MouseParticle {
                                     {
                                         value: 0.07,
                                         time: 0
+                                    },
+                                    {
+                                        value: 0.05,
+                                        time: 0.7
                                     },
                                     {
                                         value: 0.01,
@@ -300,10 +322,6 @@ export class MouseParticle {
             })
         this._clickAccessoryEmitter = new PIXI.particles.Emitter(this.container,
             {
-                lifetime: {
-                    min: 0.2,
-                    max: 0.3
-                },
                 frequency: 0.1,
                 spawnChance: 0.8,
                 particlesPerWave: 1,
@@ -315,6 +333,13 @@ export class MouseParticle {
                 },
                 addAtBack: false,
                 behaviors: [
+                    {
+                        type: "lifetimeStatic",
+                        config: {
+                            minlifetime: 0.2,
+                            maxlifetime: 0.3
+                        }
+                    },
                     {
                         type: "alpha",
                         config: {
@@ -393,7 +418,7 @@ export class MouseParticle {
                     }
                 ]
             })
-        
+
         this._trailEmitter._emit = false;
 
         this._trailAccessoryEmitter.emit = this.trailEffect;
@@ -408,7 +433,7 @@ export class MouseParticle {
         this.ready = true;
     }
     update(dt) {
-        if(!this.ready) return;
+        if (!this.ready) return;
         const delta = dt * 0.016;
         if (this.trailEffect) {
             this._trailEmitter.updateTrail(delta, 2);
@@ -419,20 +444,25 @@ export class MouseParticle {
         }
     }
     pointermove(ev) {
-        if(!this.ready) return;
+        if (!this.ready) return;
         if (this.trailEffect) {
             this._trailEmitter.updateOwnerPos(ev.data.global.x, ev.data.global.y);
         }
     }
     pointerDown(ev) {
-        if(!this.ready) return;
+        if (!this.ready) return;
         if (this.clickEffect) {
             this._clickEmitter.teleport(ev.data.global.x, ev.data.global.y)
             this._clickAccessoryEmitter.teleport(ev.data.global.x, ev.data.global.y)
 
             const rotation = Math.random() * Math.PI;
-            this._clickEmitter.emits(90, null, null, rotation)
-            this._clickEmitter.emits(90, null, null, rotation + Math.PI)
+            
+            this._clickEmitter.rotate(rotation)
+            this._clickEmitter.emitNow();
+            this._clickEmitter.rotate(rotation + Math.PI)
+            this._clickEmitter.emitNow();
+            // this._clickEmitter.emits(90, null, null, rotation)
+            // this._clickEmitter.emits(90, null, null, rotation + Math.PI)
             this._clickAccessoryEmitter.emits(45, null, null, rotation)
             this._clickAccessoryEmitter.emits(45, null, null, rotation + Math.PI)
         }
@@ -446,20 +476,20 @@ export class MouseParticle {
 
     }
     pointerUp() {
-        if(!this.ready) return;
+        if (!this.ready) return;
         this._isDragging = false;
         this._trailEmitter._emit = false;
     }
     pointerUpOutside() {
-        if(!this.ready) return;
+        if (!this.ready) return;
         this.pointerUp()
     }
     pointerOut() {
-        if(!this.ready) return;
+        if (!this.ready) return;
         this._isOutSide = true;
     }
     pointerOver(ev) {
-        if(!this.ready) return;
+        if (!this.ready) return;
         if (this._isOutSide) {
             if (this.trailEffect) {
                 this._trailEmitter.teleport(ev.data.global.x, ev.data.global.y)

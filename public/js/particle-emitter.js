@@ -1,6 +1,6 @@
 /*!
  * @pixi/particle-emitter - v6.0.0
- * Compiled Sun, 15 Jun 2025 02:10:32 UTC
+ * Compiled Sun, 15 Jun 2025 10:57:30 UTC
  *
  * @pixi/particle-emitter is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -458,19 +458,20 @@ this.PIXI = this.PIXI || {};
      */
     var BehaviorOrder;
     (function (BehaviorOrder) {
+        BehaviorOrder[BehaviorOrder["Lifetime"] = 0] = "Lifetime";
         /**
          * Spawn - initial placement and/or rotation. This happens before rotation/translation due to
          * emitter rotation/position is applied.
          */
-        BehaviorOrder[BehaviorOrder["Spawn"] = 0] = "Spawn";
+        BehaviorOrder[BehaviorOrder["Spawn"] = 1] = "Spawn";
         /**
          * Normal priority, for things that don't matter when they are applied.
          */
-        BehaviorOrder[BehaviorOrder["Normal"] = 2] = "Normal";
+        BehaviorOrder[BehaviorOrder["Normal"] = 3] = "Normal";
         /**
          * Delayed priority, for things that need to read other values in order to act correctly.
          */
-        BehaviorOrder[BehaviorOrder["Late"] = 5] = "Late";
+        BehaviorOrder[BehaviorOrder["Late"] = 6] = "Late";
     })(BehaviorOrder || (BehaviorOrder = {}));
 
     /**
@@ -1688,6 +1689,83 @@ this.PIXI = this.PIXI || {};
     StaticSpeedBehavior.type = 'moveSpeedStatic';
     StaticSpeedBehavior.editorConfig = null;
 
+    /**
+     * A Color behavior that applies an interpolated or stepped list of values to the particle's tint property.
+     *
+     * Example config:
+     * ```javascript
+     * {
+     *     type: 'color',
+     *     config: {
+     *         color: {
+     *              list: [{value: '#ff0000' time: 0}, {value: '#00ff00', time: 0.5}, {value: '#0000ff', time: 1}]
+     *         },
+     *     }
+     * }
+     * ```
+     */
+    class LifetimeBehavior {
+        constructor(config) {
+            this.order = BehaviorOrder.Lifetime;
+            this.list = new PropertyList(false);
+            this.list.reset(PropertyNode.createList(config.lifetime));
+        }
+        initParticles(first) {
+            let next = first;
+            let count = 0;
+            while (next) {
+                ++count;
+                next = next.next;
+            }
+            next = first;
+            const delta = 1 / count;
+            let proportion = 0;
+            while (next) {
+                next.init(this.list.interpolate(proportion));
+                proportion += delta;
+                next = next.next;
+            }
+        }
+    }
+    LifetimeBehavior.type = 'lifetime';
+    LifetimeBehavior.editorConfig = null;
+    /**
+     * A Color behavior that applies a single color to the particle's tint property at initialization.
+     *
+     * Example config:
+     * ```javascript
+     * {
+     *     type: 'colorStatic',
+     *     config: {
+     *         color: '#ffff00',
+     *     }
+     * }
+     * ```
+     */
+    class StaticLifetimeBehavior {
+        constructor(config) {
+            this.order = BehaviorOrder.Lifetime;
+            this.minlifetime = config.minlifetime;
+            this.maxlifetime = config.maxlifetime;
+        }
+        initParticles(first) {
+            let next = first;
+            while (next) {
+                let lifetime;
+                if (this.minlifetime === this.maxlifetime) {
+                    lifetime = this.minlifetime;
+                }
+                else {
+                    lifetime = (Math.random() * (this.maxlifetime - this.minlifetime)) + this.minlifetime;
+                }
+                next.init(lifetime);
+                next = next.next;
+            }
+        }
+    }
+    StaticLifetimeBehavior.type = 'lifetimeStatic';
+    StaticLifetimeBehavior.editorConfig = null;
+
     // export support types for external use
 
     /**
@@ -1796,8 +1874,8 @@ this.PIXI = this.PIXI || {};
             this.updateBehaviors = [];
             this.recycleBehaviors = [];
             // properties for individual particles
-            this.minLifetime = 0;
-            this.maxLifetime = 0;
+            // this.minLifetime = 0;
+            // this.maxLifetime = 0;
             this.customEase = null;
             // properties for spawning particles
             this._frequency = 1;
@@ -1882,8 +1960,8 @@ this.PIXI = this.PIXI || {};
             // Particle Properties    //
             // /////////////////////////
             // set up the lifetime
-            this.minLifetime = config.lifetime.min;
-            this.maxLifetime = config.lifetime.max;
+            // this.minLifetime = config.lifetime.min;
+            // this.maxLifetime = config.lifetime.max;
             // use the custom ease if provided
             if (config.ease) {
                 this.customEase = typeof config.ease === 'function'
@@ -1939,6 +2017,10 @@ this.PIXI = this.PIXI || {};
                 .filter((b) => !!b);
             behaviors.push(PositionParticle);
             behaviors.sort((a, b) => {
+                if (a.order === BehaviorOrder.Lifetime)
+                    return -1;
+                if (b.order === BehaviorOrder.Lifetime)
+                    return 1;
                 if (a === PositionParticle) {
                     return b.order === BehaviorOrder.Spawn ? 1 : -1;
                 }
@@ -2204,17 +2286,17 @@ this.PIXI = this.PIXI || {};
                             continue;
                         }
                         // determine the particle lifetime
-                        let lifetime;
-                        if (this.minLifetime === this.maxLifetime) {
-                            lifetime = this.minLifetime;
-                        }
-                        else {
-                            lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
-                        }
-                        // only make the particle if it wouldn't immediately destroy itself
-                        if (-this._spawnTimer >= lifetime) {
-                            continue;
-                        }
+                        // let lifetime;
+                        // if (this.minLifetime === this.maxLifetime) {
+                        //     lifetime = this.minLifetime;
+                        // }
+                        // else {
+                        //     lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
+                        // }
+                        // // only make the particle if it wouldn't immediately destroy itself
+                        // if (-this._spawnTimer >= lifetime) {
+                        //     continue;
+                        // }
                         // create particle
                         let p;
                         if (this._poolFirst) {
@@ -2226,7 +2308,7 @@ this.PIXI = this.PIXI || {};
                             p = new Particle(this);
                         }
                         // initialize particle
-                        p.init(lifetime);
+                        //p.init(lifetime);
                         // add the particle to the display list
                         if (this.addAtBack) {
                             this._parent.addChildAt(p, 0);
@@ -2362,15 +2444,15 @@ this.PIXI = this.PIXI || {};
                 else {
                     p = new Particle(this);
                 }
-                let lifetime;
-                if (this.minLifetime === this.maxLifetime) {
-                    lifetime = this.minLifetime;
-                }
-                else {
-                    lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
-                }
+                // let lifetime: number;
+                // if (this.minLifetime === this.maxLifetime) {
+                //     lifetime = this.minLifetime;
+                // }
+                // else {
+                //     lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
+                // }
                 // initialize particle
-                p.init(lifetime);
+                //p.init(lifetime);
                 // add the particle to the display list
                 if (this.addAtBack) {
                     this._parent.addChildAt(p, 0);
@@ -2534,17 +2616,17 @@ this.PIXI = this.PIXI || {};
                         continue;
                     }
                     // determine the particle lifetime
-                    let lifetime;
-                    if (this.minLifetime === this.maxLifetime) {
-                        lifetime = this.minLifetime;
-                    }
-                    else {
-                        lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
-                    }
-                    // only make the particle if it wouldn't immediately destroy itself
-                    if (emitTimeAdvance >= lifetime) {
-                        continue;
-                    }
+                    // let lifetime;
+                    // if (this.minLifetime === this.maxLifetime) {
+                    //     lifetime = this.minLifetime;
+                    // }
+                    // else {
+                    //     lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
+                    // }
+                    // // only make the particle if it wouldn't immediately destroy itself
+                    // if (emitTimeAdvance >= lifetime) {
+                    //     continue;
+                    // }
                     //存入数组
                     luckyDogs[addedCount++] = {
                         x: emitPosX,
@@ -2562,7 +2644,7 @@ this.PIXI = this.PIXI || {};
                         p = new Particle(this);
                     }
                     // initialize particle
-                    p.init(lifetime);
+                    //p.init(lifetime);
                     // add the particle to the display list
                     if (this.addAtBack) {
                         this._parent.addChildAt(p, 0);
@@ -2746,17 +2828,17 @@ this.PIXI = this.PIXI || {};
                     continue;
                 }
                 // determine the particle lifetime
-                let lifetime;
-                if (this.minLifetime === this.maxLifetime) {
-                    lifetime = this.minLifetime;
-                }
-                else {
-                    lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
-                }
-                // only make the particle if it wouldn't immediately destroy itself
-                if (-this._spawnTimer >= lifetime) {
-                    continue;
-                }
+                // let lifetime;
+                // if (this.minLifetime === this.maxLifetime) {
+                //     lifetime = this.minLifetime;
+                // }
+                // else {
+                //     lifetime = (Math.random() * (this.maxLifetime - this.minLifetime)) + this.minLifetime;
+                // }
+                // // only make the particle if it wouldn't immediately destroy itself
+                // if (-this._spawnTimer >= lifetime) {
+                //     continue;
+                // }
                 // create particle
                 let p;
                 if (this._poolFirst) {
@@ -2768,7 +2850,7 @@ this.PIXI = this.PIXI || {};
                     p = new Particle(this);
                 }
                 // initialize particle
-                p.init(lifetime);
+                //p.init(lifetime);
                 // add particles to list of ones in this wave
                 if (waveFirst) {
                     waveLast.next = p;
@@ -4220,6 +4302,8 @@ this.PIXI = this.PIXI || {};
     Emitter.registerBehavior(SingleTextureBehavior);
     Emitter.registerBehavior(SpeedBehavior);
     Emitter.registerBehavior(StaticSpeedBehavior);
+    Emitter.registerBehavior(LifetimeBehavior);
+    Emitter.registerBehavior(StaticLifetimeBehavior);
 
     exports.Emitter = Emitter;
     exports.Particle = Particle;
