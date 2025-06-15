@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
+import { MouseParticle } from '@js/MouseParticle.js'
 
 const props = defineProps(['currentPlay', 'preLoadPlay', 'duration'])
 const emit = defineEmits(['updateCurrentPlay', 'askForPreload'])
@@ -18,6 +19,8 @@ let schedule = null;
 const effectArea = ref(null)
 const debugShowDragArea = false;
 const voiceRegion = 'jp'
+const particleContainer = new PIXI.Container();
+const mouseParticle = new MouseParticle(particleContainer);
 
 
 class CharacterObject {
@@ -47,7 +50,7 @@ class CharacterObject {
     this.backgroundAudio.pause();
     this.voiceAudioMap[this.talkSentences[this.currentSentenceIndex]].pause();
   }
-  async __spineObjectCreate__(resourceName) {
+  async _spineObjectCreate(resourceName) {
     PIXI.Assets.add({ alias: `${resourceName}skel`, src: `${resourceName}.skel1` });
     PIXI.Assets.add({ alias: `${resourceName}atlas`, src: `${resourceName}.atlas1` });
     await PIXI.Assets.load([`${resourceName}skel`, `${resourceName}atlas`]);
@@ -57,10 +60,10 @@ class CharacterObject {
       scale: 1,
     });
     spineObject.modifyOriginalBounds = spineObject.getBounds();
-    this.__spineResize__(spineObject);
+    this._spineResize(spineObject);
     return spineObject;
   }
-  __spineResize__(spineObject, spineScale = 1, viewBounds = null) {
+  _spineResize(spineObject, spineScale = 1, viewBounds = null) {
     const spineOriginalBounds = spineObject.modifyOriginalBounds;
     const visibleBounds = viewBounds || [0, 0, spineOriginalBounds.width, spineOriginalBounds.height]
 
@@ -80,7 +83,7 @@ class CharacterObject {
     spineObject.x = centerX - localCenterX * scale;
     spineObject.y = centerY - localCenterY * scale;
   }
-  __spineAnimationInit__() {
+  _spineAnimationInit() {
     const sid = this.sid.toString();
     this.playRule = {
       home: playRule[sid] ? playRule[sid]['home'] || playRule['-1']['home'] : playRule['-1']['home'],
@@ -101,7 +104,7 @@ class CharacterObject {
     //currentPlayRule = (props.currentPlay == null || playRule[props.currentPlay['sid']] == null) ? playRule['-1'] : playRule[props.currentPlay['sid'].toString()];
     this.spineStudent.state.addListener({
       event: (_, event) => {
-        this.__audioControl__(event.stringValue)
+        this._audioControl(event.stringValue)
       },
       end: (entry) => {
         if (entry.animation.name.includes('Start')) {
@@ -168,7 +171,7 @@ class CharacterObject {
     const lowerName = name.toLowerCase();
     const tmp = this.boneRedirectMap[lowerName] || lowerName
     const type = tmp == 'touch_point_key' ? 'pat' : tmp == 'touch_eye_key' ? 'look' : tmp == 'none' ? 'home' : tmp == 'right_chin' ? 'chin' : tmp;
-    this.__spinePlayAnimation__(this.playRule[type][status], name);
+    this._spinePlayAnimation(this.playRule[type][status], name);
   }
   spineTalkAnimationControl() {
     const target = [
@@ -176,9 +179,9 @@ class CharacterObject {
       { name: this.talkSentences[this.currentSentenceIndex] + '_M', slot: 2 }
     ]
     this.currentSentenceIndex = (this.currentSentenceIndex + 1) % this.talkSentences.length;
-    this.__spinePlayAnimation__(target);
+    this._spinePlayAnimation(target);
   }
-  __spinePlayAnimation__(data, name) {
+  _spinePlayAnimation(data, name) {
     data.forEach((item) => {
       let trackEntry = null;
       if (item.name != 'None') {
@@ -195,7 +198,7 @@ class CharacterObject {
         trackEntry = this.spineStudent.state.addEmptyAnimation(item.slot, item.mix || spineAnimationDefaultMix, item.delay || 0.)
       }
       if (item.audio) {
-        this.__audioControl__(item.audio.name, item.audio, trackEntry)
+        this._audioControl(item.audio.name, item.audio, trackEntry)
       }
       if (item.effect) {
         this.animationEffectControl(item.effect, trackEntry)
@@ -257,7 +260,7 @@ class CharacterObject {
       }, Math.max(value.delay || 0. - trackEntry.trackTime || 0., 0) * 1000)
     })
   }
-  __audioControl__(name, info, trackEntry) {
+  _audioControl(name, info, trackEntry) {
     const tmp = name ? this.voiceAudioMap[name] : this.backgroundAudio;
     if (tmp == null) {
       console.error(`unKnown audio ${name}, current audioMap is`)
@@ -271,7 +274,7 @@ class CharacterObject {
     }
     else tmp.play();
   }
-  async __audioInit__() {
+  async _audioInit() {
     const events = this.spineStudent.skeleton.data.events;
     let count = 1;
 
@@ -304,17 +307,17 @@ class CharacterObject {
     }
   };
   async spineInit() {
-    await this.__spineObjectCreate__(this.resourceId + '_home').then(async (spineObject) => {
+    await this._spineObjectCreate(this.resourceId + '_home').then(async (spineObject) => {
       this.spineStudent = spineObject;
-      if (infoMap[this.sid].scale || infoMap[this.sid].viewBounds) this.__spineResize__(this.spineStudent, infoMap[this.sid].scale, infoMap[this.sid].viewBounds)
-      await Promise.all([this.__spineAnimationInit__(), this.__audioInit__()])
+      if (infoMap[this.sid].scale || infoMap[this.sid].viewBounds) this._spineResize(this.spineStudent, infoMap[this.sid].scale, infoMap[this.sid].viewBounds)
+      await Promise.all([this._spineAnimationInit(), this._audioInit()])
     })
     const scenes = infoMap[this.sid].extraScenes || {};
     await Promise.all(
       Object.entries(scenes).map(async ([key, value]) => {
-        const spineObject = await this.__spineObjectCreate__(key);
+        const spineObject = await this._spineObjectCreate(key);
         spineObject.zIndex = value.zIndex;
-        if (value.scale || value.viewBounds) this.__spineResize__(spineObject, value.scale, value.viewBounds)
+        if (value.scale || value.viewBounds) this._spineResize(spineObject, value.scale, value.viewBounds)
         this.spineScenes[key] = spineObject;
       })
     );
@@ -436,20 +439,19 @@ const PIXIInitialize = async () => {
   // app.stage.addChild(container)
 
   app.stage.hitArea = app.screen;
-  app.stage.eventMode = "dynamic";
+  app.stage.eventMode = "static";
   isDragging = false;
 
+  app.stage.addChild(particleContainer)
   app.stage.on("pointerdown", (e) => {
     isDragging = true;
     setBonePosition(e);
+    mouseParticle.pointerDown(e);
   });
 
-  app.stage.on("globalpointermove", (e) => {
+  app.stage.on("pointermove", (e) => {
     if (isDragging) setBonePosition(e);
-    // if (emitter) {
-    //   emitter.updateOwnerPos(e.data.global.x, e.data.global.y)
-    // }
-    //emitter.updateOwnerPos(e.data.global.x, e.data.global.y)
+    mouseParticle.pointermove(e);
   });
 
   app.stage.on("pointerup", (e) => {
@@ -460,13 +462,24 @@ const PIXIInitialize = async () => {
       activeCharacter.spineAnimationControl(currentTouchBoneInfo[0].data.name, 'after');
       currentTouchBoneInfo = [];
     }
+    mouseParticle.pointerUp();
+  });
+  app.stage.on("pointerupoutside", () => {
+    mouseParticle.pointerUpOutside();
+  });
+  app.stage.on("pointerout", () => {
+    mouseParticle.pointerOut();
+  })
+
+  app.stage.on("pointerover", (ev) => {
+    mouseParticle.pointerOver(ev);
+  })
+
+  app.ticker.add((dt) => {
+    mouseParticle.update(dt.deltaTime);
   });
 
-  // app.ticker.add((delta) => {
-  //   if (emitter) {
-  //     emitter.update(delta * 0.016); // delta 时间步长
-  //   }
-  // });
+
 }
 
 const setBonePosition = (ev) => {
@@ -502,8 +515,8 @@ const setBonePosition = (ev) => {
 
 
 onMounted(async () => {
-  await fetchData();
-  await PIXIInitialize();
+  await Promise.all([fetchData(), mouseParticle.init(), PIXIInitialize()])
+
   schedule = new Schedule();
   await schedule.notifyCurrentPlayChange();
   schedule.begin();

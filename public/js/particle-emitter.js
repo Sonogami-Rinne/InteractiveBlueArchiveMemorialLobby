@@ -1,6 +1,6 @@
 /*!
  * @pixi/particle-emitter - v6.0.0
- * Compiled Sat, 14 Jun 2025 10:32:22 UTC
+ * Compiled Sun, 15 Jun 2025 02:10:32 UTC
  *
  * @pixi/particle-emitter is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -2829,6 +2829,9 @@ this.PIXI = this.PIXI || {};
                 unlock();
             }
         }
+        /**
+         * 用于emitTask和update的粒子链表的锁
+         */
         async _lock() {
             const unlock = () => {
                 if (this._waiting) {
@@ -2850,6 +2853,10 @@ this.PIXI = this.PIXI || {};
                 return unlock;
             }
         }
+        /**
+         * 按频率生成指定数量的粒子。不建议与emit = true一起使用
+         * @param delta 时间间隔
+         */
         async _emitTask(delta) {
             // const time0 = Date.now();
             const unlock = await this._lock();
@@ -2900,6 +2907,16 @@ this.PIXI = this.PIXI || {};
                 }
             }
             unlock();
+        }
+        /**
+         * 将位置移动到指定地方，但不触发update的那个插值
+         * @param x x坐标
+         * @param y y坐标
+         */
+        teleport(x, y) {
+            this.ownerPos.x = x;
+            this.ownerPos.y = y;
+            this._prevPosIsValid = false;
         }
         /**
          * Kills all active particles immediately.

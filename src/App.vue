@@ -181,6 +181,7 @@ const saveData = (key, value) => {
 
 const initialize = async () => {
   await fetchData();
+
   watch(currentPlay, () => {
     checkSave(0, currentPlay, 'currentPlay', (a, b) => { return a.id == b.id }, (a) => { return toRaw(a) })
   })
@@ -207,9 +208,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <TestParticle></TestParticle>
-  <!-- <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" :duration="duration" v-if="currentPlay"
-    @updateCurrentPlay="() => { console.warn('Unimplemented') }" @askForPreload="getPreloadPlay" /> -->
+  <!---<TestParticle></TestParticle>--->
+  <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" :duration="duration" v-if="currentPlay"
+    @updateCurrentPlay="() => { console.warn('Unimplemented') }" @askForPreload="getPreloadPlay" />
   <svg class="expand-icon" id="expand-icon" @click="drawer = true" xmlns="http://www.w3.org/2000/svg" v-show="!drawer"
     viewBox="0 0 1024 1024">
     <path fill="currentColor"
@@ -288,8 +289,8 @@ onBeforeMount(() => {
                 :group="{ name: 'student', pull: 'clone', put: false }" :clone="cloneItem" :sort="false"
                 :onEnd="(ev) => { asideVisible = playList.length != 0 }" class="grid-draggable">
                 <DraggableItem v-for="item in filteredStudentList" :key="item.id" class="studentList-item"
-                  :imgURL="`./portrait/${item.portrait || item.resourceId}.png`" :name="item.name" :parent="'filteredStudentList'"
-                  @dblclick="(ev) => { console.log(ev) }"></DraggableItem>
+                  :imgURL="`./portrait/${item.portrait || item.resourceId}.png`" :name="item.name"
+                  :parent="'filteredStudentList'" @dblclick="(ev) => { console.log(ev) }"></DraggableItem>
               </VueDraggable>
             </div>
           </el-main>

@@ -78,65 +78,94 @@ onMounted(async () => {
     const container = new PIXI.Container()
     app.stage.addChild(container)
     app.stage.eventMode = 'static'
-    const emitter = new PIXI.particles.Emitter(container, PIXI.particles.upgradeConfig(
-        {
-            "alpha": {
-                "start": 1,
-                "end": 0
+    const emitter = new PIXI.particles.Emitter(container, {
+            lifetime: {
+                min: 0.05,
+                max: 0.05
             },
-            "scale": {
-                "start": 0.15,
-                "end": 0.01,
-                "minimumScaleMultiplier": 1
+            frequency: 0.001,
+            spawnChance: 1,
+            emitterLifeTime: -1,
+            maxParticles: 1500,
+            pos: {
+                x: 0,
+                y: 0
             },
-            "color": {
-                "start": "#9dcfe3",
-                "end": "#50bce3"
-            },
-            "speed": {
-                "start": 1,
-                "end": 0,
-                "minimumSpeedMultiplier": 1
-            },
-            "acceleration": {
-                "x": 0,
-                "y": 0
-            },
-            "maxSpeed": 0,
-            "startRotation": {
-                "min": 0,
-                "max": 360
-            },
-            "noRotation": false,
-            "rotationSpeed": {
-                "min": 0,
-                "max": 0
-            },
-            "lifetime": {
-                "min": 0.05,
-                "max": 0.05
-            },
-            "blendMode": "normal",
-            "frequency": 0.001,
-            "emitterLifetime": -1,
-            "maxParticles": 1000,
-            "pos": {
-                "x": 0,
-                "y": 0
-            },
-            "addAtBack": false,
-            "spawnType": "point",
-        }, [texture]))
+            addAtBack: false,
+            behaviors: [
+                {
+                    type: "alpha",
+                    config: {
+                        alpha: {
+                            list: [
+                                {
+                                    value: 1,
+                                    time: 0
+                                },
+                                {
+                                    value: 0,
+                                    time: 1
+                                }
+                            ],
+                        },
+                    }
+                },
+                {
+                    type: 'color',
+                    config: {
+                        color: {
+                            list: [
+                                {
+                                    value: "#9dcfe3",
+                                    time: 0
+                                },
+                                {
+                                    value: "#50bce3",
+                                    time: 1
+                                }
+                            ],
+                        }
+                    }
+                },
+                {
+                    type: "scale",
+                    config: {
+                        scale: {
+                            list: [
+                                {
+                                    value: 0.1,
+                                    time: 0
+                                },
+                                {
+                                    value: 0.01,
+                                    time: 1
+                                }
+                            ],
+                        },
+                    }
+                },
+                {
+                    type: 'spawnPoint',
+                    config: {}
+                },
+                {
+                    type: 'textureSingle',
+                    config: {
+                        texture: texture
+                    }
+                }
+            ]
+        })
     emitter.emit = true;
 
     const emitter1 = new PIXI.particles.Emitter(container, {
         lifetime: {
-            min: 0.2,
-            max: 0.3
+            min: 0.15,
+            max: 0.2
         },
         frequency: 0.03,
-        spawnChance: 0.7,
-        particlesPerWave: 2,
+        spawnChance: 0.6,
+        particlesPerWave: 1,
         emitterLifeTime: -1,
         maxParticles: 50,
         pos: {
@@ -236,7 +265,7 @@ onMounted(async () => {
             },
             frequency: 0.001,
             spawnChance: 1,
-            particlesPerWave: 5,
+            particlesPerWave: 120,
             emitterLifeTime: -1,
             maxParticles: 400,
             pos: {
@@ -442,7 +471,7 @@ onMounted(async () => {
 
 
     app.ticker.add((delta) => {
-        emitter.updateTrail(delta.deltaTime * 0.01, 2);
+        emitter.updateTrail(delta.deltaTime * 0.016, 2);
         //emitter1.update(delta * 0.016);
         emitter2.update(delta.deltaTime * 0.016);
         emitter3.update(delta.deltaTime * 0.016);
@@ -456,17 +485,15 @@ onMounted(async () => {
         //emitter1.updateOwnerPos(ev.data.global.x, ev.data.global.y)
     })
     app.stage.on("pointerdown", (ev) => {
-        emitter2.updateOwnerPos(ev.data.global.x, ev.data.global.y)
-        emitter3.updateOwnerPos(ev.data.global.x, ev.data.global.y)
-        emitter2._prevPosIsValid = false;
+        emitter2.teleport(ev.data.global.x, ev.data.global.y)
+        emitter3.teleport(ev.data.global.x, ev.data.global.y)
         const rotation = Math.random() * Math.PI;
         emitter2.emits(90, null, null, rotation)
         emitter2.emits(90, null, null, rotation + Math.PI)
         emitter3.emits(45, null, null, rotation)
         emitter3.emits(45, null, null, rotation + Math.PI)
         isDragging = true;
-        emitter.updateOwnerPos(ev.data.global.x, ev.data.global.y)
-        emitter._prevPosIsValid = false;
+        emitter.teleport(ev.data.global.x, ev.data.global.y)
         emitter._emit = true;
     })
     app.stage.on("pointerup", (ev) => {
@@ -482,10 +509,8 @@ onMounted(async () => {
     })
     app.stage.on("pointerover", (ev) => {
         if (isOutSide) {
-            emitter.updateOwnerPos(ev.data.global.x, ev.data.global.y)
-            emitter._prevPosIsValid = false;
-            emitter1.updateOwnerPos(ev.data.global.x, ev.data.global.y)
-            emitter1._prevPosIsValid = false;
+            emitter.teleport(ev.data.global.x, ev.data.global.y)
+            emitter1.teleport(ev.data.global.x, ev.data.global.y)
             isOutSide = false;
         }
     })
