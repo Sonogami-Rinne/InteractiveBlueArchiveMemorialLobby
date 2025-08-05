@@ -1,0 +1,229 @@
+[
+  {
+    "sprite": "Square",
+    "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "flip": [
+      false,
+      false
+    ],
+    "drawMode": 0,
+    "sortingLayer": 0,
+    "maskInteraction": 0,
+    "gameObject": 20,
+    "translate": [
+      0.0,
+      0.0
+    ],
+    "rotation": 0.0,
+    "scale": [
+      5000.0,
+      4000.0
+    ],
+    "materials": [
+      {
+        "m_Name": "FX_TEX_Grad_White",
+        "m_Shader": {
+          "m_FileID": 4,
+          "m_PathID": -7507344123457173615
+        },
+        "m_ValidKeywords": [],
+        "m_InvalidKeywords": [
+          "ETC1_EXTERNAL_ALPHA"
+        ],
+        "m_LightmapFlags": 4,
+        "m_EnableInstancingVariants": false,
+        "m_DoubleSidedGI": false,
+        "m_CustomRenderQueue": 3000,
+        "stringTagMap": [],
+        "disabledShaderPasses": [],
+        "m_SavedProperties": {
+          "m_TexEnvs": [
+            [
+              "_MainTex",
+              {
+                "m_Texture": {
+                  "m_FileID": 0,
+                  "m_PathID": 0
+                },
+                "m_Scale": {
+                  "x": 1.0,
+                  "y": 1.0
+                },
+                "m_Offset": {
+                  "x": 0.0,
+                  "y": 0.0
+                }
+              }
+            ]
+          ],
+          "m_Ints": [],
+          "m_Floats": [
+            [
+              "PixelSnap",
+              0.0
+            ],
+            [
+              "_AlphaClip",
+              0.0
+            ],
+            [
+              "_Blend",
+              0.0
+            ],
+            [
+              "_BumpScale",
+              1.0
+            ],
+            [
+              "_Cull",
+              2.0
+            ],
+            [
+              "_Cutoff",
+              0.5
+            ],
+            [
+              "_DstBlend",
+              0.0
+            ],
+            [
+              "_EnableExternalAlpha",
+              0.0
+            ],
+            [
+              "_EnvironmentReflections",
+              1.0
+            ],
+            [
+              "_GlossMapScale",
+              0.0
+            ],
+            [
+              "_Glossiness",
+              0.0
+            ],
+            [
+              "_GlossyReflections",
+              0.0
+            ],
+            [
+              "_Metallic",
+              0.0
+            ],
+            [
+              "_OcclusionStrength",
+              1.0
+            ],
+            [
+              "_QueueOffset",
+              0.0
+            ],
+            [
+              "_ReceiveShadows",
+              1.0
+            ],
+            [
+              "_Smoothness",
+              0.5
+            ],
+            [
+              "_SmoothnessTextureChannel",
+              0.0
+            ],
+            [
+              "_SpecularHighlights",
+              1.0
+            ],
+            [
+              "_SrcBlend",
+              1.0
+            ],
+            [
+              "_Surface",
+              0.0
+            ],
+            [
+              "_WorkflowMode",
+              1.0
+            ],
+            [
+              "_ZWrite",
+              1.0
+            ]
+          ],
+          "m_Colors": [
+            [
+              "_BaseColor",
+              {
+                "r": 0.5,
+                "g": 0.5,
+                "b": 0.5,
+                "a": 1.0
+              }
+            ],
+            [
+              "_Color",
+              {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+              }
+            ],
+            [
+              "_Color0",
+              {
+                "r": 0.5,
+                "g": 0.5,
+                "b": 0.5,
+                "a": 0.0
+              }
+            ],
+            [
+              "_EmissionColor",
+              {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+              }
+            ],
+            [
+              "_Flip",
+              {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+              }
+            ],
+            [
+              "_RendererColor",
+              {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+              }
+            ],
+            [
+              "_SpecColor",
+              {
+                "r": 0.19999995827674866,
+                "g": 0.19999995827674866,
+                "b": 0.19999995827674866,
+                "a": 1.0
+              }
+            ]
+          ]
+        },
+        "m_BuildTextureStacks": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,7978 @@
+[
+  {
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 10.0
+      },
+      "bursts": []
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 30,
+      "startColor": {
+        "state": 0,
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          5.0,
+          3.0
+        ]
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          0.0,
+          6.283185005187988
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.30000001192092896,
+          0.20000000298023224
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.30000001192092896,
+          0.20000000298023224
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": false,
+      "scalingMode": 0,
+      "simulationSpeed": 1.0,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 5,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        10.0,
+        0.0,
+        10.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_WakamoLobbyFirePtcl",
+          "m_Shader": {
+            "m_FileID": 10,
+            "m_PathID": 1813258883382773803
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "ETC1_EXTERNAL_ALPHA",
+            "_ALPHABLEND_ON",
+            "_EMISSION",
+            "_OPACITYDISTORT_ON",
+            "_SELECTCHANNEL_RED"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": true,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 3000,
+          "stringTagMap": [],
+          "disabledShaderPasses": [
+            "ALWAYS"
+          ],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_B",
+                {
+                  "m_Texture": {
+                    "m_FileID": 6,
+                    "m_PathID": -2390042865573916102
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.9900000095367432,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_D",
+                {
+                  "m_Texture": {
+                    "m_FileID": 6,
+                    "m_PathID": -2390042865573916102
+                  },
+                  "m_Scale": {
+                    "x": 2.0,
+                    "y": 2.0
+                  },
+                  "m_Offset": {
+                    "x": 0.8799999952316284,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_MainTex",
+                {
+                  "m_Texture": {
+                    "m_FileID": 6,
+                    "m_PathID": -2390042865573916102
+                  },
+                  "m_Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.2899999618530273
+                  },
+                  "m_Offset": {
+                    "x": -0.14000000059604645,
+                    "y": 1.590000033378601
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AddPower",
+                1.0
+              ],
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BlendOp",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_CameraFadingEnabled",
+                0.0
+              ],
+              [
+                "_CameraFarFadeDistance",
+                2.0
+              ],
+              [
+                "_CameraNearFadeDistance",
+                1.0
+              ],
+              [
+                "_Col1Sharp",
+                20.0
+              ],
+              [
+                "_Col2Sharp",
+                20.0
+              ],
+              [
+                "_Color1Sharpness",
+                20.0
+              ],
+              [
+                "_Color2Sharpness",
+                20.0
+              ],
+              [
+                "_ColorMode",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DisappearOffset",
+                -0.5
+              ],
+              [
+                "_DisappearValue",
+                0.0
+              ],
+              [
+                "_DiscardPow",
+                0.8709999918937683
+              ],
+              [
+                "_DispPowX",
+                -0.15000000596046448
+              ],
+              [
+                "_DispPowY",
+                0.12999999523162842
+              ],
+              [
+                "_DstBlend",
+                1.0
+              ],
+              [
+                "_EmissionEnabled",
+                1.0
+              ],
+              [
+                "_FlipbookMode",
+                0.0
+              ],
+              [
+                "_FlowSpeed",
+                -0.5899999737739563
+              ],
+              [
+                "_Glossiness",
+                0.5
+              ],
+              [
+                "_GlowPow",
+                0.0
+              ],
+              [
+                "_GlowStr",
+                2.0
+              ],
+              [
+                "_GlowStrength",
+                4.0
+              ],
+              [
+                "_LightingEnabled",
+                1.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Mode",
+                4.0
+              ],
+              [
+                "_Multiplier",
+                2.0
+              ],
+              [
+                "_OpacityDistort",
+                1.0
+              ],
+              [
+                "_SampleGI",
+                0.0
+              ],
+              [
+                "_SelectChannel",
+                0.0
+              ],
+              [
+                "_SoftParticlesEnabled",
+                0.0
+              ],
+              [
+                "_SoftParticlesFarFadeDistance",
+                1.0
+              ],
+              [
+                "_SoftParticlesNearFadeDistance",
+                0.0
+              ],
+              [
+                "_SrcBlend",
+                5.0
+              ],
+              [
+                "_Strength",
+                5.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_USpeed",
+                0.0
+              ],
+              [
+                "_USpeed0",
+                0.05999999865889549
+              ],
+              [
+                "_USpeed1",
+                0.5
+              ],
+              [
+                "_USpeed2",
+                0.0
+              ],
+              [
+                "_USpeed3",
+                -0.3799999952316284
+              ],
+              [
+                "_UseParticle",
+                0.0
+              ],
+              [
+                "_VSpeed",
+                0.0
+              ],
+              [
+                "_VSpeed0",
+                0.30000001192092896
+              ],
+              [
+                "_VSpeed1",
+                0.09000000357627869
+              ],
+              [
+                "_VSpeed2",
+                0.0
+              ],
+              [
+                "_VSpeed3",
+                -0.699999988079071
+              ],
+              [
+                "_ZWrite",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "Color_23AAFA41",
+                {
+                  "r": 10.722519874572754,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.501960813999176
+                }
+              ],
+              [
+                "Color_516086FF",
+                {
+                  "r": 6.792452812194824,
+                  "g": 0.6728373169898987,
+                  "b": 0.6728373169898987,
+                  "a": 0.0
+                }
+              ],
+              [
+                "Color_54D9EA89",
+                {
+                  "r": 4.015686988830566,
+                  "g": 4.015686988830566,
+                  "b": 4.015686988830566,
+                  "a": 0.501960813999176
+                }
+              ],
+              [
+                "_CameraFadeParams",
+                {
+                  "r": 0.0,
+                  "g": Infinity,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 1.0,
+                  "g": 0.0,
+                  "b": 0.04265022277832031,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color0",
+                {
+                  "r": 10.12933349609375,
+                  "g": 1.8561606407165527,
+                  "b": 0.6363978981971741,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Color1",
+                {
+                  "r": 1.977469563484192,
+                  "g": 0.5136660933494568,
+                  "b": 0.2518475353717804,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Color2",
+                {
+                  "r": 4.0,
+                  "g": 2.635239362716675,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_ColorAddSubDiff",
+                {
+                  "r": 1.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Panner1",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Panner2",
+                {
+                  "r": 0.0,
+                  "g": -0.41999998688697815,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_SoftParticleFadeParams",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Tint",
+                {
+                  "r": 1.0,
+                  "g": 1.0,
+                  "b": 1.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_TintColor",
+                {
+                  "r": 5.992156982421875,
+                  "g": 2.0392158031463623,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": [
+        "FX_TEX_Dirt_03"
+      ]
+    },
+    "name": "Unknown",
+    "gameObject": 31
+  },
+  {
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 10.0
+      },
+      "bursts": []
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 30,
+      "startColor": {
+        "state": 0,
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          5.0,
+          3.0
+        ]
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          0.0,
+          6.283185005187988
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.30000001192092896,
+          0.20000000298023224
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.30000001192092896,
+          0.20000000298023224
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": false,
+      "scalingMode": 0,
+      "simulationSpeed": 1.0,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 5,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        10.0,
+        0.0,
+        10.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_WakamoLobbyFirePtcl",
+          "m_Shader": {
+            "m_FileID": 10,
+            "m_PathID": 1813258883382773803
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "ETC1_EXTERNAL_ALPHA",
+            "_ALPHABLEND_ON",
+            "_EMISSION",
+            "_OPACITYDISTORT_ON",
+            "_SELECTCHANNEL_RED"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": true,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 3000,
+          "stringTagMap": [],
+          "disabledShaderPasses": [
+            "ALWAYS"
+          ],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_B",
+                {
+                  "m_Texture": {
+                    "m_FileID": 6,
+                    "m_PathID": -2390042865573916102
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.9900000095367432,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_D",
+                {
+                  "m_Texture": {
+                    "m_FileID": 6,
+                    "m_PathID": -2390042865573916102
+                  },
+                  "m_Scale": {
+                    "x": 2.0,
+                    "y": 2.0
+                  },
+                  "m_Offset": {
+                    "x": 0.8799999952316284,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_MainTex",
+                {
+                  "m_Texture": {
+                    "m_FileID": 6,
+                    "m_PathID": -2390042865573916102
+                  },
+                  "m_Scale": {
+                    "x": 1.399999976158142,
+                    "y": 1.2899999618530273
+                  },
+                  "m_Offset": {
+                    "x": -0.14000000059604645,
+                    "y": 1.590000033378601
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AddPower",
+                1.0
+              ],
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BlendOp",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_CameraFadingEnabled",
+                0.0
+              ],
+              [
+                "_CameraFarFadeDistance",
+                2.0
+              ],
+              [
+                "_CameraNearFadeDistance",
+                1.0
+              ],
+              [
+                "_Col1Sharp",
+                20.0
+              ],
+              [
+                "_Col2Sharp",
+                20.0
+              ],
+              [
+                "_Color1Sharpness",
+                20.0
+              ],
+              [
+                "_Color2Sharpness",
+                20.0
+              ],
+              [
+                "_ColorMode",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DisappearOffset",
+                -0.5
+              ],
+              [
+                "_DisappearValue",
+                0.0
+              ],
+              [
+                "_DiscardPow",
+                0.8709999918937683
+              ],
+              [
+                "_DispPowX",
+                -0.15000000596046448
+              ],
+              [
+                "_DispPowY",
+                0.12999999523162842
+              ],
+              [
+                "_DstBlend",
+                1.0
+              ],
+              [
+                "_EmissionEnabled",
+                1.0
+              ],
+              [
+                "_FlipbookMode",
+                0.0
+              ],
+              [
+                "_FlowSpeed",
+                -0.5899999737739563
+              ],
+              [
+                "_Glossiness",
+                0.5
+              ],
+              [
+                "_GlowPow",
+                0.0
+              ],
+              [
+                "_GlowStr",
+                2.0
+              ],
+              [
+                "_GlowStrength",
+                4.0
+              ],
+              [
+                "_LightingEnabled",
+                1.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Mode",
+                4.0
+              ],
+              [
+                "_Multiplier",
+                2.0
+              ],
+              [
+                "_OpacityDistort",
+                1.0
+              ],
+              [
+                "_SampleGI",
+                0.0
+              ],
+              [
+                "_SelectChannel",
+                0.0
+              ],
+              [
+                "_SoftParticlesEnabled",
+                0.0
+              ],
+              [
+                "_SoftParticlesFarFadeDistance",
+                1.0
+              ],
+              [
+                "_SoftParticlesNearFadeDistance",
+                0.0
+              ],
+              [
+                "_SrcBlend",
+                5.0
+              ],
+              [
+                "_Strength",
+                5.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_USpeed",
+                0.0
+              ],
+              [
+                "_USpeed0",
+                0.05999999865889549
+              ],
+              [
+                "_USpeed1",
+                0.5
+              ],
+              [
+                "_USpeed2",
+                0.0
+              ],
+              [
+                "_USpeed3",
+                -0.3799999952316284
+              ],
+              [
+                "_UseParticle",
+                0.0
+              ],
+              [
+                "_VSpeed",
+                0.0
+              ],
+              [
+                "_VSpeed0",
+                0.30000001192092896
+              ],
+              [
+                "_VSpeed1",
+                0.09000000357627869
+              ],
+              [
+                "_VSpeed2",
+                0.0
+              ],
+              [
+                "_VSpeed3",
+                -0.699999988079071
+              ],
+              [
+                "_ZWrite",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "Color_23AAFA41",
+                {
+                  "r": 10.722519874572754,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.501960813999176
+                }
+              ],
+              [
+                "Color_516086FF",
+                {
+                  "r": 6.792452812194824,
+                  "g": 0.6728373169898987,
+                  "b": 0.6728373169898987,
+                  "a": 0.0
+                }
+              ],
+              [
+                "Color_54D9EA89",
+                {
+                  "r": 4.015686988830566,
+                  "g": 4.015686988830566,
+                  "b": 4.015686988830566,
+                  "a": 0.501960813999176
+                }
+              ],
+              [
+                "_CameraFadeParams",
+                {
+                  "r": 0.0,
+                  "g": Infinity,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 1.0,
+                  "g": 0.0,
+                  "b": 0.04265022277832031,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color0",
+                {
+                  "r": 10.12933349609375,
+                  "g": 1.8561606407165527,
+                  "b": 0.6363978981971741,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Color1",
+                {
+                  "r": 1.977469563484192,
+                  "g": 0.5136660933494568,
+                  "b": 0.2518475353717804,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Color2",
+                {
+                  "r": 4.0,
+                  "g": 2.635239362716675,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_ColorAddSubDiff",
+                {
+                  "r": 1.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Panner1",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Panner2",
+                {
+                  "r": 0.0,
+                  "g": -0.41999998688697815,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_SoftParticleFadeParams",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Tint",
+                {
+                  "r": 1.0,
+                  "g": 1.0,
+                  "b": 1.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_TintColor",
+                {
+                  "r": 5.992156982421875,
+                  "g": 2.0392158031463623,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": [
+        "FX_TEX_Dirt_03"
+      ]
+    },
+    "name": "Unknown",
+    "gameObject": 32
+  },
+  {
+    "colorModule": {
+      "state": 1,
+      "gradient": {
+        "atime": [
+          0,
+          30455,
+          34502,
+          40670,
+          46067,
+          53006,
+          59367
+        ],
+        "ctime": [
+          0,
+          6168,
+          12336,
+          19082,
+          26792,
+          65535,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 8,
+        "colorKeys": 6
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 1.0,
+          "interval": 0.012000000104308128,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 10,
+      "startColor": {
+        "state": 0,
+        "color": [
+          0.7128426432609558,
+          0.7722456455230713,
+          0.7830188870429993,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 0,
+        "value": 0.20000000298023224
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotationY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotation": {
+        "state": 0,
+        "value": 0.0
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.019999999552965164
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.019999999552965164
+        ]
+      },
+      "duration": 1.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 0.019999999552965164,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "rotationModule": {
+      "curve": {
+        "state": 3,
+        "value": [
+          3.141592502593994,
+          -3.141592502593994
+        ]
+      },
+      "separateAxes": false,
+      "curveX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "curvey": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "shapeModule": {
+      "shape": 18,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.10000000149011612,
+        0.20000000298023224,
+        0.10000000149011612
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0
+    },
+    "sizeModule": {
+      "curve": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 5.907406806945801,
+            "outSlope": 5.907406806945801,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.21254993975162506,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -0.32299163937568665,
+            "outSlope": -0.32299163937568665,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.6637427806854248,
+            "time": 0.26547327637672424,
+            "value": 0.8979572653770447,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -0.2715016305446625,
+            "outSlope": -0.2715016305446625,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.4747316837310791,
+            "value": 0.23811042308807373,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -8.403220176696777,
+            "outSlope": -8.403220176696777,
+            "inWeight": 0.19831058382987976,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 0.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "separateAxes": false,
+      "curveY": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "curveZ": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "SUN_Flare_01_AronaWork",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": 7891749505870008250
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_RECEIVE_SHADOWS_OFF"
+          ],
+          "m_LightmapFlags": 2,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 2998,
+          "stringTagMap": [],
+          "disabledShaderPasses": [
+            "ALWAYS",
+            "SHADOWCASTER"
+          ],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 3,
+                    "m_PathID": -1624625630489135566
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                2.0
+              ],
+              [
+                "_BlendOp",
+                0.0
+              ],
+              [
+                "_CameraFadingEnabled",
+                0.0
+              ],
+              [
+                "_CameraFarFadeDistance",
+                2.0
+              ],
+              [
+                "_CameraNearFadeDistance",
+                1.0
+              ],
+              [
+                "_ColorMode",
+                0.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                0.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DistortionBlend",
+                0.5
+              ],
+              [
+                "_DistortionEnabled",
+                0.0
+              ],
+              [
+                "_DistortionStrength",
+                1.0
+              ],
+              [
+                "_DistortionStrengthScaled",
+                0.10000000149011612
+              ],
+              [
+                "_DstBlend",
+                1.0
+              ],
+              [
+                "_EmissionEnabled",
+                0.0
+              ],
+              [
+                "_FlipbookBlending",
+                0.0
+              ],
+              [
+                "_FlipbookMode",
+                0.0
+              ],
+              [
+                "_LightingEnabled",
+                0.0
+              ],
+              [
+                "_Mode",
+                4.0
+              ],
+              [
+                "_QueueOffset",
+                0.0
+              ],
+              [
+                "_SoftParticlesEnabled",
+                0.0
+              ],
+              [
+                "_SoftParticlesFarFadeDistance",
+                1.0
+              ],
+              [
+                "_SoftParticlesNearFadeDistance",
+                0.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Surface",
+                1.0
+              ],
+              [
+                "_ZOffsetFactor",
+                0.0
+              ],
+              [
+                "_ZOffsetUnits",
+                0.0
+              ],
+              [
+                "_ZTest",
+                4.0
+              ],
+              [
+                "_ZTest_Mode",
+                4.0
+              ],
+              [
+                "_ZWrite",
+                0.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_BaseColor",
+                {
+                  "r": 4.237095355987549,
+                  "g": 4.237095355987549,
+                  "b": 4.237095355987549,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_BaseColorAddSubDiff",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_CameraFadeParams",
+                {
+                  "r": 0.0,
+                  "g": Infinity,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 23.9686279296875,
+                  "g": 23.9686279296875,
+                  "b": 23.9686279296875,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_ColorAddSubDiff",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SoftParticleFadeParams",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 41
+  },
+  {
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 40.0
+      },
+      "bursts": []
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 100,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "maxColor": [
+          1.0,
+          0.8066037893295288,
+          0.943118691444397,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          1.0,
+          3.0
+        ]
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          6.283185005187988,
+          0.0
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.05000000074505806,
+          0.10000000149011612
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.05000000074505806,
+          0.10000000149011612
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": true,
+      "scalingMode": 2,
+      "simulationSpeed": 0.10000000149011612,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "rotationModule": {
+      "curve": {
+        "state": 3,
+        "value": [
+          17.453292846679688,
+          8.726646423339844
+        ]
+      },
+      "separateAxes": false,
+      "curveX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "curvey": {
+        "state": 3,
+        "value": [
+          17.453292846679688,
+          8.726646423339844
+        ]
+      }
+    },
+    "shapeModule": {
+      "shape": 5,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        9.109999656677246,
+        0.0,
+        3.109999895095825
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0
+    },
+    "sizeModule": {
+      "curve": {
+        "state": 1,
+        "value": 1.3222273588180542,
+        "curve": [
+          {
+            "inSlope": -1.2760374546051025,
+            "outSlope": -1.2760374546051025,
+            "inWeight": 0.0,
+            "outWeight": 0.111607126891613,
+            "time": 0.0,
+            "value": 1.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -1.3350120782852173,
+            "outSlope": -1.3350120782852173,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.19284236431121826,
+            "value": 0.3787088096141815,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 0.03096107393503189,
+            "weightMode": 0
+          }
+        ]
+      },
+      "separateAxes": false,
+      "curveY": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "curveZ": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      }
+    },
+    "velocityModule": {
+      "x": {
+        "state": 0,
+        "value": 20.0
+      },
+      "y": {
+        "state": 0,
+        "value": 0.0
+      },
+      "z": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalY": {
+        "state": 3,
+        "value": [
+          0.0,
+          -2.0
+        ]
+      },
+      "orbitalZ": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 2.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 1.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "clampVelocityModule": {
+      "damp": 0.8999999761581421,
+      "drag": {
+        "state": 0,
+        "value": 0.0
+      },
+      "magnitude": {
+        "state": 3,
+        "value": [
+          5.0,
+          2.0
+        ]
+      },
+      "multiplyDragByParticleSize": true,
+      "multiplyDragByParticleVelocity": true,
+      "separateAxis": false,
+      "curveX": {
+        "state": 0,
+        "value": 1.0
+      },
+      "curveY": {
+        "state": 0,
+        "value": 1.0
+      },
+      "curveZ": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "UVModule": {
+      "cycles": 1.0,
+      "frameOverTime": {
+        "state": 1,
+        "value": 0.9998999834060669,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "time": 0.0,
+            "value": 1.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "mode": 0,
+      "rowMode": 1,
+      "tilesX": 2,
+      "tilesY": 2,
+      "sprites": []
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_Airi_sakura_00",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": 7891749505870008250
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_CUSTOM_DATA_OFFSET_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 3000,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 5,
+                    "m_PathID": 1479301937613822724
+                  },
+                  "m_Scale": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                1.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_EnvironmentReflections",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                0.0
+              ],
+              [
+                "_Glossiness",
+                0.0
+              ],
+              [
+                "_GlossyReflections",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_QueueOffset",
+                0.0
+              ],
+              [
+                "_ReceiveShadows",
+                1.0
+              ],
+              [
+                "_Smoothness",
+                0.5
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZOffsetFactor",
+                0.0
+              ],
+              [
+                "_ZOffsetUnits",
+                0.0
+              ],
+              [
+                "_ZTest_Mode",
+                4.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_BaseColor",
+                {
+                  "r": 0.5,
+                  "g": 0.5,
+                  "b": 0.5,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 1.4980392456054688,
+                  "g": 1.4980392456054688,
+                  "b": 1.4980392456054688,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 42
+  },
+  {
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 15.0
+      },
+      "bursts": []
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 100,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "maxColor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          1.0,
+          3.0
+        ]
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          6.283185005187988,
+          0.0
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.05000000074505806,
+          0.07999999821186066
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.05000000074505806,
+          0.07999999821186066
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": true,
+      "scalingMode": 2,
+      "simulationSpeed": 0.019999999552965164,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "rotationModule": {
+      "curve": {
+        "state": 3,
+        "value": [
+          17.453292846679688,
+          3.4906585216522217
+        ]
+      },
+      "separateAxes": false,
+      "curveX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "curvey": {
+        "state": 3,
+        "value": [
+          17.453292846679688,
+          8.726646423339844
+        ]
+      }
+    },
+    "shapeModule": {
+      "shape": 5,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        4.369999885559082,
+        0.0,
+        3.109999895095825
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0
+    },
+    "sizeModule": {
+      "curve": {
+        "state": 1,
+        "value": 1.3222273588180542,
+        "curve": [
+          {
+            "inSlope": -3.1366090774536133,
+            "outSlope": -3.1366090774536133,
+            "inWeight": 0.0,
+            "outWeight": 0.21673181653022766,
+            "time": 0.0,
+            "value": 1.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -1.3350120782852173,
+            "outSlope": -1.3350120782852173,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.23614944517612457,
+            "value": 0.4021201729774475,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 0.03096107393503189,
+            "weightMode": 0
+          }
+        ]
+      },
+      "separateAxes": false,
+      "curveY": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "curveZ": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      }
+    },
+    "velocityModule": {
+      "x": {
+        "state": 0,
+        "value": 20.0
+      },
+      "y": {
+        "state": 0,
+        "value": 0.0
+      },
+      "z": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalY": {
+        "state": 3,
+        "value": [
+          0.0,
+          -2.0
+        ]
+      },
+      "orbitalZ": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 2.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 1.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "UVModule": {
+      "cycles": 1.0,
+      "frameOverTime": {
+        "state": 1,
+        "value": 0.9998999834060669,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "time": 0.0,
+            "value": 1.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "mode": 0,
+      "rowMode": 1,
+      "tilesX": 2,
+      "tilesY": 2,
+      "sprites": []
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_Airi_sakura_01",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": 7891749505870008250
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_CUSTOM_DATA_OFFSET_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 3100,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 5,
+                    "m_PathID": 6518464288095668931
+                  },
+                  "m_Scale": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                1.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_EnvironmentReflections",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                0.0
+              ],
+              [
+                "_Glossiness",
+                0.0
+              ],
+              [
+                "_GlossyReflections",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_QueueOffset",
+                0.0
+              ],
+              [
+                "_ReceiveShadows",
+                1.0
+              ],
+              [
+                "_Smoothness",
+                0.5
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZOffsetFactor",
+                0.0
+              ],
+              [
+                "_ZOffsetUnits",
+                0.0
+              ],
+              [
+                "_ZTest_Mode",
+                4.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_BaseColor",
+                {
+                  "r": 0.5,
+                  "g": 0.5,
+                  "b": 0.5,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 1.4980392456054688,
+                  "g": 1.4980392456054688,
+                  "b": 1.4980392456054688,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 43
+  },
+  {
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 15.0
+      },
+      "bursts": []
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 100,
+      "startColor": {
+        "state": 0,
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          1.0,
+          3.0
+        ]
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          6.283185005187988,
+          0.0
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.05000000074505806,
+          0.07999999821186066
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.05000000074505806,
+          0.07999999821186066
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": true,
+      "scalingMode": 2,
+      "simulationSpeed": 0.009999999776482582,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "rotationModule": {
+      "curve": {
+        "state": 3,
+        "value": [
+          17.453292846679688,
+          1.7453292608261108
+        ]
+      },
+      "separateAxes": false,
+      "curveX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "curvey": {
+        "state": 3,
+        "value": [
+          17.453292846679688,
+          8.726646423339844
+        ]
+      }
+    },
+    "shapeModule": {
+      "shape": 5,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        4.369999885559082,
+        0.0,
+        3.109999895095825
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0
+    },
+    "sizeModule": {
+      "curve": {
+        "state": 1,
+        "value": 1.3222273588180542,
+        "curve": [
+          {
+            "inSlope": -1.2760374546051025,
+            "outSlope": -1.2760374546051025,
+            "inWeight": 0.0,
+            "outWeight": 0.111607126891613,
+            "time": 0.0,
+            "value": 1.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -1.3350120782852173,
+            "outSlope": -1.3350120782852173,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.19284236431121826,
+            "value": 0.3787088096141815,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 0.03096107393503189,
+            "weightMode": 0
+          }
+        ]
+      },
+      "separateAxes": false,
+      "curveY": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "curveZ": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      }
+    },
+    "velocityModule": {
+      "x": {
+        "state": 0,
+        "value": 20.0
+      },
+      "y": {
+        "state": 0,
+        "value": 0.0
+      },
+      "z": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalY": {
+        "state": 3,
+        "value": [
+          0.0,
+          -2.0
+        ]
+      },
+      "orbitalZ": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 3.7200000286102295
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 1.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "UVModule": {
+      "cycles": 1.0,
+      "frameOverTime": {
+        "state": 1,
+        "value": 0.9998999834060669,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "time": 0.0,
+            "value": 1.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.0,
+            "outSlope": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "mode": 0,
+      "rowMode": 1,
+      "tilesX": 2,
+      "tilesY": 2,
+      "sprites": []
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_Airi_sakura_01",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": 7891749505870008250
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_CUSTOM_DATA_OFFSET_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 3100,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 5,
+                    "m_PathID": 6518464288095668931
+                  },
+                  "m_Scale": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                1.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_EnvironmentReflections",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                0.0
+              ],
+              [
+                "_Glossiness",
+                0.0
+              ],
+              [
+                "_GlossyReflections",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_QueueOffset",
+                0.0
+              ],
+              [
+                "_ReceiveShadows",
+                1.0
+              ],
+              [
+                "_Smoothness",
+                0.5
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZOffsetFactor",
+                0.0
+              ],
+              [
+                "_ZOffsetUnits",
+                0.0
+              ],
+              [
+                "_ZTest_Mode",
+                4.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_BaseColor",
+                {
+                  "r": 0.5,
+                  "g": 0.5,
+                  "b": 0.5,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 1.4980392456054688,
+                  "g": 1.4980392456054688,
+                  "b": 1.4980392456054688,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 44
+  },
+  {
+    "colorModule": {
+      "state": 1,
+      "gradient": {
+        "atime": [
+          0,
+          30455,
+          34502,
+          40670,
+          46067,
+          53006,
+          59367
+        ],
+        "ctime": [
+          0,
+          6168,
+          12336,
+          19082,
+          26792,
+          65535,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 8,
+        "colorKeys": 6
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 1.0,
+          "interval": 0.019999999552965164,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 10,
+      "startColor": {
+        "state": 0,
+        "color": [
+          0.7128426432609558,
+          0.7722456455230713,
+          0.7830188870429993,
+          0.6117647290229797
+        ]
+      },
+      "startLifeTime": {
+        "state": 0,
+        "value": 0.20000000298023224
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotationY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotation": {
+        "state": 0,
+        "value": 0.0
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.009999999776482582
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.009999999776482582
+        ]
+      },
+      "duration": 0.5,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 0.009999999776482582,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 5,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.18000000715255737,
+        -0.019999999552965164,
+        0.17000000178813934
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.11999999731779099,
+      "sphericalDirectionAmount": 0.0
+    },
+    "sizeModule": {
+      "curve": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 5.907406806945801,
+            "outSlope": 5.907406806945801,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.21254993975162506,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -0.32299163937568665,
+            "outSlope": -0.32299163937568665,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.6637427806854248,
+            "time": 0.26547327637672424,
+            "value": 0.8979572653770447,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -0.2715016305446625,
+            "outSlope": -0.2715016305446625,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.4904797077178955,
+            "value": 0.36854520440101624,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.7146731615066528,
+            "outSlope": 0.7146731615066528,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.5547638535499573,
+            "time": 0.7254106402397156,
+            "value": 0.7351037859916687,
+            "weightMode": 0
+          },
+          {
+            "inSlope": -8.403220176696777,
+            "outSlope": -8.403220176696777,
+            "inWeight": 0.19831058382987976,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 0.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "separateAxes": false,
+      "curveY": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "curveZ": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "SUN_Flare_01_AronaWork",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": 7891749505870008250
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_RECEIVE_SHADOWS_OFF"
+          ],
+          "m_LightmapFlags": 2,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 2998,
+          "stringTagMap": [],
+          "disabledShaderPasses": [
+            "ALWAYS",
+            "SHADOWCASTER"
+          ],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 3,
+                    "m_PathID": -1624625630489135566
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                2.0
+              ],
+              [
+                "_BlendOp",
+                0.0
+              ],
+              [
+                "_CameraFadingEnabled",
+                0.0
+              ],
+              [
+                "_CameraFarFadeDistance",
+                2.0
+              ],
+              [
+                "_CameraNearFadeDistance",
+                1.0
+              ],
+              [
+                "_ColorMode",
+                0.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                0.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DistortionBlend",
+                0.5
+              ],
+              [
+                "_DistortionEnabled",
+                0.0
+              ],
+              [
+                "_DistortionStrength",
+                1.0
+              ],
+              [
+                "_DistortionStrengthScaled",
+                0.10000000149011612
+              ],
+              [
+                "_DstBlend",
+                1.0
+              ],
+              [
+                "_EmissionEnabled",
+                0.0
+              ],
+              [
+                "_FlipbookBlending",
+                0.0
+              ],
+              [
+                "_FlipbookMode",
+                0.0
+              ],
+              [
+                "_LightingEnabled",
+                0.0
+              ],
+              [
+                "_Mode",
+                4.0
+              ],
+              [
+                "_QueueOffset",
+                0.0
+              ],
+              [
+                "_SoftParticlesEnabled",
+                0.0
+              ],
+              [
+                "_SoftParticlesFarFadeDistance",
+                1.0
+              ],
+              [
+                "_SoftParticlesNearFadeDistance",
+                0.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Surface",
+                1.0
+              ],
+              [
+                "_ZOffsetFactor",
+                0.0
+              ],
+              [
+                "_ZOffsetUnits",
+                0.0
+              ],
+              [
+                "_ZTest",
+                4.0
+              ],
+              [
+                "_ZTest_Mode",
+                4.0
+              ],
+              [
+                "_ZWrite",
+                0.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_BaseColor",
+                {
+                  "r": 4.237095355987549,
+                  "g": 4.237095355987549,
+                  "b": 4.237095355987549,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_BaseColorAddSubDiff",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_CameraFadeParams",
+                {
+                  "r": 0.0,
+                  "g": Infinity,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 23.9686279296875,
+                  "g": 23.9686279296875,
+                  "b": 23.9686279296875,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_ColorAddSubDiff",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SoftParticleFadeParams",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 45
+  },
+  {
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 10.0
+      },
+      "bursts": []
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 1000,
+      "startColor": {
+        "state": 0,
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 0,
+        "value": 1.0
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotationY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotation": {
+        "state": 0,
+        "value": 0.0
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 0,
+        "value": 1.0
+      },
+      "startSizeZ": {
+        "state": 0,
+        "value": 1.0
+      },
+      "startSize": {
+        "state": 0,
+        "value": 1.0
+      },
+      "startSpeed": {
+        "state": 0,
+        "value": 1.0
+      },
+      "duration": 1.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": false,
+      "scalingMode": 0,
+      "simulationSpeed": 1.0,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 4,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0,
+      "angle": 25.0,
+      "radis": 1.0,
+      "radiusThickness": 1.0,
+      "arc": 360.0,
+      "arcMode": 0,
+      "speed": {
+        "state": 0,
+        "value": 1.0
+      },
+      "spread": 0.0,
+      "length": 5.0
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 46
+  },
+  {
+    "colorModule": {
+      "state": 3,
+      "minGradient": {
+        "atime": [
+          0,
+          8867,
+          15420,
+          19853,
+          25443,
+          31611,
+          54934
+        ],
+        "ctime": [
+          0,
+          65535,
+          65535,
+          0,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.4470588266849518
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.30980393290519714
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 8,
+        "colorKeys": 2
+      },
+      "maxGradient": {
+        "atime": [
+          0,
+          10601,
+          38936,
+          43176,
+          47609,
+          51657,
+          55705
+        ],
+        "ctime": [
+          0,
+          65535,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.4156862795352936
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.5529412031173706
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 8,
+        "colorKeys": 2
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 1.0,
+          "interval": 0.10000000149011612,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 3,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          0.849056601524353,
+          0.7649519443511963,
+          0.7649519443511963,
+          0.19607843458652496
+        ],
+        "maxColor": [
+          0.7169811725616455,
+          0.5647917985916138,
+          0.5647917985916138,
+          0.21176470816135406
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          2.0,
+          5.0
+        ]
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotationY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotation": {
+        "state": 0,
+        "value": 0.0
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          2.0,
+          0.5
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          2.0,
+          0.5
+        ]
+      },
+      "duration": 1.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 1.0,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 18,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        7.0,
+        1.5,
+        1.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0
+    },
+    "sizeModule": {
+      "curve": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.1312408447265625,
+            "outSlope": 0.1312408447265625,
+            "inWeight": 0.0,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.8687591552734375,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.1312408447265625,
+            "outSlope": 0.1312408447265625,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.0,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "separateAxes": false,
+      "curveY": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "curveZ": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      }
+    },
+    "velocityModule": {
+      "x": {
+        "state": 3,
+        "value": [
+          0.10000000149011612,
+          0.4000000059604645
+        ]
+      },
+      "y": {
+        "state": 3,
+        "value": [
+          -0.05000000074505806,
+          -0.10000000149011612
+        ]
+      },
+      "z": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 0.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "Spine_boke_02_2",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": 7891749505870008250
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_CUSTOM_DATA_OFFSET_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 3000,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 5,
+                    "m_PathID": 3349861500327380309
+                  },
+                  "m_Scale": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                1.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_EnvironmentReflections",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                0.0
+              ],
+              [
+                "_Glossiness",
+                0.0
+              ],
+              [
+                "_GlossyReflections",
+                0.0
+              ],
+              [
+                "_Main_Texture_No",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Multiply",
+                1.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_QueueOffset",
+                0.0
+              ],
+              [
+                "_RGBRGBA",
+                0.0
+              ],
+              [
+                "_ReceiveShadows",
+                1.0
+              ],
+              [
+                "_Smoothness",
+                0.5
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZOffsetFactor",
+                0.0
+              ],
+              [
+                "_ZOffsetUnits",
+                0.0
+              ],
+              [
+                "_ZTest_Mode",
+                4.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_BaseColor",
+                {
+                  "r": 0.5,
+                  "g": 0.5,
+                  "b": 0.5,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 10.432683944702148,
+                  "g": 10.432683944702148,
+                  "b": 10.432683944702148,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 47
+  },
+  {
+    "colorModule": {
+      "state": 3,
+      "minGradient": {
+        "atime": [
+          0,
+          8867,
+          15420,
+          19853,
+          25443,
+          31611,
+          54934
+        ],
+        "ctime": [
+          0,
+          65535,
+          65535,
+          0,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.4470588266849518
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.30980393290519714
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 8,
+        "colorKeys": 2
+      },
+      "maxGradient": {
+        "atime": [
+          0,
+          10601,
+          38936,
+          43176,
+          47609,
+          51657,
+          55705
+        ],
+        "ctime": [
+          0,
+          65535,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.4156862795352936
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.5529412031173706
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 8,
+        "colorKeys": 2
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 1.0,
+          "interval": 0.10000000149011612,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 2,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          0.849056601524353,
+          0.7649519443511963,
+          0.7649519443511963,
+          0.19607843458652496
+        ],
+        "maxColor": [
+          0.7169811725616455,
+          0.5647917985916138,
+          0.5647917985916138,
+          0.21176470816135406
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          2.0,
+          5.0
+        ]
+      },
+      "rotation3D": false,
+      "startRotationX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotationY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "startRotation": {
+        "state": 0,
+        "value": 0.0
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          4.0,
+          1.0
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          4.0,
+          1.0
+        ]
+      },
+      "duration": 1.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 0,
+      "autoRandomSeed": true,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 1.0,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 18,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        8.0,
+        3.0,
+        1.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0
+    },
+    "sizeModule": {
+      "curve": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.1312408447265625,
+            "outSlope": 0.1312408447265625,
+            "inWeight": 0.0,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.8687591552734375,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 0.1312408447265625,
+            "outSlope": 0.1312408447265625,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.0,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "separateAxes": false,
+      "curveY": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      },
+      "curveZ": {
+        "state": 1,
+        "value": 1.0,
+        "curve": [
+          {
+            "inSlope": 0.0,
+            "outSlope": 1.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 0.0,
+            "value": 0.0,
+            "weightMode": 0
+          },
+          {
+            "inSlope": 1.0,
+            "outSlope": 0.0,
+            "inWeight": 0.3333333432674408,
+            "outWeight": 0.3333333432674408,
+            "time": 1.0,
+            "value": 1.0,
+            "weightMode": 0
+          }
+        ]
+      }
+    },
+    "velocityModule": {
+      "x": {
+        "state": 3,
+        "value": [
+          0.10000000149011612,
+          0.4000000059604645
+        ]
+      },
+      "y": {
+        "state": 3,
+        "value": [
+          -0.05000000074505806,
+          -0.10000000149011612
+        ]
+      },
+      "z": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 0.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "Spine_boke_02_2",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": 7891749505870008250
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_CUSTOM_DATA_OFFSET_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 3000,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 5,
+                    "m_PathID": 3349861500327380309
+                  },
+                  "m_Scale": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                1.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_EnvironmentReflections",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                0.0
+              ],
+              [
+                "_Glossiness",
+                0.0
+              ],
+              [
+                "_GlossyReflections",
+                0.0
+              ],
+              [
+                "_Main_Texture_No",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Multiply",
+                1.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_QueueOffset",
+                0.0
+              ],
+              [
+                "_RGBRGBA",
+                0.0
+              ],
+              [
+                "_ReceiveShadows",
+                1.0
+              ],
+              [
+                "_Smoothness",
+                0.5
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZOffsetFactor",
+                0.0
+              ],
+              [
+                "_ZOffsetUnits",
+                0.0
+              ],
+              [
+                "_ZTest_Mode",
+                4.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_BaseColor",
+                {
+                  "r": 0.5,
+                  "g": 0.5,
+                  "b": 0.5,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color",
+                {
+                  "r": 10.432683944702148,
+                  "g": 10.432683944702148,
+                  "b": 10.432683944702148,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 48
+  },
+  {
+    "colorModule": {
+      "state": 1,
+      "gradient": {
+        "atime": [
+          0,
+          12722,
+          45875,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "ctime": [
+          0,
+          65535,
+          65535,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.6212284564971924,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.5678589344024658,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 4,
+        "colorKeys": 2
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 0.75,
+          "interval": 0.05000000074505806,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 10,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          1.0,
+          0.47641509771347046,
+          0.5745872855186462,
+          1.0
+        ],
+        "maxColor": [
+          0.948113203048706,
+          0.5647190809249878,
+          0.6792452931404114,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          5.0,
+          2.0
+        ]
+      },
+      "rotation3D": true,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          0.0,
+          6.283185005187988
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.0020000000949949026
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.0020000000949949026
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 1739,
+      "autoRandomSeed": false,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 0.20000000298023224,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 12,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0,
+      "radius": 0.05000000074505806,
+      "radiusThickness": 0.8100000023841858,
+      "arc": 360.0,
+      "arcMode": 0,
+      "speed": {
+        "state": 0,
+        "value": 1.0
+      },
+      "spread": 0.0
+    },
+    "velocityModule": {
+      "x": {
+        "state": 0,
+        "value": 0.0
+      },
+      "y": {
+        "state": 0,
+        "value": 0.0
+      },
+      "z": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalZ": {
+        "state": 3,
+        "value": [
+          0.10000000149011612,
+          0.20000000298023224
+        ]
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 0.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_Circle_Glow_15_Airi",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": -7537845121957164506
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_MAIN_TEXTURE_NO_ON",
+            "_STEP_SCROLL_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": -1,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 3,
+                    "m_PathID": -2704902576003416
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_texcoord",
+                {
+                  "m_Texture": {
+                    "m_FileID": 0,
+                    "m_PathID": 0
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Main_Offset_Use",
+                0.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                0.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DetailNormalMapScale",
+                1.0
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_Float0",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                1.0
+              ],
+              [
+                "_Glossiness",
+                0.5
+              ],
+              [
+                "_GlossyReflections",
+                1.0
+              ],
+              [
+                "_Main_Speed_X",
+                0.0
+              ],
+              [
+                "_Main_Speed_Y",
+                0.0
+              ],
+              [
+                "_Main_Texture_No",
+                1.0
+              ],
+              [
+                "_Mask_Speed_X",
+                0.0
+              ],
+              [
+                "_Mask_Speed_Y",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Multiply",
+                1.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_Parallax",
+                0.019999999552965164
+              ],
+              [
+                "_RGBRGBA",
+                0.0
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Step_Custom_DataVertex_color_Use",
+                0.0
+              ],
+              [
+                "_Step_Power",
+                0.0
+              ],
+              [
+                "_Step_Scroll_Use",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_UVSec",
+                0.0
+              ],
+              [
+                "_Vertex_Alpha_Use",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_Color",
+                {
+                  "r": 8.0,
+                  "g": 8.0,
+                  "b": 8.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color0",
+                {
+                  "r": 2.2973968982696533,
+                  "g": 2.2973968982696533,
+                  "b": 2.2973968982696533,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 49
+  },
+  {
+    "colorModule": {
+      "state": 1,
+      "gradient": {
+        "atime": [
+          0,
+          12722,
+          54548,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "ctime": [
+          0,
+          65535,
+          65535,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.6212284564971924,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.5678589344024658,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 4,
+        "colorKeys": 2
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 0.75,
+          "interval": 0.20000000298023224,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 5,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          1.0,
+          0.6084905862808228,
+          0.6844550371170044,
+          1.0
+        ],
+        "maxColor": [
+          0.9905660152435303,
+          0.7709593772888184,
+          0.8359450697898865,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          2.0,
+          3.0
+        ]
+      },
+      "rotation3D": true,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          0.0,
+          6.283185005187988
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.0020000000949949026
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.0020000000949949026
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 2045234813,
+      "autoRandomSeed": false,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 0.20000000298023224,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "rotationModule": {
+      "curve": {
+        "state": 3,
+        "value": [
+          1.0471975803375244,
+          0.0
+        ]
+      },
+      "separateAxes": true,
+      "curveX": {
+        "state": 3,
+        "value": [
+          -0.3490658402442932,
+          0.3490658402442932
+        ]
+      },
+      "curvey": {
+        "state": 3,
+        "value": [
+          -0.3490658402442932,
+          0.3490658402442932
+        ]
+      }
+    },
+    "shapeModule": {
+      "shape": 12,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0,
+      "radius": 0.05000000074505806,
+      "radiusThickness": 0.8100000023841858,
+      "arc": 360.0,
+      "arcMode": 0,
+      "speed": {
+        "state": 0,
+        "value": 1.0
+      },
+      "spread": 0.0
+    },
+    "velocityModule": {
+      "x": {
+        "state": 0,
+        "value": 0.0
+      },
+      "y": {
+        "state": 0,
+        "value": 0.0
+      },
+      "z": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalZ": {
+        "state": 3,
+        "value": [
+          0.10000000149011612,
+          0.20000000298023224
+        ]
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 0.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_Circle_Glow_15_Airi 1",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": -7537845121957164506
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_MAIN_TEXTURE_NO_ON",
+            "_STEP_SCROLL_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 4000,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 3,
+                    "m_PathID": 3396261221661749479
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_texcoord",
+                {
+                  "m_Texture": {
+                    "m_FileID": 0,
+                    "m_PathID": 0
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Main_Offset_Use",
+                0.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                0.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DetailNormalMapScale",
+                1.0
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_Float0",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                1.0
+              ],
+              [
+                "_Glossiness",
+                0.5
+              ],
+              [
+                "_GlossyReflections",
+                1.0
+              ],
+              [
+                "_Main_Speed_X",
+                0.0
+              ],
+              [
+                "_Main_Speed_Y",
+                0.0
+              ],
+              [
+                "_Main_Texture_No",
+                1.0
+              ],
+              [
+                "_Mask_Speed_X",
+                0.0
+              ],
+              [
+                "_Mask_Speed_Y",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Multiply",
+                1.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_Parallax",
+                0.019999999552965164
+              ],
+              [
+                "_RGBRGBA",
+                0.0
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Step_Custom_DataVertex_color_Use",
+                0.0
+              ],
+              [
+                "_Step_Power",
+                0.0
+              ],
+              [
+                "_Step_Scroll_Use",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_UVSec",
+                0.0
+              ],
+              [
+                "_Vertex_Alpha_Use",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_Color",
+                {
+                  "r": 8.0,
+                  "g": 8.0,
+                  "b": 8.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color0",
+                {
+                  "r": 2.2973968982696533,
+                  "g": 2.2973968982696533,
+                  "b": 2.2973968982696533,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 50
+  },
+  {
+    "colorModule": {
+      "state": 1,
+      "gradient": {
+        "atime": [
+          0,
+          12722,
+          45875,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "ctime": [
+          0,
+          65535,
+          65535,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.6212284564971924,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.5678589344024658,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 4,
+        "colorKeys": 2
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 0.75,
+          "interval": 0.05000000074505806,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 10,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          1.0,
+          0.47641509771347046,
+          0.5745872855186462,
+          1.0
+        ],
+        "maxColor": [
+          0.948113203048706,
+          0.5647190809249878,
+          0.6792452931404114,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          5.0,
+          2.0
+        ]
+      },
+      "rotation3D": true,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          0.0,
+          6.283185005187988
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.0020000000949949026
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.0020000000949949026
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 1739,
+      "autoRandomSeed": false,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 0.20000000298023224,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 12,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0,
+      "radius": 0.05000000074505806,
+      "radiusThickness": 0.8100000023841858,
+      "arc": 360.0,
+      "arcMode": 0,
+      "speed": {
+        "state": 0,
+        "value": 1.0
+      },
+      "spread": 0.0
+    },
+    "velocityModule": {
+      "x": {
+        "state": 0,
+        "value": 0.0
+      },
+      "y": {
+        "state": 0,
+        "value": 0.0
+      },
+      "z": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalZ": {
+        "state": 3,
+        "value": [
+          0.10000000149011612,
+          0.20000000298023224
+        ]
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 0.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_Circle_Glow_15_Airi",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": -7537845121957164506
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_MAIN_TEXTURE_NO_ON",
+            "_STEP_SCROLL_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": -1,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 3,
+                    "m_PathID": -2704902576003416
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_texcoord",
+                {
+                  "m_Texture": {
+                    "m_FileID": 0,
+                    "m_PathID": 0
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Main_Offset_Use",
+                0.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                0.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DetailNormalMapScale",
+                1.0
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_Float0",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                1.0
+              ],
+              [
+                "_Glossiness",
+                0.5
+              ],
+              [
+                "_GlossyReflections",
+                1.0
+              ],
+              [
+                "_Main_Speed_X",
+                0.0
+              ],
+              [
+                "_Main_Speed_Y",
+                0.0
+              ],
+              [
+                "_Main_Texture_No",
+                1.0
+              ],
+              [
+                "_Mask_Speed_X",
+                0.0
+              ],
+              [
+                "_Mask_Speed_Y",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Multiply",
+                1.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_Parallax",
+                0.019999999552965164
+              ],
+              [
+                "_RGBRGBA",
+                0.0
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Step_Custom_DataVertex_color_Use",
+                0.0
+              ],
+              [
+                "_Step_Power",
+                0.0
+              ],
+              [
+                "_Step_Scroll_Use",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_UVSec",
+                0.0
+              ],
+              [
+                "_Vertex_Alpha_Use",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_Color",
+                {
+                  "r": 8.0,
+                  "g": 8.0,
+                  "b": 8.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color0",
+                {
+                  "r": 2.2973968982696533,
+                  "g": 2.2973968982696533,
+                  "b": 2.2973968982696533,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 145
+  },
+  {
+    "colorModule": {
+      "state": 1,
+      "gradient": {
+        "atime": [
+          0,
+          12722,
+          54548,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "ctime": [
+          0,
+          65535,
+          65535,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.6212284564971924,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.5678589344024658,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 4,
+        "colorKeys": 2
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 0.75,
+          "interval": 0.20000000298023224,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 5,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          1.0,
+          0.6084905862808228,
+          0.6844550371170044,
+          1.0
+        ],
+        "maxColor": [
+          0.9905660152435303,
+          0.7709593772888184,
+          0.8359450697898865,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          2.0,
+          3.0
+        ]
+      },
+      "rotation3D": true,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          0.0,
+          6.283185005187988
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.0020000000949949026
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.004999999888241291,
+          0.0020000000949949026
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 2045234813,
+      "autoRandomSeed": false,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 0.20000000298023224,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "rotationModule": {
+      "curve": {
+        "state": 3,
+        "value": [
+          1.0471975803375244,
+          0.0
+        ]
+      },
+      "separateAxes": true,
+      "curveX": {
+        "state": 3,
+        "value": [
+          -0.3490658402442932,
+          0.3490658402442932
+        ]
+      },
+      "curvey": {
+        "state": 3,
+        "value": [
+          -0.3490658402442932,
+          0.3490658402442932
+        ]
+      }
+    },
+    "shapeModule": {
+      "shape": 12,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0,
+      "radius": 0.07999999821186066,
+      "radiusThickness": 0.8100000023841858,
+      "arc": 360.0,
+      "arcMode": 0,
+      "speed": {
+        "state": 0,
+        "value": 1.0
+      },
+      "spread": 0.0
+    },
+    "velocityModule": {
+      "x": {
+        "state": 0,
+        "value": 0.0
+      },
+      "y": {
+        "state": 0,
+        "value": 0.0
+      },
+      "z": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalZ": {
+        "state": 3,
+        "value": [
+          0.10000000149011612,
+          0.20000000298023224
+        ]
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 0.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_Circle_Glow_15_Airi 1",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": -7537845121957164506
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_MAIN_TEXTURE_NO_ON",
+            "_STEP_SCROLL_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": 4000,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 3,
+                    "m_PathID": 3396261221661749479
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_texcoord",
+                {
+                  "m_Texture": {
+                    "m_FileID": 0,
+                    "m_PathID": 0
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Main_Offset_Use",
+                0.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                0.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DetailNormalMapScale",
+                1.0
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_Float0",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                1.0
+              ],
+              [
+                "_Glossiness",
+                0.5
+              ],
+              [
+                "_GlossyReflections",
+                1.0
+              ],
+              [
+                "_Main_Speed_X",
+                0.0
+              ],
+              [
+                "_Main_Speed_Y",
+                0.0
+              ],
+              [
+                "_Main_Texture_No",
+                1.0
+              ],
+              [
+                "_Mask_Speed_X",
+                0.0
+              ],
+              [
+                "_Mask_Speed_Y",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Multiply",
+                1.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_Parallax",
+                0.019999999552965164
+              ],
+              [
+                "_RGBRGBA",
+                0.0
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Step_Custom_DataVertex_color_Use",
+                0.0
+              ],
+              [
+                "_Step_Power",
+                0.0
+              ],
+              [
+                "_Step_Scroll_Use",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_UVSec",
+                0.0
+              ],
+              [
+                "_Vertex_Alpha_Use",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_Color",
+                {
+                  "r": 8.0,
+                  "g": 8.0,
+                  "b": 8.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color0",
+                {
+                  "r": 2.2973968982696533,
+                  "g": 2.2973968982696533,
+                  "b": 2.2973968982696533,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 146
+  },
+  {
+    "colorModule": {
+      "state": 1,
+      "gradient": {
+        "atime": [
+          0,
+          12722,
+          45875,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "ctime": [
+          0,
+          65535,
+          65535,
+          65535,
+          0,
+          0,
+          0
+        ],
+        "key": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.6212284564971924,
+            1.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.5678589344024658,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "mode": 0,
+        "alphaKeys": 4,
+        "colorKeys": 2
+      }
+    },
+    "emissionModule": {
+      "rateOverDistance": {
+        "state": 0,
+        "value": 0.0
+      },
+      "rateOverTime": {
+        "state": 0,
+        "value": 0.0
+      },
+      "bursts": [
+        {
+          "count": {
+            "state": 0,
+            "value": 1.0
+          },
+          "cycles": 0,
+          "probability": 0.75,
+          "interval": 0.10000000149011612,
+          "delay": 0.0
+        }
+      ]
+    },
+    "initialModule": {
+      "emitterVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maxNum": 10,
+      "startColor": {
+        "state": 2,
+        "minColor": [
+          1.0,
+          0.6650943756103516,
+          0.730076014995575,
+          1.0
+        ],
+        "maxColor": [
+          0.9905660152435303,
+          0.6494749188423157,
+          0.7504100799560547,
+          1.0
+        ]
+      },
+      "startLifeTime": {
+        "state": 3,
+        "value": [
+          4.0,
+          2.0
+        ]
+      },
+      "rotation3D": true,
+      "startRotationX": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotationY": {
+        "state": 3,
+        "value": [
+          -0.7853981256484985,
+          0.7853981256484985
+        ]
+      },
+      "startRotation": {
+        "state": 3,
+        "value": [
+          0.0,
+          6.283185005187988
+        ]
+      },
+      "size3D": false,
+      "startSizeY": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSizeZ": {
+        "state": 3,
+        "value": [
+          1.0,
+          1.0
+        ]
+      },
+      "startSize": {
+        "state": 3,
+        "value": [
+          0.003000000026077032,
+          0.0020000000949949026
+        ]
+      },
+      "startSpeed": {
+        "state": 3,
+        "value": [
+          0.003000000026077032,
+          0.0020000000949949026
+        ]
+      },
+      "duration": 2.0,
+      "loop": true,
+      "playOnAwake": true,
+      "randomSeed": 1739,
+      "autoRandomSeed": false,
+      "prewarm": true,
+      "scalingMode": 0,
+      "simulationSpeed": 0.20000000298023224,
+      "delay": {
+        "state": 0,
+        "value": 0.0
+      }
+    },
+    "shapeModule": {
+      "shape": 12,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "randomizeDirectionAmount": 0.0,
+      "randomizePositionAmount": 0.0,
+      "sphericalDirectionAmount": 0.0,
+      "radius": 0.05000000074505806,
+      "radiusThickness": 0.8100000023841858,
+      "arc": 360.0,
+      "arcMode": 0,
+      "speed": {
+        "state": 0,
+        "value": 1.0
+      },
+      "spread": 0.0
+    },
+    "velocityModule": {
+      "x": {
+        "state": 0,
+        "value": 0.0
+      },
+      "y": {
+        "state": 0,
+        "value": 0.0
+      },
+      "z": {
+        "state": 0,
+        "value": 0.0
+      },
+      "orbitalX": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalY": {
+        "state": 3,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      "orbitalZ": {
+        "state": 3,
+        "value": [
+          0.10000000149011612,
+          0.20000000298023224
+        ]
+      },
+      "offsetX": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetY": {
+        "state": 0,
+        "value": 0.0
+      },
+      "offsetZ": {
+        "state": 0,
+        "value": 0.0
+      },
+      "radial": {
+        "state": 0,
+        "value": 0.0
+      },
+      "speedModifier": {
+        "state": 0,
+        "value": 1.0
+      }
+    },
+    "rendererModule": {
+      "renderMode": 0,
+      "minParticleSize": 0.0,
+      "maxParticleSize": 0.5,
+      "flip": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "meshes": [],
+      "materials": [
+        {
+          "m_Name": "FX_MAT_Circle_Glow_15_Airi",
+          "m_Shader": {
+            "m_FileID": 1,
+            "m_PathID": -7537845121957164506
+          },
+          "m_ValidKeywords": [],
+          "m_InvalidKeywords": [
+            "_MAIN_TEXTURE_NO_ON",
+            "_STEP_SCROLL_USE_ON"
+          ],
+          "m_LightmapFlags": 4,
+          "m_EnableInstancingVariants": false,
+          "m_DoubleSidedGI": false,
+          "m_CustomRenderQueue": -1,
+          "stringTagMap": [],
+          "disabledShaderPasses": [],
+          "m_SavedProperties": {
+            "m_TexEnvs": [
+              [
+                "_Texture",
+                {
+                  "m_Texture": {
+                    "m_FileID": 3,
+                    "m_PathID": -2704902576003416
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ],
+              [
+                "_texcoord",
+                {
+                  "m_Texture": {
+                    "m_FileID": 0,
+                    "m_PathID": 0
+                  },
+                  "m_Scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "m_Offset": {
+                    "x": 0.0,
+                    "y": 0.0
+                  }
+                }
+              ]
+            ],
+            "m_Ints": [],
+            "m_Floats": [
+              [
+                "_AlphaClip",
+                0.0
+              ],
+              [
+                "_Blend",
+                0.0
+              ],
+              [
+                "_BumpScale",
+                1.0
+              ],
+              [
+                "_Cull",
+                2.0
+              ],
+              [
+                "_Cull_Mode",
+                2.0
+              ],
+              [
+                "_Custom_Data_Main_Offset_Use",
+                0.0
+              ],
+              [
+                "_Custom_Data_Offset_Use",
+                0.0
+              ],
+              [
+                "_Cutoff",
+                0.5
+              ],
+              [
+                "_DetailNormalMapScale",
+                1.0
+              ],
+              [
+                "_DstBlend",
+                0.0
+              ],
+              [
+                "_Float0",
+                1.0
+              ],
+              [
+                "_GlossMapScale",
+                1.0
+              ],
+              [
+                "_Glossiness",
+                0.5
+              ],
+              [
+                "_GlossyReflections",
+                1.0
+              ],
+              [
+                "_Main_Speed_X",
+                0.0
+              ],
+              [
+                "_Main_Speed_Y",
+                0.0
+              ],
+              [
+                "_Main_Texture_No",
+                1.0
+              ],
+              [
+                "_Mask_Speed_X",
+                0.0
+              ],
+              [
+                "_Mask_Speed_Y",
+                0.0
+              ],
+              [
+                "_Metallic",
+                0.0
+              ],
+              [
+                "_Multiply",
+                1.0
+              ],
+              [
+                "_OcclusionStrength",
+                1.0
+              ],
+              [
+                "_Parallax",
+                0.019999999552965164
+              ],
+              [
+                "_RGBRGBA",
+                0.0
+              ],
+              [
+                "_SmoothnessTextureChannel",
+                0.0
+              ],
+              [
+                "_SpecularHighlights",
+                1.0
+              ],
+              [
+                "_SrcBlend",
+                1.0
+              ],
+              [
+                "_Step_Custom_DataVertex_color_Use",
+                0.0
+              ],
+              [
+                "_Step_Power",
+                0.0
+              ],
+              [
+                "_Step_Scroll_Use",
+                1.0
+              ],
+              [
+                "_Surface",
+                0.0
+              ],
+              [
+                "_UVSec",
+                0.0
+              ],
+              [
+                "_Vertex_Alpha_Use",
+                0.0
+              ],
+              [
+                "_WorkflowMode",
+                1.0
+              ],
+              [
+                "_ZWrite",
+                1.0
+              ],
+              [
+                "_ZWrite_Mode",
+                0.0
+              ]
+            ],
+            "m_Colors": [
+              [
+                "_Color",
+                {
+                  "r": 8.0,
+                  "g": 8.0,
+                  "b": 8.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_Color0",
+                {
+                  "r": 2.2973968982696533,
+                  "g": 2.2973968982696533,
+                  "b": 2.2973968982696533,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_EmissionColor",
+                {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 1.0
+                }
+              ],
+              [
+                "_SpecColor",
+                {
+                  "r": 0.19999995827674866,
+                  "g": 0.19999995827674866,
+                  "b": 0.19999995827674866,
+                  "a": 1.0
+                }
+              ]
+            ]
+          },
+          "m_BuildTextureStacks": []
+        }
+      ],
+      "materials_MainTex": []
+    },
+    "name": "Unknown",
+    "gameObject": 147
+  }
+]

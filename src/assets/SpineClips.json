@@ -1,0 +1,302 @@
+{
+  "skeletons": [
+    {
+      "defaultMix": 0.20000000298023224,
+      "scale": 0.009999999776482582,
+      "skeleton": "Airi_home.skel",
+      "atlas": [
+        {
+          "atlas": "Airi_home.atlas",
+          "textures": [
+            "Airi_home",
+            "Airi_home2"
+          ]
+        }
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "skeleton": 0,
+      "clipName": "Look_01_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.0,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": true,
+      "useDefaultOutroMix": true,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "LookEnd_01_A",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.20000000298023224,
+      "outroStartOffset": 0.0,
+      "track": 2,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "LookEnd_01_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.20000000298023224,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [
+        1
+      ],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Pat_01_A",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.0,
+      "outroStartOffset": 0.0,
+      "track": 2,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Pat_01_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.0,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": true,
+      "isTrackMainIdle": 0,
+      "syncPlays": [
+        3
+      ],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "PatEnd_01_A",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.20000000298023224,
+      "outroStartOffset": 0.0,
+      "track": 2,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "PatEnd_01_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.20000000298023224,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [
+        5
+      ],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Start_Idle_01",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.0,
+      "outroStartOffset": 0.0,
+      "track": 0,
+      "useDefaultIntroMix": true,
+      "useDefaultOutroMix": true,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_01_A",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 2,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_01_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [
+        8
+      ],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_02_A",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 2,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_02_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [
+        10
+      ],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_03_A",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 2,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_03_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [
+        12
+      ],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_04_A",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 2,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_04_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [
+        14
+      ],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_05_A",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 2,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Talk_05_M",
+      "introDelayDuration": 3.0,
+      "introMix": 0.30000001192092896,
+      "outroMix": 0.4000000059604645,
+      "outroStartOffset": 0.0,
+      "track": 1,
+      "useDefaultIntroMix": false,
+      "useDefaultOutroMix": false,
+      "isTrackMainIdle": 0,
+      "syncPlays": [
+        16
+      ],
+      "soundKeys": []
+    },
+    {
+      "skeleton": 0,
+      "clipName": "Idle_01",
+      "introDelayDuration": 3.0,
+      "introMix": 0.0,
+      "outroMix": 0.0,
+      "outroStartOffset": 0.0,
+      "track": 0,
+      "useDefaultIntroMix": true,
+      "useDefaultOutroMix": true,
+      "isTrackMainIdle": 1,
+      "syncPlays": [],
+      "soundKeys": []
+    }
+  ]
+}

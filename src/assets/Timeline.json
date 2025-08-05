@@ -1,0 +1,727 @@
+{
+  "animationClip": [
+    {
+      "loop": 0,
+      "data": [
+        {
+          "gameObject": 24,
+          "node": {
+            "m_Component": [
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": 1114238116370339894
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": 4893746990706443449
+                }
+              }
+            ],
+            "m_Layer": 30,
+            "m_Name": "PPV_C",
+            "m_Tag": 0,
+            "m_IsActive": true
+          },
+          "isPPtrCurve": false,
+          "curve": [
+            {
+              "time": 0.0,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            }
+          ],
+          "property": "m_IsActive"
+        },
+        {
+          "gameObject": 24,
+          "node": {
+            "m_Name": "Volume",
+            "m_ExecutionOrder": 0,
+            "m_PropertiesHash": {
+              "bytes[0]": 80,
+              "bytes[1]": 106,
+              "bytes[2]": 3,
+              "bytes[3]": 212,
+              "bytes[4]": 100,
+              "bytes[5]": 73,
+              "bytes[6]": 102,
+              "bytes[7]": 212,
+              "bytes[8]": 203,
+              "bytes[9]": 186,
+              "bytes[10]": 210,
+              "bytes[11]": 7,
+              "bytes[12]": 38,
+              "bytes[13]": 131,
+              "bytes[14]": 178,
+              "bytes[15]": 110
+            },
+            "m_ClassName": "Volume",
+            "m_Namespace": "UnityEngine.Rendering",
+            "m_AssemblyName": "Unity.RenderPipelines.Core.Runtime.dll"
+          },
+          "isPPtrCurve": false,
+          "curve": [
+            {
+              "time": 0.0,
+              "data": [
+                9.943181991577148,
+                -7.1022725105285645,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 0.4000000059604645,
+              "data": [
+                1.060163974761963,
+                -0.4638216495513916,
+                -0.9090908765792847,
+                0.5
+              ]
+            },
+            {
+              "time": 1.100000023841858,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "time": 15.399999618530273,
+              "data": [
+                -53.999691009521484,
+                26.999897003173828,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "time": 15.733333587646484,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 15.899999618530273,
+              "data": [
+                29.618000030517578,
+                -16.17266082763672,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 16.233333587646484,
+              "data": [
+                -0.215186208486557,
+                0.8403493762016296,
+                -0.9090905785560608,
+                0.30000001192092896
+              ]
+            },
+            {
+              "time": 17.0,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "property": "weight"
+        },
+        {
+          "gameObject": 20,
+          "node": {
+            "m_Component": [
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": 6892011311931342416
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": 579922449964773636
+                }
+              }
+            ],
+            "m_Layer": 12,
+            "m_Name": "Glow",
+            "m_Tag": 0,
+            "m_IsActive": false
+          },
+          "isPPtrCurve": false,
+          "curve": [
+            {
+              "time": 0.0,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 0.13333334028720856,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "time": 15.766666412353516,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 15.899999618530273,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "property": "m_IsActive"
+        },
+        {
+          "gameObject": 20,
+          "node": {
+            "m_GameObject": {
+              "m_FileID": 0,
+              "m_PathID": -3874892018019816822
+            },
+            "m_Enabled": true,
+            "m_CastShadows": 0,
+            "m_ReceiveShadows": 0,
+            "m_DynamicOccludee": 1,
+            "m_StaticShadowCaster": 0,
+            "m_MotionVectors": 1,
+            "m_LightProbeUsage": 1,
+            "m_ReflectionProbeUsage": 1,
+            "m_RayTracingMode": 0,
+            "m_RayTraceProcedural": 0,
+            "m_RenderingLayerMask": 1,
+            "m_RendererPriority": 0,
+            "m_LightmapIndex": 65535,
+            "m_LightmapIndexDynamic": 65535,
+            "m_LightmapTilingOffset": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0,
+              "w": 0.0
+            },
+            "m_LightmapTilingOffsetDynamic": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0,
+              "w": 0.0
+            },
+            "m_Materials": [
+              {
+                "m_FileID": 1,
+                "m_PathID": 5766563141883561943
+              }
+            ],
+            "m_StaticBatchInfo": {
+              "firstSubMesh": 0,
+              "subMeshCount": 0
+            },
+            "m_StaticBatchRoot": {
+              "m_FileID": 0,
+              "m_PathID": 0
+            },
+            "m_ProbeAnchor": {
+              "m_FileID": 0,
+              "m_PathID": 0
+            },
+            "m_LightProbeVolumeOverride": {
+              "m_FileID": 0,
+              "m_PathID": 0
+            },
+            "m_SortingLayerID": 0,
+            "m_SortingLayer": 0,
+            "m_SortingOrder": 6,
+            "m_Sprite": {
+              "m_FileID": 25,
+              "m_PathID": 6176094314438249057
+            },
+            "m_Color": {
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0,
+              "a": 1.0
+            },
+            "m_FlipX": false,
+            "m_FlipY": false,
+            "m_DrawMode": 0,
+            "m_Size": {
+              "x": 1.0,
+              "y": 1.0
+            },
+            "m_AdaptiveModeThreshold": 0.5,
+            "m_SpriteTileMode": 0,
+            "m_WasSpriteAssigned": true,
+            "m_MaskInteraction": 0,
+            "m_SpriteSortPoint": 0
+          },
+          "isPPtrCurve": false,
+          "curve": [
+            {
+              "time": 0.0,
+              "data": [
+                843.7498168945312,
+                -168.74996948242188,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 0.13333334028720856,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "property": "m_Color.a"
+        },
+        {
+          "gameObject": 23,
+          "node": {
+            "m_Name": "Volume",
+            "m_ExecutionOrder": 0,
+            "m_PropertiesHash": {
+              "bytes[0]": 80,
+              "bytes[1]": 106,
+              "bytes[2]": 3,
+              "bytes[3]": 212,
+              "bytes[4]": 100,
+              "bytes[5]": 73,
+              "bytes[6]": 102,
+              "bytes[7]": 212,
+              "bytes[8]": 203,
+              "bytes[9]": 186,
+              "bytes[10]": 210,
+              "bytes[11]": 7,
+              "bytes[12]": 38,
+              "bytes[13]": 131,
+              "bytes[14]": 178,
+              "bytes[15]": 110
+            },
+            "m_ClassName": "Volume",
+            "m_Namespace": "UnityEngine.Rendering",
+            "m_AssemblyName": "Unity.RenderPipelines.Core.Runtime.dll"
+          },
+          "isPPtrCurve": false,
+          "curve": [
+            {
+              "time": 0.0,
+              "data": [
+                0.4320000410079956,
+                -1.0800000429153442,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 1.6666666269302368,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "time": 15.866666793823242,
+              "data": [
+                -54002.47265625,
+                2700.08251953125,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "time": 15.899999618530273,
+              "data": [
+                7.8728718757629395,
+                -7.479227066040039,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 16.53333282470703,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "property": "weight"
+        }
+      ]
+    },
+    {
+      "loop": 0,
+      "data": [
+        {
+          "gameObject": 32,
+          "node": {
+            "m_Component": [
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": -7093424317318327289
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": 9048733775183149850
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": -4005343698666521209
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": -5692793407538752205
+                }
+              }
+            ],
+            "m_Layer": 12,
+            "m_Name": "particle_start",
+            "m_Tag": 0,
+            "m_IsActive": true
+          },
+          "isPPtrCurve": false,
+          "curve": [
+            {
+              "time": 0.0,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "time": 3.133333444595337,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 6.866666793823242,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "property": "m_IsActive"
+        }
+      ]
+    },
+    {
+      "loop": 0,
+      "data": [
+        {
+          "gameObject": 47,
+          "node": {
+            "m_Component": [
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": -1779143853375230005
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": -7352744280307227567
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": 8078854460309080449
+                }
+              }
+            ],
+            "m_Layer": 12,
+            "m_Name": "boke_R_3 (3)",
+            "m_Tag": 0,
+            "m_IsActive": true
+          },
+          "isPPtrCurve": false,
+          "curve": [
+            {
+              "time": 0.0,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 6.900000095367432,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "time": 16.066667556762695,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            }
+          ],
+          "property": "m_IsActive"
+        },
+        {
+          "gameObject": 48,
+          "node": {
+            "m_Component": [
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": 8994453656378749780
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": -137249160980171852
+                }
+              },
+              {
+                "component": {
+                  "m_FileID": 0,
+                  "m_PathID": -3125386334588516747
+                }
+              }
+            ],
+            "m_Layer": 12,
+            "m_Name": "boke_R_3 (4)",
+            "m_Tag": 0,
+            "m_IsActive": true
+          },
+          "isPPtrCurve": false,
+          "curve": [
+            {
+              "time": 0.0,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 6.900000095367432,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "time": 16.066667556762695,
+              "data": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            }
+          ],
+          "property": "m_IsActive"
+        }
+      ]
+    }
+  ],
+  "soundFix": [
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 0.03333333333333333,
+      "volume": 0.017999999225139618,
+      "delay": 0.0,
+      "audios": [
+        "SE_Wind_02"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 1.9666666666666666,
+      "volume": 0.05999999865889549,
+      "delay": 0.0,
+      "audios": [
+        "SFX_Spine_Whoosh_Low"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 1.4333333333333336,
+      "start": 3.2666666666666666,
+      "volume": 0.12999999523162842,
+      "delay": 0.0,
+      "audios": [
+        "SE_DustWind_02"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 15.0,
+      "volume": 0.3199999928474426,
+      "delay": 0.0,
+      "audios": [
+        "SFX_Spine_Whoosh_Soft_Very_01"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 6.5,
+      "volume": 0.20000000298023224,
+      "delay": 0.0,
+      "audios": [
+        "SFX_Spine_Cloth_03"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.43333333333333357,
+      "start": 11.8,
+      "volume": 0.10000000149011612,
+      "delay": 0.0,
+      "audios": [
+        "SFX_Emoticon_Motion_Shy"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 9.5,
+      "volume": 0.07999999821186066,
+      "delay": 0.0,
+      "audios": [
+        "SFX_Spine_Whoosh_Low"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 0.03333333333333333,
+      "volume": 0.05000000074505806,
+      "delay": 0.0,
+      "audios": [
+        "SFX_Spine_Comet"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 7.9,
+      "volume": 0.07999999821186066,
+      "delay": 0.0,
+      "audios": [
+        "UI_Bubble"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 15.0,
+      "volume": 0.017999999225139618,
+      "delay": 0.0,
+      "audios": [
+        "UI_FX_BG_Love_L"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 1.4333333333333336,
+      "start": 9.9,
+      "volume": 0.12999999523162842,
+      "delay": 0.0,
+      "audios": [
+        "SE_DustWind_02"
+      ]
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 0.4,
+      "start": 0.3333333333333333,
+      "volume": 0.12999999523162842,
+      "delay": 0.0,
+      "audios": [
+        "SE_DustWind_02"
+      ]
+    }
+  ],
+  "spineAnimation": [
+    {
+      "clipIn": 0.0,
+      "duration": 19.0,
+      "start": 0.0,
+      "ifCustomDuration": true,
+      "spineClip": 7
+    },
+    {
+      "clipIn": 0.0,
+      "duration": 6.666666666666668,
+      "start": 19.0,
+      "ifCustomDuration": true,
+      "spineClip": 18
+    }
+  ]
+}
