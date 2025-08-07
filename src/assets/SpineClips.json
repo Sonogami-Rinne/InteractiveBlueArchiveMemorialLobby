@@ -1,24 +1,27 @@
 {
   "skeletons": [
     {
-      "defaultMix": 0.20000000298023224,
-      "scale": 0.009999999776482582,
+      "defaultMix": 0.2,
+      "scale": 1,
       "skeleton": "Airi_home.skel",
       "atlas": [
         {
           "atlas": "Airi_home.atlas",
           "textures": [
-            "Airi_home",
-            "Airi_home2"
+            "Airi_home.png",
+            "Airi_home2.png"
           ]
         }
-      ]
+      ],
+      "gameObject": 6,
+      "viewBounds": null
     }
   ],
   "clips": [
     {
       "skeleton": 0,
       "clipName": "Look_01_M",
+      "loop": true,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
       "outroMix": 0.0,
@@ -26,43 +29,49 @@
       "track": 1,
       "useDefaultIntroMix": true,
       "useDefaultOutroMix": true,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "LookEnd_01_A",
+      "loop": false,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
-      "outroMix": 0.20000000298023224,
+      "outroMix": 0.2,
       "outroStartOffset": 0.0,
       "track": 2,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "LookEnd_01_M",
+      "loop": false,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
-      "outroMix": 0.20000000298023224,
+      "outroMix": 0.2,
       "outroStartOffset": 0.0,
       "track": 1,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [
         1
       ],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Pat_01_A",
+      "loop": true,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
       "outroMix": 0.0,
@@ -70,13 +79,15 @@
       "track": 2,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Pat_01_M",
+      "loop": true,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
       "outroMix": 0.0,
@@ -84,45 +95,51 @@
       "track": 1,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": true,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [
         3
       ],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "PatEnd_01_A",
+      "loop": false,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
-      "outroMix": 0.20000000298023224,
+      "outroMix": 0.2,
       "outroStartOffset": 0.0,
       "track": 2,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "PatEnd_01_M",
+      "loop": false,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
-      "outroMix": 0.20000000298023224,
+      "outroMix": 0.2,
       "outroStartOffset": 0.0,
       "track": 1,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [
         5
       ],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Start_Idle_01",
+      "loop": false,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
       "outroMix": 0.0,
@@ -130,163 +147,185 @@
       "track": 0,
       "useDefaultIntroMix": true,
       "useDefaultOutroMix": true,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": 18,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_01_A",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 2,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_01_M",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 1,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [
         8
       ],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_02_A",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 2,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_02_M",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 1,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [
         10
       ],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_03_A",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 2,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_03_M",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 1,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [
         12
       ],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_04_A",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 2,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_04_M",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 1,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [
         14
       ],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_05_A",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 2,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Talk_05_M",
+      "loop": false,
       "introDelayDuration": 3.0,
-      "introMix": 0.30000001192092896,
-      "outroMix": 0.4000000059604645,
+      "introMix": 0.3,
+      "outroMix": 0.4,
       "outroStartOffset": 0.0,
       "track": 1,
       "useDefaultIntroMix": false,
       "useDefaultOutroMix": false,
-      "isTrackMainIdle": 0,
+      "isTrackMainIdle": false,
       "syncPlays": [
         16
       ],
+      "nextClip": null,
       "soundKeys": []
     },
     {
       "skeleton": 0,
       "clipName": "Idle_01",
+      "loop": true,
       "introDelayDuration": 3.0,
       "introMix": 0.0,
       "outroMix": 0.0,
@@ -294,9 +333,12 @@
       "track": 0,
       "useDefaultIntroMix": true,
       "useDefaultOutroMix": true,
-      "isTrackMainIdle": 1,
+      "isTrackMainIdle": true,
       "syncPlays": [],
+      "nextClip": null,
       "soundKeys": []
     }
-  ]
+  ],
+  "voiceRedirect": null,
+  "bgm": ""
 }
