@@ -29,12 +29,9 @@
           "curve": [
             {
               "time": 0.0,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": null
             }
           ],
           "property": "m_IsActive"
@@ -70,75 +67,51 @@
           "curve": [
             {
               "time": 0.0,
-              "data": [
-                9.943181991577148,
-                -7.1022725105285645,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 0.4000000059604645,
-              "data": [
-                1.060163974761963,
-                -0.4638216495513916,
-                -0.9090908765792847,
-                0.5
-              ]
+              "value": 0.5,
+              "inSlope": -0.91,
+              "outSlope": -0.9090908765792847
             },
             {
               "time": 1.100000023841858,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
             },
             {
               "time": 15.399999618530273,
-              "data": [
-                -53.999691009521484,
-                26.999897003173828,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 15.733333587646484,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 15.899999618530273,
-              "data": [
-                29.618000030517578,
-                -16.17266082763672,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 16.233333587646484,
-              "data": [
-                -0.215186208486557,
-                0.8403493762016296,
-                -0.9090905785560608,
-                0.30000001192092896
-              ]
+              "value": 0.30000001192092896,
+              "inSlope": -0.91,
+              "outSlope": -0.9090905785560608
             },
             {
               "time": 17.0,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": -0.0,
+              "outSlope": null
             }
           ],
           "property": "weight"
@@ -169,39 +142,27 @@
           "curve": [
             {
               "time": 0.0,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 0.13333334028720856,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 15.766666412353516,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 15.899999618530273,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": null
             }
           ],
           "property": "m_IsActive"
@@ -291,21 +252,15 @@
           "curve": [
             {
               "time": 0.0,
-              "data": [
-                843.7498168945312,
-                -168.74996948242188,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 0.13333334028720856,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": null
             }
           ],
           "property": "m_Color.a"
@@ -341,48 +296,33 @@
           "curve": [
             {
               "time": 0.0,
-              "data": [
-                0.4320000410079956,
-                -1.0800000429153442,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 1.6666666269302368,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 15.866666793823242,
-              "data": [
-                -54002.47265625,
-                2700.08251953125,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 15.899999618530273,
-              "data": [
-                7.8728718757629395,
-                -7.479227066040039,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 16.53333282470703,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": null
             }
           ],
           "property": "weight"
@@ -430,30 +370,21 @@
           "curve": [
             {
               "time": 0.0,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 3.133333444595337,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 6.866666793823242,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": null
             }
           ],
           "property": "m_IsActive"
@@ -495,30 +426,21 @@
           "curve": [
             {
               "time": 0.0,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 6.900000095367432,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 16.066667556762695,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": null
             }
           ],
           "property": "m_IsActive"
@@ -555,30 +477,21 @@
           "curve": [
             {
               "time": 0.0,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 6.900000095367432,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                0.0
-              ]
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
             },
             {
               "time": 16.066667556762695,
-              "data": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-              ]
+              "value": 1.0,
+              "inSlope": null,
+              "outSlope": null
             }
           ],
           "property": "m_IsActive"
@@ -588,121 +501,97 @@
   ],
   "soundFix": [
     {
-      "clipIn": 0.0,
       "duration": 0.4,
-      "start": 0.03333333333333333,
-      "volume": 0.017999999225139618,
-      "delay": 0.0,
+      "start": 0.033,
+      "volume": 0.018,
       "audios": [
         "SE_Wind_02"
       ]
     },
     {
-      "clipIn": 0.0,
       "duration": 0.4,
-      "start": 1.9666666666666666,
-      "volume": 0.05999999865889549,
-      "delay": 0.0,
+      "start": 1.967,
+      "volume": 0.06,
       "audios": [
         "SFX_Spine_Whoosh_Low"
       ]
     },
     {
-      "clipIn": 0.0,
-      "duration": 1.4333333333333336,
-      "start": 3.2666666666666666,
-      "volume": 0.12999999523162842,
-      "delay": 0.0,
+      "duration": 1.433,
+      "start": 3.267,
+      "volume": 0.13,
       "audios": [
         "SE_DustWind_02"
       ]
     },
     {
-      "clipIn": 0.0,
       "duration": 0.4,
       "start": 15.0,
-      "volume": 0.3199999928474426,
-      "delay": 0.0,
+      "volume": 0.32,
       "audios": [
         "SFX_Spine_Whoosh_Soft_Very_01"
       ]
     },
     {
-      "clipIn": 0.0,
       "duration": 0.4,
       "start": 6.5,
-      "volume": 0.20000000298023224,
-      "delay": 0.0,
+      "volume": 0.2,
       "audios": [
         "SFX_Spine_Cloth_03"
       ]
     },
     {
-      "clipIn": 0.0,
-      "duration": 0.43333333333333357,
+      "duration": 0.433,
       "start": 11.8,
-      "volume": 0.10000000149011612,
-      "delay": 0.0,
+      "volume": 0.1,
       "audios": [
         "SFX_Emoticon_Motion_Shy"
       ]
     },
     {
-      "clipIn": 0.0,
       "duration": 0.4,
       "start": 9.5,
-      "volume": 0.07999999821186066,
-      "delay": 0.0,
+      "volume": 0.08,
       "audios": [
         "SFX_Spine_Whoosh_Low"
       ]
     },
     {
-      "clipIn": 0.0,
       "duration": 0.4,
-      "start": 0.03333333333333333,
-      "volume": 0.05000000074505806,
-      "delay": 0.0,
+      "start": 0.033,
+      "volume": 0.05,
       "audios": [
         "SFX_Spine_Comet"
       ]
     },
     {
-      "clipIn": 0.0,
       "duration": 0.4,
       "start": 7.9,
-      "volume": 0.07999999821186066,
-      "delay": 0.0,
+      "volume": 0.08,
       "audios": [
         "UI_Bubble"
       ]
     },
     {
-      "clipIn": 0.0,
       "duration": 0.4,
       "start": 15.0,
-      "volume": 0.017999999225139618,
-      "delay": 0.0,
+      "volume": 0.018,
       "audios": [
         "UI_FX_BG_Love_L"
       ]
     },
     {
-      "clipIn": 0.0,
-      "duration": 1.4333333333333336,
+      "duration": 1.433,
       "start": 9.9,
-      "volume": 0.12999999523162842,
-      "delay": 0.0,
+      "volume": 0.13,
       "audios": [
         "SE_DustWind_02"
       ]
     },
     {
-      "clipIn": 0.0,
       "duration": 0.4,
-      "start": 0.3333333333333333,
-      "volume": 0.12999999523162842,
-      "delay": 0.0,
+      "start": 0.333,
+      "volume": 0.13,
       "audios": [
         "SE_DustWind_02"
       ]
@@ -710,15 +599,13 @@
   ],
   "spineAnimation": [
     {
-      "clipIn": 0.0,
       "duration": 19.0,
       "start": 0.0,
       "ifCustomDuration": true,
       "spineClip": 7
     },
     {
-      "clipIn": 0.0,
-      "duration": 6.666666666666668,
+      "duration": 6.667,
       "start": 19.0,
       "ifCustomDuration": true,
       "spineClip": 18

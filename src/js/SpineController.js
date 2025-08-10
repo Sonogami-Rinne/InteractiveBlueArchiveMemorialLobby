@@ -1,49 +1,50 @@
 
 class SpineController {
-    SpineController(correctScale, originalWindowWidth, originalWindowHeight) {
-        this.spineClips = {}
-        this.spineSkeletons = {}
-        this.correctScale = correctScale || 1
-        this.scale = 1
-        this.originalWindowWidth = originalWindowWidth
-        this.originalWindowHeight = originalWindowHeight
-        this.mainObject = null
+    constructor(correctScale, originalWindowWidth, originalWindowHeight, pixiContainer) {
+        this._spineClips = []
+        this._spineSkeletons = []
+        this._correctScale = correctScale || 1
+        this._originalWindowWidth = originalWindowWidth
+        this._originalWindowHeight = originalWindowHeight
+        this._mainObject = null
         this.interactiveController = null
         this.audioController = null
-        this.voiceClipList = []
-        this.sounds = []
-        this.mainIdleClips = []
-        this.sentenceIndex = 0
-        this.voiceRedirect = null
+        this._voiceClipList = []
+        this._mainIdleClips = []
+        this._sentenceIndex = 0
+        this._voiceRedirect = null
+        this._gameObjectMap = {}
+        this._pixiContainer = pixiContainer
     }
 
     async init() {
-        let tmp = await import('@asset/SpineClips.json')
+        let tmp = await fetch('@asset/SpineClips.json')
+        tmp = tmp.json()
         const toLoadResource = []
         tmp = tmp.default
         this.audioController.registerAudios(tmp.bgm, null, true)
-        tmp.skeletons.forEach(item, index => {
-            this.spineSkeletons[index] = {
-                defaultMix: item.defaultMix,
+        for (const skel of tmp.skeletons) {
+            this._spineSkeletons.push({
+                defaultMix: skel.defaultMix,
                 scale: item.scale,
-                gameObject: item.gameObject,
+                // gameObject: item.gameObject,
                 viewBound: item.viewBounds,
                 transform: item.transform,
                 target: null,
                 active: true
-            }
+            })
+            this._gameObjectMap[item.gameObject] = index
             toLoadResource.push(item.skeleton)
             toLoadResource.push(item.atlas[0].atlas)
-        });
+        }
 
-        tmp.clips.forEach(clip, index => {
-            this.SpineData[index] = clip
-
+        for (const clip of tmp.clips) {
+            this._spineClips.push(clip)
             if (clip.isTrackMainIdle) {
-                this.mainIdleClips.push(index)
+                this._mainIdleClips.push(index)
             }
             else if (clip.clipName.startsWith('Talk') && clip.clipName.endsWith('M')) {
-                this.voiceClipList.push({
+                this._voiceClipList.push({
                     index: index,
                     name: clip.clipName.replace('Talk_', '')
                 })
@@ -54,11 +55,12 @@ class SpineController {
                 }
                 //this.audioController.registerAudios(clip.soundKeys, 'other', clip[''])
             }
-        })
-        this.voiceClipList.sort((a, b) => a.name <= b.name)
-        this.audioController.registerAudios(this.voiceClipList.map(item => item.name), 'voice')
+        }
 
-        this.voiceRedirect = tmp.voiceRedirect
+        this._voiceClipList.sort((a, b) => a.name <= b.name)
+        this.audioController.registerAudios(this._voiceClipList.map(item => item.name), 'voice')
+
+        this._voiceRedirect = tmp.voiceRedirect
 
         toLoadResource.forEach(item => {
             PIXI.Assets.add({ alias: item, src: item + '1' })
@@ -70,55 +72,58 @@ class SpineController {
             const spineObject = await spine.Spine.from({
                 skeleton: toLoadResource[i],
                 atlas: toLoadResource[i + 1],
-                scale: 1
+                scale: 1,
+                autoUpdate: false
             })
-            const spineData = this.SpineData[i]
+            const skeletonData = this._spineSkeletons[i]
             spineObject.modifyOriginalBounds = spineObject.getBounds()
-            spineObject.modifyScale = spineData.scale
-            spineObject.modifyViewBounds = spineData.viewBounds
+            spineObject.modifyScale = skeletonData.scale
+            spineObject.modifyViewBounds = skeletonData.viewBounds
             if (toLoadResource[i].toLowerCase().includes('home')) {
-                this.mainObject = spineObject
+                this._mainObject = spineObject
             }
-            spineObject.state.data.defaultMix = spineData.defaultMix
+            spineObject.state.data.defaultMix = skeletonData.defaultMix
 
             spineObject.state.addListener({
                 event: (_, event) => {
                     //this._eventString(event.stringValue)
-                    this.audioController.play(this.voiceRedirect?.hasOwnProperty(event.stringValue) ? this.voiceRedirect[event.stringValue] : event.stringValue)
+                    this.audioController.play(this._voiceRedirect?.hasOwnProperty(event.stringValue) ? this._voiceRedirect[event.stringValue] : event.stringValue)
                 },
                 end: (entry) => {
-                    if (entry.hasOwnProperty('modifyNextClip')) {
-                        this.playAnimation(entry.modifyNextClip)
-                    }
+                    // if (entry.hasOwnProperty('modifyNextClip')) {
+                    //     this.playAnimation(entry.modifyNextClip)
+                    // }
                     if (entry.hasOwnProperty('modifyCallBack')) {
                         this.interactiveController.animationEndCallback(entry.modifyCallBack)
                         if (entry.modifyCallBack === null) {
-                            this.playEmptyAnimation(this.voiceClipList[this.sentenceIndex].index)
-                            this.sentenceIndex = (this.sentenceIndex + 1) % this.voiceClipList.length
+                            this.playEmptyAnimation(this._voiceClipList[this._sentenceIndex].index)
+                            this._sentenceIndex = (this._sentenceIndex + 1) % this._voiceClipList.length
                         }
                     }
                 },
                 complete: (entry) => {
-                    if (entry.hasOwnProperty('modifyNextClip')) {
-                        this.playAnimation(entry.modifyNextClip)
-                    }
+                    // if (entry.hasOwnProperty('modifyNextClip')) {
+                    //     this.playAnimation(entry.modifyNextClip)
+                    // }
                     if (entry.hasOwnProperty('modifyCallBack')) {
                         this.interactiveController.animationEndCallback(entry.modifyCallBack)
                         if (entry.modifyCallBack === null) {
-                            this.playEmptyAnimation(this.voiceClipList[this.sentenceIndex].index)
-                            this.sentenceIndex = (this.sentenceIndex + 1) % this.voiceClipList.length
+                            this.playEmptyAnimation(this._voiceClipList[this._sentenceIndex].index)
+                            this._sentenceIndex = (this._sentenceIndex + 1) % this._voiceClipList.length
                         }
                     }
                 }
             })
 
+            this._pixiContainer.addChild(spineObject)
+
         }
-        if (this.mainObject == null) {
-            this.mainObject == this.SpineData[0].target
+        if (this._mainObject == null) {
+            this._mainObject == this.SpineData[0].target
             console.warn('Normal method to get the main spine object failed')
         }
 
-        for (const event of this.mainObject.skeleton.data.events) {
+        for (const event of this._mainObject.skeleton.data.events) {
             if (event.audioPath?.length > 0) {
                 audioName = event.audioPath.substring(event.audioPath.lastIndexOf('/') + 1).replace('.wav', '.ogg').toLowerCase()
             }
@@ -126,38 +131,32 @@ class SpineController {
     }
 
     getGameObjectId() {
-        return Object.values(this.SpineData).map(item => item.gameObject)
+        return Object.keys(this._gameObjectMap)
     }
 
     notifyTimelineEvent(event) {
-        for (const target of Object.values(this.SpineData)) {
-            if (target.gameObject == event.gameObjectId) {
-
-                switch (event.name) {
-                    case 'm_IsActive': {
-                        target.target.visible = event.data == 1
-                        break
-                    }
-                    default: {
-                        console.error(`Unsupported event${event.name} for SpineController`)
-                    }
-                }
+        switch (event.name) {
+            case 'm_IsActive': {
+                this._spineSkeletons[this._gameObjectMap[event.target]].target.visible = event.data == 1
                 break
+            }
+            default: {
+                console.error(`Unsupported event ${event.name} for SpineController`)
             }
         }
     }
     resize() {
-        for (const entry of Object.values(this.SpineData)) {
+        for (const entry of Object.values(this._spineSkeletons)) {
             const target = entry.target
 
             const spineOriginalBounds = target.modifyOriginalBounds;
             // const visibleBounds = viewBounds ?? [0, 0, spineOriginalBounds.width, spineOriginalBounds.height
             const visibleBounds = viewBounds ?? { left: 0, top: 0, width: spineOriginalBounds.width, height: spineOriginalBounds.height }
 
-            const visibleWidth = visibleBounds.width * target.modifyScale * this.correctScale;
-            const visibleHeight = visibleBounds.height * target.modifyScale * this.correctScale;
-            const scaleX = this.originalWindowWidth / visibleWidth;
-            const scaleY = this.originalWindowHeight / visibleHeight;
+            const visibleWidth = visibleBounds.width * target.modifyScale * this._correctScale;
+            const visibleHeight = visibleBounds.height * target.modifyScale * this._correctScale;
+            const scaleX = this._originalWindowWidth / visibleWidth;
+            const scaleY = this._originalWindowHeight / visibleHeight;
             const scale = Math.max(scaleX, scaleY);
             target.scale.set(scale);
 
@@ -174,16 +173,16 @@ class SpineController {
 
     getTransform() {
         return {
-            scale: this.mainObject.scale.x,
-            x: this.mainObject.x,
-            y: this.mainObject.y,
-            // 'transform': this.mainObject.transform
+            scale: this._mainObject.scale.x,
+            x: this._mainObject.x,
+            y: this._mainObject.y,
+            // 'transform': this._mainObject.transform
         }
     }
 
-    playAnimation(clipIndex, callBack) {
-        const clip = this.spineClips[clipIndex]
-        const skeleton = this.SpineData[clip.skeleton].target
+    playAnimation(clipIndex, callBack, duration) {
+        const clip = this._spineClips[clipIndex]
+        const skeleton = this._spineSkeletons[clip.skeleton].target
         const trackEntry = skeleton.addAnimation(clip.track, clip.clipName, clip.loop, 0.)
         if (callBack !== undefined) {
             trackEntry.modifyCallBack = clipIndex
@@ -194,9 +193,9 @@ class SpineController {
         if (clip.outroStartOffset != 0.) {
             trackEntry.animationEnd = trackEntry.animationLast - clip.outroStartOffset
         }
-        if (clip.nextClip) {
-            trackEntry.modifyNextClip = clip.nextClip
-        }
+        // if (clip.nextClip) {
+        //     trackEntry.modifyNextClip = clip.nextClip
+        // }
         if (clip.syncPlays.length > 0) {
             for (const index of clip.syncPlays) {
                 this.playAnimation(index)
@@ -214,8 +213,8 @@ class SpineController {
         }
     }
     playEmptyAnimation(clipIndex) {
-        const clip = this.spineClips[clipIndex]
-        const target = this.spineData[clip.skeleton]
+        const clip = this._spineClips[clipIndex]
+        const target = this._spineSkeletons[clip.skeleton]
         const trackEntry = target.target.addEmptyAnimation(clip.track)
         if (!clip.useDefaultOutroMix) {
             trackEntry.mixDuration = clip.outroMix
@@ -226,13 +225,13 @@ class SpineController {
     由InteractiveController调用
     */
     playTalkAnimation() {
-        this.playAnimation(this.voiceClipList[this.sentenceIndex].index, null)
+        this.playAnimation(this._voiceClipList[this._sentenceIndex].index, null)
     }
     // _playSound(sounds){
     //     this.
     // }
     reset() {
-        for (const skeleton of this.spineSkeletons) {
+        for (const skeleton of this._spineSkeletons) {
             skeleton.target.state.clearTracks()
             skeleton.target.skeleton.setToSetupPose()
         }
@@ -241,12 +240,16 @@ class SpineController {
     由InteractiveController调用
     */
     getSpineBone(bone) {
-        bone = this, this.mainObject.skeleton.findBone(bone)
+        bone = this._mainObject.skeleton.findBone(bone)
         return {
             bone: bone,
-            x: this.mainObject.x + bone.worldX * this.mainObject.scale.x,
-            y: this.mainObject.y + bone.worldY * this.mainObject.scale.y,
+            x: this._mainObject.x + bone.worldX * this._mainObject.scale.x,
+            y: this._mainObject.y + bone.worldY * this._mainObject.scale.y,
         }
+    }
+
+    setBoneUpdateFun(fun) {
+        this._mainObject.beforeUpdateWorldTransforms = fun
     }
 
 }

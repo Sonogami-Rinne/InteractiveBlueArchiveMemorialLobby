@@ -1,78 +1,118 @@
-class AudioController {
-    AudioController() {
-        this.audioMap = {}
-        this.preparingCount = 0
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+class CAudio {
+    constructor(buffer, loop, volume, duration) {
+        this._source = buffer
+        this._loop = loop ?? false
+        this._volume = volume ?? 1.
+        this._duration = duration
+        this._instances = {}
+        this._instanceId = 0
+        this._gainNode = audioCtx.createGain()
+        this._gainNode.connect(audioCtx.destination)
+        this._gainNode.gain.value = this._volume
     }
-    /*
-    注册音频文件，以使用它们。
-    */
-    registerAudios(audioName, folder, loop, volume) {
-        const basepath = './audio/' + folder ? folder + '/' : ''
-        this.preparingCount++
+    play(delay, duration) {
+        this.playAtTime(audioCtx.currentTime + delay, duration)
+    }
+    playAtTime(time, duration) {
+        const source = audioCtx.createBufferSource()
+        const instanceId = this._instanceId++
+        source.buffer = this._source
+        source.connect(this._gainNode)
+        this._instances[instanceId] = source
+        source.addEventListener('ended', () => {
+            source.disconnect()
+            delete this._instances[instanceId]
+        })
+        source.addEventListener('error', () => {
+            source.disconnect()
+            delete this._instances[instanceId]
+        })
+        source.start(time + delay ?? 0.)
+        if (duration || this._duration) {
+            source.stop(time + delay ?? 0. + (duration || this._duration))
+        }
+    }
+    clear() {
+        for (const [instanceId, instance] of Object.entries(this._instances)) {
+            instance.stop()
+            instance.disconnect()
+        }
+        delete this._instances
+        this._instances = {}
+    }
+    setVolume(volume) {
+        this._gainNode.gain.value = volume
+    }
+
+}
+class AudioController {
+    constructor() {
+        this._audioMap = {}
+        this._preparingCount = 0
+        this._preLoadAudios = []
+    }
+    async _loadData(path, audioName, loop, volume) {
+        fetch(path).
+            then(res => res.arrayBuffer()).
+            then(decoded => {
+                this._audioMap[audioName] = new CAudio(decoded, loop, volume)
+            })
+    }
+
+    registerAudios(audioName, folder, loop, volume, ifPreload) {
+        const basepath = '@audio/' + folder ? folder + '/' : ''
         if (typeof (audioName) == 'string') {
-            const newAudio = new Audio(basepath + audioName)
-            newAudio.addEventListener('canplaythrough', () => this.preparingCount--)
-            newAudio.addEventListener('error', () => { console.error(`Failed to load ${audioName}`); this.preparingCount-- })
-            if (loop) {
-                newAudio.loop = true
+            const item = this._loadData(basepath + audioName, audioName, loop, volume)
+            if (ifPreload) {
+                this._preLoadAudios.push(item)
             }
-            if (volume) {
-                newAudio.volume = volume
-            }
-            if (folder == null) {
-                newAudio.addEventListener('ended', () => {
-                    this.backgroundAudioEnd()
-                })
-            }
-            this.audioMap[audioName] = newAudio
         }
         else {
-            this.preparingCount += audioName.length
             for (const _audioName of audioName) {
-                const newAudio = new Audio(basepath + _audioName)
-                newAudio.addEventListener('canplaythrough', () => this.preparingCount--)
-                newAudio.addEventListener('error', () => { console.error(`Failed to load ${_audioName}`); this.preparingCount-- })
-                if (loop) {
-                    newAudio.loop = true
+                const item = this._loadData(basepath + audioName, audioName, loop, volume)
+                if (ifPreload) {
+                    this._preLoadAudios.push(item)
                 }
-                if (volume) {
-                    newAudio.volume = volume
-                }
-                this.audioMap[_audioName] = newAudio
             }
         }
     }
+
     async prepared() {
-        const time = Date.now()
-        while (this.preparingCount > 0 && Date.now() - time < 3000) {
-            await new Promise(resolve => setTimeout(resolve, 100))
+        await Promise.all(this._preLoadAudios)
+    }
+
+    play(audioName, delay) {
+        this._audioMap[audioName]?.play(delay)
+    }
+    playAtTime(audioName, time) {
+        this._audioMap[audioName]?.playAtTime(time)
+    }
+
+    setVolume(audioName, volume) {
+        this._audioMap[audioName]?.setVolume(volume)
+    }
+
+    playSoundFixTimeline(soundFixTimeline) {
+        const time = audioCtx.currentTime
+        for (const audio of soundFixTimeline) {
+            this.play(audio.audios[0], time + audio.start)
         }
     }
-    play(audioName, volume) {
-        if (typeof (audioName) == 'string') {
-            this.audioMap[audioName].play()
-            if(volume){
-                this.audioMap[audioName].volume = volume
+
+    notifyAudioEvent(event) {
+        switch (event.name) {
+            case 'volume': {
+                this._audioMap[event.target].setVolume(event.value)
             }
-        }
-    }
-    notifyAudioEvent(event){
-        switch(event.name){
-            case 'pause':{
-                this.audioMap[event.audioName].pause()
-                break
-            }
-            case 'mute':{
-                this.audioMap[event.audioName].volume = 0
-                break
-            }
-            default:{
+            default: {
                 console.warn(`Unsupported event: ${event.name} for AudioController`)
             }
         }
     }
-    backgroundAudioEnd(){
-        
+    backgroundAudioEnd() {
+
     }
 
 }

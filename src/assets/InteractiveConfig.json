@@ -3,19 +3,23 @@
     "data": {
       "followDragSpeed": 0.20999999344348907,
       "bounds": {
-        "minLocalX": 1.2211779356002808,
-        "minLocalY": -0.7531235814094543,
-        "maxLocalX": 1.221179485321045,
-        "maxLocalY": -0.17310839891433716
+        "minLocalX": -0.7531,
+        "minLocalY": 1.2212,
+        "maxLocalX": -0.1731,
+        "maxLocalY": 1.2212
       },
       "initPos": {
-        "x": 1.2211779356002808,
-        "y": -0.42578551173210144
+        "x": -0.4258,
+        "y": 1.2212
       },
-      "bone": [
-        "Touch_Point",
-        26
-      ],
+      "bone": {
+        "name": "Touch_Point",
+        "gameObject": 26,
+        "translate": [
+          -247.19,
+          317.22
+        ]
+      },
       "in": 4,
       "end": 6
     },
@@ -35,19 +39,23 @@
     "data": {
       "followDragSpeed": 0.1599999964237213,
       "bounds": {
-        "minLocalX": -0.36433541774749756,
-        "minLocalY": -0.7823572158813477,
-        "maxLocalX": 0.9897568821907043,
-        "maxLocalY": 0.22762326896190643
+        "minLocalX": -0.7824,
+        "minLocalY": -0.3643,
+        "maxLocalX": 0.2276,
+        "maxLocalY": 0.9898
       },
       "initPos": {
-        "x": 0.3299621641635895,
-        "y": -0.2723809778690338
+        "x": -0.2724,
+        "y": 0.33
       },
-      "bone": [
-        "Touch_Eye",
-        27
-      ],
+      "bone": {
+        "name": "Touch_Eye",
+        "gameObject": 27,
+        "translate": [
+          -285.67,
+          235.38
+        ]
+      },
       "in": 0,
       "end": 2
     },
