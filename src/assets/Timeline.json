@@ -1,7 +1,9 @@
 {
+  "bgm": "",
   "animationClip": [
     {
-      "loop": 0,
+      "loop": false,
+      "PPtrMapping": {},
       "data": [
         {
           "gameObject": 24,
@@ -26,7 +28,7 @@
             "m_IsActive": true
           },
           "isPPtrCurve": false,
-          "curve": [
+          "frames": [
             {
               "time": 0.0,
               "value": 1.0,
@@ -64,7 +66,7 @@
             "m_AssemblyName": "Unity.RenderPipelines.Core.Runtime.dll"
           },
           "isPPtrCurve": false,
-          "curve": [
+          "frames": [
             {
               "time": 0.0,
               "value": 1.0,
@@ -72,45 +74,45 @@
               "outSlope": 0.0
             },
             {
-              "time": 0.4000000059604645,
+              "time": 0.4,
               "value": 0.5,
               "inSlope": -0.91,
               "outSlope": -0.9090908765792847
             },
             {
-              "time": 1.100000023841858,
+              "time": 1.1,
               "value": 0.0,
               "inSlope": -0.0,
               "outSlope": 0.0
             },
             {
-              "time": 15.399999618530273,
+              "time": 15.4,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.733333587646484,
+              "time": 15.733,
+              "value": 1.0,
+              "inSlope": 0.02,
+              "outSlope": 0.0
+            },
+            {
+              "time": 15.9,
               "value": 1.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.899999618530273,
-              "value": 1.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 16.233333587646484,
-              "value": 0.30000001192092896,
-              "inSlope": -0.91,
+              "time": 16.233,
+              "value": 0.3,
+              "inSlope": -0.92,
               "outSlope": -0.9090905785560608
             },
             {
               "time": 17.0,
               "value": 0.0,
-              "inSlope": -0.0,
+              "inSlope": 0.0,
               "outSlope": null
             }
           ],
@@ -139,7 +141,7 @@
             "m_IsActive": false
           },
           "isPPtrCurve": false,
-          "curve": [
+          "frames": [
             {
               "time": 0.0,
               "value": 1.0,
@@ -147,19 +149,19 @@
               "outSlope": 0.0
             },
             {
-              "time": 0.13333334028720856,
+              "time": 0.133,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.766666412353516,
+              "time": 15.767,
               "value": 1.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.899999618530273,
+              "time": 15.9,
               "value": 0.0,
               "inSlope": null,
               "outSlope": null
@@ -249,7 +251,7 @@
             "m_SpriteSortPoint": 0
           },
           "isPPtrCurve": false,
-          "curve": [
+          "frames": [
             {
               "time": 0.0,
               "value": 1.0,
@@ -257,9 +259,9 @@
               "outSlope": 0.0
             },
             {
-              "time": 0.13333334028720856,
+              "time": 0.133,
               "value": 0.0,
-              "inSlope": null,
+              "inSlope": -0.11,
               "outSlope": null
             }
           ],
@@ -293,7 +295,7 @@
             "m_AssemblyName": "Unity.RenderPipelines.Core.Runtime.dll"
           },
           "isPPtrCurve": false,
-          "curve": [
+          "frames": [
             {
               "time": 0.0,
               "value": 1.0,
@@ -301,25 +303,25 @@
               "outSlope": 0.0
             },
             {
-              "time": 1.6666666269302368,
+              "time": 1.667,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.866666793823242,
+              "time": 15.867,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.899999618530273,
+              "time": 15.9,
               "value": 1.0,
-              "inSlope": null,
+              "inSlope": 1.78,
               "outSlope": 0.0
             },
             {
-              "time": 16.53333282470703,
+              "time": 16.533,
               "value": 0.0,
               "inSlope": null,
               "outSlope": null
@@ -330,7 +332,8 @@
       ]
     },
     {
-      "loop": 0,
+      "loop": false,
+      "PPtrMapping": {},
       "data": [
         {
           "gameObject": 32,
@@ -367,7 +370,7 @@
             "m_IsActive": true
           },
           "isPPtrCurve": false,
-          "curve": [
+          "frames": [
             {
               "time": 0.0,
               "value": 0.0,
@@ -375,13 +378,13 @@
               "outSlope": 0.0
             },
             {
-              "time": 3.133333444595337,
+              "time": 3.133,
               "value": 1.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 6.866666793823242,
+              "time": 6.867,
               "value": 0.0,
               "inSlope": null,
               "outSlope": null
@@ -392,7 +395,8 @@
       ]
     },
     {
-      "loop": 0,
+      "loop": false,
+      "PPtrMapping": {},
       "data": [
         {
           "gameObject": 47,
@@ -423,7 +427,7 @@
             "m_IsActive": true
           },
           "isPPtrCurve": false,
-          "curve": [
+          "frames": [
             {
               "time": 0.0,
               "value": 1.0,
@@ -431,13 +435,13 @@
               "outSlope": 0.0
             },
             {
-              "time": 6.900000095367432,
+              "time": 6.9,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 16.066667556762695,
+              "time": 16.067,
               "value": 1.0,
               "inSlope": null,
               "outSlope": null
@@ -474,7 +478,7 @@
             "m_IsActive": true
           },
           "isPPtrCurve": false,
-          "curve": [
+          "frames": [
             {
               "time": 0.0,
               "value": 1.0,
@@ -482,13 +486,13 @@
               "outSlope": 0.0
             },
             {
-              "time": 6.900000095367432,
+              "time": 6.9,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 16.066667556762695,
+              "time": 16.067,
               "value": 1.0,
               "inSlope": null,
               "outSlope": null

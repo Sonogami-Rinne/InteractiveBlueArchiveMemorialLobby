@@ -74,13 +74,14 @@ class Track {
 }
 
 class AnimationClip {
-    constructor(loop, trackInfos) {
-        this._loop = loop
+    constructor(trackInfo) {
+        this._loop = trackInfo.loop
+        this._pptrMapping = trackInfo.PPtrMapping
         this._tracks = []
         this.duration = 0
         this._timeInTurn = 0.
-        for (const trackInfo of trackInfos) {
-            const track = new Track(trackInfo)
+        for (const trackInfo of trackInfo.data) {
+            const track = new Track(trackInfo, this._pptrMapping)
             if (this.duration < track.duration) {
                 this.duration = track.duration
             }
