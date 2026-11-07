@@ -29,8 +29,9 @@ coverage
 
 *.tsbuildinfo
 
-*.atlas
-*.png
-*.skel
-*.ogg
-*.wav
+/src/assets/*
+/src/table/*
+/src/SpineCanvas_wasted.vue
+/src/Test.vue
+docs
+tests

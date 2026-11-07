@@ -4,19 +4,13 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-import legacy from '@vitejs/plugin-legacy'
-
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
+  build: { target: 'esnext' },
   plugins: [
     vue(),
-    vueDevTools(),
-    legacy({
-      targets: ['ie>=11'],
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-    }),
-    binaryAsAsciiPlugin()
+    vueDevTools()
   ],
   resolve: {
     alias: {
@@ -24,7 +18,9 @@ export default defineConfig({
       '@assets':fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@image': fileURLToPath(new URL('./src/assets/image', import.meta.url)),
       '@mesh': fileURLToPath(new URL('./src/assets/mesh', import.meta.url)),
-      '@audio': fileURLToPath(new URL('./src/assets/audio'. import.meta.url))
+      '@audio': fileURLToPath(new URL('./src/assets/audio', import.meta.url)),
+      '@shader': fileURLToPath(new URL('./src/assets/shader', import.meta.url)),
+      '@js':fileURLToPath(new URL('./src/js', import.meta.url))
     },
   },
 })

@@ -1,159 +1,109 @@
-class UnityPostProcessingFilter extends PIXI.Filter {
-    constructor(options = {}) {
-        const frag = `
-        precision mediump float;
-
-        uniform sampler2D uTexture;
-        uniform float postExposure;
-        uniform float contrast;
-        uniform float saturation;
-        uniform float hueShift;
-        uniform vec3 colorFilter;
-
-        uniform vec3 lift;
-        uniform vec3 gamma;
-        uniform vec3 gain;
-
-        uniform float intensity;
-
-        varying vec2 vTextureCoord;
-
-        mat3 hueRotationMatrix(float hue) {
-            float c = cos(hue);
-            float s = sin(hue);
-            return mat3(
-                vec3(0.213 + c*0.787 - s*0.213, 0.715 - c*0.715 - s*0.715, 0.072 - c*0.072 + s*0.928),
-                vec3(0.213 - c*0.213 + s*0.143, 0.715 + c*0.285 + s*0.140, 0.072 - c*0.072 - s*0.283),
-                vec3(0.213 - c*0.213 - s*0.787, 0.715 - c*0.715 + s*0.715, 0.072 + c*0.928 + s*0.072)
-            );
-        }
-
-        void main(void) {
-            vec2 center = vec2(0.5, 0.5);
-            vec2 dir = vTextureCoord - center;
-            vec2 offset = normalize(dir) * intensity * length(dir);
-
-            vec4 texR = texture2D(uTexture, vTextureCoord + offset);
-            vec4 texG = texture2D(uTexture, vTextureCoord);
-            vec4 texB = texture2D(uTexture, vTextureCoord - offset);
-
-            vec3 color = vec3(texR.r, texG.g, texB.b);
-
-            // PostExposure
-            color *= pow(2.0, postExposure);
-
-            // Contrast
-            color = (color - 0.5) * contrast + 0.5;
-
-            // Saturation
-            float luma = dot(color, vec3(0.299, 0.587, 0.114));
-            color = mix(vec3(luma), color, saturation);
-
-            // Hue Shift (degrees -> radians)
-            color = hueRotationMatrix(radians(hueShift)) * color;
-
-            // Color Filter
-            color *= colorFilter;
-
-            // LiftGammaGain
-            color = color + lift;
-            color = pow(color, 1.0 / gamma);
-            color *= gain;
-
-            gl_FragColor = vec4(color, 1.0);
-        }
-        `;
-
-        const uniforms = {
-            uTexture: PIXI.Texture.WHITE,
-            postExposure: options.postExposure ?? 0.0,        // EV stops
-            contrast: options.contrast ?? 1.0,        // 1 = no change
-            saturation: options.saturation ?? 1.0,    // 1 = no change
-            hueShift: options.hueShift ?? 0.0,        // degrees
-            colorFilter: options.colorFilter ?? [1.0, 1.0, 1.0],
-
-            lift: options.lift ?? [0.0, 0.0, 0.0],
-            gamma: options.gamma ?? [1.0, 1.0, 1.0],
-            gain: options.gain ?? [1.0, 1.0, 1.0],
-
-            intensity: options.intensity ?? 0.005
-        };
-
-        super(undefined, frag, uniforms);
-    }
-
-    // === ColorAdjustments ===
-    set exposure(v) { this.uniforms.exposure = v; }
-    get exposure() { return this.uniforms.exposure; }
-
-    set contrast(v) { this.uniforms.contrast = v; }
-    get contrast() { return this.uniforms.contrast; }
-
-    set saturation(v) { this.uniforms.saturation = v; }
-    get saturation() { return this.uniforms.saturation; }
-
-    set hueShift(v) { this.uniforms.hueShift = v; }
-    get hueShift() { return this.uniforms.hueShift; }
-
-    set colorFilter(v) { this.uniforms.colorFilter = v; }
-    get colorFilter() { return this.uniforms.colorFilter; }
-
-    // === LiftGammaGain ===
-    set lift(v) { this.uniforms.lift = v; }
-    get lift() { return this.uniforms.lift; }
-
-    set gamma(v) { this.uniforms.gamma = v; }
-    get gamma() { return this.uniforms.gamma; }
-
-    set gain(v) { this.uniforms.gain = v; }
-    get gain() { return this.uniforms.gain; }
-
-    // === ChromaticAberration ===
-    set chromaStrength(v) { this.uniforms.chromaStrength = v; }
-    get chromaStrength() { return this.uniforms.chromaStrength; }
-}
-
+import { blendProfiles } from './util.js';
+import PostProcessingTextures from './PostProcessingTextures.js';
+import MXPostProcessingFilter from './MXPostProcessingFilter.js';
 
 class PostProcessingController {
-    constructor(pixiContainer) {
-        this._filterMap = {}
-        this._filters = null
-        this._pixiContainer = pixiContainer
+    constructor() {
+        this._filterMap = {};
+        this._profiles = [];
+        this._filters = [];
+        this._pixiContainer = null;
+        this._textures = null;
     }
-    async init() {
-        let tmp = null
-        await fetch('@assets/PostProcessing.json').
-            then(res => res.json()).
-            then(data => tmp = data)
-        for (const filter of tmp) {
-            this._filterMap[filter.gameObject] = new UnityPostProcessingFilter(filter)
+
+    async init(pixiContainer, filterArea, renderer) {
+        if (!filterArea) throw new Error("Post-processing requires a viewport filterArea");
+        const response = await fetch(`${import.meta.env.BASE_URL}postprocessing/captured-lut.png`);
+        if (!response.ok) throw new Error(`Cannot load captured LUT: ${response.status}`);
+        const bitmap = await createImageBitmap(await response.blob(), {
+            premultiplyAlpha: 'none', colorSpaceConversion: 'none',
+        });
+        if (bitmap.width !== 1024 || bitmap.height !== 32) {
+            bitmap.close();
+            throw new Error('Captured LUT must be a 1024 x 32 strip');
         }
-        this._filters = Object.values(this._filterMap)
+        this._lut = new PIXI.Texture({ source: new PIXI.ImageSource({
+            resource: bitmap, format: 'rgba8unorm', alphaMode: 'no-premultiply-alpha',
+            scaleMode: 'linear', addressMode: 'clamp-to-edge', autoGenerateMipmaps: false,
+        }) });
+        this._pixiContainer = pixiContainer;
+        // Custom particle geometry does not contribute to Pixi container bounds.
+        this._pixiContainer.filterArea = filterArea;
+        this._textures = new PostProcessingTextures(renderer);
+        this._pixiContainer._filterEffect.textureProvider = this._textures;
+        const { default: data } = await import('@assets/PostProcessing.json');
+        this._initialProfiles = data.map(profile => ({ ...profile }));
+        this._filter = new MXPostProcessingFilter(this._textures, this._lut);
+        this._filters = [this._filter];
+        this._resetProfiles();
     }
+
+    _resetProfiles() {
+        this._profiles = this._initialProfiles.map(profile => ({ ...profile }));
+        this._filterMap = Object.fromEntries(this._profiles.map(profile => [profile.gameObject, profile]));
+        this._updateParameters();
+    }
+
+    _updateParameters() {
+        this._filter.updateParameters(blendProfiles(this._profiles));
+    }
+
     apply() {
-        // pixiObject?.filters = this._filters
-        this._pixiContainer.filters = this._filters
+        this._resetProfiles();
+        this._pixiContainer.filters = this._filters;
     }
+
     clear() {
-        this._filters = []
+        this._pixiContainer.filters = [];
     }
-    getGameObjectId() {
-        return Object.keys(this._filterMap)
-    }
-    notifyGameObjectEvent(event) {
-        switch (event.name) {
-            case 'm_IsActive': {
-                const target = this._filterMap[event.target]
-                index = this._filters.indexOf(target)
-                if (event.value && index < 0) {
-                    this._filters.push(target)
-                }
-                else if (!event.value && index >= 0) {
-                    this._filters.splice(index)
-                }
-            }
+
+    destroy() {
+        if (this._pixiContainer) {
+            this.clear();
+            delete this._pixiContainer._filterEffect.textureProvider;
         }
+        for (const filter of this._filters) filter.destroy();
+        this._textures?.destroy();
+        this._lut?.source.resource.close();
+        this._lut?.destroy(true);
+        this._lut = null;
+        this._filterMap = {};
+        this._filters = [];
+        this._profiles = [];
+        this._initialProfiles = [];
+        this._filter = null;
+        this._textures = null;
+        this._pixiContainer = null;
+    }
+
+    getGameObjectId() {
+        return Object.keys(this._filterMap);
+    }
+
+    hasGameObject(gameObject) {
+        return Object.hasOwn(this._filterMap, gameObject);
+    }
+
+    handleTimelineEvent(gameObject, eventName, value) {
+        const filter = this._filterMap[gameObject];
+        if (!filter) {
+            throw new Error(`No post-processing profile for gameObject ${gameObject}`);
+        }
+        switch (eventName) {
+            case 'm_IsActive':
+                filter.active = Boolean(value);
+                break;
+            case 'm_Enabled':
+                filter.enabled = Boolean(value);
+                break;
+            case 'weight':
+                filter.weight = value;
+                break;
+            default:
+                throw new Error(`Unsupported timeline property ${eventName} for PostProcessingController`);
+        }
+        this._updateParameters();
     }
 }
 
-export default PostProcessingController
+export default PostProcessingController;

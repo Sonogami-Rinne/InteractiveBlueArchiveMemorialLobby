@@ -1,31 +1,16 @@
 <script setup>
-import { onBeforeMount } from 'vue'
 import resourceLoader from '@assets/resource.js'
-import SpineCanvas from '@/SpineCanvas.vue'
+import Test from '@/Test.vue'
+import SpineCanvas from './SpineCanvas.vue';
+
 //modify.js中获取数据的函数入口
-fun = async (str) => {
+dynamicResourceLoad = async (str) => {
+  if (!Object.hasOwn(resourceLoader, str)) throw new Error(`Missing exported resource: ${str}`);
   const raw = await resourceLoader[str]()
   return raw.default
 }
 
 //<---vue+html
-
-const fetchData = async () => {
-
-}
-
-const test = async () => {
-  currentPlay.value = cloneItem(studentList.value[83])
-}
-
-const initialize = async () => {
-  test()
-}
-
-
-onBeforeMount(() => {
-  initialize();
-})
 
 
 //--->
@@ -34,7 +19,7 @@ onBeforeMount(() => {
 
 <template>
   <!---<TestParticle></TestParticle>--->
-  <SpineCanvas :currentPlay="currentPlay" :preLoadPlay="preLoadPlay" :duration="duration" v-if="currentPlay" />
+  <SpineCanvas/>
 </template>
 
 <style scoped>
@@ -43,16 +28,6 @@ onBeforeMount(() => {
   height: 100%;
   overflow: hidden;
   z-index: -1;
-}
-
-.main-container.main-container-effect {
-  z-index: 3;
-  background-color: white;
-  opacity: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
 }
 
 .expand-icon {

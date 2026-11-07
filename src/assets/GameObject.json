@@ -1,415 +1,1652 @@
-[
-  "LobbyAiri",
-  "LobbyAiri/ChatDialog",
-  "LobbyAiri/AiriLobbyspine",
-  "LobbyAiri/ChatDialog/Talk",
-  "LobbyAiri/ChatDialog/Think",
-  "LobbyAiri/ChatDialog/UITalk",
-  "LobbyAiri/AiriLobbyspine/Airi_home",
-  "LobbyAiri/AiriLobbyspine/HairPatIK",
-  "LobbyAiri/AiriLobbyspine/EyeIK",
-  "LobbyAiri/AiriLobbyspine/BodyTouch",
-  "LobbyAiri/AiriLobbyspine/Airi_BG",
-  "LobbyAiri/ChatDialog/Talk/Label",
-  "LobbyAiri/ChatDialog/Talk/Sprite",
-  "LobbyAiri/ChatDialog/Think/Label",
-  "LobbyAiri/ChatDialog/Think/Sprite",
-  "LobbyAiri/ChatDialog/UITalk/Label",
-  "LobbyAiri/ChatDialog/UITalk/Sprite",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot",
-  "LobbyAiri/AiriLobbyspine/Airi_BG/Timeline",
-  "LobbyAiri/AiriLobbyspine/Airi_BG/PPV",
-  "LobbyAiri/AiriLobbyspine/Airi_BG/Glow",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root",
-  "LobbyAiri/AiriLobbyspine/Airi_BG/Timeline/AudioSourceObjectParent",
-  "LobbyAiri/AiriLobbyspine/Airi_BG/PPV/PPV_D",
-  "LobbyAiri/AiriLobbyspine/Airi_BG/PPV/PPV_C",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Touch_Point",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Touch_Eye",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/Light",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle_start",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Touch_Point/Touch_Point_Key",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Touch_Eye/Touch_Eye_Key",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/SUN_Flare_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/particle_Idle_00",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/particle_Idle_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/particle_Idle_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/SUN_Flare_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/FX_LobbyAiri_Cherryblossom",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/boke_R_3 (3)",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/boke_R_3 (4)",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle_start/FX_LobbyAiri_Cherryblossom_00 (1)",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle_start/FX_LobbyAiri_Cherryblossom_01 (1)",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_T_Eyebrows_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_T_Eyebrows_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Mouse_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Nose",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_Eye",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_Eye",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_eye_01_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_eye_01_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_05",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Hair_03",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_Hair_Tail_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_06",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_07",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/head_Rot5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_04",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_03",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/head_Rot4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_Hair_Tail_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_07",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Halo",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Sweat_Root",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow17",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow18",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow19",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow20",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow21",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/Flower_04",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/Flower_11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F9",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/R_F15",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/Flower_14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/Flower_12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/R_F/Flower_13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_05",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T9",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T18",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T19",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T22",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T23",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T24",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T25",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T26",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/R_Leg_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/L_Leg_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/R_Leg_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/L_Leg_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip9",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip15",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip17",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/R_Leg_ik",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/L_Leg_ik",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/FX_LobbyAiri_Cherryblossom/FX_LobbyAiri_Cherryblossom_00",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/FX_LobbyAiri_Cherryblossom/FX_LobbyAiri_Cherryblossom_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/particle/FX_LobbyAiri_Cherryblossom/FX_LobbyAiri_Cherryblossom_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Mouse_01/Mouse_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Mouse_01/Mouse_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Mouse_01/Mouse_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Mouse_01/Mouse_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Mouse_01/Mouse_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Mouse_01/Mouse_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_Eye/R_Eyebrows",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_Eye/R_Eye2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_Eye/L_Eyebrows",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_Eye/L_Eye2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_eye_01_1/L_eye_01_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_eye_01_1/L_eye_01_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_eye_01_1/L_eye_01_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_eye_01_1/R_eye_01_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_eye_01_1/R_eye_01_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_eye_01_1/R_eye_01_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_05/F_Hair_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Hair_03/Hair_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_13/F_Hair_14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_Hair_Tail_01/L_Hair_Tail_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_06/B_Hair_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_06/B_Hair_05",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_07/B_Hair_10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/head_Rot5/F_Hair_06",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_04/F_Hair_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/head_Rot3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04/B_Hair_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_03/B_Hair_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_02/B_Hair_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_01/B_Hair_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_Hair_Tail_01/R_Hair_Tail_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_07/F_Hair_25",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Sweat_Root/Sweat_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_back",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow4/TreeShadow5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow10/TreeShadow11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow14/TreeShadow15",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_01/SakuraTree_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_01/SakuraTree_20",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_01/SakuraTree_21",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_02/SakuraTree_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_02/SakuraTree_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_02/SakuraTree_24",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T20",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T15",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_05/SakuraTree_8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_05/SakuraTree_9",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_05/SakuraTree_10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_05/SakuraTree_11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_05/SakuraTree_12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/R_Leg_1/R_Leg_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/L_Leg_3/L_Leg_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/R_Leg_3/R_Leg_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/R_Leg_3/R_Leg_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/R_Leg_3/R_Leg_8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/L_Leg_2/L_Leg_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/L_Leg_2/L_Leg_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/L_Leg_2/L_Leg_8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip4/Bag_Sling_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip6/Hip7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip10/Hip11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip13/Hip14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip15/Hip16",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Mouse_01/Mouse_6/Mouse_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_05/F_Hair_5/F_Hair_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9/F_Hair_10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Hair_03/Hair_3/Hair_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_13/F_Hair_14/F_Hair_15",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_Hair_Tail_01/L_Hair_Tail_1/L_Hair_Tail_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_06/B_Hair_6/B_Hair_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_06/B_Hair_05/B_Hair_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_07/B_Hair_10/B_Hair_11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/head_Rot5/F_Hair_06/F_Hair_8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_04/F_Hair_4/F_Hair_18",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04/B_Hair_4/B_Hair_14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_03/B_Hair_3/B_Hair_21",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_02/B_Hair_2/B_Hair_25",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_01/B_Hair_1/B_Hair_28",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_Hair_Tail_01/R_Hair_Tail_1/R_Hair_Tail_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_07/F_Hair_25/F_Hair_29",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow4/TreeShadow5/TreeShadow6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow4/TreeShadow5/TreeShadow8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow10/TreeShadow11/TreeShadow12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow14/TreeShadow15/TreeShadow16",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_01/SakuraTree_1/Sakura_06",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_01/SakuraTree_1/Sakura_07",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_02/SakuraTree_2/SakuraTree_22",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/C_S/SakuraTree_02/SakuraTree_2/SakuraTree_23",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T3/L_S_T14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4/L_S_T5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4/Sakura_10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4/Sakura_11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4/Sakura_12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4/Sakura_13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T20/L_S_T21",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_7/SakuraTree_14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_05/SakuraTree_12/SakuraTree_13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/R_Leg_3/R_Leg_4/R_Leg_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/L_Leg_2/L_Leg_1/L_Leg_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip6/Hip7/Hip8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Hip10/Hip11/Hip12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_05/F_Hair_5/F_Hair_6/F_Hair_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9/F_Hair_10/F_Hair_11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9/F_Hair_10/Hair_04",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9/F_Hair_10/F_Hair_08",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Hair_03/Hair_3/Hair_4/Hair_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_13/F_Hair_14/F_Hair_15/F_Hair_16",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_Hair_Tail_01/L_Hair_Tail_1/L_Hair_Tail_2/L_Hair_Tail_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_06/B_Hair_6/B_Hair_7/B_Hair_8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_06/B_Hair_05/B_Hair_5/B_Hair_13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_07/B_Hair_10/B_Hair_11/B_Hair_12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/head_Rot5/F_Hair_06/F_Hair_8/F_Hair_17",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_04/F_Hair_4/F_Hair_18/F_Hair_19",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_03",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04/B_Hair_4/B_Hair_14/B_Hair_15",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04/B_Hair_4/B_Hair_14/B_Hair_17",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04/B_Hair_4/B_Hair_14/B_Hair_19",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_03/B_Hair_3/B_Hair_21/B_Hair_22",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_03/B_Hair_3/B_Hair_21/Hair_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_02/B_Hair_2/B_Hair_25/B_Hair_26",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_01/B_Hair_1/B_Hair_28/B_Hair_29",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_Hair_Tail_01/R_Hair_Tail_1/R_Hair_Tail_2/R_Hair_Tail_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_07/F_Hair_25/F_Hair_29/F_Hair_30",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow4/TreeShadow5/TreeShadow6/TreeShadow7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow4/TreeShadow5/TreeShadow8/TreeShadow9",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/TreeShadow/TreeShadow10/TreeShadow11/TreeShadow12/TreeShadow13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4/L_S_T5/L_S_T17",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4/L_S_T5/L_S_T16",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T20/L_S_T21/Sakura_08",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T20/L_S_T21/Sakura_09",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_17",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_16",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9/F_Hair_10/F_Hair_11/F_Hair_12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9/F_Hair_10/Hair_04/Hair_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9/F_Hair_10/F_Hair_08/F_Hair_32",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/Hair_03/Hair_3/Hair_4/Hair_5/Hair_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/L_Hair_Tail_01/L_Hair_Tail_1/L_Hair_Tail_2/L_Hair_Tail_3/L_Hair_Tail_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_06/B_Hair_6/B_Hair_7/B_Hair_8/B_Hair_9",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04/B_Hair_4/B_Hair_14/B_Hair_15/B_Hair_16",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04/B_Hair_4/B_Hair_14/B_Hair_17/B_Hair_18",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_04/B_Hair_4/B_Hair_14/B_Hair_19/B_Hair_20",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_03/B_Hair_3/B_Hair_21/B_Hair_22/B_Hair_23",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_02/B_Hair_2/B_Hair_25/B_Hair_26/B_Hair_27",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_01/B_Hair_1/B_Hair_28/B_Hair_29/B_Hair_30",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/R_Hair_Tail_01/R_Hair_Tail_1/R_Hair_Tail_2/R_Hair_Tail_3/R_Hair_Tail_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/L_S_T2/L_S_T4/L_S_T5/L_S_T17/Sakura_14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_17/SakuraTree_18",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_17/SakuraTree_19",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_09/F_Hair_9/F_Hair_10/Hair_04/Hair_7/Hair_8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_22",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/head_Rot2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_26",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_03/B_Hair_3/B_Hair_21/B_Hair_22/B_Hair_23/B_Hair_24",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_01/B_Hair_1/B_Hair_28/B_Hair_29/B_Hair_30/B_Hair_31",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/L_Arm_Root",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_10",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_17/SakuraTree_18/Sakura_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_17/SakuraTree_18/Sakura_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_17/SakuraTree_18/Sakura_04",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_17/SakuraTree_19/Sakura_03",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/BG/L_S_T/SakuraTree_04/SakuraTree_6/SakuraTree_15/SakuraTree_17/SakuraTree_19/Sakura_05",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_22/F_Hair_23",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_22/F_Hair_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_26/F_Hair_27",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/B_Hair_03/B_Hair_3/B_Hair_21/B_Hair_22/B_Hair_23/B_Hair_24/Hair_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/L_Arm_Root/Torso_13",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_06",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_07",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_7/Torso_8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_22/F_Hair_23/F_Hair_24",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_22/F_Hair_01/F_Hair_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_26/F_Hair_27/F_Hair_28",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/L_Arm_Root/Torso_13/Torso_14",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/L_Arm_Root/Torso_13/Torso_15",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_03",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_04",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_05",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_7/Torso_8/Torso_9",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Neck_Root/Neck/Head_Root/head/head_Rot/F_Hair_02/F_Hair_2/F_Hair_3/F_Hair_20/F_Hair_21/F_Hair_22/F_Hair_01/F_Hair_1/F_Hair_31",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_01/R_UpperArm_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_01/R_UpperArm_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/R_ForeArm_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/L_Arm_Root/Torso_13/Torso_14/Torso_16",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_01/Ribbon_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_03/Ribbon_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_04/Ribbon_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_05/Ribbon_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/R_ForeArm_01/R_ForeArm_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/R_ForeArm_01/R_UpperArm_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/Icecream_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_04/Ribbon_4/Ribbon_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/Torso_2/Ribbon_02/Ribbon_05/Ribbon_6/Ribbon_7",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Thumb_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Index_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Middle_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Ring_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Pinky_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/Icecream_05",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_4",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Thumb_3/R_Hand_Thumb_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Index_1/R_Hand_Index_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Middle_1/R_Hand_Middle_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Ring_1/R_Hand_Ring_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/Icecream_05/Icecream_03",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/Icecream_05/Icecream_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/Icecream_05/Icecream_6",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Thumb_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Index_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Middle_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Ring_3",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Pinky_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/Icecream_8",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Thumb_3/R_Hand_Thumb_2/R_Hand_Thumb_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/R_Hand_Index_1/R_Hand_Index_3/R_Hand_Index_5",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/Icecream_05/Icecream_03/Icecream_02",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/Icecream_05/Icecream_03/Icecream_01",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/Icecream_05/Icecream_03/Icecream_04",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Thumb_3/L_Hand_Thumb_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Index_3/L_Hand_Index_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Middle_3/L_Hand_Middle_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Ring_3/L_Hand_Ring_2",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Pinky_2/L_Hand_Pinky_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Thumb_3/L_Hand_Thumb_2/L_Hand_Thumb_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Index_3/L_Hand_Index_2/L_Hand_Index_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Middle_3/L_Hand_Middle_2/L_Hand_Middle_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Ring_3/L_Hand_Ring_2/L_Hand_Ring_1",
-  "LobbyAiri/AiriLobbyspine/Airi_home/SkeletonUtility-SkeletonRoot/root/All_Layer/PC_Layer/Hip/Spine_01_Root/Skirt_03/Spine_02_Root/Torso_1/Torso_11/R_Arm_Root/Torso_12/R_UpperArm_3/Hand_Root/R_UpperArm_4/R_Hand_1/L_Hand_1/L_Hand_Pinky_2/L_Hand_Pinky_1/L_Hand_Pinky_3"
-]
+{
+  "11": {
+    "name": "Wakamo_home",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_home",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": -1,
+    "matrix": [
+      [
+        100.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        100.0,
+        0.0,
+        -962.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      -962.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "localScale": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "36": {
+    "name": "FX_Wakamo_home",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_home/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_home",
+    "active": true,
+    "couldActive": true,
+    "parent": 11,
+    "transformToParent": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        -2.9133465773156786e-07
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        9.619999885559084
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "matrix": [
+      [
+        100.0,
+        0.0,
+        0.0,
+        -2.9133465773156786e-05
+      ],
+      [
+        0.0,
+        100.0,
+        0.0,
+        -1.1444091796875e-05
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "92": {
+    "name": "particle_back",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_home/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_home/particle_back",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 36,
+    "matrix": [
+      [
+        99.99999999999997,
+        0.0,
+        0.0,
+        -2.9133465773156786e-05
+      ],
+      [
+        0.0,
+        0.0,
+        99.99999999999997,
+        -279.00000762939453
+      ],
+      [
+        0.0,
+        -99.99999999999997,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      -2.7899999618530273,
+      0.0
+    ],
+    "localRotation": [
+      -0.7071068286895752,
+      0.0,
+      0.0,
+      0.7071068286895752
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "93": {
+    "name": "particle_center",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_home/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_home/particle_center",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 36,
+    "matrix": [
+      [
+        99.97871641684412,
+        2.671437747351485e-05,
+        -2.0630714092231277,
+        26.999971939417833
+      ],
+      [
+        2.0630714092208677,
+        8.705415549536966e-06,
+        99.97871641684736,
+        -446.00001525878906
+      ],
+      [
+        2.688829063603182e-05,
+        -99.99999999999608,
+        8.152426039798044e-06,
+        22.999876737594604
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.27000001072883606,
+      -4.460000038146973,
+      0.22999876737594604
+    ],
+    "localRotation": [
+      0.7070691585540771,
+      0.007294542156159878,
+      -0.0072943526320159435,
+      -0.7070692181587219
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "94": {
+    "name": "fire1",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_home/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_home/fire1",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 36,
+    "matrix": [
+      [
+        -99.99999999999963,
+        0.0,
+        -8.74227765734757e-06,
+        -1389.0000634657413
+      ],
+      [
+        0.0,
+        100.00000000000003,
+        0.0,
+        -922.9999656677246
+      ],
+      [
+        8.74227765734757e-06,
+        0.0,
+        -99.99999999999963,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      -13.890000343322754,
+      -9.229999542236328,
+      0.0
+    ],
+    "localRotation": [
+      0.0,
+      1.0,
+      0.0,
+      -4.371138828673793e-08
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "95": {
+    "name": "fire2",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_home/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_home/fire2",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 36,
+    "matrix": [
+      [
+        -97.34407143005569,
+        -22.89392402844351,
+        -8.742277756116306e-06,
+        1695.0000471604794
+      ],
+      [
+        -22.8939240284436,
+        97.34407143005606,
+        2.8925883815722615e-14,
+        -1318.00004196167
+      ],
+      [
+        8.510089096905489e-06,
+        2.0014504559984238e-06,
+        -99.99999999999963,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      16.950000762939453,
+      -13.180000305175781,
+      0.0
+    ],
+    "localRotation": [
+      -0.11523733288049698,
+      0.9933379888534546,
+      5.037184003242601e-09,
+      -4.342018300462769e-08
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "96": {
+    "name": "particle_front",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_home/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_home/particle_front",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 36,
+    "matrix": [
+      [
+        87.8314879842443,
+        2.862817995996636e-05,
+        -47.80825993981303,
+        751.9999689591856
+      ],
+      [
+        47.808259939815336,
+        -1.4114734603332124e-06,
+        87.8314879842477,
+        -662.0
+      ],
+      [
+        2.4469755541267624e-05,
+        -99.99999999999591,
+        -1.4926352831512446e-05,
+        22.999876737594604
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      7.519999980926514,
+      -6.619999885559082,
+      0.22999876737594604
+    ],
+    "localRotation": [
+      0.6852582097053528,
+      0.17441707849502563,
+      -0.17441688477993011,
+      -0.685258150100708
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "97": {
+    "name": "fire3",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_home/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_home/fire3",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 36,
+    "matrix": [
+      [
+        -91.59979702992139,
+        -40.11828989472425,
+        -8.742278577550739e-06,
+        1978.000039531085
+      ],
+      [
+        -40.1182898947244,
+        91.59979702992173,
+        -6.643074946120389e-13,
+        225.9999876022339
+      ],
+      [
+        8.00790969933561e-06,
+        3.5072520546418767e-06,
+        -99.99999999999963,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      19.780000686645508,
+      2.259999990463257,
+      0.0
+    ],
+    "localRotation": [
+      -0.2049414962530136,
+      0.9787742495536804,
+      8.958275010684247e-09,
+      -4.278358645137814e-08
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "19": {
+    "name": "Wakamo_Scene_0",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": -1,
+    "matrix": [
+      [
+        100.0,
+        0.0,
+        0.0,
+        -4000.0
+      ],
+      [
+        0.0,
+        100.0,
+        0.0,
+        -962.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      -4000.0,
+      -962.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "localScale": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "35": {
+    "name": "FX_Wakamo_Scene_0",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0",
+    "active": false,
+    "couldActive": true,
+    "parent": 19,
+    "transformToParent": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        3.933877223971649e-09
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        9.619999885559084
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "matrix": [
+      [
+        100.0,
+        0.0,
+        0.0,
+        -3999.999999606612
+      ],
+      [
+        0.0,
+        100.0,
+        0.0,
+        -1.1444091796875e-05
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "84": {
+    "name": "particle_back",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/particle_back",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 35,
+    "matrix": [
+      [
+        999.7871641684412,
+        0.0002671437747351485,
+        -20.630714092231276,
+        -3974.0000005602865
+      ],
+      [
+        20.63071409220868,
+        8.705415549536966e-05,
+        999.7871641684735,
+        -433.00000381469727
+      ],
+      [
+        0.0002688829063603182,
+        -999.9999999999608,
+        8.152426039798044e-05,
+        22.999876737594604
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.25999999046325684,
+      -4.329999923706055,
+      0.22999876737594604
+    ],
+    "localRotation": [
+      0.7070691585540771,
+      0.007294542156159878,
+      -0.0072943526320159435,
+      -0.7070692181587219
+    ],
+    "localScale": [
+      10.0,
+      10.0,
+      10.0
+    ]
+  },
+  "85": {
+    "name": "particle_center",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/particle_center",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 35,
+    "matrix": [
+      [
+        999.7871641684412,
+        0.0002671437747351485,
+        -20.630714092231276,
+        -3962.0000000834493
+      ],
+      [
+        20.63071409220868,
+        8.705415549536966e-05,
+        999.7871641684735,
+        -971.0000152587891
+      ],
+      [
+        0.0002688829063603182,
+        -999.9999999999608,
+        8.152426039798044e-05,
+        22.999876737594604
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.3799999952316284,
+      -9.710000038146973,
+      0.22999876737594604
+    ],
+    "localRotation": [
+      0.7070691585540771,
+      0.007294542156159878,
+      -0.0072943526320159435,
+      -0.7070692181587219
+    ],
+    "localScale": [
+      10.0,
+      10.0,
+      10.0
+    ]
+  },
+  "86": {
+    "name": "fire1",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/fire1",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 35,
+    "matrix": [
+      [
+        -99.99999999999963,
+        0.0,
+        -8.74227765734757e-06,
+        -4807.999991977218
+      ],
+      [
+        0.0,
+        100.00000000000003,
+        0.0,
+        -586.0000247955322
+      ],
+      [
+        8.74227765734757e-06,
+        0.0,
+        -99.99999999999963,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      -8.079999923706055,
+      -5.860000133514404,
+      0.0
+    ],
+    "localRotation": [
+      0.0,
+      1.0,
+      0.0,
+      -4.371138828673793e-08
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "143": {
+    "name": "fire_bottom",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/fire1/fire_bottom",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 86,
+    "matrix": [
+      [
+        100.00000000000003,
+        0.0,
+        1.5785478424736572e-22,
+        -4792.999991381172
+      ],
+      [
+        0.0,
+        100.00000000000006,
+        0.0,
+        -542.0000250339508
+      ],
+      [
+        -7.491845085932509e-22,
+        0.0,
+        100.00000000000003,
+        -1.311341700710171e-06
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      -0.15000000596046448,
+      0.4399999976158142,
+      -0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -1.0,
+      -0.0,
+      -4.371138828673793e-08
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "87": {
+    "name": "fire2",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/fire2",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 35,
+    "matrix": [
+      [
+        -99.15207943282375,
+        -12.994812201295284,
+        -8.66815073158709e-06,
+        -2589.9999614596395
+      ],
+      [
+        -12.994812201295233,
+        99.15207943282414,
+        -1.1360427151234329e-06,
+        -950.0000114440918
+      ],
+      [
+        8.742278316096947e-06,
+        -6.639505228334582e-14,
+        -99.99999999999962,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      14.100000381469727,
+      -9.5,
+      0.0
+    ],
+    "localRotation": [
+      -0.06511223316192627,
+      0.9978779554367065,
+      -2.8461466516915834e-09,
+      -4.3618634038011805e-08
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "88": {
+    "name": "particle (2)",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/particle (2)",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 35,
+    "matrix": [
+      [
+        87.8314879842443,
+        2.862817995996636e-05,
+        -47.80825993981303,
+        -3152.0000453829794
+      ],
+      [
+        47.808259939815336,
+        -1.4114734603332124e-06,
+        87.8314879842477,
+        -838.0000228881836
+      ],
+      [
+        2.4469755541267624e-05,
+        -99.99999999999591,
+        -1.4926352831512446e-05,
+        22.999876737594604
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      8.479999542236328,
+      -8.380000114440918,
+      0.22999876737594604
+    ],
+    "localRotation": [
+      0.6852582097053528,
+      0.17441707849502563,
+      -0.17441688477993011,
+      -0.685258150100708
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "89": {
+    "name": "fire3",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/fire3",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 35,
+    "matrix": [
+      [
+        -95.72444248707394,
+        -28.92803329884,
+        -8.742278524829982e-06,
+        -4223.000001513961
+      ],
+      [
+        -28.928033298840113,
+        95.72444248707433,
+        -1.8487821963406049e-13,
+        -2.0000715628266335
+      ],
+      [
+        8.368497432042358e-06,
+        2.5289690657665205e-06,
+        -99.99999999999962,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      -2.2300000190734863,
+      -0.020000601187348366,
+      0.0
+    ],
+    "localRotation": [
+      -0.1462114453315735,
+      0.9892533421516418,
+      6.391104978575868e-09,
+      -4.324164137869957e-08
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "90": {
+    "name": "fire4",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/fire4",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 35,
+    "matrix": [
+      [
+        -97.63563394414702,
+        -21.616729269814478,
+        -8.74227870079649e-06,
+        -3392.9999824404745
+      ],
+      [
+        -21.61672926981456,
+        97.63563394414739,
+        -1.2946142390265985e-14,
+        235.99997806549072
+      ],
+      [
+        8.535579233485355e-06,
+        1.8897947061237902e-06,
+        -99.99999999999963,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      6.070000171661377,
+      2.359999895095825,
+      0.0
+    ],
+    "localRotation": [
+      -0.10872823745012283,
+      0.9940714836120605,
+      4.752662707829813e-09,
+      -4.345224979829254e-08
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "91": {
+    "name": "particle (4)",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo/Wakamo_Scene_0/SkeletonUtility-SkeletonRoot/root/All_Layer/FX_Wakamo_Scene_0/particle (4)",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 35,
+    "matrix": [
+      [
+        87.8314879842443,
+        2.862817995996636e-05,
+        -47.80825993981303,
+        -3883.0000038981466
+      ],
+      [
+        47.808259939815336,
+        -1.4114734603332124e-06,
+        87.8314879842477,
+        -215.00002098083496
+      ],
+      [
+        2.4469755541267624e-05,
+        -99.99999999999591,
+        -1.4926352831512446e-05,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      1.1699999570846558,
+      -2.1500000953674316,
+      0.0
+    ],
+    "localRotation": [
+      0.6852582097053528,
+      0.17441707849502563,
+      -0.17441688477993011,
+      -0.685258150100708
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "20": {
+    "name": "PPV",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/PPV",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": -1,
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "26": {
+    "name": "PPV_C",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/PPV/PPV_C",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 20,
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "27": {
+    "name": "PPV_D",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/PPV/PPV_D",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 20,
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "21": {
+    "name": "Glow",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/Glow",
+    "active": false,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": -1,
+    "matrix": [
+      [
+        4000.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        3500.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "localScale": [
+      4000.0,
+      3500.0,
+      1.0
+    ]
+  },
+  "22": {
+    "name": "FX_Wakamo_BG",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG",
+    "active": false,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": -1,
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "28": {
+    "name": "fire1",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG/fire1",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 22,
+    "matrix": [
+      [
+        64.65797525327294,
+        -76.28463958194432,
+        0.0,
+        -228.0
+      ],
+      [
+        76.28463958194432,
+        64.65797525327294,
+        0.0,
+        -113.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      -228.0,
+      -113.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      0.42036905884742737,
+      0.9073532819747925
+    ],
+    "localScale": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "29": {
+    "name": "fire2",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG/fire2",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 22,
+    "matrix": [
+      [
+        64.65797525327294,
+        -76.28463958194432,
+        0.0,
+        -1451.0
+      ],
+      [
+        76.28463958194432,
+        64.65797525327294,
+        0.0,
+        -41.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      -1451.0,
+      -41.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      0.42036905884742737,
+      0.9073532819747925
+    ],
+    "localScale": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "30": {
+    "name": "fire3",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG/fire3",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 22,
+    "matrix": [
+      [
+        64.65797525327294,
+        -76.28463958194432,
+        0.0,
+        -1141.0
+      ],
+      [
+        76.28463958194432,
+        64.65797525327294,
+        0.0,
+        665.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      -1141.0,
+      665.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      0.42036905884742737,
+      0.9073532819747925
+    ],
+    "localScale": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "31": {
+    "name": "fire4",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG/fire4",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 22,
+    "matrix": [
+      [
+        64.65797525327294,
+        -76.28463958194432,
+        0.0,
+        615.0
+      ],
+      [
+        76.28463958194432,
+        64.65797525327294,
+        0.0,
+        462.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      615.0,
+      462.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      0.42036905884742737,
+      0.9073532819747925
+    ],
+    "localScale": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "32": {
+    "name": "particle",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG/particle",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 22,
+    "matrix": [
+      [
+        77.9145463384068,
+        2.8639742050140526e-05,
+        -62.684315972015185,
+        607.0
+      ],
+      [
+        62.68431597201749,
+        1.1533301036426025e-06,
+        77.9145463384102,
+        -437.0
+      ],
+      [
+        2.3037482183019264e-05,
+        -99.99999999999591,
+        -1.7054014483930402e-05,
+        22.9998779296875
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      607.0,
+      -437.0,
+      22.9998779296875
+    ],
+    "localRotation": [
+      0.6669231057167053,
+      0.2349759191274643,
+      -0.23497572541236877,
+      -0.6669230461120605
+    ],
+    "localScale": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "33": {
+    "name": "fire_bg",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG/fire_bg",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 22,
+    "matrix": [
+      [
+        64.65797525327294,
+        -76.28463958194432,
+        0.0,
+        0.0
+      ],
+      [
+        76.28463958194432,
+        64.65797525327294,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      -0.0,
+      -0.0,
+      0.42036905884742737,
+      0.9073532819747925
+    ],
+    "localScale": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "23": {
+    "name": "FX_Wakamo_BG_Fire",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG_Fire",
+    "active": false,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": -1,
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "localRotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "localScale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "34": {
+    "name": "fire1",
+    "hierarchy": "LobbyWakamo/Wakamo_LobbySpine/Wakamo_BG/FX_Wakamo_BG_Fire/fire1",
+    "active": true,
+    "couldActive": true,
+    "transformToParent": null,
+    "parent": 23,
+    "matrix": [
+      [
+        87.54242085716591,
+        -16.86840379624493,
+        24.353128591769487,
+        471.0
+      ],
+      [
+        34.051239130731666,
+        50.569131835845404,
+        -25.442825964978795,
+        -1218.0
+      ],
+      [
+        -13.522128299213662,
+        18.136249784779785,
+        93.59266923594254,
+        1956.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localPosition": [
+      471.0,
+      -1218.0,
+      1956.0
+    ],
+    "localRotation": [
+      -0.14872685074806213,
+      -0.09958404302597046,
+      -0.1698468029499054,
+      -0.9690797328948975
+    ],
+    "localScale": [
+      94.9000015258789,
+      56.30900192260742,
+      100.0
+    ]
+  }
+}

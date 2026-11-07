@@ -1,32 +1,11 @@
 {
-  "bgm": "",
   "animationClip": [
     {
       "loop": false,
       "PPtrMapping": {},
       "data": [
         {
-          "gameObject": 24,
-          "node": {
-            "m_Component": [
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": 1114238116370339894
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": 4893746990706443449
-                }
-              }
-            ],
-            "m_Layer": 30,
-            "m_Name": "PPV_C",
-            "m_Tag": 0,
-            "m_IsActive": true
-          },
+          "gameObject": 21,
           "isPPtrCurve": false,
           "frames": [
             {
@@ -39,32 +18,7 @@
           "property": "m_IsActive"
         },
         {
-          "gameObject": 24,
-          "node": {
-            "m_Name": "Volume",
-            "m_ExecutionOrder": 0,
-            "m_PropertiesHash": {
-              "bytes[0]": 80,
-              "bytes[1]": 106,
-              "bytes[2]": 3,
-              "bytes[3]": 212,
-              "bytes[4]": 100,
-              "bytes[5]": 73,
-              "bytes[6]": 102,
-              "bytes[7]": 212,
-              "bytes[8]": 203,
-              "bytes[9]": 186,
-              "bytes[10]": 210,
-              "bytes[11]": 7,
-              "bytes[12]": 38,
-              "bytes[13]": 131,
-              "bytes[14]": 178,
-              "bytes[15]": 110
-            },
-            "m_ClassName": "Volume",
-            "m_Namespace": "UnityEngine.Rendering",
-            "m_AssemblyName": "Unity.RenderPipelines.Core.Runtime.dll"
-          },
+          "gameObject": 21,
           "isPPtrCurve": false,
           "frames": [
             {
@@ -74,305 +28,123 @@
               "outSlope": 0.0
             },
             {
-              "time": 0.4,
-              "value": 0.5,
-              "inSlope": -0.91,
-              "outSlope": -0.9090908765792847
-            },
-            {
-              "time": 1.1,
-              "value": 0.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 15.4,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 15.733,
-              "value": 1.0,
-              "inSlope": 0.02,
-              "outSlope": 0.0
-            },
-            {
-              "time": 15.9,
-              "value": 1.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 16.233,
-              "value": 0.3,
-              "inSlope": -0.92,
-              "outSlope": -0.9090905785560608
-            },
-            {
-              "time": 17.0,
+              "time": 0.667,
               "value": 0.0,
               "inSlope": 0.0,
-              "outSlope": null
-            }
-          ],
-          "property": "weight"
-        },
-        {
-          "gameObject": 20,
-          "node": {
-            "m_Component": [
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": 6892011311931342416
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": 579922449964773636
-                }
-              }
-            ],
-            "m_Layer": 12,
-            "m_Name": "Glow",
-            "m_Tag": 0,
-            "m_IsActive": false
-          },
-          "isPPtrCurve": false,
-          "frames": [
-            {
-              "time": 0.0,
-              "value": 1.0,
-              "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 0.133,
+              "time": 11.767,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.767,
-              "value": 1.0,
+              "time": 12.3,
+              "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.9,
+              "time": 12.967,
               "value": 0.0,
               "inSlope": null,
-              "outSlope": null
-            }
-          ],
-          "property": "m_IsActive"
-        },
-        {
-          "gameObject": 20,
-          "node": {
-            "m_GameObject": {
-              "m_FileID": 0,
-              "m_PathID": -3874892018019816822
-            },
-            "m_Enabled": true,
-            "m_CastShadows": 0,
-            "m_ReceiveShadows": 0,
-            "m_DynamicOccludee": 1,
-            "m_StaticShadowCaster": 0,
-            "m_MotionVectors": 1,
-            "m_LightProbeUsage": 1,
-            "m_ReflectionProbeUsage": 1,
-            "m_RayTracingMode": 0,
-            "m_RayTraceProcedural": 0,
-            "m_RenderingLayerMask": 1,
-            "m_RendererPriority": 0,
-            "m_LightmapIndex": 65535,
-            "m_LightmapIndexDynamic": 65535,
-            "m_LightmapTilingOffset": {
-              "x": 1.0,
-              "y": 1.0,
-              "z": 0.0,
-              "w": 0.0
-            },
-            "m_LightmapTilingOffsetDynamic": {
-              "x": 1.0,
-              "y": 1.0,
-              "z": 0.0,
-              "w": 0.0
-            },
-            "m_Materials": [
-              {
-                "m_FileID": 1,
-                "m_PathID": 5766563141883561943
-              }
-            ],
-            "m_StaticBatchInfo": {
-              "firstSubMesh": 0,
-              "subMeshCount": 0
-            },
-            "m_StaticBatchRoot": {
-              "m_FileID": 0,
-              "m_PathID": 0
-            },
-            "m_ProbeAnchor": {
-              "m_FileID": 0,
-              "m_PathID": 0
-            },
-            "m_LightProbeVolumeOverride": {
-              "m_FileID": 0,
-              "m_PathID": 0
-            },
-            "m_SortingLayerID": 0,
-            "m_SortingLayer": 0,
-            "m_SortingOrder": 6,
-            "m_Sprite": {
-              "m_FileID": 25,
-              "m_PathID": 6176094314438249057
-            },
-            "m_Color": {
-              "r": 1.0,
-              "g": 1.0,
-              "b": 1.0,
-              "a": 1.0
-            },
-            "m_FlipX": false,
-            "m_FlipY": false,
-            "m_DrawMode": 0,
-            "m_Size": {
-              "x": 1.0,
-              "y": 1.0
-            },
-            "m_AdaptiveModeThreshold": 0.5,
-            "m_SpriteTileMode": 0,
-            "m_WasSpriteAssigned": true,
-            "m_MaskInteraction": 0,
-            "m_SpriteSortPoint": 0
-          },
-          "isPPtrCurve": false,
-          "frames": [
-            {
-              "time": 0.0,
-              "value": 1.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 0.133,
-              "value": 0.0,
-              "inSlope": -0.11,
               "outSlope": null
             }
           ],
           "property": "m_Color.a"
         },
         {
-          "gameObject": 23,
-          "node": {
-            "m_Name": "Volume",
-            "m_ExecutionOrder": 0,
-            "m_PropertiesHash": {
-              "bytes[0]": 80,
-              "bytes[1]": 106,
-              "bytes[2]": 3,
-              "bytes[3]": 212,
-              "bytes[4]": 100,
-              "bytes[5]": 73,
-              "bytes[6]": 102,
-              "bytes[7]": 212,
-              "bytes[8]": 203,
-              "bytes[9]": 186,
-              "bytes[10]": 210,
-              "bytes[11]": 7,
-              "bytes[12]": 38,
-              "bytes[13]": 131,
-              "bytes[14]": 178,
-              "bytes[15]": 110
-            },
-            "m_ClassName": "Volume",
-            "m_Namespace": "UnityEngine.Rendering",
-            "m_AssemblyName": "Unity.RenderPipelines.Core.Runtime.dll"
-          },
+          "gameObject": 26,
           "isPPtrCurve": false,
           "frames": [
             {
               "time": 0.0,
-              "value": 1.0,
+              "value": 0.44,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
               "time": 1.667,
               "value": 0.0,
-              "inSlope": null,
+              "inSlope": 0.0,
               "outSlope": 0.0
             },
             {
-              "time": 15.867,
+              "time": 11.033,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 15.9,
-              "value": 1.0,
-              "inSlope": 1.78,
-              "outSlope": 0.0
+              "time": 11.933,
+              "value": 0.21,
+              "inSlope": 0.47,
+              "outSlope": 0.46550387144088745
             },
             {
-              "time": 16.533,
+              "time": 12.4,
+              "value": 0.95,
+              "inSlope": -0.01,
+              "outSlope": -0.0004896964528597891
+            },
+            {
+              "time": 13.0,
+              "value": 0.46,
+              "inSlope": -0.28,
+              "outSlope": -0.281999796628952
+            },
+            {
+              "time": 13.6,
               "value": 0.0,
-              "inSlope": null,
+              "inSlope": -0.0,
               "outSlope": null
             }
           ],
           "property": "weight"
-        }
-      ]
-    },
-    {
-      "loop": false,
-      "PPtrMapping": {},
-      "data": [
+        },
         {
-          "gameObject": 32,
-          "node": {
-            "m_Component": [
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": -7093424317318327289
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": 9048733775183149850
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": -4005343698666521209
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": -5692793407538752205
-                }
-              }
-            ],
-            "m_Layer": 12,
-            "m_Name": "particle_start",
-            "m_Tag": 0,
-            "m_IsActive": true
-          },
+          "gameObject": 27,
           "isPPtrCurve": false,
           "frames": [
             {
-              "time": 0.0,
+              "time": 1.167,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 1.333,
+              "value": 1.0,
+              "inSlope": 0.14,
+              "outSlope": 0.0
+            },
+            {
+              "time": 1.5,
+              "value": 0.0,
+              "inSlope": 0.07,
+              "outSlope": 0.0
+            },
+            {
+              "time": 2.033,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 2.2,
+              "value": 1.0,
+              "inSlope": -0.07,
+              "outSlope": 0.0
+            },
+            {
+              "time": 2.367,
+              "value": 0.0,
+              "inSlope": 0.07,
+              "outSlope": 0.0
+            },
+            {
+              "time": 3.033,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
@@ -380,17 +152,143 @@
             {
               "time": 3.133,
               "value": 1.0,
+              "inSlope": 0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 3.233,
+              "value": 0.0,
+              "inSlope": 0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 4.333,
+              "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 6.867,
+              "time": 4.433,
+              "value": 1.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 4.533,
+              "value": 0.0,
+              "inSlope": 0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 5.7,
               "value": 0.0,
               "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 5.8,
+              "value": 1.0,
+              "inSlope": 0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 5.9,
+              "value": 0.0,
+              "inSlope": 0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 7.067,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 7.167,
+              "value": 1.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 7.267,
+              "value": 0.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 8.867,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 8.967,
+              "value": 1.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 9.067,
+              "value": 0.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 10.3,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 10.4,
+              "value": 1.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 10.5,
+              "value": 0.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 11.3,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 11.4,
+              "value": 1.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 11.5,
+              "value": 0.0,
+              "inSlope": -0.0,
+              "outSlope": 0.0
+            },
+            {
+              "time": 14.533,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 14.767,
+              "value": 1.0,
+              "inSlope": -0.07,
+              "outSlope": 0.0
+            },
+            {
+              "time": 15.0,
+              "value": 0.0,
+              "inSlope": -0.04,
               "outSlope": null
             }
           ],
-          "property": "m_IsActive"
+          "property": "weight"
         }
       ]
     },
@@ -399,106 +297,190 @@
       "PPtrMapping": {},
       "data": [
         {
-          "gameObject": 47,
-          "node": {
-            "m_Component": [
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": -1779143853375230005
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": -7352744280307227567
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": 8078854460309080449
-                }
-              }
-            ],
-            "m_Layer": 12,
-            "m_Name": "boke_R_3 (3)",
-            "m_Tag": 0,
-            "m_IsActive": true
-          },
+          "gameObject": 11,
           "isPPtrCurve": false,
           "frames": [
             {
               "time": 0.0,
-              "value": 1.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 6.9,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 16.067,
-              "value": 1.0,
+              "time": 12.333,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.367,
+              "value": 0.0,
               "inSlope": null,
               "outSlope": null
             }
           ],
-          "property": "m_IsActive"
+          "property": "m_LocalPosition.x"
         },
         {
-          "gameObject": 48,
-          "node": {
-            "m_Component": [
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": 8994453656378749780
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": -137249160980171852
-                }
-              },
-              {
-                "component": {
-                  "m_FileID": 0,
-                  "m_PathID": -3125386334588516747
-                }
-              }
-            ],
-            "m_Layer": 12,
-            "m_Name": "boke_R_3 (4)",
-            "m_Tag": 0,
-            "m_IsActive": true
-          },
+          "gameObject": 11,
           "isPPtrCurve": false,
           "frames": [
             {
               "time": 0.0,
-              "value": 1.0,
+              "value": -5000.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 6.9,
+              "time": 12.333,
+              "value": -5000.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.367,
+              "value": -962.0,
+              "inSlope": -14817.03,
+              "outSlope": null
+            }
+          ],
+          "property": "m_LocalPosition.y"
+        },
+        {
+          "gameObject": 11,
+          "isPPtrCurve": false,
+          "frames": [
+            {
+              "time": 0.0,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 16.067,
-              "value": 1.0,
+              "time": 12.333,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.367,
+              "value": 0.0,
               "inSlope": null,
               "outSlope": null
             }
           ],
-          "property": "m_IsActive"
+          "property": "m_LocalPosition.z"
+        },
+        {
+          "gameObject": 19,
+          "isPPtrCurve": false,
+          "frames": [
+            {
+              "time": 0.0,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.333,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.367,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": null
+            }
+          ],
+          "property": "m_LocalPosition.x"
+        },
+        {
+          "gameObject": 19,
+          "isPPtrCurve": false,
+          "frames": [
+            {
+              "time": 0.0,
+              "value": -962.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.333,
+              "value": -962.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.367,
+              "value": -5000.0,
+              "inSlope": 14817.03,
+              "outSlope": null
+            }
+          ],
+          "property": "m_LocalPosition.y"
+        },
+        {
+          "gameObject": 19,
+          "isPPtrCurve": false,
+          "frames": [
+            {
+              "time": 0.0,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.333,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 12.367,
+              "value": 0.0,
+              "inSlope": null,
+              "outSlope": null
+            }
+          ],
+          "property": "m_LocalPosition.z"
+        },
+        {
+          "gameObject": null,
+          "isPPtrCurve": false,
+          "frames": [],
+          "property": "m_LocalPosition.x"
+        },
+        {
+          "gameObject": null,
+          "isPPtrCurve": false,
+          "frames": [],
+          "property": "m_LocalPosition.y"
+        },
+        {
+          "gameObject": null,
+          "isPPtrCurve": false,
+          "frames": [],
+          "property": "m_LocalPosition.z"
+        },
+        {
+          "gameObject": null,
+          "isPPtrCurve": false,
+          "frames": [],
+          "property": "m_LocalPosition.x"
+        },
+        {
+          "gameObject": null,
+          "isPPtrCurve": false,
+          "frames": [],
+          "property": "m_LocalPosition.y"
+        },
+        {
+          "gameObject": null,
+          "isPPtrCurve": false,
+          "frames": [],
+          "property": "m_LocalPosition.z"
         }
       ]
     }
@@ -507,112 +489,134 @@
     {
       "duration": 0.4,
       "start": 0.033,
-      "volume": 0.018,
-      "audios": [
-        "SE_Wind_02"
-      ]
-    },
-    {
-      "duration": 0.4,
-      "start": 1.967,
-      "volume": 0.06,
-      "audios": [
-        "SFX_Spine_Whoosh_Low"
-      ]
-    },
-    {
-      "duration": 1.433,
-      "start": 3.267,
-      "volume": 0.13,
-      "audios": [
-        "SE_DustWind_02"
-      ]
-    },
-    {
-      "duration": 0.4,
-      "start": 15.0,
-      "volume": 0.32,
+      "volume": 0.42,
       "audios": [
         "SFX_Spine_Whoosh_Soft_Very_01"
       ]
     },
     {
       "duration": 0.4,
-      "start": 6.5,
+      "start": 3.467,
+      "volume": 0.42,
+      "audios": [
+        "SFX_Spine_Whoosh_Roughly_Soft"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 11.667,
+      "volume": 0.08,
+      "audios": [
+        "SFX_LobbySpine_W"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 14.3,
+      "volume": 0.08,
+      "audios": [
+        "SFX_Chime_FX_00"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 0.1,
+      "volume": 0.23,
+      "audios": [
+        "SFX_Spine_Whoosh_LowMid"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 3.3,
       "volume": 0.2,
       "audios": [
-        "SFX_Spine_Cloth_03"
-      ]
-    },
-    {
-      "duration": 0.433,
-      "start": 11.8,
-      "volume": 0.1,
-      "audios": [
-        "SFX_Emoticon_Motion_Shy"
+        "SFX_Spine_Flaps"
       ]
     },
     {
       "duration": 0.4,
-      "start": 9.5,
-      "volume": 0.08,
+      "start": 11.4,
+      "volume": 0.5,
       "audios": [
-        "SFX_Spine_Whoosh_Low"
-      ]
-    },
-    {
-      "duration": 0.4,
-      "start": 0.033,
-      "volume": 0.05,
-      "audios": [
-        "SFX_Spine_Comet"
-      ]
-    },
-    {
-      "duration": 0.4,
-      "start": 7.9,
-      "volume": 0.08,
-      "audios": [
-        "UI_Bubble"
-      ]
-    },
-    {
-      "duration": 0.4,
-      "start": 15.0,
-      "volume": 0.018,
-      "audios": [
-        "UI_FX_BG_Love_L"
-      ]
-    },
-    {
-      "duration": 1.433,
-      "start": 9.9,
-      "volume": 0.13,
-      "audios": [
-        "SE_DustWind_02"
-      ]
-    },
-    {
-      "duration": 0.4,
-      "start": 0.333,
-      "volume": 0.13,
-      "audios": [
-        "SE_DustWind_02"
+        "SFX_Spine_Cloth_01"
       ]
     }
   ],
   "spineAnimation": [
     {
-      "duration": 19.0,
+      "duration": 13.333,
       "start": 0.0,
       "ifCustomDuration": true,
-      "spineClip": 7
+      "spineClip": 20
     },
     {
-      "duration": 6.667,
-      "start": 19.0,
+      "duration": 3.333,
+      "start": 12.333,
       "ifCustomDuration": true,
-      "spineClip": 18
+      "spineClip": 8
+    },
+    {
+      "duration": 3.333,
+      "start": 15.667,
+      "ifCustomDuration": true,
+      "spineClip": 19
     }
-  ]
+  ],
+  "controlTrack": [
+    {
+      "gameObject": 35,
+      "track": "Control Track",
+      "start": 0.0,
+      "duration": 12.333333,
+      "clipIn": 2.3,
+      "timeScale": 1.0,
+      "initialActive": false,
+      "active": true,
+      "postPlayback": 2,
+      "updateParticle": true,
+      "particleRandomSeed": 1339,
+      "searchHierarchy": false,
+      "updateDirector": true,
+      "updateITimeControl": true,
+      "directorOnClipEnd": 0
+    },
+    {
+      "gameObject": 22,
+      "track": "Control Track (1)",
+      "start": 11.666667,
+      "duration": 2.7,
+      "clipIn": 0.0,
+      "timeScale": 1.0,
+      "initialActive": false,
+      "active": true,
+      "postPlayback": 2,
+      "updateParticle": true,
+      "particleRandomSeed": 1339,
+      "searchHierarchy": false,
+      "updateDirector": true,
+      "updateITimeControl": true,
+      "directorOnClipEnd": 0
+    }
+  ],
+  "bgm": {
+    "path": [
+      "Theme_77.ogg"
+    ],
+    "volume": [
+      1.0
+    ],
+    "loopStart": [
+      0.0
+    ],
+    "loopEnd": [
+      0.0
+    ],
+    "transition": [
+      0.20000000298023224
+    ],
+    "loopOffset": [
+      0.0
+    ]
+  }
 }

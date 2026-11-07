@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "loop": true,
+    "volume": 1.0,
+    "audio": "UI_FX_BG_Fireplace_L"
+  }
+]

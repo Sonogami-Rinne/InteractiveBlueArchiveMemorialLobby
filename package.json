@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vitejs/plugin-legacy": "^6.1.1",
+    "pixi-unity-particle": "file:../../vite/pixi-unity-particle/dist",
     "vue": "^3.5.13"
   },
   "devDependencies": {
