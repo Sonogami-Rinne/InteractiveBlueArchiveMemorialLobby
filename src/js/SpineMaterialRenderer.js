@@ -150,12 +150,8 @@ class SpineMaterialPage extends PIXI.RenderContainer {
         for (const run of runs) {
             this.state.blendMode = ['normal', 'add', 'multiply', 'screen'][run.blendMode] ?? 'normal';
             renderer.state.set(this.state);
-            const restore = applyBlendInfo(gl, material.blendInfo, run.blendMode);
-            try {
-                gl.drawElements(gl.TRIANGLES, run.count, gl.UNSIGNED_INT, run.start * 4);
-            } finally {
-                restore();
-            }
+            applyBlendInfo(gl, material.blendInfo, run.blendMode);
+            gl.drawElements(gl.TRIANGLES, run.count, gl.UNSIGNED_INT, run.start * 4);
         }
     }
 

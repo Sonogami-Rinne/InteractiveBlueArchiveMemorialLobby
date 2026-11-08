@@ -114,13 +114,9 @@ class MaterialQuad extends PIXI.RenderContainer {
         renderer.state.set(this.state);
         renderer.geometry.bind(this.geometry, this.material.shader.glProgram);
         const gl = renderer.gl;
-        const restore = applyBlendInfo(gl, this.material.blendInfo);
-        try {
-            const bytes = this.geometry.indexBuffer.data.BYTES_PER_ELEMENT;
-            gl.drawElements(gl.TRIANGLES, this.drawRange.count, bytes === 2 ? gl.UNSIGNED_SHORT : gl.UNSIGNED_INT, this.drawRange.start * bytes);
-        } finally {
-            restore();
-        }
+        applyBlendInfo(gl, this.material.blendInfo);
+        const bytes = this.geometry.indexBuffer.data.BYTES_PER_ELEMENT;
+        gl.drawElements(gl.TRIANGLES, this.drawRange.count, bytes === 2 ? gl.UNSIGNED_SHORT : gl.UNSIGNED_INT, this.drawRange.start * bytes);
     }
 
     destroy() {

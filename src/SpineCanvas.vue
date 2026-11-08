@@ -1,6 +1,6 @@
 <script setup>
 import GameObjectHierarchy from "./js/GameObjectHierarchy";
-import { loadGameObjects } from "./js/util";
+import { loadGameObjects, warmupShaderPrograms } from "./js/util";
 import AudioController from "./js/AudioController";
 import InteractionController from "./js/InteractionController";
 import MaterialRendererController from "./js/MaterialRendererController";
@@ -84,7 +84,12 @@ onMounted(async () => {
         }, owner);
     }
     await timelineController.init(hierarchy);
-    await audioController.init();
+    // await warmupShaderPrograms(app.renderer);
+    // await audioController.init();
+    await Promise.all([
+        warmupShaderPrograms(app.renderer),
+        audioController.init()
+    ])
     updateViewportOffset();
     await audioController.waitForPlaybackPermission();
     timelineController.start();

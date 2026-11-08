@@ -1,4 +1,4 @@
-import { bloomSettings, getBloomPyramid } from './util.js';
+import { bloomSettings, getBloomPyramid, getShaderProgram } from './util.js';
 
 // Internal passes fill their own target, even when it is smaller than the input.
 // Pixi's ordinary filter vertex shader sizes the quad from the input instead.
@@ -120,10 +120,7 @@ const outputFragment = `${header}
 
 function makeOptions(name, fragment, uniforms = {}, resources = {}, vertex = fullscreenVertex) {
     return {
-        glProgram: PIXI.GlProgram.from({ name,
-            vertex: `#version 300 es\n${vertex}`,
-            fragment: `#version 300 es\n${fragment}`,
-        }),
+        glProgram: getShaderProgram(name, `#version 300 es\n${vertex}`, `#version 300 es\n${fragment}`),
         antialias: false,
         resolution: 'inherit',
         blendMode: 'none',

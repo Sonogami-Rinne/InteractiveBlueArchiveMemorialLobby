@@ -8,17 +8,12 @@ export function loadGameObjects() {
     });
 }
 
-// Restore direct GL changes so Pixi's cached state remains valid for later draws.
 export function applyBlendInfo(gl, info, slotBlendMode) {
-    if (!info) return () => {};
+    if (!info) return;
     const factors = [gl.ZERO, gl.ONE, gl.DST_COLOR, gl.SRC_COLOR, gl.ONE_MINUS_DST_COLOR,
         gl.SRC_ALPHA, gl.ONE_MINUS_SRC_COLOR, gl.DST_ALPHA, gl.ONE_MINUS_DST_ALPHA,
         gl.SRC_ALPHA_SATURATE, gl.ONE_MINUS_SRC_ALPHA];
     const operations = [gl.FUNC_ADD, gl.FUNC_SUBTRACT, gl.FUNC_REVERSE_SUBTRACT, gl.MIN, gl.MAX];
-    const previous = [gl.getParameter(gl.BLEND_SRC_RGB), gl.getParameter(gl.BLEND_DST_RGB),
-        gl.getParameter(gl.BLEND_SRC_ALPHA), gl.getParameter(gl.BLEND_DST_ALPHA),
-        gl.getParameter(gl.BLEND_EQUATION_RGB), gl.getParameter(gl.BLEND_EQUATION_ALPHA),
-        gl.getParameter(gl.COLOR_WRITEMASK)];
     let { srcBlend, dstBlend, srcBlendAlpha, dstBlendAlpha } = info;
     if (slotBlendMode === 1) {
         dstBlend = 1;
@@ -35,11 +30,6 @@ export function applyBlendInfo(gl, info, slotBlendMode) {
     gl.blendEquationSeparate(operations[info.blendOp], operations[info.blendOpAlpha]);
     const mask = info.colMask ?? 15;
     gl.colorMask(!!(mask & 8), !!(mask & 4), !!(mask & 2), !!(mask & 1));
-    return () => {
-        gl.blendFuncSeparate(previous[0], previous[1], previous[2], previous[3]);
-        gl.blendEquationSeparate(previous[4], previous[5]);
-        gl.colorMask(...previous[6]);
-    };
 }
 
 const materialComponents = { r: 0, g: 1, b: 2, a: 3, x: 0, y: 1, z: 2, w: 3 };
@@ -213,4 +203,32 @@ export function getBloomPyramid(width, height, settings = bloomSettings) {
         intensity: 2 ** (settings.intensity / 10) - 1,
         threshold: [settings.threshold, settings.threshold - knee, 2 * knee, 0.25 / knee],
     };
+}
+
+
+// A material owns its Shader/resources; only immutable program descriptions are
+// shared. Source variants include runtime changes for Spine, particles and UVs.
+const programsByName = new Map();
+
+export function getShaderProgram(name, vertex, fragment) {
+    let variants = programsByName.get(name);
+    if (!variants) programsByName.set(name, variants = new Map());
+    const key = JSON.stringify([vertex, fragment]);
+    let program = variants.get(key);
+    if (!program) {
+        program = PIXI.GlProgram.from({ name, vertex, fragment });
+        variants.set(key, program);
+    }
+    return program;
+}
+
+export async function warmupShaderPrograms(renderer) {
+    const programs = new Set([...programsByName.values()].flatMap(variants => [...variants.values()]));
+    for (const program of programs) {
+        // Pixi's context-owned cache is also used by normal shader binding.
+        // Preparing metadata here does not bind uniforms/textures or draw.
+        renderer.shader._getProgramData(program);
+        // Allow loading UI to update between synchronous program compilations.
+        await new Promise(resolve => setTimeout(resolve, 0));
+    }
 }

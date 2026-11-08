@@ -1,18 +1,6 @@
 [
   {
-    "intensity": 0.10000000149011612,
-    "lift": [
-      1.0,
-      1.0,
-      1.0,
-      0.0
-    ],
-    "gamma": [
-      0.9751160144805908,
-      0.9871565699577332,
-      1.0,
-      0.037151701748371124
-    ],
+    "intensity": 0.11999999731779099,
     "gain": [
       1.0,
       1.0,
@@ -22,11 +10,9 @@
     "schemaVersion": 2,
     "overrides": [
       "intensity",
-      "lift",
-      "gamma",
       "gain"
     ],
-    "gameObject": 19,
+    "gameObject": 20,
     "enabled": true,
     "active": true,
     "weight": 1.0,
@@ -36,21 +22,17 @@
   {
     "colorFilter": [
       1.0,
-      1.0,
-      1.0,
+      0.7028656601905823,
+      0.6745283007621765,
       1.0
     ],
-    "contrast": 0.0,
-    "hueShift": 0.0,
     "postExposure": 5.5,
     "schemaVersion": 2,
     "overrides": [
       "colorFilter",
-      "contrast",
-      "hueShift",
       "postExposure"
     ],
-    "gameObject": 22,
+    "gameObject": 26,
     "enabled": true,
     "active": true,
     "weight": 0.0,
@@ -60,7 +42,7 @@
   {
     "schemaVersion": 2,
     "overrides": [],
-    "gameObject": 23,
+    "gameObject": 27,
     "enabled": true,
     "active": true,
     "weight": 0.0,

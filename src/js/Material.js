@@ -1,3 +1,5 @@
+import { getShaderProgram } from './util.js';
+
 const WrapModeMap = {
     0: "repeat",
     1: "clamp-to-edge",
@@ -72,10 +74,7 @@ export class Material {
         };
         Object.assign(resources, this.textureSources);
         this.shader = new PIXI.Shader({
-            glProgram: new PIXI.GlProgram({
-                vertex: glVertCode,
-                fragment: glFragCode
-            }),
+            glProgram: getShaderProgram(this.shaderWithVariant, glVertCode, glFragCode),
             resources: resources
         });
     }

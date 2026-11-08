@@ -1,7 +1,7 @@
 [
   {
     "loop": true,
-    "volume": 0.4,
-    "audio": "UI_FX_BG_Cooking_L"
+    "volume": 1.0,
+    "audio": "UI_FX_BG_Fireplace_L"
   }
 ]
