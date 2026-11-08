@@ -128,7 +128,7 @@ class SpineController {
             if (index != this.mainSpineIndex) {
                 spineObj.state.addListener({
                     complete: entry => {
-                        if (entry.m_oriTrack < 0 && !entry.loop) {
+                        if (entry.m_oriTrack < 0 && !entry.loop && !entry.m_holdLastFrame) {
                             spineObj.visible = false;
                         }
                     }
@@ -196,15 +196,22 @@ class SpineController {
     update(deltaTime) {
         for (const view of this.spineObjs) view.update(deltaTime);
     }
-    playClip(clipIndex, duration, delay) {
+    playClip(clipIndex, duration, delay, { immediate = false, holdLastFrame = false } = {}) {
         const clip = this.clips[clipIndex];
         if (!clip) {
             console.warn(`Unknown Spine clip index: ${clipIndex}`);
             return null;
         }
         const audioController = this.audioController;
-        let trackEntry = this.spineObjs[clip.skeleton].state.addAnimation(Math.max(clip.track, 0), clip.clipName, clip.loop, delay);
+        const state = this.spineObjs[clip.skeleton].state;
+        const track = Math.max(clip.track, 0);
+        const trackEntry = immediate
+            ? state.setAnimation(track, clip.clipName, clip.loop)
+            : state.addAnimation(track, clip.clipName, clip.loop, delay);
         trackEntry.m_oriTrack = clip.track;
+        trackEntry.m_holdLastFrame = holdLastFrame && !clip.loop;
+        // Non-looping entries keep applying their last frame until replaced.
+        // Do not queue an empty animation while the interaction is held.
         // Timeline clip length is independent of the authored loop period.
         if (!clip.loop && duration != null) {
             trackEntry.animationEnd = duration;
@@ -212,8 +219,8 @@ class SpineController {
         if (!clip.useDefaultIntroMix) {
             trackEntry.mixDuration = clip.introMix;
         }
-        if (!clip.loop && (!clip.useDefaultIntroMix || !clip.useDefaultOutroMix)){
-            this.spineObjs[clip.skeleton].state.addEmptyAnimation(clip.track, clip.useDefaultOutroMix ? this.spineObjs[clip.skeleton].state.data.defaultMix : clip.outroMix);
+        if (!clip.loop && !holdLastFrame && (!clip.useDefaultIntroMix || !clip.useDefaultOutroMix)){
+            state.addEmptyAnimation(track, clip.useDefaultOutroMix ? state.data.defaultMix : clip.outroMix);
         }
         clip.soundKeys.forEach(soundKey => {
             soundKey.audios.forEach(audio => {
@@ -221,7 +228,7 @@ class SpineController {
             });
         });
         clip.syncPlays.forEach(syncPlay => {
-            this.playClip(syncPlay, null, 0);
+            this.playClip(syncPlay, null, 0, { immediate, holdLastFrame });
         });
         return trackEntry;
     }

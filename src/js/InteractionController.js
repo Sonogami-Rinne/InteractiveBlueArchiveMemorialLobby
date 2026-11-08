@@ -194,7 +194,9 @@ class InteractionController {
                 this.activePointerId = e.pointerId;
                 const interaction = this.interactions[index];
                 if (!interaction.isBodyTouch) {
-                    this.spineController.playClip(interaction.inSpineClip, null, 0);
+                    this.spineController.playClip(interaction.inSpineClip, null, 0, {
+                        immediate: true, holdLastFrame: true,
+                    });
                     const spineScale = this.spineController.getMainSpineScale();
                     this.__dragSpeedX = interaction.dragSpeed / spineScale.y;
                     this.__dragSpeedY = interaction.dragSpeed / spineScale.x;
@@ -251,7 +253,7 @@ class InteractionController {
         const interaction = this.interactions[this.currentInteraction];
         this.currentInteraction = -1;
         this.activePointerId = null;
-        this.spineController.playClip(interaction.endSpineClip, null, 0);
+        this.spineController.playClip(interaction.endSpineClip, null, 0, { immediate: true });
         const bone = this.__bone;
         const initialX = interaction.dragInitPos.x;
         const initialY = interaction.dragInitPos.y;
