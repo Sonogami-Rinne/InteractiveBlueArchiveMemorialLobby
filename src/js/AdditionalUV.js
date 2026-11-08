@@ -20,6 +20,7 @@ export const additionalUVImages = {
     'FX_TEX_Wakamo_Lobby_Fire_04': UV_GROUPS.quarter,
     'FX_TEX_9999_PT_01': UV_GROUPS.quarter,
     'FX_TEX_9999_PT_02': UV_GROUPS.quarter,
+    'FX_TEX_dust_Source_03': UV_GROUPS.quarter,
 
     'Spine_TEX_Star_Source_01': UV_GROUPS.single,
     'Spine_TEX_Star_Source_B': UV_GROUPS.single,
@@ -61,7 +62,9 @@ export const additionalUVImages = {
     'FX_TEX_Triangle_05': UV_GROUPS.single,
     'FX_TEX_Gra_02b': UV_GROUPS.single,
     'FX_TEX_Gra_L_03_UI': UV_GROUPS.single,
-    'FX_TEX_Mask_08': UV_GROUPS.single
+    'FX_TEX_Mask_08': UV_GROUPS.single,
+    'Spine_boke_00': UV_GROUPS.single,
+    'FX_Star_01_F_01': UV_GROUPS.single
 
 };
 

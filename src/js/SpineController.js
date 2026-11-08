@@ -91,6 +91,8 @@ class SpineController {
                 atlas: atlas.atlas,
                 scale: data.skeletonScale ?? 1
             });
+            // Timeline owns the frame order so particle prewarm sees this frame's bones.
+            spineObj.autoUpdate = false;
             const scaleX = data.gameObjectScale?.[0] ?? 1;
             const scaleY = data.gameObjectScale?.[1] ?? 1;
             spineObj.m_gameObjectScaleX = scaleX;
@@ -190,6 +192,9 @@ class SpineController {
             active = false;
             if (owner.afterUpdateWorldTransforms === callback) owner.afterUpdateWorldTransforms = previous;
         };
+    }
+    update(deltaTime) {
+        for (const view of this.spineObjs) view.update(deltaTime);
     }
     playClip(clipIndex, duration, delay) {
         const clip = this.clips[clipIndex];

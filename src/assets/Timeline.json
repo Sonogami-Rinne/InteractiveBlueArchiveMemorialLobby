@@ -5,12 +5,18 @@
       "PPtrMapping": {},
       "data": [
         {
-          "gameObject": 21,
+          "gameObject": 20,
           "isPPtrCurve": false,
           "frames": [
             {
               "time": 0.0,
               "value": 1.0,
+              "inSlope": null,
+              "outSlope": 0.0
+            },
+            {
+              "time": 18.0,
+              "value": 0.0,
               "inSlope": null,
               "outSlope": null
             }
@@ -18,7 +24,7 @@
           "property": "m_IsActive"
         },
         {
-          "gameObject": 21,
+          "gameObject": 20,
           "isPPtrCurve": false,
           "frames": [
             {
@@ -34,261 +40,62 @@
               "outSlope": 0.0
             },
             {
-              "time": 11.767,
+              "time": 15.933,
               "value": 0.0,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 12.3,
-              "value": 0.0,
-              "inSlope": null,
+              "time": 17.0,
+              "value": 1.0,
+              "inSlope": -0.0,
               "outSlope": 0.0
             },
             {
-              "time": 12.967,
+              "time": 18.0,
               "value": 0.0,
-              "inSlope": null,
+              "inSlope": 0.0,
               "outSlope": null
             }
           ],
           "property": "m_Color.a"
         },
         {
-          "gameObject": 26,
+          "gameObject": 23,
           "isPPtrCurve": false,
           "frames": [
             {
               "time": 0.0,
-              "value": 0.44,
+              "value": 0.63,
               "inSlope": null,
               "outSlope": 0.0
             },
             {
-              "time": 1.667,
+              "time": 0.567,
               "value": 0.0,
               "inSlope": 0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 11.033,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 11.933,
-              "value": 0.21,
-              "inSlope": 0.47,
-              "outSlope": 0.46550387144088745
-            },
-            {
-              "time": 12.4,
-              "value": 0.95,
-              "inSlope": -0.01,
-              "outSlope": -0.0004896964528597891
-            },
-            {
-              "time": 13.0,
-              "value": 0.46,
-              "inSlope": -0.28,
-              "outSlope": -0.281999796628952
-            },
-            {
-              "time": 13.6,
-              "value": 0.0,
-              "inSlope": -0.0,
               "outSlope": null
             }
           ],
           "property": "weight"
         },
         {
-          "gameObject": 27,
+          "gameObject": 20,
           "isPPtrCurve": false,
-          "frames": [
-            {
-              "time": 1.167,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 1.333,
-              "value": 1.0,
-              "inSlope": 0.14,
-              "outSlope": 0.0
-            },
-            {
-              "time": 1.5,
-              "value": 0.0,
-              "inSlope": 0.07,
-              "outSlope": 0.0
-            },
-            {
-              "time": 2.033,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 2.2,
-              "value": 1.0,
-              "inSlope": -0.07,
-              "outSlope": 0.0
-            },
-            {
-              "time": 2.367,
-              "value": 0.0,
-              "inSlope": 0.07,
-              "outSlope": 0.0
-            },
-            {
-              "time": 3.033,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 3.133,
-              "value": 1.0,
-              "inSlope": 0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 3.233,
-              "value": 0.0,
-              "inSlope": 0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 4.333,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 4.433,
-              "value": 1.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 4.533,
-              "value": 0.0,
-              "inSlope": 0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 5.7,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 5.8,
-              "value": 1.0,
-              "inSlope": 0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 5.9,
-              "value": 0.0,
-              "inSlope": 0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 7.067,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 7.167,
-              "value": 1.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 7.267,
-              "value": 0.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 8.867,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 8.967,
-              "value": 1.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 9.067,
-              "value": 0.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 10.3,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 10.4,
-              "value": 1.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 10.5,
-              "value": 0.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 11.3,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 11.4,
-              "value": 1.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 11.5,
-              "value": 0.0,
-              "inSlope": -0.0,
-              "outSlope": 0.0
-            },
-            {
-              "time": 14.533,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 14.767,
-              "value": 1.0,
-              "inSlope": -0.07,
-              "outSlope": 0.0
-            },
-            {
-              "time": 15.0,
-              "value": 0.0,
-              "inSlope": -0.04,
-              "outSlope": null
-            }
-          ],
-          "property": "weight"
+          "frames": [],
+          "property": "m_Color.r"
+        },
+        {
+          "gameObject": 20,
+          "isPPtrCurve": false,
+          "frames": [],
+          "property": "m_Color.g"
+        },
+        {
+          "gameObject": 20,
+          "isPPtrCurve": false,
+          "frames": [],
+          "property": "m_Color.b"
         }
       ]
     },
@@ -297,7 +104,7 @@
       "PPtrMapping": {},
       "data": [
         {
-          "gameObject": 11,
+          "gameObject": 38,
           "isPPtrCurve": false,
           "frames": [
             {
@@ -307,180 +114,13 @@
               "outSlope": 0.0
             },
             {
-              "time": 12.333,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.367,
-              "value": 0.0,
+              "time": 17.0,
+              "value": 1.0,
               "inSlope": null,
               "outSlope": null
             }
           ],
-          "property": "m_LocalPosition.x"
-        },
-        {
-          "gameObject": 11,
-          "isPPtrCurve": false,
-          "frames": [
-            {
-              "time": 0.0,
-              "value": -5000.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.333,
-              "value": -5000.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.367,
-              "value": -962.0,
-              "inSlope": -14817.03,
-              "outSlope": null
-            }
-          ],
-          "property": "m_LocalPosition.y"
-        },
-        {
-          "gameObject": 11,
-          "isPPtrCurve": false,
-          "frames": [
-            {
-              "time": 0.0,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.333,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.367,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": null
-            }
-          ],
-          "property": "m_LocalPosition.z"
-        },
-        {
-          "gameObject": 19,
-          "isPPtrCurve": false,
-          "frames": [
-            {
-              "time": 0.0,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.333,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.367,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": null
-            }
-          ],
-          "property": "m_LocalPosition.x"
-        },
-        {
-          "gameObject": 19,
-          "isPPtrCurve": false,
-          "frames": [
-            {
-              "time": 0.0,
-              "value": -962.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.333,
-              "value": -962.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.367,
-              "value": -5000.0,
-              "inSlope": 14817.03,
-              "outSlope": null
-            }
-          ],
-          "property": "m_LocalPosition.y"
-        },
-        {
-          "gameObject": 19,
-          "isPPtrCurve": false,
-          "frames": [
-            {
-              "time": 0.0,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.333,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": 0.0
-            },
-            {
-              "time": 12.367,
-              "value": 0.0,
-              "inSlope": null,
-              "outSlope": null
-            }
-          ],
-          "property": "m_LocalPosition.z"
-        },
-        {
-          "gameObject": null,
-          "isPPtrCurve": false,
-          "frames": [],
-          "property": "m_LocalPosition.x"
-        },
-        {
-          "gameObject": null,
-          "isPPtrCurve": false,
-          "frames": [],
-          "property": "m_LocalPosition.y"
-        },
-        {
-          "gameObject": null,
-          "isPPtrCurve": false,
-          "frames": [],
-          "property": "m_LocalPosition.z"
-        },
-        {
-          "gameObject": null,
-          "isPPtrCurve": false,
-          "frames": [],
-          "property": "m_LocalPosition.x"
-        },
-        {
-          "gameObject": null,
-          "isPPtrCurve": false,
-          "frames": [],
-          "property": "m_LocalPosition.y"
-        },
-        {
-          "gameObject": null,
-          "isPPtrCurve": false,
-          "frames": [],
-          "property": "m_LocalPosition.z"
+          "property": "m_IsActive"
         }
       ]
     }
@@ -488,111 +128,205 @@
   "soundFix": [
     {
       "duration": 0.4,
-      "start": 0.033,
-      "volume": 0.42,
+      "start": 7.533,
+      "volume": 0.4,
+      "audios": [
+        "SFX_Spine_Cloth_Rustle_01"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 3.833,
+      "volume": 0.1,
+      "audios": [
+        "SFX_Spine_CH0172_Cook"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 3.833,
+      "volume": 0.3,
+      "audios": [
+        "SE_Cook_03"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 16.1,
+      "volume": 0.33,
       "audios": [
         "SFX_Spine_Whoosh_Soft_Very_01"
       ]
     },
     {
       "duration": 0.4,
-      "start": 3.467,
-      "volume": 0.42,
+      "start": 6.5,
+      "volume": 0.3,
       "audios": [
-        "SFX_Spine_Whoosh_Roughly_Soft"
+        "SE_Cook_03"
       ]
     },
     {
       "duration": 0.4,
-      "start": 11.667,
-      "volume": 0.08,
+      "start": 12.433,
+      "volume": 0.1,
       "audios": [
-        "SFX_LobbySpine_W"
+        "SFX_Spine_Cloth_Rustle_03"
       ]
     },
     {
       "duration": 0.4,
-      "start": 14.3,
-      "volume": 0.08,
+      "start": 0.0,
+      "volume": 0.33,
+      "audios": [
+        "SFX_Spine_Whoosh_Soft_Very_01"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 5.233,
+      "volume": 0.3,
+      "audios": [
+        "SE_Cook_03"
+      ]
+    },
+    {
+      "duration": 0.4,
+      "start": 14.667,
+      "volume": 0.19,
       "audios": [
         "SFX_Chime_FX_00"
       ]
     },
     {
       "duration": 0.4,
-      "start": 0.1,
-      "volume": 0.23,
+      "start": 8.433,
+      "volume": 0.1,
       "audios": [
-        "SFX_Spine_Whoosh_LowMid"
+        "SFX_Spine_Whoosh_Soft_Very_03"
       ]
     },
     {
       "duration": 0.4,
-      "start": 3.3,
-      "volume": 0.2,
+      "start": 12.4,
+      "volume": 0.1,
       "audios": [
-        "SFX_Spine_Flaps"
-      ]
-    },
-    {
-      "duration": 0.4,
-      "start": 11.4,
-      "volume": 0.5,
-      "audios": [
-        "SFX_Spine_Cloth_01"
+        "SFX_Spine_Whoosh_Soft_Very_03"
       ]
     }
   ],
   "spineAnimation": [
     {
-      "duration": 13.333,
+      "duration": 23.0,
       "start": 0.0,
       "ifCustomDuration": true,
+      "spineClip": 9
+    },
+    {
+      "duration": 8.0,
+      "start": 23.0,
+      "ifCustomDuration": true,
       "spineClip": 20
-    },
-    {
-      "duration": 3.333,
-      "start": 12.333,
-      "ifCustomDuration": true,
-      "spineClip": 8
-    },
-    {
-      "duration": 3.333,
-      "start": 15.667,
-      "ifCustomDuration": true,
-      "spineClip": 19
     }
   ],
   "controlTrack": [
     {
-      "gameObject": 35,
+      "gameObject": 27,
       "track": "Control Track",
       "start": 0.0,
-      "duration": 12.333333,
-      "clipIn": 2.3,
-      "timeScale": 1.0,
-      "initialActive": false,
-      "active": true,
-      "postPlayback": 2,
-      "updateParticle": true,
-      "particleRandomSeed": 1339,
-      "searchHierarchy": false,
-      "updateDirector": true,
-      "updateITimeControl": true,
-      "directorOnClipEnd": 0
-    },
-    {
-      "gameObject": 22,
-      "track": "Control Track (1)",
-      "start": 11.666667,
-      "duration": 2.7,
+      "duration": 2.333333,
       "clipIn": 0.0,
       "timeScale": 1.0,
       "initialActive": false,
       "active": true,
       "postPlayback": 2,
       "updateParticle": true,
-      "particleRandomSeed": 1339,
+      "particleRandomSeed": 6440,
+      "searchHierarchy": false,
+      "updateDirector": true,
+      "updateITimeControl": true,
+      "directorOnClipEnd": 0
+    },
+    {
+      "gameObject": 24,
+      "track": "Control Track (1)",
+      "start": 0.0,
+      "duration": 2.333333,
+      "clipIn": 0.0,
+      "timeScale": 1.0,
+      "initialActive": false,
+      "active": true,
+      "postPlayback": 2,
+      "updateParticle": true,
+      "particleRandomSeed": 229,
+      "searchHierarchy": false,
+      "updateDirector": true,
+      "updateITimeControl": true,
+      "directorOnClipEnd": 0
+    },
+    {
+      "gameObject": 25,
+      "track": "Control Track",
+      "start": 2.333333,
+      "duration": 6.0,
+      "clipIn": 0.0,
+      "timeScale": 1.0,
+      "initialActive": true,
+      "active": true,
+      "postPlayback": 2,
+      "updateParticle": true,
+      "particleRandomSeed": 8386,
+      "searchHierarchy": false,
+      "updateDirector": true,
+      "updateITimeControl": true,
+      "directorOnClipEnd": 0
+    },
+    {
+      "gameObject": 28,
+      "track": "Control Track",
+      "start": 8.333333,
+      "duration": 2.166667,
+      "clipIn": 0.0,
+      "timeScale": 1.0,
+      "initialActive": false,
+      "active": true,
+      "postPlayback": 2,
+      "updateParticle": true,
+      "particleRandomSeed": 6724,
+      "searchHierarchy": false,
+      "updateDirector": true,
+      "updateITimeControl": true,
+      "directorOnClipEnd": 0
+    },
+    {
+      "gameObject": 29,
+      "track": "Control Track",
+      "start": 10.5,
+      "duration": 4.166667,
+      "clipIn": 0.0,
+      "timeScale": 1.0,
+      "initialActive": false,
+      "active": true,
+      "postPlayback": 2,
+      "updateParticle": true,
+      "particleRandomSeed": 892,
+      "searchHierarchy": false,
+      "updateDirector": true,
+      "updateITimeControl": true,
+      "directorOnClipEnd": 0
+    },
+    {
+      "gameObject": 26,
+      "track": "Control Track",
+      "start": 14.666667,
+      "duration": 2.333333,
+      "clipIn": 0.0,
+      "timeScale": 1.0,
+      "initialActive": false,
+      "active": true,
+      "postPlayback": 2,
+      "updateParticle": true,
+      "particleRandomSeed": 2005,
       "searchHierarchy": false,
       "updateDirector": true,
       "updateITimeControl": true,
@@ -601,16 +335,16 @@
   ],
   "bgm": {
     "path": [
-      "Theme_77.ogg"
+      "Theme_267.ogg"
     ],
     "volume": [
       1.0
     ],
     "loopStart": [
-      0.0
+      1.034000039100647
     ],
     "loopEnd": [
-      0.0
+      116.89600372314453
     ],
     "transition": [
       0.20000000298023224

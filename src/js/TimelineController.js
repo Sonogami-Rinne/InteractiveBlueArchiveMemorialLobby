@@ -210,6 +210,17 @@ class TimelineController {
                 controller.handleTimelineEvent(event.target, event.name, event.value);
             }
         }
+        let spineIndex = this._spineTimelineCurrent;
+        while (spineIndex < this._spineTimeline.length) {
+            const target = this._spineTimeline[spineIndex];
+            if (target.start > this._time) break;
+            this.spineController.playClip(target.spineClip, target.ifCustomDuration ? target.duration : null, 0);
+            spineIndex++;
+        }
+        this._spineTimelineCurrent = spineIndex;
+        // Apply selected animations before binding emitters or seeking particles.
+        // World-space particles retain their birth pose, including during prewarm.
+        this.spineController.update?.(deltaTime);
         this.hierarchy?.updateTransforms();
         this._controlTracks?.update(this._time);
         if (this._controlTracks?.hasActivation) this.hierarchy?.updateTransforms();
@@ -238,19 +249,6 @@ class TimelineController {
         }
         this._soundFixTimelineCurrent = cur;
 
-        cur = this._spineTimelineCurrent;
-        length = this._spineTimeline.length;
-        while (cur < length) {
-            const target = this._spineTimeline[cur];
-            if (target.start <= this._time) {
-                this.spineController.playClip(target.spineClip, target.ifCustomDuration ? target.duration : null, 0);
-            }
-            else {
-                break;
-            }
-            cur++;
-        }
-        this._spineTimelineCurrent = cur;
     }
 
     start() {

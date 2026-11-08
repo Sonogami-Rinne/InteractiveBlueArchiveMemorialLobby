@@ -129,11 +129,11 @@ void main() {
 `;
 }
 
-// OBJ UVs retain Unity's bottom-left origin. Convert each final sample to
+// OBJ and Unity FX UVs retain Unity's bottom-left origin. Convert each final sample to
 // the exported PNG's top-left origin, after tiling, scrolling and distortion.
 // Flipping the incoming UV instead would also reverse authored ST/CustomData.
-export function prepareParticleFragmentShader(code, mesh = false) {
-    if (!mesh) return code;
+export function prepareParticleFragmentShader(code, unityUV = false) {
+    if (!unityUV) return code;
     return code.replace(/\btexture2D\s*\(/g, 'sampleUnityParticleTexture(')
         .replace(/\bvoid\s+main\s*\(/, `
 vec4 sampleUnityParticleTexture(sampler2D source, vec2 uv) {

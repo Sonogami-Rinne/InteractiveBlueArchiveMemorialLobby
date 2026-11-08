@@ -69,7 +69,8 @@ class ParticleController {
             ]);
             const applyActiveColorSpace = par.rendererModule.applyActiveColorSpace ?? true;
             mainMaterial.setupShader(prepareParticleVertexShader(codes[0], applyActiveColorSpace),
-                prepareParticleFragmentShader(codes[1], par.rendererModule.renderMode === 4));
+                prepareParticleFragmentShader(codes[1], par.rendererModule.renderMode === 4
+                    || mainMaterial.shaderName === 'DSFX/FX_SHADER_AlphaBlend_Add_Distort_0'));
             if (trailMaterial != null) {
                 trailMaterial.setupShader(prepareParticleVertexShader(codes[2], applyActiveColorSpace), codes[3]);
             }
@@ -92,6 +93,7 @@ class ParticleController {
                 particleContainer: particleContainer,
                 material: mainMaterial,
                 trailMaterial: trailMaterial,
+                rendererEnabled: par.rendererModule.enabled ?? true,
             };
             container.addChild(particleContainer);
             this.particleContainers.push(info);
@@ -195,7 +197,9 @@ class ParticleController {
         const view = info.particleContainer;
         const initial = info.data.initialModule;
         const channel = /^InitialModule\.startColor\.maxColor\.([rgba])$/.exec(eventName)?.[1];
-        if (eventName === 'm_IsActive' || eventName === 'm_Enabled') {
+        if (eventName === 'm_Enabled') {
+            info.rendererEnabled = Boolean(value);
+        } else if (eventName === 'm_IsActive') {
             view.visible = Boolean(value);
         } else if (eventName === 'simulationSpeed') {
             initial.simulationSpeed = value;
@@ -225,8 +229,9 @@ class ParticleController {
             par.material.setTime(this.elapsedTime);
             par.trailMaterial?.setTime(this.elapsedTime);
             this.updateEmitter(par);
-            par.particleContainer.renderable = this.hierarchy?.active(par.gameObject) ?? true;
-            if (par.timelineControlled || !par.particleContainer.visible || !par.particleContainer.renderable) continue;
+            const active = this.hierarchy?.active(par.gameObject) ?? true;
+            par.particleContainer.renderable = (par.rendererEnabled ?? true) && active;
+            if (par.timelineControlled || !par.particleContainer.visible || !active) continue;
             par.particleContainer.updateParticle(deltaTime);
         }
     }

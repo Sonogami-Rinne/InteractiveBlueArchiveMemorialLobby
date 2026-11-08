@@ -1,11 +1,11 @@
 [
   {
-    "sprite": "FX_White_01_F_01",
+    "sprite": "Square",
     "color": [
       1.0,
       1.0,
       1.0,
-      1.0
+      0.0
     ],
     "flip": [
       false,
@@ -15,22 +15,22 @@
     "sortingLayer": 0,
     "sortingOrder": 6,
     "maskInteraction": 0,
-    "gameObject": 21,
+    "gameObject": 20,
     "gameObjectName": "Glow",
     "position": [
       0.0,
       0.0,
-      0.0
+      11.43
     ],
     "rotation": 0.0,
     "scale": [
       4000.0,
-      3500.0
+      3000.0
     ],
     "localPosition": [
       0.0,
       0.0,
-      0.0
+      11.429901123046875
     ],
     "localRotation": [
       -0.0,
@@ -40,7 +40,7 @@
     ],
     "localScale": [
       4000.0,
-      3500.0,
+      3000.0,
       1.0
     ],
     "spriteSize": [
