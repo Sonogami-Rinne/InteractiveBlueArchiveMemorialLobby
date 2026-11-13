@@ -92,11 +92,8 @@ class InteractionController {
         this.onPointerMovePlaceholder = InteractionController.dummy;
         this.onPointerUpPlaceholder = InteractionController.dummy;
     }
-    async init(container) {
+    async init(container, data) {
         this.container = container;
-        let data = null;
-        const interactionModule = await import('@assets/InteractionConfig.json');
-        data = interactionModule.default ?? interactionModule;
         let tmp = [];
         for (const da of data) {
             const interaction = new SpineInteraction(da, this.offsetX, this.offsetY);

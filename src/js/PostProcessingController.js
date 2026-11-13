@@ -11,7 +11,7 @@ class PostProcessingController {
         this._textures = null;
     }
 
-    async init(pixiContainer, filterArea, renderer) {
+    async init(pixiContainer, filterArea, renderer, data) {
         if (!filterArea) throw new Error("Post-processing requires a viewport filterArea");
         const response = await fetch(`${import.meta.env.BASE_URL}postprocessing/captured-lut.png`);
         if (!response.ok) throw new Error(`Cannot load captured LUT: ${response.status}`);
@@ -31,7 +31,6 @@ class PostProcessingController {
         this._pixiContainer.filterArea = filterArea;
         this._textures = new PostProcessingTextures(renderer);
         this._pixiContainer._filterEffect.textureProvider = this._textures;
-        const { default: data } = await import('@assets/PostProcessing.json');
         this._initialProfiles = data.map(profile => ({ ...profile }));
         this._filter = new MXPostProcessingFilter(this._textures, this._lut);
         this._filters = [this._filter];

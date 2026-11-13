@@ -1,6 +1,7 @@
 <script setup>
 import GameObjectHierarchy from "./js/GameObjectHierarchy";
-import { loadGameObjects, warmupShaderPrograms } from "./js/util";
+import { warmupShaderPrograms } from "./js/util";
+import { loadPrefabConfig, openPrefab } from "./js/LobbyPack";
 import AudioController from "./js/AudioController";
 import InteractionController from "./js/InteractionController";
 import MaterialRendererController from "./js/MaterialRendererController";
@@ -8,8 +9,11 @@ import ParticleController from "./js/ParticleController";
 import PostProcessingController from "./js/PostProcessingController";
 import SpineController from "./js/SpineController";
 import TimelineController from "./js/TimelineController";
-import { onBeforeUnmount, onMounted } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import WindowManager from "./js/WindowManager";
+const { prefab } = defineProps({ prefab: { type: String, required: true } });
+const emit = defineEmits(['ready', 'error']);
+const canvasHost = ref(null);
 const app = new PIXI.Application();
 const viewport = new PIXI.Container();
 const viewportMask = new PIXI.Graphics();
@@ -47,7 +51,9 @@ const updateViewportOffset = () => {
 };
 
 
-onMounted(async () => {
+let disposed = false;
+
+async function start() {
     await app.init({
         preference: 'webgl',
         preferWebGLVersion: 2,
@@ -59,21 +65,28 @@ onMounted(async () => {
         backgroundColor: WindowManager.frameColor,
         hello: true,
     })
-    document.getElementById("canvas").appendChild(app.canvas);
+    canvasHost.value.appendChild(app.canvas);
     app.stage.addChild(viewport);
     app.stage.addChild(viewportMask);
     viewport.addChild(backdrop, scene);
     viewport.mask = viewportMask;
     updateViewportOffset();
     window.addEventListener('resize', updateViewportOffset);
-    await loadGameObjects();
-    const hierarchy = new GameObjectHierarchy(scene);
-    await spineController.init(audioController, scene, hierarchy);
+    const [resources, objects, clips, particles, meshes, sprites, interaction, profiles, timeline] =
+        await Promise.all([
+            openPrefab(prefab),
+            ...['GameObject', 'SpineClips', 'Particle', 'MeshRender', 'SpriteRender',
+                'InteractionConfig', 'PostProcessing', 'Timeline']
+                .map(name => loadPrefabConfig(prefab, `${name}.json`)),
+        ]);
+    dynamicResourceLoad = resources;
+    const hierarchy = new GameObjectHierarchy(scene, objects);
+    await spineController.init(audioController, scene, hierarchy, clips);
     await Promise.all([
-        particleController.init(scene, hierarchy),
-        materialRendererController.init(scene, hierarchy),
-        interactiveController.init(scene),
-        postProcessingController.init(viewport, viewportArea, app.renderer),
+        particleController.init(scene, hierarchy, particles),
+        materialRendererController.init(scene, hierarchy, meshes, sprites),
+        interactiveController.init(scene, interaction),
+        postProcessingController.init(viewport, viewportArea, app.renderer, profiles),
     ]);
 
     hierarchy.initialize(spineController);
@@ -83,25 +96,41 @@ onMounted(async () => {
             particleController.updateBoneEmitters(owner);
         }, owner);
     }
-    await timelineController.init(hierarchy);
-    // await warmupShaderPrograms(app.renderer);
-    // await audioController.init();
+    await timelineController.init(hierarchy, timeline);
     await Promise.all([
         warmupShaderPrograms(app.renderer),
         audioController.init()
     ])
     updateViewportOffset();
-    await audioController.waitForPlaybackPermission();
-    timelineController.start();
+    if (disposed) return;
     postProcessingController.apply();
+    emit('ready');
+    await audioController.waitForPlaybackPermission();
+    if (disposed) return;
+    timelineController.start();
     app.ticker.add((ticker) => {
         const deltaSeconds = ticker.deltaMS * 0.001;
         timelineController.update(deltaSeconds);
         particleController.update(deltaSeconds);
     });
+}
+
+const dispose = () => {
+    disposed = true;
+    audioController.destroy();
+};
+onMounted(() => {
+    window.addEventListener('pagehide', dispose);
+    window.addEventListener('lobby-dispose', dispose);
+    start().catch(error => {
+        if (!disposed) emit('error', error);
+    });
 });
 
 onBeforeUnmount(() => {
+    window.removeEventListener('pagehide', dispose);
+    window.removeEventListener('lobby-dispose', dispose);
+    dispose();
     window.removeEventListener('resize', updateViewportOffset);
     app.stop?.();
     timelineController.stop();
@@ -113,8 +142,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <el-container class="main-container" id="canvas">
-    </el-container>
+    <div ref="canvasHost" class="main-container"></div>
 </template>
 
 <style scoped>

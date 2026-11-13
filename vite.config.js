@@ -1,26 +1,26 @@
 import { fileURLToPath, URL } from 'node:url'
+import path from 'node:path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { lobbyPack } from './lobbyPackPlugin.js'
 
-// https://vite.dev/config/
+const defaultPack = fileURLToPath(new URL('../../Python/pythonProject3/save/pack/', import.meta.url))
+
 export default defineConfig({
   base: './',
   build: { target: 'esnext' },
+  optimizeDeps: { entries: ['index.html'] },
   plugins: [
     vue(),
-    vueDevTools()
+    vueDevTools(),
+    lobbyPack(path.resolve(process.env.LOBBY_PACK_DIR || defaultPack)),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@assets':fileURLToPath(new URL('./src/assets', import.meta.url)),
-      '@image': fileURLToPath(new URL('./src/assets/image', import.meta.url)),
-      '@mesh': fileURLToPath(new URL('./src/assets/mesh', import.meta.url)),
-      '@audio': fileURLToPath(new URL('./src/assets/audio', import.meta.url)),
-      '@shader': fileURLToPath(new URL('./src/assets/shader', import.meta.url)),
-      '@js':fileURLToPath(new URL('./src/js', import.meta.url))
+      '@js': fileURLToPath(new URL('./src/js', import.meta.url)),
     },
   },
 })

@@ -103,14 +103,14 @@ export const additionalTexcoordConfig = {
     },
 };
 
-export function getAdditionalTexcoordConfig(material, configs = additionalTexcoordConfig, images = additionalUVImages) {
+export function getAdditionalTexcoordConfig(material, configs = additionalTexcoordConfig, images = additionalUVImages, fallbackGroups) {
     const config = configs[material.shaderName];
     if (config == null) return undefined;
 
     const properties = [];
     for (const [name, property] of Object.entries(config.properties ?? {})) {
         const texture = material.getTextureName(name);
-        const groups = texture == null ? undefined : images[texture];
+        const groups = texture == null ? undefined : images[texture] ?? fallbackGroups;
         if (texture != null && groups == null) {
             throw new Error(`Missing additional UV config: shader=${material.shaderName}, property=${name}, texture=${texture}`);
         }
@@ -118,4 +118,9 @@ export function getAdditionalTexcoordConfig(material, configs = additionalTexcoo
         if (groups != null) properties.push({ attribute: [property.attribute], groups });
     }
     return { attributes: config.attributes, properties };
+}
+
+export function getPackedAdditionalTexcoordConfig(material) {
+    // Uncatalogued images use the whole texture until their atlas layout is known.
+    return getAdditionalTexcoordConfig(material, additionalTexcoordConfig, additionalUVImages, UV_GROUPS.single);
 }

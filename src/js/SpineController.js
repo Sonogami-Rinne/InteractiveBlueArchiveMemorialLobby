@@ -26,11 +26,7 @@ class SpineController {
             .map(material => getRenderQueue(material.renderQueue, getRenderQueue(data.renderQueue)));
         return queues.length ? Math.min(...queues) : getRenderQueue(data.renderQueue);
     }
-    async init(audioController, container, hierarchy) {
-        let tmp = null
-        await import('@assets/SpineClips.json').
-            then(res => res.default).
-            then(data => tmp = data);
+    async init(audioController, container, hierarchy, tmp) {
         this.clips = tmp.clips;
         this.spineObjs = tmp.skeletons;
         this.eventAudioMap = tmp.eventAudioMap ?? {};

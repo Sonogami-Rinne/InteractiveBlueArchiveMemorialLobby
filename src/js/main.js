@@ -1,13 +1,13 @@
-
 import { createApp } from 'vue'
-import '/js/pixi.js?url';
-import App from '@/App.vue'
-// await import('/js/pixi.js?url').then(async () =>{
-//     import('@/App.vue').then((data) => data.default).then((data) => {
-//         createApp(data.App.provide('language', 'jp')).mount('#app');
-//     })
-// })
+import { defaultPrefab, resolvePrefab } from './LobbyPack.js'
 
-
-
-createApp(App).provide('language', 'jp').mount('#app')
+const scene = new URLSearchParams(location.search).get('scene')
+if (scene === null) {
+  const { default: App } = await import('../App.vue')
+  createApp(App).mount('#app')
+} else {
+  const { default: LobbyScene } = await import('../LobbyScene.vue')
+  createApp(LobbyScene, { prefab: resolvePrefab(scene) ?? defaultPrefab })
+    .provide('language', 'jp')
+    .mount('#app')
+}

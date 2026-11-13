@@ -1,4 +1,3 @@
-import { gameObjects } from './util.js';
 import { fromAffine2D, fromTRS, inverse, multiply } from './TransformMatrix.js';
 
 const identity = () => fromAffine2D([1, 0, 0, 1, 0, 0]);
@@ -13,7 +12,7 @@ function project(matrix, pixiMatrix, flipY) {
 }
 
 export default class GameObjectHierarchy {
-    constructor(scene, entries = gameObjects) {
+    constructor(scene, entries = {}) {
         this.scene = scene;
         this.entries = entries;
         this.nodes = new Map();
@@ -178,8 +177,24 @@ export default class GameObjectHierarchy {
         const world = this.nodes.get(String(gameObject))?.worldTransform;
         if (world) {
             particleContainer.setEmitterTransform(project(world, this.projected, false));
-            if (particleContainer.setEmitterWorldMatrix) particleContainer.setEmitterWorldMatrix(world);
-            else particleContainer.setEmitterWorldScale?.(Math.hypot(world[0], world[1], world[2]),
+            if (particleContainer.setEmitterWorldMatrix) {
+                particleContainer.setEmitterWorldMatrix(world);
+                if (!particleContainer.emitterInverse3 && world[8] === 0 && world[9] === 0 && world[10] === 0) {
+                    // A flat emitter still has a world-to-local mapping in its plane.
+                    // Complete the basis for inversion and discard the local depth component.
+                    const [a, b, c, , d, e, f] = world;
+                    const basis = world.slice();
+                    basis.splice(8, 3, b*f - c*e, c*d - a*f, a*e - b*d);
+                    const planarInverse = inverse(basis);
+                    if (planarInverse) {
+                        particleContainer.emitterInverse3 = new Float64Array([
+                            planarInverse[0], planarInverse[1], 0,
+                            planarInverse[4], planarInverse[5], 0,
+                            planarInverse[8], planarInverse[9], 0,
+                        ]);
+                    }
+                }
+            } else particleContainer.setEmitterWorldScale?.(Math.hypot(world[0], world[1], world[2]),
                 Math.hypot(world[4], world[5], world[6]));
         }
         return world?.[14];

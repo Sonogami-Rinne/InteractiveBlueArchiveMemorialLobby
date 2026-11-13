@@ -1,15 +1,35 @@
 import { CParticleContainer } from 'pixi-unity-particle';
 import { loadObjMesh } from './ObjMeshLoader.js';
 import { Material, getMaterialRenderQueue, getRenderOrder } from './Material.js';
-import { applyParticleScale, prepareParticleVertexShader, prepareParticleFragmentShader, isMaterialProperty, setMaterialProperty, getParticleTextureFormat } from './util.js';
-import { getAdditionalTexcoordConfig } from './AdditionalUV.js';
+import { prepareParticleVertexShader, prepareParticleFragmentShader, isMaterialProperty, setMaterialProperty, getParticleTextureFormat } from './util.js';
+import { getPackedAdditionalTexcoordConfig } from './AdditionalUV.js';
 
-export { getAdditionalTexcoordConfig } from './AdditionalUV.js';
 
 function getSimulationData(data) {
     const copy = structuredClone(data);
     copy.translate = copy.position;
     return copy;
+}
+
+// Measured on the active Lobby*(Clone) instances. Keep the 2790 x 1570
+// scene coordinates; do not infer a camera projection or post-process zoom.
+const LOBBY_ROOT_WORLD_SCALE = 0.00120120123;
+
+function getParticleScaleModifiers(data) {
+    const mode = data.initialModule.scalingMode;
+    // The library now applies emitter/local scale and Shape geometry itself.
+    // Only the lobby's root-unit conversion belongs to this application.
+    return mode === 1 || mode === 2
+        ? [1 / LOBBY_ROOT_WORLD_SCALE, 1 / LOBBY_ROOT_WORLD_SCALE] : [1, 1];
+}
+
+function applyParticleScale(container, data) {
+    const [x, y] = getParticleScaleModifiers(data);
+    // pixi-unity-particle copies these modifiers into each newly born particle.
+    // Its container scale must stay intact for emission positions and motion.
+    container._particleScaleModifierX = x;
+    container._particleScaleModifierY = y;
+    return container;
 }
 
 class ParticleController {
@@ -23,14 +43,10 @@ class ParticleController {
         this.particleSystems = new Set();
         this.elapsedTime = 0;
     }
-    async init(container, hierarchy) {
+    async init(container, hierarchy, data) {
         this.container = container;
         this.hierarchy = hierarchy;
         container.sortableChildren = true;
-        let data = null;
-        await import('@assets/Particle.json').
-            then(res => res.default).
-            then(json => data = json);
         this.particleSystems = new Set(data.map(particle => particle.gameObject));
 
         const codes = [null, null, null, null];
@@ -74,7 +90,7 @@ class ParticleController {
             if (trailMaterial != null) {
                 trailMaterial.setupShader(prepareParticleVertexShader(codes[2], applyActiveColorSpace), codes[3]);
             }
-            const additionalTexcoordConfig = getAdditionalTexcoordConfig(mainMaterial);
+            const additionalTexcoordConfig = getPackedAdditionalTexcoordConfig(mainMaterial);
             const meshNames = par.rendererModule.meshes ?? [];
             const meshes = par.rendererModule.renderMode === 4
                 ? await Promise.all(meshNames.map(name => loadObjMesh(name))) : undefined;
@@ -89,6 +105,7 @@ class ParticleController {
                 gameObject: par.gameObject,
                 data: structuredClone(par),
                 meshes,
+                additionalTexcoordConfig,
                 renderQueue,
                 particleContainer: particleContainer,
                 material: mainMaterial,
@@ -144,7 +161,7 @@ class ParticleController {
             try {
                 Math.random = info.random;
                 const view = applyParticleScale(CParticleContainer.create(getSimulationData(info.data), 0, info.material,
-                    info.trailMaterial, getAdditionalTexcoordConfig(info.material), info.meshes), info.data);
+                    info.trailMaterial, info.additionalTexcoordConfig, info.meshes), info.data);
                 view.simulationTransform.set(1, 0, 0, -1, 0, 0);
                 view.position.copyFrom(old.position);
                 view.zIndex = old.zIndex;

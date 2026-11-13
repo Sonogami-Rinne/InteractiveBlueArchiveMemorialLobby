@@ -137,11 +137,9 @@ class TimelineController {
         this._gameObjectMap = {};
 
     }
-    async init(hierarchy) {
+    async init(hierarchy, data) {
         this.hierarchy = hierarchy;
         this.profileActivation = new Map();
-        const timelineModule = await import('@assets/Timeline.json');
-        const data = timelineModule.default ?? timelineModule;
 
         this._attributeTimeline = [];
         for (const animationClip of data.animationClip ?? []) {

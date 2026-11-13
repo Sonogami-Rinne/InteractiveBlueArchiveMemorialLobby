@@ -1,143 +1,394 @@
 <script setup>
-import resourceLoader from '@assets/resource.js'
-import Test from '@/Test.vue'
-import SpineCanvas from './SpineCanvas.vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { createLobbyAudio } from './js/util'
+import { defaultPrefab, loadLobbyList } from './js/LobbyPack'
+import menuIcon from './common_menu.png'
 
-//modify.js中获取数据的函数入口
-dynamicResourceLoad = async (str) => {
-  if (!Object.hasOwn(resourceLoader, str)) throw new Error(`Missing exported resource: ${str}`);
-  const raw = await resourceLoader[str]()
-  return raw.default
+const frame = ref(null)
+const dialog = ref(null)
+const menuVisible = ref(false)
+const panel = ref('main')
+const selected = ref(defaultPrefab)
+const loading = ref(true)
+const sceneError = ref('')
+const list = ref(null)
+const listError = ref('')
+const volume = ref(100)
+const audio = createLobbyAudio()
+let hideTimer
+
+function showMenuButton() {
+  menuVisible.value = true
+  clearTimeout(hideTimer)
+  hideTimer = setTimeout(() => { menuVisible.value = false }, 2000)
 }
 
-//<---vue+html
+function mouseActivity(event) {
+  if (event.pointerType === 'mouse') showMenuButton()
+}
 
+function unlockAudio() {
+  if (audio.context.state === 'suspended') void audio.context.resume().catch(console.debug)
+}
 
-//--->
+function openMenu() {
+  panel.value = 'main'
+  dialog.value.showModal()
+}
 
+function closeMenu() {
+  dialog.value.close()
+}
+
+async function openLobbyList() {
+  panel.value = 'lobbies'
+  if (list.value) return
+  listError.value = ''
+  try {
+    list.value = await loadLobbyList()
+  } catch (error) {
+    console.error(error)
+    listError.value = '无法加载大厅列表'
+  }
+}
+
+function changeVolume(event) {
+  volume.value = event.target.valueAsNumber
+  audio.output.gain.value = volume.value / 100
+}
+
+function loadScene(prefab) {
+  selected.value = prefab
+  sceneError.value = ''
+  loading.value = true
+  const url = new URL(location.href)
+  url.searchParams.set('scene', prefab)
+  url.hash = ''
+  frame.value.contentWindow.location.replace(url.href)
+}
+
+function selectLobby(prefab) {
+  unlockAudio()
+  closeMenu()
+  if (prefab === selected.value && !sceneError.value) return
+  frame.value.contentWindow.dispatchEvent(new Event('lobby-dispose'))
+  loadScene(prefab)
+}
+
+onMounted(() => {
+  frame.value.lobbyAudio = audio
+  frame.value.addEventListener('lobby-mouse', showMenuButton)
+  frame.value.addEventListener('lobby-activate', unlockAudio)
+  frame.value.addEventListener('lobby-ready', () => { loading.value = false })
+  frame.value.addEventListener('lobby-error', event => {
+    loading.value = false
+    sceneError.value = event.detail
+  })
+  window.addEventListener('pointermove', mouseActivity, { passive: true })
+  window.addEventListener('pointerdown', mouseActivity)
+  window.addEventListener('pointerdown', unlockAudio, true)
+  window.addEventListener('keydown', unlockAudio, true)
+  loadScene(selected.value)
+})
+
+onBeforeUnmount(() => {
+  clearTimeout(hideTimer)
+  window.removeEventListener('pointermove', mouseActivity)
+  window.removeEventListener('pointerdown', mouseActivity)
+  window.removeEventListener('pointerdown', unlockAudio, true)
+  window.removeEventListener('keydown', unlockAudio, true)
+  void audio.context.close()
+})
 </script>
 
 <template>
-  <!---<TestParticle></TestParticle>--->
-  <SpineCanvas/>
+  <iframe ref="frame" class="lobby-frame" title="回忆大厅" allow="autoplay"></iframe>
+  <p v-if="loading" class="scene-status" role="status">正在加载大厅…</p>
+  <p v-else-if="sceneError" class="scene-status" role="alert">大厅加载失败：{{ sceneError }}</p>
+
+  <button type="button" class="menu-toggle" :class="{ visible: menuVisible }"
+    aria-label="打开菜单" aria-haspopup="dialog" @click="openMenu">
+    <img :src="menuIcon" alt="">
+  </button>
+
+  <dialog ref="dialog" class="menu-dialog" :class="panel" aria-labelledby="menu-title"
+    @click.self="closeMenu">
+    <div class="dialog-surface">
+      <header class="dialog-header">
+        <button v-if="panel !== 'main'" class="header-button back" type="button"
+          aria-label="返回菜单" @click="panel = 'main'">‹</button>
+        <h1 id="menu-title">{{ { main: '菜单', settings: '设置', lobbies: '大厅选择' }[panel] }}</h1>
+        <button class="header-button close" type="button" aria-label="关闭" @click="closeMenu">×</button>
+      </header>
+
+      <div v-if="panel === 'main'" class="menu-actions">
+        <button type="button" class="menu-action" @click="panel = 'settings'">
+          <span class="icon-placeholder" aria-hidden="true"></span>设置
+        </button>
+        <button type="button" class="menu-action" @click="openLobbyList">
+          <span class="icon-placeholder" aria-hidden="true"></span>大厅选择
+        </button>
+      </div>
+
+      <div v-else-if="panel === 'settings'" class="settings-layout">
+        <div class="settings-section">音量</div>
+        <label class="setting">
+          <span>主音量</span>
+          <input type="range" min="0" max="100" :value="volume" @input="changeVolume">
+          <output>{{ volume }}%</output>
+        </label>
+      </div>
+
+      <div v-else class="lobby-picker">
+        <div class="current-lobby">{{ selected }}</div>
+        <p v-if="listError" class="picker-status" role="alert">{{ listError }}</p>
+        <p v-else-if="!list" class="picker-status" role="status">正在加载列表…</p>
+        <div v-else class="lobby-grid">
+          <button v-for="entry in list" :key="entry.prefab" type="button" class="lobby-card"
+            :class="{ current: entry.prefab === selected }" :aria-current="entry.prefab === selected"
+            :title="entry.prefab" @click="selectLobby(entry.prefab)">
+            <span class="lobby-portrait">
+              <img v-if="entry.iconUrl" :src="entry.iconUrl" alt="" loading="lazy" decoding="async">
+            </span>
+            <span class="lobby-name">{{ entry.prefab.replace(/^Lobby/, '') }}</span>
+          </button>
+        </div>
+        <footer class="picker-footer">
+          <button type="button" @click="closeMenu">关闭</button>
+        </footer>
+      </div>
+    </div>
+  </dialog>
 </template>
 
 <style scoped>
-.main-container {
+.lobby-frame {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  z-index: -1;
+  border: 0;
+  background: #1c354e;
 }
-
-.expand-icon {
+.scene-status {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 50px;
-  height: 50px;
+  inset: auto 1rem 1rem;
+  margin: 0;
+  padding: .65rem 1rem;
+  color: #fff;
+  background: #27374ae8;
+  width: fit-content;
+  max-width: calc(100% - 4rem);
+  overflow-wrap: anywhere;
+  font: 14px/1.4 system-ui, sans-serif;
+}
+button {
   cursor: pointer;
-  z-index: 3001;
+  font: inherit;
+}
+button:focus-visible {
+  outline: 3px solid #1999cd;
+  outline-offset: 2px;
+}
+.menu-toggle {
+  position: absolute;
+  top: clamp(12px, 3vh, 32px);
+  left: clamp(12px, 3vw, 38px);
+  width: 48px;
+  height: 44px;
+  padding: 8px;
+  border: 1px solid #fff;
+  border-radius: 7px;
+  background: #f7fbffea;
+  box-shadow: 0 2px 5px #10223570;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+  transition: opacity .35s ease;
 }
-
-.expand-icon:hover {
+.menu-toggle.visible, .menu-toggle:focus-visible {
   opacity: 1;
-  transition: opacity 0.5s ease-in-out;
+  pointer-events: auto;
 }
-
-.drawer-asides {
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  padding: 0px;
-  padding-top: 20px;
-  width: 40%;
-  flex-shrink: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-}
-
-.drawer-main {
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  padding: 0px;
-  padding-top: 20px;
-  background-color: white;
-  border-width: 0px;
-  border-left: 1px;
-  border-style: solid;
-  border-color: black;
-}
-
-.deleteAreaContainer-hidden {
-  display: none;
-  z-index: -1;
-}
-
-.deleteAreaContainer-show {
-  z-index: 3000;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: background-color 0.5s ease-in-out;
-}
-
-.grid-draggable {
-  display: grid;
-  overflow-y: auto;
-  grid-template-columns: repeat(5, calc((100% - 20px) / 5));
-  grid-row-gap: 5px;
-  grid-column-gap: 5px;
-  height: auto
-}
-
-
-.playList-container {
+.menu-toggle img {
   width: 100%;
-  flex: 1;
-  height: 0px;
-  overflow-y: auto;
+  height: 100%;
+  object-fit: contain;
 }
-
-.grid-container-container {
-  height: 0px;
-  flex: 1;
-  padding-right: 0px;
-  padding-bottom: 20px;
+.menu-dialog {
+  width: min(420px, calc(100vw - 28px));
+  max-height: calc(100dvh - 28px);
+  max-width: none;
+  padding: 0;
+  overflow: auto;
+  color: #27374a;
+  border: 1px solid #fff;
+  border-radius: 9px;
+  box-shadow: 0 5px 0 #2230447a, 0 12px 32px #15203266;
+  background: #f7f9fb;
+  font: 600 16px/1.35 system-ui, sans-serif;
 }
-
-.grid-container {
+.menu-dialog::backdrop {
+  background: #09142791;
+}
+.menu-dialog.settings {
+  width: min(740px, calc(100vw - 28px));
+}
+.menu-dialog.lobbies {
+  width: min(660px, calc(100vw - 28px));
+}
+.dialog-header {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 52px;
+  background: linear-gradient(55deg, #c5e0ef 8%, transparent 8%),
+    linear-gradient(120deg, #d9edf9 16%, #f2f7fa 16%);
+  border-bottom: 1px solid #dbe4e9;
+}
+.dialog-header h1 {
+  position: relative;
+  margin: 0;
+  font-size: 21px;
+}
+.dialog-header h1::after {
+  content: '';
+  position: absolute;
+  inset: auto -4px -5px;
+  height: 3px;
+  border-radius: 4px;
+  background: #f5e481;
+}
+.header-button {
+  position: absolute;
+  inset-block: 0;
+  width: 48px;
+  border: 0;
+  background: none;
+  color: #26394e;
+  font-size: 28px;
+  line-height: 1;
+}
+.header-button:hover {
+  background: #c4dfed80;
+}
+.header-button.close { right: 0; }
+.header-button.back { left: 0; }
+.menu-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+  background: #c7c9cb;
+}
+.menu-action {
+  min-height: 65px;
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-x: hidden;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 8px;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  background: #fafafa;
+  color: inherit;
+  box-shadow: 0 2px 0 #68727c90;
 }
-
-.drawer {
-  background-color: rgba(0, 0, 0, 0);
-  box-shadow: none;
+.menu-action:hover { background: #e7f6ff; }
+.icon-placeholder {
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  background: #e2edf4;
 }
-
-.list-draggable {
-  height: 100%;
-  overflow-x: hidden;
+.settings-layout {
+  display: grid;
+  grid-template-columns: minmax(70px, 22%) 1fr;
+  gap: 8px;
+  min-height: min(230px, 50dvh);
+  padding: 10px;
+}
+.settings-section {
+  padding: 12px 6px;
+  background: #c9e9fa;
+  text-align: center;
+  color: #175477;
+}
+.setting {
+  align-self: start;
+  display: grid;
+  grid-template-columns: auto minmax(40px, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #d7e3eb;
+  background: white;
+}
+.setting input { width: 100%; accent-color: #279bc8; }
+.lobby-picker { padding: 8px 10px 0; }
+.current-lobby {
+  padding: 4px 6px 8px;
+  font-size: 13px;
+  color: #49647a;
+}
+.lobby-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  max-height: min(48dvh, 390px);
   overflow-y: auto;
-  margin-right: 20px;
+  padding: 5px;
+  background: #dde4e9;
+  scrollbar-color: #849bac #dde4e9;
 }
-
-.deleteAreaContainer-delete-effect {
-  background-color: red;
-  transition: all 0.3s ease-in-out;
+.lobby-card {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 2px solid #f5fafc;
+  padding: 3px;
+  border-radius: 7px;
+  background: #f6f9fb;
+  box-shadow: 0 1px 2px #31445680;
+}
+.lobby-card:hover { border-color: #67c7e9; }
+.lobby-card.current { border-color: #afda47; }
+.lobby-portrait {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #dbe9f2;
+}
+.lobby-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lobby-name {
+  background: #3c536a;
+  border-radius: 4px;
+  padding: 3px;
+  color: #fff;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.picker-status { padding: 12px; }
+.picker-footer {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+.picker-footer button {
+  min-width: 124px;
+  padding: 8px 12px;
+  border: 1px solid #a3c7db;
+  border-radius: 6px;
+  background: #d9edf8;
+  color: #24475b;
+}
+@media (max-width: 480px) {
+  .lobby-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 </style>

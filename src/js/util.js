@@ -1,13 +1,3 @@
-// Registered GameObjects indexed by exported ID.
-export let gameObjects = {};
-let gameObjectsLoading;
-export function loadGameObjects() {
-    return gameObjectsLoading ??= import('@assets/GameObject.json').then(module => {
-        gameObjects = module.default;
-        return gameObjects;
-    });
-}
-
 export function applyBlendInfo(gl, info, slotBlendMode) {
     if (!info) return;
     const factors = [gl.ZERO, gl.ONE, gl.DST_COLOR, gl.SRC_COLOR, gl.ONE_MINUS_DST_COLOR,
@@ -59,26 +49,7 @@ export function setMaterialProperty(materials, property, value) {
     }
 }
 
-// Measured on the active Lobby*(Clone) instances. Keep the 2790 x 1570
-// scene coordinates; do not infer a camera projection or post-process zoom.
-export const LOBBY_ROOT_WORLD_SCALE = 0.00120120123;
 
-export function getParticleScaleModifiers(data) {
-    const mode = data.initialModule.scalingMode;
-    // The library now applies emitter/local scale and Shape geometry itself.
-    // Only the lobby's root-unit conversion belongs to this application.
-    return mode === 1 || mode === 2
-        ? [1 / LOBBY_ROOT_WORLD_SCALE, 1 / LOBBY_ROOT_WORLD_SCALE] : [1, 1];
-}
-
-export function applyParticleScale(container, data) {
-    const [x, y] = getParticleScaleModifiers(data);
-    // pixi-unity-particle copies these modifiers into each newly born particle.
-    // Its container scale must stay intact for emission positions and motion.
-    container._particleScaleModifierX = x;
-    container._particleScaleModifierY = y;
-    return container;
-}
 
 // Restore the Pixi pixel-snap switch in converted Sprites/Default programs.
 // Keep this in the runtime so re-exporting shader assets preserves the fix.
@@ -231,4 +202,11 @@ export async function warmupShaderPrograms(renderer) {
         // Allow loading UI to update between synchronous program compilations.
         await new Promise(resolve => setTimeout(resolve, 0));
     }
+}
+
+export function createLobbyAudio() {
+    const context = new (window.AudioContext || window.webkitAudioContext)()
+    const output = context.createGain()
+    output.connect(context.destination)
+    return { context, output }
 }

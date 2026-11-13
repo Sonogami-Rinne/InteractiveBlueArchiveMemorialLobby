@@ -149,12 +149,8 @@ export default class MaterialRendererController {
         this.gameObjectMap = {};
     }
 
-    async init(scene, hierarchy) {
+    async init(scene, hierarchy, meshes, sprites) {
         this.hierarchy = hierarchy;
-        const [{ default: meshes }, { default: sprites }] = await Promise.all([
-            import('@assets/MeshRender.json'),
-            import('@assets/SpriteRender.json'),
-        ]);
         scene.sortableChildren = true;
         for (const [rendererType, renderables] of [
             ['MeshRenderer', meshes],

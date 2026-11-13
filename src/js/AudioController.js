@@ -1,4 +1,6 @@
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+import { createLobbyAudio } from "./util"
+
+const { context: audioCtx, output } = window.frameElement?.lobbyAudio ?? createLobbyAudio()
 
 class CAudio {
     constructor(buffer, options = {}) {
@@ -13,7 +15,7 @@ class CAudio {
         this._instances = {}
         this._instanceId = 0
         this._gainNode = audioCtx.createGain()
-        this._gainNode.connect(audioCtx.destination)
+        this._gainNode.connect(output)
         this._gainNode.gain.value = this._volume
     }
     play(delay, duration) {
@@ -64,6 +66,10 @@ class CAudio {
         delete this._instances
         this._instances = {}
     }
+    destroy() {
+        this.clear()
+        this._gainNode.disconnect()
+    }
     setVolume(volume) {
         this._gainNode.gain.value = volume
     }
@@ -83,6 +89,7 @@ class AudioController {
         }
         const data = await response.arrayBuffer()
         const decoded = await audioCtx.decodeAudioData(data)
+        if (this._disposed) return
         const audio = new CAudio(decoded, options)
         this._audioMap[audioName] = audio
         return audio
@@ -97,6 +104,12 @@ class AudioController {
                 this._preLoadAudios.push(loading)
             }
         }
+    }
+
+    destroy() {
+        this._disposed = true
+        for (const audio of Object.values(this._audioMap)) audio.destroy()
+        this._audioMap = {}
     }
 
     async init() {
