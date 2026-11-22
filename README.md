@@ -1,6 +1,6 @@
 # 声明
 
-这个项目的资源文件来源于游戏《碧蓝档案》。《碧蓝档案》是一款由Nexon研发,Yostar代理发行的游戏。大厅资源使用 pythonProject3 导出的 pack 目录。
+这个项目的资源文件来源于游戏《碧蓝档案》。《碧蓝档案》是一款由Nexon研发,Yostar代理发行的游戏。
 
 #  R.I.P
 
@@ -23,7 +23,7 @@
 npm install
 ```
 
-默认读取同级项目 `../../Python/pythonProject3/save/pack`。如果导出到其他位置，请在启动或构建前设置环境变量 `LOBBY_PACK_DIR`，值为 pack 的路径。
+大厅资源位于 `src/assets/`。`prefabResources.js` 按大厅名称索引各自的 `prefab/<名称>/resource.js`，后者列出场景配置和其他资源的动态导入。
 
 然后输入以下指令运行
 
@@ -33,7 +33,7 @@ npm run dev
 
 ## 打包
 
-构建会将完整资源包复制到 `dist/pack`。通过 HTTP 提供 `dist` 目录即可运行，也可以在本机用 `npm run preview` 预览。
+Vite 根据资源索引打包引用到的文件。交付时发布整个 `dist/`，通过静态 HTTP 服务器运行。开发环境可用 `npm run preview` 预览构建产物。
 
 ```sh
 npm run build

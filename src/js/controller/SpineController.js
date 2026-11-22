@@ -1,9 +1,9 @@
-import { isMaterialProperty, setMaterialProperty } from './util.js';
-import { applySpineMaterials, getSpinePageMaterials } from './SpineMaterialRenderer.js';
-import { getRenderQueue, getRenderOrder } from './Material.js';
+import { observePreparation } from '../loader/common.js';
+import { applySpineMaterials, getSpinePageMaterials, prepareSpinePrograms } from '../rendering/SpineMaterialRenderer.js';
+import { getRenderOrder, isMaterialProperty, setMaterialProperty } from '../rendering/common.js'
 
 class SpineController {
-    constructor(offsetX, offsetY, scale) {
+    constructor(offsetX, offsetY, scale, clips, audioController, preparation) {
         this.spineObjs = null;
         this.gameObjectMap = {};
         this.clips = null;
@@ -20,12 +20,69 @@ class SpineController {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.scale = scale;
+        this.audioPreparation = clips && observePreparation(clips.then(data => {
+            if (!audioController.disposed) this.prepareAudio(audioController, data);
+        }));
+        this.resources = clips && observePreparation(clips.then(data => Promise.all(
+            this.getSkeletonOrder(data.skeletons).map(({ data }) => this.prepareSkeleton(data, preparation)))));
     }
     getRenderQueue(data) {
         const queues = (data.materialInfo ?? data.atlas?.flatMap(atlas => atlas.materialInfo ?? []) ?? [])
-            .map(material => getRenderQueue(material.renderQueue, getRenderQueue(data.renderQueue)));
-        return queues.length ? Math.min(...queues) : getRenderQueue(data.renderQueue);
+            .map(material => material.renderQueue);
+        return queues.length ? Math.min(...queues) : data.renderQueue;
     }
+    prepareAudio(audioController, data) {
+        for (const clip of data.clips) {
+            for (const soundKey of clip.soundKeys) {
+                audioController.registerAudios(soundKey.audios, '.wav', {
+                    loop: soundKey.loop,
+                    volume: soundKey.volume,
+                });
+            }
+        }
+        for (const audioInfo of Object.values(data.eventAudioMap ?? {})) {
+            for (const [index, path] of (audioInfo.path ?? []).entries()) {
+                audioController.registerAudios([path], '', { volume: audioInfo.volume?.[index] ?? 1 });
+            }
+        }
+    }
+
+    getSkeletonOrder(skeletons) {
+        return skeletons.map((data, index) => ({ data, index }))
+            .sort((a, b) => (a.data.sortingLayer ?? 0) - (b.data.sortingLayer ?? 0)
+                || (a.data.sortingOrder ?? 0) - (b.data.sortingOrder ?? 0)
+                || this.getRenderQueue(a.data) - this.getRenderQueue(b.data)
+                || a.index - b.index);
+    }
+
+    async prepareSkeleton(data, preparation) {
+        const skel = data.skeleton;
+        const atlas = data.atlas[0];
+        const pageMaterials = getSpinePageMaterials(data, atlas);
+        PIXI.Assets.add({ alias: skel, src: `${skel}1` });
+        PIXI.Assets.add({ alias: atlas.atlas, src: `${atlas.atlas}1`, data: {
+            spineMaterials: Object.fromEntries(pageMaterials.map(binding => [binding.pageName, binding.materialInfo])),
+        } });
+        const skeleton = PIXI.Assets.load(skel);
+        const loadedAtlas = PIXI.Assets.load(atlas.atlas);
+        const programs = preparation && loadedAtlas.then(value => prepareSpinePrograms(value, pageMaterials, preparation));
+        const uploaded = preparation && Promise.all([loadedAtlas, preparation.renderer]).then(async ([value, renderer]) => {
+            for (const page of value.pages) {
+                await new Promise(resolve => setTimeout(resolve, 0));
+                if (preparation.isDisposed()) return;
+                renderer.texture.initSource(page.texture.texture.source);
+            }
+        });
+        const extraTextures = preparation && Promise.all(pageMaterials.flatMap(binding =>
+            Object.entries(binding.materialInfo.properties).filter(([slot, property]) => slot !== '_MainTex' && property.type === 'Texture2D')
+                .map(([slot, property]) => {
+                    const name = Array.isArray(property.value) ? property.value[0] : property.value;
+                    return preparation.texture(binding.texInfo[slot]?.name ?? name);
+                })));
+        const [value, preparedPrograms] = await Promise.all([loadedAtlas, programs, skeleton, uploaded, extraTextures]);
+        return { atlas: value, pageMaterials, programs: preparedPrograms };
+    }
+
     async init(audioController, container, hierarchy, tmp) {
         this.clips = tmp.clips;
         this.spineObjs = tmp.skeletons;
@@ -37,6 +94,8 @@ class SpineController {
             .filter(group => group.length > 0);
 
         this.audioController = audioController;
+        if (this.audioPreparation) await this.audioPreparation;
+        else this.prepareAudio(audioController, tmp);
         this.parentContainer = container;
         container.sortableChildren = true;
         const clipCounts = new Array(this.spineObjs.length).fill(0);
@@ -44,12 +103,6 @@ class SpineController {
         for (const [index, clip] of this.clips.entries()) {
             clipCounts[clip.skeleton]++;
             this.clipIndexMap[`${clip.skeleton}:${clip.clipName}`] = index;
-            clip.soundKeys.forEach(soundKey => {
-                audioController.registerAudios(soundKey.audios, '.wav', {
-                    loop: soundKey.loop,
-                    volume: soundKey.volume,
-                });
-            });
         }
         const mainSpineIndices = this.spineObjs.flatMap((skeleton, index) => skeleton.isMainSpine ? [index] : []);
         if (mainSpineIndices.length > 1) {
@@ -57,34 +110,16 @@ class SpineController {
         }
         this.mainSpineIndex = mainSpineIndices[0] ?? clipCounts.indexOf(Math.max(...clipCounts));
 
-        for (const audioInfo of Object.values(this.eventAudioMap)) {
-            const paths = audioInfo.path ?? [];
-            paths.forEach((path, index) => {
-                audioController.registerAudios([path], '', {
-                    volume: audioInfo.volume?.[index] ?? 1,
-                    preload: true,
-                });
-            });
-        }
-
-        const skeletonData = this.spineObjs;
-        const spines = new Array(skeletonData.length);
-        const renderOrder = skeletonData.map((data, index) => ({ data, index }))
-            .sort((a, b) => (a.data.sortingLayer ?? 0) - (b.data.sortingLayer ?? 0)
-                || (a.data.sortingOrder ?? 0) - (b.data.sortingOrder ?? 0)
-                || this.getRenderQueue(a.data) - this.getRenderQueue(b.data) || a.index - b.index);
-        for (const { data, index } of renderOrder) {
+        const spines = new Array(this.spineObjs.length);
+        const renderOrder = this.getSkeletonOrder(this.spineObjs);
+        const resources = await this.resources;
+        for (const [order, { data, index }] of renderOrder.entries()) {
             const skel = data.skeleton;
-            const atlas = data.atlas[0];
-            const pageMaterials = getSpinePageMaterials(data, atlas);
-            PIXI.Assets.add({ alias: skel, src: `${skel}1` });
-            PIXI.Assets.add({ alias: atlas.atlas, src: `${atlas.atlas}1`, data: {
-                spineMaterials: Object.fromEntries(pageMaterials.map(binding => [binding.pageName, binding.materialInfo])),
-            } });
-            await PIXI.Assets.load([skel, atlas.atlas]);
+            const { atlas, pageMaterials, programs } = resources?.[order] ?? await this.prepareSkeleton(data);
+            if (audioController.disposed) return;
             const spineObj = await spine.Spine.from({
                 skeleton: skel,
-                atlas: atlas.atlas,
+                atlas: data.atlas[0].atlas,
                 scale: data.skeletonScale ?? 1
             });
             // Timeline owns the frame order so particle prewarm sees this frame's bones.
@@ -116,8 +151,13 @@ class SpineController {
             spineObj.state.data.defaultMix = data.defaultMix;
 
 
+            if (audioController.disposed) {
+                spineObj.destroy();
+                return;
+            }
             if (!hierarchy?.attach(data.gameObject, spineObj, true)) container.addChild(spineObj);
-            await applySpineMaterials(spineObj, PIXI.Assets.get(atlas.atlas), pageMaterials, container);
+            await applySpineMaterials(spineObj, atlas, pageMaterials, container, programs, () => audioController.disposed);
+            if (audioController.disposed) return;
             spines[index] = spineObj;
             this.gameObjectMap[data.gameObject] = spineObj;
 
@@ -132,6 +172,7 @@ class SpineController {
             }
         }
         this.spineObjs = spines;
+        this.prepareTalkGroups();
         this.spineObjs[this.mainSpineIndex].state.addListener({
             start: entry => {
                 const clipIndex = this.clipIndexMap[`${this.mainSpineIndex}:${entry.animation.name}`];
@@ -228,13 +269,54 @@ class SpineController {
         });
         return trackEntry;
     }
+    prepareTalkGroups() {
+        const mainAnimations = this.spineObjs[this.mainSpineIndex].skeleton.data.animations;
+        const eventPaths = new Map(mainAnimations.map(animation => [animation.name,
+            animation.timelines.flatMap(timeline => (timeline.events ?? []).flatMap(event =>
+                this.eventAudioMap[event.stringValue]?.path ?? []))]));
+        this.talkAudio = this.talkGroups.map(animations => {
+            const paths = new Set();
+            const seen = new Set();
+            const collect = index => {
+                const clip = this.clips[index];
+                if (!clip || seen.has(index)) return;
+                seen.add(index);
+                if (clip.skeleton === this.mainSpineIndex) {
+                    for (const path of eventPaths.get(clip.clipName) ?? []) paths.add(path);
+                }
+                for (const soundKey of clip.soundKeys) {
+                    for (const path of soundKey.audios) paths.add(path);
+                }
+                for (const sync of clip.syncPlays) collect(sync);
+            };
+            for (const animation of animations) collect(this.clipIndexMap[`${this.mainSpineIndex}:${animation}`]);
+            return paths;
+        });
+        const talkAnimations = new Set(this.talkGroups.flat());
+        // Event sounds shared with ordinary animations still have to be ready at startup.
+        this.audioController.requireAudios([...eventPaths].flatMap(([name, paths]) =>
+            talkAnimations.has(name) ? [] : paths));
+    }
+
     playTalkAnimation() {
-        if (this.talkGroups.length === 0) {
-            return;
-        }
-        const animations = this.talkGroups[this.currentTalkGroupIndex];
-        this.currentTalkGroupIndex = (this.currentTalkGroupIndex + 1) % this.talkGroups.length;
+        if (!this.talkGroups.length || this.talkPending) return;
+        const index = this.currentTalkGroupIndex;
+        const animations = this.talkGroups[index];
+        const pending = this.audioController.pendingAudios([...this.talkAudio[index]]);
+        this.currentTalkGroupIndex = (index + 1) % this.talkGroups.length;
         this.onDisableInteractionEvent();
+        if (pending.length) {
+            this.talkPending = true;
+            void Promise.allSettled(pending).then(() => {
+                this.talkPending = false;
+                if (!this.audioController.disposed) this.playTalkGroup(animations);
+            });
+        } else {
+            this.playTalkGroup(animations);
+        }
+    }
+
+    playTalkGroup(animations) {
         let lastEntry = null;
         for (const animation of animations) {
             const clipIndex = this.clipIndexMap[`${this.mainSpineIndex}:${animation}`];

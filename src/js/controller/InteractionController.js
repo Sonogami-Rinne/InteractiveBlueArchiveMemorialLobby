@@ -4,6 +4,7 @@ class SpineInteraction {
         this.gameObject = data.gameObject;
         this.active = true;
         this.name = data.name;
+        this.depth = data.depth ?? -Infinity;
         const collider = { ...data.collider };
         collider.centerX = collider.centerX ?? collider.X ?? 0;
         collider.centerY = -(collider.centerY ?? collider.Y ?? 0);
@@ -54,7 +55,7 @@ class SpineInteraction {
 }
 
 
-class InteractionController {
+export default class InteractionController {
     constructor(spineController, offsetX, offsetY, debug = false) {
         this.container = null;
         this._debug = Boolean(debug);
@@ -70,11 +71,6 @@ class InteractionController {
         this.gameObjectMap = {};
         this.offsetX = offsetX;
         this.offsetY = offsetY;
-        //
-        //app.stage.hitArea = app.screen
-        //
-        //
-        //
         this.spineController.onDisableInteractionEvent = () => {
             this.onPointerDownPlaceholder = this.onPointerDownType1;
         }
@@ -103,7 +99,7 @@ class InteractionController {
             }
             this.gameObjectMap[interaction.gameObject] = interaction;
         }
-        this.interactions.sort((a, b) => a.cover - b.cover);
+        this.interactions.sort((a, b) => a.depth === b.depth ? a.cover - b.cover : b.depth - a.depth);
         tmp = this.spineController.getBones(tmp);
         for (const interaction of this.interactions) {
             interaction.bone = tmp[interaction.boneName];
@@ -289,6 +285,5 @@ class InteractionController {
     }
 }
 
-export default InteractionController
 
 

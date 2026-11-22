@@ -1,8 +1,8 @@
-import { createLobbyAudio } from "./util"
+import { createLobbyAudio } from "../common.js"
 
 const { context: audioCtx, output } = window.frameElement?.lobbyAudio ?? createLobbyAudio()
 
-class CAudio {
+export class CAudio {
     constructor(buffer, options = {}) {
         this._source = buffer
         this._loop = options.loop ?? false
@@ -18,10 +18,10 @@ class CAudio {
         this._gainNode.connect(output)
         this._gainNode.gain.value = this._volume
     }
-    play(delay, duration) {
-        this.playAtTime(audioCtx.currentTime + (delay ?? 0), duration)
+    play(delay, duration, volume) {
+        this.playAtTime(audioCtx.currentTime + (delay ?? 0), duration, volume)
     }
-    playAtTime(time, duration) {
+    playAtTime(time, duration, volume) {
         const source = audioCtx.createBufferSource()
         const instanceId = this._instanceId++
         source.buffer = this._source
@@ -30,21 +30,25 @@ class CAudio {
         if (this._loopEnd > this._loopStart) {
             source.loopEnd = this._loopEnd
         }
-        source.connect(this._gainNode)
-        this._instances[instanceId] = source
-        source.addEventListener('ended', () => {
+        const gainNode = volume === undefined ? this._gainNode : audioCtx.createGain()
+        if (gainNode !== this._gainNode) {
+            gainNode.gain.value = volume
+            gainNode.connect(output)
+        }
+        source.connect(gainNode)
+        const disconnect = () => {
             source.disconnect()
+            if (gainNode !== this._gainNode) gainNode.disconnect()
             delete this._instances[instanceId]
-        })
-        source.addEventListener('error', () => {
-            source.disconnect()
-            delete this._instances[instanceId]
-        })
+        }
+        this._instances[instanceId] = { source, disconnect }
+        source.addEventListener('ended', disconnect)
+        source.addEventListener('error', disconnect)
         const startTime = time ?? audioCtx.currentTime
         if (this._transition > 0) {
-            this._gainNode.gain.cancelScheduledValues(startTime)
-            this._gainNode.gain.setValueAtTime(0, startTime)
-            this._gainNode.gain.linearRampToValueAtTime(this._volume, startTime + this._transition)
+            gainNode.gain.cancelScheduledValues(startTime)
+            gainNode.gain.setValueAtTime(0, startTime)
+            gainNode.gain.linearRampToValueAtTime(volume ?? this._volume, startTime + this._transition)
         }
         source.start(startTime, this._offset)
         if (duration || this._duration) {
@@ -52,16 +56,16 @@ class CAudio {
         }
     }
     clear() {
-        for (const instance of Object.values(this._instances)) {
+        for (const { source, disconnect } of Object.values(this._instances)) {
             try {
-                instance.stop()
+                source.stop()
             }
             catch (error) {
                 if (error.name !== 'InvalidStateError') {
                     throw error
                 }
             }
-            instance.disconnect()
+            disconnect()
         }
         delete this._instances
         this._instances = {}
@@ -75,14 +79,15 @@ class CAudio {
     }
 
 }
-class AudioController {
-    constructor() {
+export class AudioController {
+    constructor(loadResource = name => dynamicResourceLoad(name)) {
+        this.loadResource = loadResource
         this._audioMap = {}
         this._loadingMap = {}
-        this._preLoadAudios = []
+        this._preLoadAudios = new Set()
     }
     async _loadData(fileName, audioName, options) {
-        const path = await dynamicResourceLoad(fileName)
+        const path = await this.loadResource(fileName)
         const response = await fetch(path)
         if (!response.ok) {
             throw new Error(`Failed to load audio ${fileName}: ${response.status} ${response.statusText}`)
@@ -96,14 +101,29 @@ class AudioController {
     }
 
     registerAudios(audioNames, appendix = '', options = {}) {
+        if (this._disposed) return;
         for (const audioName of audioNames) {
-            if (Object.hasOwn(this._loadingMap, audioName)) continue
-            const loading = this._loadData(`${audioName}${appendix}`, audioName, options)
-            this._loadingMap[audioName] = loading
-            if (options.preload) {
-                this._preLoadAudios.push(loading)
+            if (!Object.hasOwn(this._loadingMap, audioName)) {
+                const loading = this._loadData(`${audioName}${appendix}`, audioName, options)
+                this._loadingMap[audioName] = loading
+                void loading.catch(error => {
+                    if (!this._disposed) console.warn(`Could not prepare audio ${audioName}`, error)
+                })
             }
+            if (options.preload) this.requireAudios([audioName])
         }
+    }
+
+    pendingAudios(names) {
+        return names.flatMap(name => this._audioMap[name] || !this._loadingMap[name] ? [] : [this._loadingMap[name]])
+    }
+
+    requireAudios(names) {
+        for (const loading of this.pendingAudios(names)) this._preLoadAudios.add(loading)
+    }
+
+    get disposed() {
+        return this._disposed
     }
 
     destroy() {
@@ -115,7 +135,10 @@ class AudioController {
     async init() {
         await Promise.all(this._preLoadAudios)
     }
-
+    /**
+     * 
+     *  如果浏览器的自动播放策略阻止了音频的自动播放，那么就暂停整个进程，保证音乐和画面同步
+     */
     async waitForPlaybackPermission() {
         if (audioCtx.state === 'running') {
             return
@@ -186,9 +209,9 @@ class AudioController {
         }
     }
 
-    play(audioName, delay, duration) {
+    play(audioName, delay, duration, volume) {
         void this.resume()
-        this._audioMap[audioName]?.play(delay, duration)
+        this._audioMap[audioName]?.play(delay, duration, volume)
     }
     playAtTime(audioName, time) {
         this._audioMap[audioName]?.playAtTime(time)
@@ -225,4 +248,3 @@ class AudioController {
 
 }
 
-export default AudioController

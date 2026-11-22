@@ -1,15 +1,10 @@
-import { fromAffine2D, fromTRS, inverse, multiply } from './TransformMatrix.js';
+import { fromAffine2D, fromTRS, inverse, multiply, project } from './common.js'
 
 const identity = () => fromAffine2D([1, 0, 0, 1, 0, 0]);
 // The exporter writes rows; runtime matrices are column-major.
 const readMatrix = rows => rows[0].map((_, column) => rows.map(row => row[column])).flat();
 const authoredMatrix = node => fromTRS(node.position, node.rotation, node.scale);
 const unityFromPixi = ({ a, b, c, d, tx, ty }) => fromAffine2D([a, -b, -c, d, tx, -ty]);
-
-function project(matrix, pixiMatrix, flipY) {
-    const sign = flipY ? -1 : 1;
-    return pixiMatrix.set(matrix[0], sign * matrix[1], sign * matrix[4], matrix[5], matrix[12], sign * matrix[13]);
-}
 
 export default class GameObjectHierarchy {
     constructor(scene, entries = {}) {
@@ -29,7 +24,7 @@ export default class GameObjectHierarchy {
         if (!entry?.hierarchy) return null;
         const parent = this.node(entry.parent);
         const node = {
-            id, entry, parent, views: [], active: Boolean(entry.active),
+            id, entry, parent, views: [], spatialViews: new Set(), active: Boolean(entry.active),
             restWorld: readMatrix(entry.matrix),
             position: [...entry.localPosition], rotation: [...entry.localRotation], scale: [...entry.localScale],
         };
@@ -73,12 +68,23 @@ export default class GameObjectHierarchy {
         if (sorted) {
             anchor.zIndex = view.zIndex;
         }
-        const attachment = { anchor, view, rest: project(node.restWorld, new PIXI.Matrix(), true).invert() };
+        const attachment = { anchor, view, rest: project(node.restWorld, new PIXI.Matrix()).invert() };
         node.views.push(attachment);
         view.once('destroyed', () => {
             node.views.splice(node.views.indexOf(attachment), 1);
             anchor.destroy();
         });
+        return true;
+    }
+
+    attachSpatial(id, view) {
+        const node = this.node(id);
+        if (!node) return false;
+        view.setMeshWorldTransform(node.worldTransform ?? node.restWorld);
+        view.renderable = this.active(id);
+        this.scene.addChild(view);
+        node.spatialViews.add(view);
+        view.once('destroyed', () => node.spatialViews.delete(view));
         return true;
     }
 
@@ -125,11 +131,24 @@ export default class GameObjectHierarchy {
         const owners = spineController?.gameObjectMap ?? {};
         for (const node of this.nodes.values()) {
             if (!node.parent || owners[node.id]) continue;
-            const suffix = node.entry.hierarchy.slice(node.parent.entry.hierarchy.length + 1).split('/');
             const ownerNode = this.findSpineAncestor(node.parent, owners);
             const owner = owners[ownerNode?.id];
             if (!owner) continue;
-            const bone = suffix.reverse().map(name => owner.skeleton.findBone(name)).find(Boolean);
+            const path = node.entry.hierarchy.split('/');
+            const ownerDepth = ownerNode.entry.hierarchy.split('/').length;
+            const skeletonRoot = path.indexOf('SkeletonUtility-SkeletonRoot', ownerDepth);
+            if (skeletonRoot === -1) continue;
+            const parentDepth = node.parent.entry.hierarchy.split('/').length;
+            let bone = null;
+            let previousBone = null;
+            // Follow Spine's actual parent chain. Objects mounted under a bone
+            // can have names like "root" without being part of the skeleton.
+            for (let i = skeletonRoot + 1; i < path.length; i++) {
+                const candidate = owner.skeleton.findBone(path[i]);
+                if (!candidate || candidate.parent !== previousBone) break;
+                previousBone = candidate;
+                if (i >= parentDepth) bone = candidate;
+            }
             if (!bone) continue;
             const sceneInverse = this.scene.getGlobalTransform(new PIXI.Matrix()).invert();
             const ownerScene = owner.getGlobalTransform(new PIXI.Matrix()).prepend(sceneInverse);
@@ -168,35 +187,18 @@ export default class GameObjectHierarchy {
             }
             for (const { anchor, rest } of node.views) {
                 anchor.visible = this.active(node.id);
-                anchor.setFromMatrix(project(node.worldTransform, this.projected, true).append(rest));
+                anchor.setFromMatrix(project(node.worldTransform, this.projected).append(rest));
+            }
+            for (const view of node.spatialViews) {
+                view.renderable = this.active(node.id);
+                view.setMeshWorldTransform(node.worldTransform);
             }
         }
     }
 
     updateParticle({ gameObject, particleContainer }) {
         const world = this.nodes.get(String(gameObject))?.worldTransform;
-        if (world) {
-            particleContainer.setEmitterTransform(project(world, this.projected, false));
-            if (particleContainer.setEmitterWorldMatrix) {
-                particleContainer.setEmitterWorldMatrix(world);
-                if (!particleContainer.emitterInverse3 && world[8] === 0 && world[9] === 0 && world[10] === 0) {
-                    // A flat emitter still has a world-to-local mapping in its plane.
-                    // Complete the basis for inversion and discard the local depth component.
-                    const [a, b, c, , d, e, f] = world;
-                    const basis = world.slice();
-                    basis.splice(8, 3, b*f - c*e, c*d - a*f, a*e - b*d);
-                    const planarInverse = inverse(basis);
-                    if (planarInverse) {
-                        particleContainer.emitterInverse3 = new Float64Array([
-                            planarInverse[0], planarInverse[1], 0,
-                            planarInverse[4], planarInverse[5], 0,
-                            planarInverse[8], planarInverse[9], 0,
-                        ]);
-                    }
-                }
-            } else particleContainer.setEmitterWorldScale?.(Math.hypot(world[0], world[1], world[2]),
-                Math.hypot(world[4], world[5], world[6]));
-        }
+        if (world) particleContainer.setEmitterWorldMatrix(world);
         return world?.[14];
     }
 }

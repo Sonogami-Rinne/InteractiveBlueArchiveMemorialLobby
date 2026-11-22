@@ -1,20 +1,25 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { createLobbyAudio } from './js/util'
-import { defaultPrefab, loadLobbyList } from './js/LobbyPack'
+import { createLobbyAudio } from './js/common'
+import { loadLobbyList, resolvePrefab } from './js/loader/PrefabLoader'
+import { defaultGraphics, readLobbyPreferences, validViewSize, writeLobbyPreferences, defaultPrefab } from './js/LobbyPreferences'
 import menuIcon from './common_menu.png'
 
 const frame = ref(null)
 const dialog = ref(null)
 const menuVisible = ref(false)
 const panel = ref('main')
-const selected = ref(defaultPrefab)
+const saved = readLobbyPreferences()
+const selected = ref(resolvePrefab(saved.prefab) ?? defaultPrefab)
 const loading = ref(true)
 const sceneError = ref('')
 const list = ref(null)
 const listError = ref('')
-const volume = ref(100)
+const volume = ref(saved.volume)
+let graphics = { targetViewWidth: saved.targetViewWidth, targetViewHeight: saved.targetViewHeight }
+const graphicsDraft = ref({ ...graphics })
 const audio = createLobbyAudio()
+audio.output.gain.value = volume.value / 100
 let hideTimer
 
 function showMenuButton() {
@@ -36,6 +41,11 @@ function openMenu() {
   dialog.value.showModal()
 }
 
+function openSettings() {
+  graphicsDraft.value = { ...graphics }
+  panel.value = 'settings'
+}
+
 function closeMenu() {
   dialog.value.close()
 }
@@ -55,10 +65,29 @@ async function openLobbyList() {
 function changeVolume(event) {
   volume.value = event.target.valueAsNumber
   audio.output.gain.value = volume.value / 100
+  savePreferences()
+}
+
+function savePreferences() {
+  writeLobbyPreferences({
+    prefab: selected.value,
+    volume: volume.value,
+    ...graphics,
+  })
+}
+
+function applyGraphics(next) {
+  if (!validViewSize(next.targetViewWidth) || !validViewSize(next.targetViewHeight)) return
+  graphics = { ...next }
+  graphicsDraft.value = { ...graphics }
+  frame.value.lobbyGraphics = graphics
+  frame.value.contentWindow.dispatchEvent(new Event('lobby-graphics-change'))
+  savePreferences()
 }
 
 function loadScene(prefab) {
   selected.value = prefab
+  savePreferences()
   sceneError.value = ''
   loading.value = true
   const url = new URL(location.href)
@@ -77,6 +106,7 @@ function selectLobby(prefab) {
 
 onMounted(() => {
   frame.value.lobbyAudio = audio
+  frame.value.lobbyGraphics = graphics
   frame.value.addEventListener('lobby-mouse', showMenuButton)
   frame.value.addEventListener('lobby-activate', unlockAudio)
   frame.value.addEventListener('lobby-ready', () => { loading.value = false })
@@ -122,7 +152,7 @@ onBeforeUnmount(() => {
       </header>
 
       <div v-if="panel === 'main'" class="menu-actions">
-        <button type="button" class="menu-action" @click="panel = 'settings'">
+        <button type="button" class="menu-action" @click="openSettings">
           <span class="icon-placeholder" aria-hidden="true"></span>设置
         </button>
         <button type="button" class="menu-action" @click="openLobbyList">
@@ -137,6 +167,24 @@ onBeforeUnmount(() => {
           <input type="range" min="0" max="100" :value="volume" @input="changeVolume">
           <output>{{ volume }}%</output>
         </label>
+        <div id="graphics-title" class="settings-section">图形</div>
+        <form class="graphics-settings" aria-labelledby="graphics-title"
+          @submit.prevent="applyGraphics(graphicsDraft)">
+          <label>
+            <span>目标视图宽度（px）</span>
+            <input v-model.number="graphicsDraft.targetViewWidth" type="number" required
+              min="1" :max="Number.MAX_SAFE_INTEGER" step="1">
+          </label>
+          <label>
+            <span>目标视图高度（px）</span>
+            <input v-model.number="graphicsDraft.targetViewHeight" type="number" required
+              min="1" :max="Number.MAX_SAFE_INTEGER" step="1">
+          </label>
+          <div class="graphics-actions">
+            <button type="button" @click="applyGraphics(defaultGraphics)">重置</button>
+            <button type="submit">应用</button>
+          </div>
+        </form>
       </div>
 
       <div v-else class="lobby-picker">
@@ -150,7 +198,7 @@ onBeforeUnmount(() => {
             <span class="lobby-portrait">
               <img v-if="entry.iconUrl" :src="entry.iconUrl" alt="" loading="lazy" decoding="async">
             </span>
-            <span class="lobby-name">{{ entry.prefab.replace(/^Lobby/, '') }}</span>
+            <span class="lobby-name">{{ entry.prefab.replace(/^lobby/, '') || entry.prefab }}</span>
           </button>
         </div>
         <footer class="picker-footer">
@@ -302,9 +350,8 @@ button:focus-visible {
 }
 .settings-layout {
   display: grid;
-  grid-template-columns: minmax(70px, 22%) 1fr;
+  grid-template-columns: minmax(60px, 22%) minmax(0, 1fr);
   gap: 8px;
-  min-height: min(230px, 50dvh);
   padding: 10px;
 }
 .settings-section {
@@ -324,6 +371,43 @@ button:focus-visible {
   background: white;
 }
 .setting input { width: 100%; accent-color: #279bc8; }
+.graphics-settings {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #d7e3eb;
+  background: white;
+}
+.graphics-settings label {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  align-items: center;
+  gap: 6px 12px;
+}
+.graphics-settings input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid #a3c7db;
+  border-radius: 5px;
+  color: inherit;
+  font: inherit;
+}
+.graphics-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 8px;
+}
+.graphics-actions button {
+  padding: 7px 14px;
+  border: 1px solid #a3c7db;
+  border-radius: 5px;
+  color: #24475b;
+  background: #f7f9fb;
+}
+.graphics-actions button[type="submit"] { background: #d9edf8; }
 .lobby-picker { padding: 8px 10px 0; }
 .current-lobby {
   padding: 4px 6px 8px;

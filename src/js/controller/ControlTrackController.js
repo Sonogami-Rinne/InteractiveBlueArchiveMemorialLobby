@@ -1,5 +1,3 @@
-// ControlPlayableAsset activation is applied to the entire GameObject subtree.
-// Particle simulation follows clip time, independently of the normal scene tick.
 export default class ControlTrackController {
     constructor(clips, hierarchy, controllers) {
         this.hierarchy = hierarchy;

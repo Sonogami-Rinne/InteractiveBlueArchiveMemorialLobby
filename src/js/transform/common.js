@@ -39,3 +39,7 @@ export function inverse(m) {
     }
     return result;
 }
+
+export function project(matrix, pixiMatrix) {
+    return pixiMatrix.set(matrix[0], -matrix[1], -matrix[4], matrix[5], matrix[12], -matrix[13]);
+}

@@ -1,4 +1,4 @@
-import { getShaderProgram } from './util.js';
+import { getShaderProgram } from './ShaderProgram.js';
 
 const WrapModeMap = {
     0: "repeat",
@@ -15,7 +15,7 @@ export class Material {
     textureSources; // TextureSource
     textureNames;
     localUniform;
-    constructor(matInfo, texInfo) {
+    constructor(matInfo, texInfo, spatial = false) {
         this.shaderName = matInfo.shader;
         this.shaderWithVariant = matInfo.shaderWithVariant;
         this.blendInfo = matInfo.blendInfo ?? null;
@@ -55,6 +55,8 @@ export class Material {
         this.properties['uRound'] = { value: 1, type: "f32" };
         this.properties['uResolution'] = { value: [0, 0], type: "vec2<f32>" };
         this.properties['_Time'] = { value: new Float32Array(4), type: 'vec4<f32>' };
+        this.spatial = spatial;
+        if (spatial) this.properties.uTransform = { value: new Float32Array(16), type: 'mat4x4<f32>' };
         this.localUniform = new PIXI.UniformGroup(this.properties);
     }
     setTime(seconds) {
@@ -69,34 +71,27 @@ export class Material {
         return this.textureNames[name];
     }
     setupShader(glVertCode, glFragCode) {
+        this.setProgram(getShaderProgram(this.shaderWithVariant, glVertCode, glFragCode));
+    }
+    setProgram(glProgram) {
         const resources = {
             uniforms: this.localUniform
         };
         Object.assign(resources, this.textureSources);
         this.shader = new PIXI.Shader({
-            glProgram: getShaderProgram(this.shaderWithVariant, glVertCode, glFragCode),
+            glProgram,
             resources: resources
         });
     }
 }
 
-export function getRenderQueue(queue, fallback = 3000) {
-    return Number.isFinite(queue) && queue >= 0 ? queue : fallback;
-}
+// export function getRenderQueue(queue, fallback = 3000) {
+//     return Number.isFinite(queue) && queue >= 0 ? queue : fallback;
+// }
 
-export function getMaterialRenderQueue(material, fallback) {
-    return getRenderQueue(material.renderQueue,
-        getRenderQueue(material.shaderRenderQueue ?? material.shaderInfo?.renderQueue, fallback));
-}
+// export function getMaterialRenderQueue(material, fallback) {
+//     return getRenderQueue(material.renderQueue,
+//         getRenderQueue(material.shaderRenderQueue ?? material.shaderInfo?.renderQueue, fallback));
+// }
 
-// The exporter provides the numeric layer order, not a SortingLayer ID.
-// Layer precedes signed 16-bit Order in Layer, then queue (0..5000) and depth.
-// Keep layer/order zero compatible with the existing queue/depth keys.
-export function getRenderOrder(queue, z = 0, sortingOrder = 0, sortingLayer = 0, sortingFudge = 0) {
-    const order = Number.isFinite(sortingOrder) ? sortingOrder : 0;
-    const layer = Number.isFinite(sortingLayer) ? sortingLayer : 0;
-    const depth = Number.isFinite(z) ? z : 0;
-    const fudge = Number.isFinite(sortingFudge) ? sortingFudge : 0;
-    // Lower Sorting Fudge draws the whole particle system in front at equal queue/order.
-    return layer * 1000000000 + order * 10000 + queue - Math.atan(depth + fudge) / Math.PI;
-}
+

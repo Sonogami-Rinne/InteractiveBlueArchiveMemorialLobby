@@ -158,14 +158,40 @@ const __spreadValues$D = (a, b) => {
     return a;
 };
 
-const loadImageBitmap = async (nurl, asset) => {
-    const fileName = nurl.substring(nurl.lastIndexOf("/") + 1).split("?")[0];
-    const tmp = fileName.substring(0, fileName.lastIndexOf("."));
-    const buffer = await loadResourceBuffer(`${tmp}.png`);
+const preparedImageBitmaps = new Map();
+const prepareLobbyTexture = (name, loadResource = dynamicResourceLoad) => {
+    if (typeof name !== 'string' || name === 'white') return;
+    if (!preparedImageBitmaps.has(name)) {
+        const loading = decodeLobbyTexture(name, loadResource).catch(error => {
+            preparedImageBitmaps.delete(name);
+            throw error;
+        });
+        preparedImageBitmaps.set(name, loading);
+    }
+    return preparedImageBitmaps.get(name);
+};
+
+async function decodeLobbyTexture(name, loadResource) {
+    const url = await loadResource(`${name}.png`);
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to load ${name}.png: ${response.status} ${response.statusText}`);
+    const buffer = await response.arrayBuffer();
     const imageBlob = new Blob([buffer], { type: "image/png" });
     return createImageBitmap(imageBlob, {
+        // Unity textures are sampled with v = 0 at the bottom edge.
+        imageOrientation: 'flipY',
         premultiplyAlpha: 'none', colorSpaceConversion: 'none',
     });
+}
+
+async function loadImageBitmap(nurl) {
+    const fileName = nurl.substring(nurl.lastIndexOf("/") + 1).split("?")[0];
+    const name = decodeURIComponent(fileName.substring(0, fileName.lastIndexOf(".")));
+    try {
+        return await prepareLobbyTexture(name);
+    } finally {
+        preparedImageBitmaps.delete(name);
+    }
 }
 
 const loadTextures1 = {
@@ -185,7 +211,7 @@ const loadTextures1 = {
     },
     async load(url, asset, loader) {
         let _a;
-        let src = await loadImageBitmap(url, asset);
+        let src = await loadImageBitmap(url);
         const base = new PIXI.ImageSource(__spreadValues$D({
             resource: src,
             alphaMode: "premultiply-alpha-on-upload",
@@ -554,5 +580,120 @@ spine.SpinePipe.prototype.addRenderable = function (spineObject, instructionSet)
         }
         filters[filters.length - 1].apply(this, flip, filterData.previousRenderSurface, false);
         if (filterData.blendRequired) PIXI.TexturePool.returnTexture(backTexture);
+    };
+})();
+
+// Prepare programs on the Lobby's WebGL context and keep Pixi's normal render cache.
+(() => {
+    const shaderSystem = PIXI.GlShaderSystem.prototype;
+    const createProgramData = shaderSystem._createProgramData;
+    const contexts = new WeakMap();
+
+    function submitProgram(gl, program) {
+        const vertex = PIXI.compileShader(gl, gl.VERTEX_SHADER, program.vertex);
+        const fragment = PIXI.compileShader(gl, gl.FRAGMENT_SHADER, program.fragment);
+        const linked = gl.createProgram();
+        gl.attachShader(linked, vertex);
+        gl.attachShader(linked, fragment);
+        if (program.transformFeedbackVaryings) {
+            if (typeof gl.transformFeedbackVaryings === 'function') {
+                gl.transformFeedbackVaryings(linked, program.transformFeedbackVaryings.names,
+                    program.transformFeedbackVaryings.bufferMode === 'separate' ? gl.SEPARATE_ATTRIBS : gl.INTERLEAVED_ATTRIBS);
+            } else {
+                PIXI.warn('Transform feedback is not supported on this WebGL context.');
+            }
+        }
+        gl.linkProgram(linked);
+        return { linked, vertex, fragment, attributesCollected: false };
+    }
+
+    function collectAttributes(gl, program, submission) {
+        const { linked, vertex, fragment } = submission;
+        if (!gl.getProgramParameter(linked, gl.LINK_STATUS)) {
+            PIXI.logProgramError(gl, linked, vertex, fragment);
+        }
+        // Pixi relinks legacy shaders after assigning sorted attribute locations.
+        const relinks = !/^[ \t]*#[ \t]*version[ \t]+300[ \t]+es[ \t]*$/m.test(program.vertex);
+        program._attributeData = PIXI.extractAttributesFromGlProgram(linked, gl, relinks);
+        submission.attributesCollected = true;
+        return relinks;
+    }
+
+    shaderSystem._createProgramData = function (program) {
+        const context = contexts.get(this);
+        const key = program._key;
+        const submission = context?.cache === this._programDataHash
+            ? context.pending.get(key)?.submission
+            : null;
+        if (!submission) return createProgramData.call(this, program);
+
+        const gl = context.gl;
+        const { linked, vertex, fragment } = submission;
+        if (!submission.attributesCollected) collectAttributes(gl, program, submission);
+        program._uniformData = PIXI.getUniformData(linked, gl);
+        program._uniformBlockData = PIXI.getUboData(linked, gl);
+        gl.deleteShader(vertex);
+        gl.deleteShader(fragment);
+
+        const uniforms = {};
+        for (const [name, data] of Object.entries(program._uniformData)) {
+            uniforms[name] = {
+                location: gl.getUniformLocation(linked, name),
+                value: PIXI.defaultValue(data.type, data.size),
+            };
+        }
+        const result = new PIXI.GlProgramData(linked, uniforms);
+        context.cache[key] = result;
+        return result;
+    };
+
+    shaderSystem.prepareProgram = function (program) {
+        const key = program._key;
+        const cache = this._programDataHash;
+        if (cache[key]) return Promise.resolve(cache[key]);
+
+        const gl = this._gl;
+        let context = contexts.get(this);
+        if (context?.cache !== cache) {
+            context = { cache, gl, pending: new Map(), parallel: gl.getExtension('KHR_parallel_shader_compile') };
+            contexts.set(this, context);
+        }
+        const existing = context.pending.get(key);
+        if (existing) return existing.ready;
+
+        const request = { submission: context.parallel ? submitProgram(gl, program) : null };
+        const checkContext = () => {
+            if (this._gl !== gl || this._programDataHash !== cache || gl.isContextLost()) {
+                throw new Error('WebGL context changed during shader preparation');
+            }
+        };
+        const waitForLink = async () => {
+            while (!cache[key]) {
+                checkContext();
+                if (gl.getProgramParameter(request.submission.linked, context.parallel.COMPLETION_STATUS_KHR)) return;
+                await new Promise(resolve => setTimeout(resolve, 4));
+            }
+        };
+        context.pending.set(key, request);
+        request.ready = (async () => {
+            if (context.parallel) {
+                await waitForLink();
+                checkContext();
+                if (!cache[key] && collectAttributes(gl, program, request.submission)) await waitForLink();
+            } else {
+                await new Promise(resolve => setTimeout(resolve, 0));
+            }
+            checkContext();
+            return this._getProgramData(program);
+        })().finally(() => {
+            context.pending.delete(key);
+            if (request.submission && !cache[key] && !gl.isContextLost()) {
+                const { linked, vertex, fragment } = request.submission;
+                gl.deleteProgram(linked);
+                gl.deleteShader(vertex);
+                gl.deleteShader(fragment);
+            }
+        });
+        return request.ready;
     };
 })();

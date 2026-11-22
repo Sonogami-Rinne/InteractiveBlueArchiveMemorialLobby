@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
-import { defaultPrefab, resolvePrefab } from './LobbyPack.js'
+import { resolvePrefab } from './loader/PrefabLoader.js'
+import { defaultPrefab } from './LobbyPreferences.js'
 
 const scene = new URLSearchParams(location.search).get('scene')
 if (scene === null) {

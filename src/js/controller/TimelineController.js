@@ -1,3 +1,4 @@
+import { observePreparation } from '../loader/common.js';
 // Timeline data is evaluated in seconds.
 import ControlTrackController from './ControlTrackController.js';
 
@@ -119,8 +120,8 @@ class AnimationClip {
 
 }
 
-class TimelineController {
-    constructor(spineController, interactiveController, postProcessingController, audioController, particleController, materialRendererController) {
+export default class TimelineController {
+    constructor(spineController, interactiveController, postProcessingController, audioController, particleController, materialRendererController, timelineData) {
         this.spineController = spineController;
         this.interactiveController = interactiveController;
         this.audioController = audioController;
@@ -135,16 +136,9 @@ class TimelineController {
         this._backgroundMusic = []
         this._time = 0.;
         this._gameObjectMap = {};
-
+        this.audioPreparation = timelineData && observePreparation(timelineData.then(data => this.prepareAudio(data)));
     }
-    async init(hierarchy, data) {
-        this.hierarchy = hierarchy;
-        this.profileActivation = new Map();
-
-        this._attributeTimeline = [];
-        for (const animationClip of data.animationClip ?? []) {
-            this._attributeTimeline.push(new AnimationClip(animationClip))
-        }
+    prepareAudio(data) {
         this._soundFixTimeline = [...(data.soundFix ?? [])];
         for (const audio of this._soundFixTimeline) {
             this.audioController.registerAudios(audio.audios, '.wav', {
@@ -152,7 +146,6 @@ class TimelineController {
                 preload: audio.start < 5.,
             })
         }
-        this._spineTimeline = [...(data.spineAnimation ?? [])];
         this._backgroundMusic = [];
         const bgm = data.bgm ?? {};
         for (const [index, path] of (bgm.path ?? []).entries()) {
@@ -168,6 +161,14 @@ class TimelineController {
             });
         }
         this._soundFixTimeline.sort((a, b) => a.start - b.start);
+    }
+    async init(hierarchy, data) {
+        if (this.audioPreparation) await this.audioPreparation;
+        else this.prepareAudio(data);
+        this.hierarchy = hierarchy;
+        this.profileActivation = new Map();
+        this._attributeTimeline = (data.animationClip ?? []).map(animationClip => new AnimationClip(animationClip));
+        this._spineTimeline = [...(data.spineAnimation ?? [])];
         this._spineTimeline.sort((a, b) => a.start - b.start);
         this._gameObjectMap = {};
         for (const controller of [
@@ -236,8 +237,8 @@ class TimelineController {
             const target = this._soundFixTimeline[cur];
             if (target.start <= this._time) {
                 for (const audio of target.audios) {
-                    this.audioController.setVolume(audio, target.volume);
-                    this.audioController.play(audio, 0, target.duration);
+                    // The Timeline clip triggers the sound, which plays to the end of the WAV.
+                    this.audioController.play(audio, 0, undefined, target.volume);
                 }
             }
             else {
@@ -270,4 +271,3 @@ class TimelineController {
     }
 }
 
-export default TimelineController

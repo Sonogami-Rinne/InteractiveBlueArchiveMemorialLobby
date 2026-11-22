@@ -1,4 +1,4 @@
-import { bloomSettings, getBloomPyramid, getShaderProgram } from './util.js';
+import { getShaderProgram } from './ShaderProgram.js';
 
 // Internal passes fill their own target, even when it is smaller than the input.
 // Pixi's ordinary filter vertex shader sizes the quad from the input instead.
@@ -142,6 +142,32 @@ function applyPass(manager, filter, input, output, clear = true) {
     manager.applyFilter(filter, input, output, clear);
 }
 
+// MXBloomSettings captured from GraphicsManager / UIRenderPass (2026-10-29).
+const bloomSettings = Object.freeze({
+    intensity: 1.7, diffusion: 7, threshold: 1, softKnee: 0,
+    clamp: 65472, tint: [1, 1, 1],
+});
+
+function getBloomPyramid(width, height, settings = bloomSettings) {
+    let w = Math.max(1, Math.floor(width / 2));
+    let h = Math.max(1, Math.floor(height / 2));
+    const logs = Math.log2(Math.max(w, h)) + Math.min(settings.diffusion, 10) - 10;
+    const whole = Math.floor(logs);
+    const count = Math.max(1, Math.min(16, whole));
+    const levels = [];
+    for (let i = 0; i < count; i++) {
+        levels.push({ width: w, height: h });
+        w = Math.max(1, Math.floor(w / 2));
+        h = Math.max(1, Math.floor(h / 2));
+    }
+    const knee = settings.threshold * settings.softKnee + 1e-5;
+    return {
+        levels,
+        sampleScale: 0.5 + logs - whole,
+        intensity: 2 ** (settings.intensity / 10) - 1,
+        threshold: [settings.threshold, settings.threshold - knee, 2 * knee, 0.25 / knee],
+    };
+}
 export default class MXPostProcessingFilter extends PIXI.Filter {
     constructor(textures, lut) {
         super(makeOptions('mx-bloom-output', outputFragment, {

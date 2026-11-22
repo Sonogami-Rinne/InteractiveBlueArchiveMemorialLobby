@@ -1,5 +1,5 @@
-import { applyBlendInfo } from './util.js';
-import { Material, getRenderQueue, getMaterialRenderQueue, getRenderOrder } from './Material.js';
+import { Material } from './Material.js';
+import { getRenderOrder, applyBlendInfo } from './common.js';
 
 const textureName = name => name?.replace(/\.(png|jpe?g)$/i, '');
 const mainTexture = material => {
@@ -24,7 +24,7 @@ export function getSpinePageMaterials(skeleton, atlas) {
             subMeshIndex: index < 0 ? pageIndex : index,
             materialInfo,
             texInfo: skeleton.texInfo?.[index] ?? atlas.texInfo?.[pageIndex] ?? {},
-            renderQueue: getMaterialRenderQueue(materialInfo, getRenderQueue(skeleton.renderQueue)),
+            renderQueue: materialInfo.renderQueue,
             sortingOrder: skeleton.sortingOrder ?? 0,
             sortingLayer: skeleton.sortingLayer ?? 0,
             depth: (skeleton.translate?.[2] ?? 0) + (skeleton.subMeshPositionZ?.[index] ?? 0),
@@ -34,9 +34,9 @@ export function getSpinePageMaterials(skeleton, atlas) {
 
 // Spine shaders consume PMA colors. Decode atlas color before multiplying its
 // alpha, just as the default page shader does, while keeping the exported shader.
-function prepareFragment(code, material, page) {
-    if (material.shaderName !== 'Spine/Skeleton') return code;
-    const straight = material.getPropertyValue('_StraightAlphaInput') ?? (page.pma ? 0 : 1);
+function prepareFragment(code, info, page) {
+    if (info.shader !== 'Spine/Skeleton') return code;
+    const straight = info.properties?._StraightAlphaInput?.value ?? (page.pma ? 0 : 1);
     const convert = straight ? 'color.rgb *= color.a;' : `
         vec3 rgb = color.a > 0.0 ? color.rgb / color.a : vec3(0.0);
         color.rgb = mix(rgb / 12.92, pow((max(rgb, vec3(0.0)) + 0.055) / 1.055, vec3(2.4)),
@@ -121,7 +121,8 @@ class SpineMaterialPage extends PIXI.RenderContainer {
                 vertexData[offset] = geometry.vertices[i * 2];
                 vertexData[offset + 1] = geometry.vertices[i * 2 + 1];
                 vertexData[offset + 2] = geometry.uvs[i * 2];
-                vertexData[offset + 3] = geometry.uvs[i * 2 + 1];
+                // Spine atlas UVs are measured down from the top of each page.
+                vertexData[offset + 3] = 1 - geometry.uvs[i * 2 + 1];
                 vertexData[offset + 4] = data.color.r * red * alpha;
                 vertexData[offset + 5] = data.color.g * green * alpha;
                 vertexData[offset + 6] = data.color.b * blue * alpha;
@@ -163,7 +164,18 @@ class SpineMaterialPage extends PIXI.RenderContainer {
     }
 }
 
-export async function applySpineMaterials(spineObject, atlas, bindings, scene) {
+export async function prepareSpinePrograms(atlas, bindings, preparation) {
+    return new Map(await Promise.all(bindings.map(async binding => {
+        const page = atlas.pages.find(page => page.name === binding.pageName);
+        if (!page) throw new Error(`Atlas page not found: ${binding.pageName}`);
+        const info = binding.materialInfo;
+        const program = await preparation.program(info.shaderWithVariant, undefined,
+            fragment => prepareFragment(fragment, info, page));
+        return [binding.pageName, program];
+    })));
+}
+
+export async function applySpineMaterials(spineObject, atlas, bindings, scene, programs, isDisposed = () => false) {
     const pages = [];
     // Equal queue/depth layers retain insertion order. Use MeshRenderer material
     // slots (submeshes), since atlas page order can be the reverse of draw order.
@@ -195,11 +207,15 @@ export async function applySpineMaterials(spineObject, atlas, bindings, scene) {
             return [slot, { ...property, value: '__spineUnityWhite' }];
         }));
         const material = new Material({ ...binding.materialInfo, properties }, binding.texInfo);
-        const [vertex, fragment] = await Promise.all([
-            dynamicResourceLoad(`${material.shaderWithVariant}.vert`),
-            dynamicResourceLoad(`${material.shaderWithVariant}.frag`),
-        ]);
-        material.setupShader(vertex, prepareFragment(fragment, material, page));
+        if (isDisposed()) return;
+        if (programs) material.setProgram(programs.get(binding.pageName));
+        else {
+            const [vertex, fragment] = await Promise.all([
+                dynamicResourceLoad(`${material.shaderWithVariant}.vert`),
+                dynamicResourceLoad(`${material.shaderWithVariant}.frag`),
+            ]);
+            material.setupShader(vertex, prepareFragment(fragment, binding.materialInfo, page));
+        }
         const view = new SpineMaterialPage(spineObject, page, binding, material);
         spineObject.addChild(view);
         const layer = new PIXI.RenderLayer();
