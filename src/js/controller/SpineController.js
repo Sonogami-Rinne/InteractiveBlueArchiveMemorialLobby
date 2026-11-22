@@ -37,12 +37,16 @@ class SpineController {
                 audioController.registerAudios(soundKey.audios, '.wav', {
                     loop: soundKey.loop,
                     volume: soundKey.volume,
+                    mixerGroup: 'LobbySpine',
                 });
             }
         }
         for (const audioInfo of Object.values(data.eventAudioMap ?? {})) {
             for (const [index, path] of (audioInfo.path ?? []).entries()) {
-                audioController.registerAudios([path], '', { volume: audioInfo.volume?.[index] ?? 1 });
+                audioController.registerAudios([path], '', {
+                    volume: audioInfo.volume?.[index] ?? 1,
+                    mixerGroup: 'Voice UI',
+                });
             }
         }
     }

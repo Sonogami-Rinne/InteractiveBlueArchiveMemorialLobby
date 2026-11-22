@@ -1,9 +1,8 @@
-import { createLobbyAudio } from "../common.js"
-
 const { context: audioCtx, output } = window.frameElement?.lobbyAudio ?? createLobbyAudio()
 
-export class CAudio {
-    constructor(buffer, options = {}) {
+class CAudio {
+    constructor(buffer, options = {}, destination = output) {
+        this._destination = destination
         this._source = buffer
         this._loop = options.loop ?? false
         this._volume = options.volume ?? 1.
@@ -15,7 +14,7 @@ export class CAudio {
         this._instances = {}
         this._instanceId = 0
         this._gainNode = audioCtx.createGain()
-        this._gainNode.connect(output)
+        this._gainNode.connect(this._destination)
         this._gainNode.gain.value = this._volume
     }
     play(delay, duration, volume) {
@@ -33,7 +32,7 @@ export class CAudio {
         const gainNode = volume === undefined ? this._gainNode : audioCtx.createGain()
         if (gainNode !== this._gainNode) {
             gainNode.gain.value = volume
-            gainNode.connect(output)
+            gainNode.connect(this._destination)
         }
         source.connect(gainNode)
         const disconnect = () => {
@@ -85,8 +84,46 @@ export class AudioController {
         this._audioMap = {}
         this._loadingMap = {}
         this._preLoadAudios = new Set()
+        this._mixerBuses = new Map()
     }
-    async _loadData(fileName, audioName, options) {
+    _getMixerBus(group) {
+        let bus = this._mixerBuses.get(group)
+        if (!bus) {
+            const node = audioCtx.createGain()
+            node.connect(output)
+            bus = { node, fromDb: 0, toDb: 0, start: 0, end: 0 }
+            this._mixerBuses.set(group, bus)
+        }
+        return bus.node
+    }
+
+    applyMixerSnapshot(groups, volumes, transition = 0) {
+        const time = audioCtx.currentTime
+        for (const [group, bus] of this._mixerBuses) {
+            let targetDb = 0
+            for (let name = group; name != null; name = groups[name]) {
+                targetDb += volumes[name] ?? 0
+            }
+            const { gain } = bus.node
+            gain.cancelScheduledValues(time)
+            if (transition > 0) {
+                const currentDb = time >= bus.end ? bus.toDb
+                    : bus.fromDb + (bus.toDb - bus.fromDb) * (time - bus.start) / (bus.end - bus.start)
+                gain.setValueAtTime(10 ** (currentDb / 20), time)
+                gain.exponentialRampToValueAtTime(10 ** (targetDb / 20), time + transition)
+                bus.fromDb = currentDb
+            }
+            else {
+                gain.setValueAtTime(10 ** (targetDb / 20), time)
+                bus.fromDb = targetDb
+            }
+            bus.toDb = targetDb
+            bus.start = time
+            bus.end = time + transition
+        }
+    }
+
+    async _loadData(fileName, audioName, options, destination) {
         const path = await this.loadResource(fileName)
         const response = await fetch(path)
         if (!response.ok) {
@@ -95,16 +132,17 @@ export class AudioController {
         const data = await response.arrayBuffer()
         const decoded = await audioCtx.decodeAudioData(data)
         if (this._disposed) return
-        const audio = new CAudio(decoded, options)
+        const audio = new CAudio(decoded, options, destination)
         this._audioMap[audioName] = audio
         return audio
     }
 
     registerAudios(audioNames, appendix = '', options = {}) {
         if (this._disposed) return;
+        const destination = options.mixerGroup ? this._getMixerBus(options.mixerGroup) : output
         for (const audioName of audioNames) {
             if (!Object.hasOwn(this._loadingMap, audioName)) {
-                const loading = this._loadData(`${audioName}${appendix}`, audioName, options)
+                const loading = this._loadData(`${audioName}${appendix}`, audioName, options, destination)
                 this._loadingMap[audioName] = loading
                 void loading.catch(error => {
                     if (!this._disposed) console.warn(`Could not prepare audio ${audioName}`, error)
@@ -129,6 +167,8 @@ export class AudioController {
     destroy() {
         this._disposed = true
         for (const audio of Object.values(this._audioMap)) audio.destroy()
+        for (const { node } of this._mixerBuses.values()) node.disconnect()
+        this._mixerBuses.clear()
         this._audioMap = {}
     }
 
@@ -248,3 +288,9 @@ export class AudioController {
 
 }
 
+export function createLobbyAudio() {
+    const context = new (window.AudioContext || window.webkitAudioContext)()
+    const output = context.createGain()
+    output.connect(context.destination)
+    return { context, output }
+}

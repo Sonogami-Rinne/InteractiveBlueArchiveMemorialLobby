@@ -131,6 +131,9 @@ export default class TimelineController {
         this._spineTimeline = [];
         this._soundFixTimeline = [];
         this._attributeTimeline = [];
+        this.audioMixer = null;
+        this._mixerEvents = [];
+        this._mixerEventIndex = 0;
         this._spineTimelineCurrent = 0;
         this._soundFixTimelineCurrent = 0;
         this._backgroundMusic = []
@@ -139,10 +142,13 @@ export default class TimelineController {
         this.audioPreparation = timelineData && observePreparation(timelineData.then(data => this.prepareAudio(data)));
     }
     prepareAudio(data) {
+        this.audioMixer = data.audioMixer ?? null;
+        this._mixerEvents = [...(this.audioMixer?.events ?? [])].sort((a, b) => a.start - b.start);
         this._soundFixTimeline = [...(data.soundFix ?? [])];
         for (const audio of this._soundFixTimeline) {
             this.audioController.registerAudios(audio.audios, '.wav', {
                 volume: audio.volume,
+                mixerGroup: 'LobbySpine',
                 preload: audio.start < 5.,
             })
         }
@@ -152,6 +158,7 @@ export default class TimelineController {
             this._backgroundMusic.push(path);
             this.audioController.registerAudios([path], '', {
                 loop: true,
+                mixerGroup: 'Music',
                 volume: bgm.volume?.[index] ?? 1,
                 loopStart: bgm.loopStart?.[index] ?? 0,
                 loopEnd: bgm.loopEnd?.[index] ?? 0,
@@ -188,8 +195,19 @@ export default class TimelineController {
         this._controlTracks = new ControlTrackController(data.controlTrack ?? [], hierarchy,
             [this.particleController].filter(Boolean));
     }
+    _applyMixerSnapshot(name, transition) {
+        const volumes = this.audioMixer.snapshots[name];
+        if (volumes) this.audioController.applyMixerSnapshot(this.audioMixer.groups, volumes, transition);
+    }
+
     update(deltaTime) {
         this._time += deltaTime;
+        while (this._mixerEventIndex < this._mixerEvents.length) {
+            const event = this._mixerEvents[this._mixerEventIndex];
+            if (event.start > this._time) break;
+            this._applyMixerSnapshot(event.snapshot, event.transition);
+            this._mixerEventIndex++;
+        }
 
         for (const animationClip of this._attributeTimeline) {
             for (const event of animationClip.update(this._time)) {
@@ -258,6 +276,8 @@ export default class TimelineController {
         for (const animationClip of this._attributeTimeline) {
             animationClip.reset();
         }
+        this._mixerEventIndex = 0;
+        if (this.audioMixer) this._applyMixerSnapshot(this.audioMixer.defaultSnapshot, 0);
         this.postProcessingController.apply();
         for (const bgm of this._backgroundMusic) {
             this.audioController.stop(bgm);

@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { createLobbyAudio } from './js/common'
+import { createLobbyAudio } from './js/controller/AudioController'
 import { loadLobbyList, resolvePrefab } from './js/loader/PrefabLoader'
 import { defaultGraphics, readLobbyPreferences, validViewSize, writeLobbyPreferences, defaultPrefab } from './js/LobbyPreferences'
 import menuIcon from './common_menu.png'
